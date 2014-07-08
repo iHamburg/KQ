@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>sections</key>
+	<array>
+		<dict>
+			<key>rows</key>
+			<array>
+				<dict>
+					<key>key</key>
+					<string></string>
+					<key>label</key>
+					<string></string>
+					<key>class</key>
+					<string>MainCell</string>
+					<key>selector</key>
+					<string></string>
+				</dict>
+			</array>
+			<key>height</key>
+			<string>150</string>
+		</dict>
+		<dict>
+			<key>rows</key>
+			<array>
+				<dict>
+					<key>key</key>
+					<string>aboutus</string>
+					<key>label</key>
+					<string></string>
+					<key>class</key>
+					<string>CouponListCell</string>
+					<key>selector</key>
+					<string></string>
+				</dict>
+			</array>
+			<key>header</key>
+			<string>热门优惠券</string>
+			<key>dynamic</key>
+			<integer>1</integer>
+			<key>height</key>
+			<string>80</string>
+		</dict>
+	</array>
+</dict>
+</plist>
