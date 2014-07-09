@@ -109,6 +109,7 @@ build/
 #
 # NB: this is exclusive with OPTION 2 below
 xcuserdata
+KQ.xcworkspace/xcuserdata/
 KQ.xcworkspace/xcuserdata/*
 KQ.xcworkspace/project.xcworkspace/xcuserdata/*
 
