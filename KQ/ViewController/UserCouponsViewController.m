@@ -130,6 +130,8 @@
 
     [_libraryManager startHint:@"没有优惠券" duration:1];
     
+
+    
 }
 
 - (void)loadModels{
@@ -150,6 +152,10 @@
         if (!ISEMPTY(couponDicts)) {
             
             for (NSDictionary *dict in couponDicts) {
+                if ([dict isKindOfClass:[NSNull class]]) {
+                    continue;
+                }
+                
                 Coupon *coupon = [Coupon couponWithDict:dict];
                 [_models addObject:coupon];
                 NSLog(@"coupon # %@",coupon.id);

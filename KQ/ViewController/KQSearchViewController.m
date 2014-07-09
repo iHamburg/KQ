@@ -65,6 +65,7 @@
 //    
 //    _searchBar = theSearchBar;
     
+    
     UISegmentedControl *seg = [[UISegmentedControl alloc] initWithItems:@[@"按地区找",@"按分类找"]];
     
     seg.frame = CGRectMake(0, 0, 160, 30);
@@ -72,35 +73,42 @@
     [seg addTarget:self action:@selector(segmentChanged:) forControlEvents:UIControlEventValueChanged];
     self.navigationItem.titleView = seg;
    
-    //TODO: dataSource应该可以用district
+    
+    
     NSArray *leftKeys = _manager.districts;
     NSMutableDictionary *dataSource = [NSMutableDictionary dictionary];
     for (District *district in leftKeys) {
-        NSArray *arr = @[district.title,district.title,district.title];
-//        [dataSource setObject:arr forKey:district.title];
-        [dataSource setObject:arr forKey:district];
+        
+        [dataSource setObject:district.subDistricts  forKey:district];
     }
+
     _districtDataSource = [dataSource copy];
     
     NSArray *rightKeys = _manager.couponTypes;
     [dataSource removeAllObjects];
     for (CouponType *type in rightKeys) {
-        NSArray *arr = @[type.title,type.title,type.title];
-        [dataSource setObject:arr forKey:type];
+//        NSArray *arr = @[type.title,type.title,type.title];
+        [dataSource setObject:type.subTypes forKey:type];
     }
-    
     _couponTypeDataSource = [dataSource copy];
+    
+    
+    
     
     _districtHotKeywords = @[@"徐汇区",@"静安区",@"浦东新区"];
  
     _couponTypeHotKeywords = @[@"咖啡厅",@"休闲娱乐",@"运动健身"];
     
     __weak KQSearchViewController *vc = self;
-    [self.tableView setSelectedBlock:^(int index) {
+    [self.tableView setSelectedBlock:^(id object) {
+        
+        
+        NSLog(@"select # %@",object);
+        
         [vc toCouponList];
     }];
     
-    [self searchDistrict];
+//    [self searchDistrict];
 }
 
 - (void)didReceiveMemoryWarning
@@ -113,7 +121,8 @@
 - (void)viewWillAppear:(BOOL)animated{
 
     [super viewWillAppear:animated];
-    
+
+     [self searchDistrict];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -156,7 +165,9 @@
     
     __weak KQSearchViewController *vc = self;
     [_hotSearchView setSelectBlock:^(int tag) {
-        L();
+//        L();
+        
+        
         [vc toCouponList];
     }];
     

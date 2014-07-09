@@ -15,7 +15,9 @@
     District *obj = [District new];
     obj.id = self.id;
     obj.title = self.title;
-    
+    obj.parentId = self.parentId;
+    obj.subDistricts = self.subDistricts;
+
     return obj;
 }
 
@@ -24,12 +26,29 @@
     if (self = [super init]) {
         dict = [dict dictionaryCheckNull];
         
-        NSLog(@"dict # %@",dict);
+//        NSLog(@"dict # %@",dict);
         
         self.id = dict[@"objectId"];
         self.title = dict[@"title"];
 
+        if (!ISEMPTY(dict[@"subDistricts"])) {
+            
+            NSArray *array = dict[@"subDistricts"];
+          
+            
+            NSMutableArray *subDistricts = [NSMutableArray array];
+            for (NSDictionary *dict in array) {
+                District *district = [District districtWithDict:dict];
+                [subDistricts addObject:district];
+            }
+            
+            self.subDistricts = subDistricts;
+            
+        }
         
+        if (!ISEMPTY(dict[@"parent"])) {
+            self.parentId = dict[@"parentId"][@"objectId"];
+        }
     }
     
     return self;
@@ -37,13 +56,6 @@
 
 
 + (instancetype)districtWithDict:(NSDictionary*)dict{
-//    District *obj = [District new];
-//    
-//    dict = [dict dictionaryCheckNull];
-//    
-//    obj.id = dict[@"objectId"];
-//    obj.title = dict[@"title"];
-//    return obj;
 
     return [[District alloc] initWithDict:dict];
 }

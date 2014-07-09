@@ -14,8 +14,8 @@
 
 @property (nonatomic, strong) NSArray *leftKeys; //district，couponType
 @property (nonatomic, strong) NSArray *rightKeys; //string
-@property (nonatomic, strong) UITableView *leftTv;
-@property (nonatomic, strong) UITableView *rightTv;
+//@property (nonatomic, strong) UITableView *leftTv;
+//@property (nonatomic, strong) UITableView *rightTv;
 
 @end
 
@@ -26,8 +26,6 @@
 
     _dataSource = dataSource;
  
-//    self.leftKeys = _dataSource.allKeys;
-
 //       NSLog(@"datasource # %@, leftkeys # %@",dataSource,self.leftKeys);
     NSMutableArray *arr = [_dataSource.allKeys mutableCopy];
     [arr insertObject:[[[arr firstObject] class] allInstance] atIndex:0];
@@ -39,6 +37,10 @@
     [self.leftTv reloadData];
 }
 
+
+/**
+ 设置rightkeys
+ */
 - (void)setLeftIndex:(int)leftIndex{
     _leftIndex = leftIndex;
     
@@ -49,7 +51,8 @@
     if (leftIndex == 0) {
         NSMutableArray *allTitles = [NSMutableArray array];
         for (id obj in self.leftKeys) {
-            [allTitles addObject:[obj title]];
+//            [allTitles addObject:[obj title]];
+              [allTitles addObject:obj];
         }
         self.rightKeys = [allTitles copy];
     }
@@ -138,10 +141,8 @@
         cell.textLabel.text = [self.leftKeys[row] title];
     }
     else{
-        
-        
-        
-        cell.textLabel.text = self.rightKeys[row];
+       
+        cell.textLabel.text = [self.rightKeys[row] title];
     }
     
     return cell;
@@ -155,7 +156,8 @@
         self.leftIndex = indexPath.row;
     }
     else{
-        self.selectedBlock(indexPath.row);
+        
+        self.selectedBlock(self.rightKeys[indexPath.row]);
     }
     
 }

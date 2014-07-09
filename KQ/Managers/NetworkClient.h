@@ -75,11 +75,20 @@
 - (void)queryCouponTypesWithBlock:(IdResultBlock)block;
 
 /**
- *	@brief	获取商区
+ *	@brief	获取所有一级商区
  */
-- (void)queryDistrictsWithBlock:(IdResultBlock)block;
+//- (void)queryDistrictsWithBlock:(IdResultBlock)block;
 
 - (void)queryHeadDistrictsWithBlock:(IdResultBlock)block;
+
+
+
+/**
+ *	@brief	获取所有一级快券类型
+ *
+ */
+- (void)queryHeadCouponTypesWithBlock:(IdResultBlock)block;
+
 
 /**
  *	@brief	获取用户的银行卡
