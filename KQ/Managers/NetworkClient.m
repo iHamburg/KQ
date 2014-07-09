@@ -252,7 +252,7 @@
 
 - (void)getWithUrl:(NSString*)url parameters:(NSDictionary*)parameters block:(IdResultBlock)block{
    
-    //
+
     
     AFHTTPRequestOperation *operation = [_clientManager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
 //        NSLog(@"get url # %@,response : %@ ", url,responseObject);
