@@ -150,6 +150,10 @@
         if (!ISEMPTY(couponDicts)) {
             
             for (NSDictionary *dict in couponDicts) {
+                if ([dict isKindOfClass:[NSNull class]]) {
+                    continue;
+                }
+                
                 Coupon *coupon = [Coupon couponWithDict:dict];
                 [_models addObject:coupon];
                 NSLog(@"coupon # %@",coupon.id);

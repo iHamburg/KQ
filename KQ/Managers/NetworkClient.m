@@ -13,8 +13,17 @@
 #import "AVOSEngine.h"
 
 
+#define api_searchCoupon        [RESTHOST stringByAppendingFormat:@"/searchCoupon"]
+
+//获取区域
 #define api_district             [RESTHOST stringByAppendingFormat:@"/district"]
+//获取一级区域
 #define api_headDistricts        [RESTHOST stringByAppendingFormat:@"/headDistricts"]
+
+//获取快券类型
+#define api_couponType           [RESTHOST stringByAppendingFormat:@"/couponType"]
+//获取一级类型
+#define api_headCouponTypes       [RESTHOST stringByAppendingFormat:@"/headCouponTypes"]
 
 //获取用户，用户注册
 #define api_user                [RESTHOST stringByAppendingFormat:@"/user"]
@@ -120,25 +129,27 @@
 
 - (void)queryCouponTypesWithBlock:(IdResultBlock)block{
     NSString *url = [RESTHOST stringByAppendingFormat:@"/couponType"];
-    //    NSLog(@"url # %@",url);
+    
       [self getWithUrl:url parameters:nil block:block];
 }
 
-- (void)queryDistrictsWithBlock:(IdResultBlock)block{
-    NSString *url = [RESTHOST stringByAppendingFormat:@"/district"];
-    //    NSLog(@"url # %@",url);
-    [self getWithUrl:url parameters:nil block:block];
-}
+//- (void)queryDistrictsWithBlock:(IdResultBlock)block{
+//    NSString *url = [RESTHOST stringByAppendingFormat:@"/district"];
+//   
+//    [self getWithUrl:url parameters:nil block:block];
+//}
 
 - (void)queryHeadDistrictsWithBlock:(IdResultBlock)block{
     
    
-    
-    //    NSLog(@"url # %@",url);
     [self getWithUrl:api_headDistricts parameters:nil block:block];
+
 }
 
+- (void)queryHeadCouponTypesWithBlock:(IdResultBlock)block{
 
+    [self getWithUrl:api_headCouponTypes parameters:nil block:block];
+}
 
 
 
@@ -345,10 +356,6 @@
 
 - (void)deleteWithUrl:(NSString*)url parameters:(NSDictionary*)parameters block:(IdResultBlock)block{
     
-    
-    
-    
-    
     AFHTTPRequestOperation *operation = [_clientManager DELETE:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
 //        NSLog(@"delete url # %@,param # %@,response :%@ %@ ",url,parameters, operation.responseString, responseObject);
@@ -437,9 +444,18 @@
 }
 
 
+- (void)testSearchCoupon{
 
+    NSDictionary *params = @{@"districtId":@"53956995e4b08cd56b62ec77"};
+    
+    [self getWithUrl:api_searchCoupon parameters:params block:^(id object, NSError *error) {
+        NSLog(@"search obj # %@",object);
+    }];
+}
 - (void)test{
     L();
+    
+    [self testSearchCoupon];
     
 //    [self queryIsUser:@"539676b4e4b09baa2ad7ac78" favoritedCoupon:@"539e8dfde4b023daacbd6fa6" block:^(id object, NSError *error) {
 //                NSLog(@"user rest obj # %@",object); 

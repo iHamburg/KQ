@@ -27,19 +27,28 @@
     LibraryManager *_libraryManager;
     CouponManager *_manager;
     
-
-    NSArray *_districtHotKeywords, *_couponTypeHotKeywords;
-    NSDictionary *_districtDataSource, *_couponTypeDataSource;
     
     IBOutlet UISearchBar *_searchBar;
     IBOutlet TagsView *_hotSearchView;
     IBOutlet DistrictsTableView *_tableView;
- 
+    
+
+    NSArray *_districtHotKeywords, *_couponTypeHotKeywords;
+    NSDictionary *_districtDataSource, *_couponTypeDataSource; // district -> array of subdistrict
+    
+    
+    
 }
 
 @property (nonatomic, assign) int searchType;
 
 @property (nonatomic, strong) DistrictsTableView *tableView;
+
+@property (nonatomic, strong) NSString *keyword;
+@property (nonatomic, strong) NSString *districtId;
+@property (nonatomic, strong) NSString *subDistrictId;
+@property (nonatomic, strong) NSString *couponTypeId;
+@property (nonatomic, strong) NSString *subTypeId;
 
 - (IBAction)segmentChanged:(id)sender;
 
@@ -49,6 +58,7 @@
 
 - (void)didSelectedDistrict:(District*)district;
 - (void)didSelectedCouponType:(CouponType*)couponType;
+
 - (void)toCouponList;
 
 
