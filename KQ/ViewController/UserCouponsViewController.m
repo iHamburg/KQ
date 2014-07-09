@@ -130,6 +130,8 @@
 
     [_libraryManager startHint:@"没有优惠券" duration:1];
     
+
+    
 }
 
 - (void)loadModels{

@@ -10,6 +10,8 @@
 
 @interface District : NSObject<NSCopying>
 
+//branch new
+
 @property (nonatomic, copy) NSString *id;
 @property (nonatomic, copy) NSString *parentId;
 @property (nonatomic, copy) NSString *title;
