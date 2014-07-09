@@ -122,6 +122,7 @@
 
 - (void)queryCoupons:(CouponStatus)status{
 
+    //
 }
 
 - (void)demoEmptyTable{
