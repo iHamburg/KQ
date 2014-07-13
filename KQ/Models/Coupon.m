@@ -41,6 +41,12 @@
             [self setValue:dict[key] forKey:key];
             
         }
+        
+        if (!ISEMPTY(dict[@"location"])) {
+
+            self.nearestLocation = [[CLLocation alloc]initWithLatitude:[dict[@"location"][@"latitude"] floatValue] longitude:[dict[@"location"][@"longitude"] floatValue]];
+        }
+        
     }
     
 

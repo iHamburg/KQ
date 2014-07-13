@@ -102,4 +102,25 @@
     
     return [_formatter stringFromDistance:distance];
 }
+
+
+- (CouponType*)couponTypeWithTitle:(NSString*)title{
+
+    for (CouponType *type in self.couponTypes) {
+        if ([type.title isEqualToString:title]) {
+            return type;
+        }
+    }
+    return nil;
+}
+- (District*)districtWithTitle:(NSString*)title{
+
+    for (District *district in self.districts) {
+        if ([district.title isEqualToString:title]) {
+            return district;
+        }
+    }
+    return nil;
+}
+
 @end

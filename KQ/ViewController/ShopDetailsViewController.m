@@ -22,12 +22,27 @@
 - (void)setValue:(Shop*)shop{
 
     _value = shop;
-    
-//    NSLog(@"imageUrl # %@",shop.posterUrl);
+//    NSLog(@"shop.poster # %@",shop.posterUrl);
     
     [self.avatarV setImageWithURL:[NSURL URLWithString:shop.posterUrl] placeholderImage:DefaultImg];
+    [self.avatarV setContentMode:UIViewContentModeScaleAspectFit];
+    self.avatarV.layer.masksToBounds = YES;
+    
     self.firstLabel.text = shop.title;
     self.secondLabel.text = shop.desc;
+    CGFloat height = [ShopHeaderCell cellHeightWithValue:shop];
+    self.secondLabel.frame = CGRectMake(10, 40, 300, height);
+}
+
++ (CGFloat)cellHeightWithValue:(Shop*)shop{
+    
+    //    NSLog(@"shop # %@",self.va)
+    NSString *text = shop.desc;
+    CGSize constraint = CGSizeMake(300, 10000);
+    CGSize size = [text sizeWithFont:[UIFont fontWithName:kFontName size:12] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
+    
+    //    NSLog(@"size # %@",NSStringFromCGSize(size));
+    return size.height + 20;
 }
 
 @end
@@ -120,13 +135,7 @@
 
     self.title = self.shop.title;
     
-//    _favoritedBB = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_emptyStar.png"] style:UIBarButtonItemStylePlain target:self action:@selector(favoritePressed:)];
-//    
-//    
-//    _unfavoritedBB = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_fullStar.png"] style:UIBarButtonItemStylePlain target:self action:@selector(favoritePressed:)];
-    
-    
-    
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -148,19 +157,33 @@
     
     if (section == 2) {
         row = self.coupons.count;
-//        L();
-//        NSLog(@"coupoons # %@",self.coupons);
+
     }
     
     return row;
 }
 
-- (void)configCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
-    
-    
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+//
+//    CGFloat height = [super tableView:tableView heightForRowAtIndexPath:indexPath];
+//    
+//    if (indexPath.section == 0) {
+//        height = [ShopHeaderCell cellHeightWithValue:self.shop];
+//    }
+// 
+//    NSLog(@"index # %d,%d, height # %f",indexPath.section,indexPath.row,height);
+//    
+//    return 100;
+//}
 
+
+
+
+- (void)initConfigCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+    __weak ShopDetailsViewController *vc = self;
+    
     if([cell isKindOfClass:[ShopHeaderCell class]]){
-      
+        
         [cell setValue:self.shop forKeyPath:@"value"];
     }
     else  if([cell isKindOfClass:[ShopBranchesCell class]]){
@@ -178,9 +201,15 @@
         aCell.toShopListBlock = ^{
             [vc toShopList];
         };
-
+        
     }
-    else if([cell isKindOfClass:[CouponListCell class]]){
+
+}
+
+
+- (void)configCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+ 
+     if([cell isKindOfClass:[CouponListCell class]]){
         CouponListCell *aCell = (CouponListCell*)cell;
         if (!ISEMPTY(self.coupons)) {
             Coupon *coupon = self.coupons[indexPath.row];
@@ -206,6 +235,12 @@
 
 
 - (void)toggleFavoriteShop:(Shop*)shop{
+    
+    if (!_userController.isLogin) {
+        [_libraryManager startHint:@"请先登录快券"];
+        return;
+    }
+
     
     if (self.shopFavorited) {
         [self unfavoriteShop:shop];

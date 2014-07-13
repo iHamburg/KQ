@@ -7,33 +7,22 @@
 //
 
 #import <AFNetworking/AFNetworking.h>
-//#import "UserController.h"
 #import <CoreLocation/CoreLocation.h>
 
 #ifdef DEBUG
-//#define HOST @"http://localhost/kq/index.php/kqavos"
-#define RESTHOST @"http://localhost/kq/index.php/kqapi2"
-#define MYHOST @"http://localhost/kq/index.php/kqmyapi2"
 
 
-//#define RESTHOST @"http://192.168.1.100/kq/index.php/kqapi2"
-//#define MYHOST @"http://192.168.1.100/kq/index.php/kqmyapi2"
+//#define RESTHOST @"http://192.168.1.103/kq/index.php/kqapi2"
+#define RESTHOST @"http://115.29.148.47/kq/index.php/kqapi2"
 
 #else
 
-#define HOST @"http://115.29.148.47/kq/index.php/kqavos"
+//#define HOST @"http://115.29.148.47/kq/index.php/kqavos"
 #define RESTHOST @"http://115.29.148.47/kq/index.php/kqapi2"
-#define MYHOST @"http://115.29.148.47/kq/index.php/kqmyapi2"
+//#define MYHOST @"http://115.29.148.47/kq/index.php/kqmyapi2"
 
 #endif
 
-typedef enum {
-    SearchType,
-    SearchSubType,
-    SearchDistrict,
-    SearchSubDistrict,
-    SearchCouponName
-}SearchMode;
 
 @interface NetworkClient : NSObject{
     AFHTTPRequestOperationManager *_clientManager;
@@ -79,7 +68,7 @@ typedef enum {
 
 - (void)queryHotCouponsSkip:(int)skip block:(IdResultBlock)block;
 
-- (void)queryNewestCouponsSkip:(int)skip limit:(int)limit block:(IdResultBlock)block;
+- (void)queryNewestCouponsSkip:(int)skip block:(IdResultBlock)block;
 /**
  
  @params: districtId/subDistrictId/couponTypeId/subTypeId/keyword/latitude/longitude
@@ -97,7 +86,6 @@ typedef enum {
  */
 
 - (void)queryHeadDistrictsWithBlock:(IdResultBlock)block;
-
 
 
 /**

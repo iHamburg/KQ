@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface DistrictsTableView : UIView<UITableViewDataSource,UITableViewDelegate>{
-//    UITableView *_leftTv, *_rightTv;
+
     
 }
 

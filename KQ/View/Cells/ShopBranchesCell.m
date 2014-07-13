@@ -34,14 +34,12 @@
     
 //    NSLog(@"shop locatio # %f,%f",shop.coord.latitude,shop.coord.longitude);
     
-//    self.firstLabel.text = @"中山公园店";
+
     self.firstLabel.text = shop.title;
     
     if (shop.location) {
         self.secondLabel.text = [[CouponManager sharedInstance] distanceStringFromLocation:shop.location];
     }
-    
-    
     
     self.thirdLabel.text = shop.address;
 
@@ -91,7 +89,6 @@
 }
 - (IBAction)toShopList:(id)sender{
 
-//    [_vc toShopList];
     _toShopListBlock();
 }
 

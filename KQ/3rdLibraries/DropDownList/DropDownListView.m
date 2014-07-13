@@ -149,25 +149,33 @@
     
     //修改tableview的frame
     int sectionWidth = (self.frame.size.width)/[self.dropDownDataSource numberOfSections];
-    CGRect rect = self.mTableView.frame;
-    rect.origin.x = sectionWidth *section;
-    rect.size.width = sectionWidth;
-    rect.size.height = 0;
-    self.mTableView.frame = rect;
+//    CGRect rect = self.mTableView.frame;
+//    rect.origin.x = sectionWidth *section;
+//    rect.size.width = sectionWidth;
+//    rect.size.height = 0;
+//    
+//    self.mTableView.frame = rect;
+    
+    self.mTableBaseView.frame = CGRectMake(0, 104, 320, 568-104);
+    self.mTableView.frame = CGRectMake(sectionWidth *section, 104, sectionWidth, 0);
+    
     [self.mSuperView addSubview:self.mTableBaseView];
     [self.mSuperView addSubview:self.mTableView];
     
     //动画设置位置
-    rect .size.height = 240;
+//    rect .size.height = 240;
     [UIView animateWithDuration:0.3 animations:^{
         self.mTableBaseView.alpha = 0.2;
         self.mTableView.alpha = 0.2;
         
         self.mTableBaseView.alpha = 1.0;
         self.mTableView.alpha = 1.0;
-        self.mTableView.frame =  rect;
+//        self.mTableView.frame =  rect;
+        self.mTableView.frame = CGRectMake(sectionWidth *section, 104, sectionWidth, 240);
     }];
     [self.mTableView reloadData];
+    
+//    NSLog(@"tableview # %@, tablebaseview # %@",self.mTableView,self.mTableBaseView);
 }
 
 -(void)bgTappedAction:(UITapGestureRecognizer *)tap

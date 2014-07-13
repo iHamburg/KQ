@@ -29,7 +29,6 @@
     
     self.firstLabel.text = [self cardTitleWithSecurity:card.title];
 
-//    self.firstLabel.text = @"6666666666666666666";
 }
 
 
@@ -165,7 +164,7 @@
         
          [self.tableView reloadData];
          
-             }];
+    }];
 }
 
 - (void)refreshModels{

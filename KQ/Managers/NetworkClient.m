@@ -116,9 +116,10 @@
     [self getWithUrl:url parameters:@{@"skip":[NSString stringWithInt:skip]} block:block];
 }
 
-- (void)queryNewestCouponsSkip:(int)skip limit:(int)limit block:(IdResultBlock)block{
+- (void)queryNewestCouponsSkip:(int)skip block:(IdResultBlock)block{
 
-    [self getWithUrl:api_newestCoupons parameters:@{@"skip":[NSString stringWithInt:skip],@"limit":[NSString stringWithInt:limit]} block:block];
+    
+    [self getWithUrl:api_newestCoupons parameters:@{@"skip":[NSString stringWithInt:skip]} block:block];
 }
 
 - (void)queryCouponsWithShop:(NSString*)shopId block:(IdResultBlock)block{

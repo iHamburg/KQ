@@ -27,7 +27,7 @@
 @property (nonatomic, assign) int couponTypeIndex;
 @property (nonatomic, assign) int districtIndex;
 @property (nonatomic, assign) NSInteger orderIndex;
-
+@property (nonatomic, strong) NSMutableDictionary *searchParams;
 
 - (void)toCouponDetails:(Coupon*)coupon;
 @end

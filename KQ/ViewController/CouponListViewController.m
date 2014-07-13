@@ -36,9 +36,9 @@
         [districtTitles addObject:obj.title];
     }
     
-    //    NSLog(@"manager.districts # %@",_districts);
-    
     self.orders = @[@"离我最近"];
+    
+    self.searchParams = [NSMutableDictionary dictionary];
     
     self.dropDownArray = [NSMutableArray arrayWithArray:@[
                                                           typeTitles,
@@ -47,21 +47,22 @@
                                                           ]];
     
     dropDownView = [[DropDownListView alloc] initWithFrame:CGRectMake(0,0, 320, 40) dataSource:self delegate:self];
-    dropDownView.mSuperView = self.view;
-
+    dropDownView.mSuperView = _root.view;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:animated];
     
-//    NSLog(@"self # %@, ");
 }
 
 #pragma mark - dropDownListDelegate
 -(void) chooseAtSection:(NSInteger)section index:(NSInteger)index
 {
-    NSLog(@"童大爷选了section:%d ,index:%d",section,index);
+    
+//    NSLog(@"dropdown # %@",dropDownView);
+    NSLog(@"选了section:%d ,index:%d",section,index);
+  
     if (section == 0) {
         //type
         self.couponTypeIndex = index;
@@ -72,6 +73,9 @@
     else{
         self.orderIndex = index;
     }
+    
+    [self.models removeAllObjects];
+    [self.tableView reloadData];
     
     [self loadModels];
 }
@@ -124,7 +128,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    [self toCouponDetails:_models[indexPath.row]];
+    [self toCouponDetails:self.models[indexPath.row]];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -133,74 +137,130 @@
 
 - (void)loadModels{
     
+    
+    
     [_libraryManager startProgress:nil];
     
     [self.models removeAllObjects];
     
-    
+    [self.searchParams removeAllObjects];
     
     /// 当前的位置
-    CLLocationCoordinate2D coord = _userController.checkinLocation.coordinate;
-    NSMutableDictionary *params = [@{@"latitude":[NSString stringWithFormat:@"%f",coord.latitude],@"longitude":[NSString stringWithFormat:@"%f",coord.longitude]} mutableCopy];
-    
+//    
     if (self.couponTypeIndex>0) {
         CouponType *obj = self.couponTypes[self.couponTypeIndex-1];
         
-        [params setObject:obj.id forKey:@"couponTypeId"];
+//        [params setObject:obj.id forKey:@"couponTypeId"];
+        [self.searchParams setObject:obj.id forKey:@"couponTypeId"];
     }
     
     if (self.districtIndex > 0) {
         District *obj = self.districts[self.districtIndex-1];
-        [params setObject:obj.id forKey:@"districtId"];
+//        [params setObject:obj.id forKey:@"districtId"];
+        [self.searchParams setObject:obj.id forKey:@"districtId"];
     }
-//        NSLog(@"param # %@",params);
     
-    [_networkClient getWithUrl:[RESTHOST stringByAppendingFormat:@"/nearestCoupon"] parameters:params block:^(NSArray* response, NSError *error) {
-        
+    [self addCurrentLocationToSearchParams:self.searchParams];
+    
+    
+    NSLog(@"param # %@", self.searchParams);
+    
+    [_libraryManager startProgress:nil];
+    [_networkClient searchCoupons:self.searchParams block:^(NSArray *array, NSError *error) {
         [_libraryManager dismissProgress:nil];
         
-        //        NSLog(@"nearest # %@",shops);
-        
-        ///如果没有返回结果
-        if (ISEMPTY(response)) {
-            NSLog(@"no results");
-            [_libraryManager startHint:@"暂时没有找到优惠券"];
+        if (ISEMPTY(array)) {
+            
+            [_libraryManager startHint:@"暂时还没有结果" duration:1];
+        }else{
+            
+            //            NSLog(@"search results # %@",array);
+
+            
+            for (NSDictionary *dict in array) {
+                if (!ISEMPTY(dict)) {
+                    ///如果coupon已经在models,就不加这个coupon
+                    BOOL flag = YES;
+                    for (Coupon *coupon in self.models) {
+                        if ([coupon.id isEqualToString:dict[@"objectId"]]) {
+                            flag = NO;
+                            break;
+                        }
+                    }
+                    if (flag == NO) {
+                        continue;
+                    }
+                    
+                    Coupon *coupon = [Coupon couponWithDict:dict];
+                    coupon.nearestDistance = [_userController distanceFromLocation:coupon.nearestLocation];
+                    
+//                    NSLog(@"shop location # %@, coupon location # %@",dict[@"location"],coupon.nearestLocation);
+                    
+//                    NSLog(@"coupon. title # %@, nearestLocation",coupon.id,coupon.title);
+                    [self.models addObject:coupon];
+                }
+            }
+//            NSLog(@"searchResults # %@",self.searchResults);
+            
+            
+            [self.tableView reloadData];
         }
         
-        /// 获得所有的shop，然后再次query coupons
-        
-//        NSLog(@"response # %@",response);
-        
-        for (NSDictionary *dict in response) {
-            
-            NSDictionary *couponDict = dict[@"coupon"];
-            
-            
-            Coupon *coupon = [Coupon couponWithDict:couponDict];
-            
-            /// add distance to coupon
-            NSDictionary *locationDict = dict[@"location"];
-            CLLocation *couponLocation = [AVOSEngine locationFromGeoPointDict:locationDict];
-            
-            
-            coupon.nearestDistance = [_userController distanceFromLocation:couponLocation]; //
-            coupon.nearestLocation = [AVOSEngine locationFromGeoPointDict:locationDict];
-            
-            [self.models addObject:coupon];
-            
-        }
-        
-        
-        
-        ///models 根据coupon的nearestDistance排序
-        
-        self.models = [[self.models sortedArrayUsingFunction:nearestSort context:nil] mutableCopy];
-        
-        
-        [self.tableView reloadData];
     }];
-    
 }
+
+
+- (void)loadMore:(VoidBlock)finishedBlock{
+
+    int skip = [_models count];
+
+    [self.searchParams setValue:[NSString stringWithInt:skip] forKey:@"skip"];
+    
+    [_networkClient searchCoupons:self.searchParams block:^(NSArray *array, NSError *error) {
+        [_libraryManager dismissProgress:nil];
+        
+        if (ISEMPTY(array)) {
+            
+            [_libraryManager startHint:@"暂时还没有结果" duration:1];
+        }else{
+            
+            //            NSLog(@"search results # %@",array);
+          
+            for (NSDictionary *dict in array) {
+                if (!ISEMPTY(dict)) {
+                    ///如果coupon已经在models,就不加这个coupon
+                    BOOL flag = YES;
+                    for (Coupon *coupon in self.models) {
+                        if ([coupon.id isEqualToString:dict[@"objectId"]]) {
+                            flag = NO;
+                            break;
+                        }
+                    }
+                    if (flag == NO) {
+                        continue;
+                    }
+                    
+                    Coupon *coupon = [Coupon couponWithDict:dict];
+                    coupon.nearestDistance = [_userController distanceFromLocation:coupon.nearestLocation];
+                    
+                    //                    NSLog(@"shop location # %@, coupon location # %@",dict[@"location"],coupon.nearestLocation);
+                    
+                    //                    NSLog(@"coupon. title # %@, nearestLocation",coupon.id,coupon.title);
+                    [self.models addObject:coupon];
+                }
+            }
+            //            NSLog(@"searchResults # %@",self.searchResults);
+            
+            
+            [self.tableView reloadData];
+            
+            finishedBlock();
+        }
+        
+    }];
+
+}
+
 
 int nearestSort(Coupon* obj1, Coupon* obj2, void *context ) {
     // returns random number -1 0 1
@@ -222,5 +282,12 @@ int nearestSort(Coupon* obj1, Coupon* obj2, void *context ) {
     }
 }
 
+
+- (void)addCurrentLocationToSearchParams:(NSMutableDictionary*)params{
+    
+    CLLocationCoordinate2D coord = _userController.checkinLocation.coordinate;
+    [params setObject:[NSString stringWithFormat:@"%f",coord.latitude] forKey:@"latitude"];
+    [params setObject:[NSString stringWithFormat:@"%f",coord.longitude] forKey:@"longitude"];
+}
 
 @end

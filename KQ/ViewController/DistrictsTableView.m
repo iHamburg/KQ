@@ -14,8 +14,7 @@
 
 @property (nonatomic, strong) NSArray *leftKeys; //district，couponType
 @property (nonatomic, strong) NSArray *rightKeys; //string
-//@property (nonatomic, strong) UITableView *leftTv;
-//@property (nonatomic, strong) UITableView *rightTv;
+
 
 @end
 
@@ -106,7 +105,8 @@
     
     int rowCount;
     if (tableView == _leftTv) {
-        rowCount = [self.leftKeys count];
+//        rowCount = [self.leftKeys count];
+        rowCount = 1;
     }
     else{
         rowCount = self.rightKeys.count;

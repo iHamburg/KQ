@@ -30,12 +30,7 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
-    
-    //初始化models
-    if (self.models.count>0) {
-        
-    }
-    
+   
     
     if (_loadMoreFooterView == nil) {
         
@@ -43,6 +38,7 @@
         view.delegate = self;
 		[self.tableView addSubview:view];
 		_loadMoreFooterView = view;
+//        _loadMoreFooterView.backgroundColor = [UIColor redColor];
         
 	}
 }
@@ -109,7 +105,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
 	
-    //    NSLog(@"didi scroll");
+//    NSLog(@"didi scroll # %@",_loadMoreFooterView);
     
 	[_loadMoreFooterView loadMoreScrollViewDidScroll:scrollView];
 	

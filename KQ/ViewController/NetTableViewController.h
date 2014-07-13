@@ -30,7 +30,7 @@
 - (void)loadModels;
 
 - (void)refreshModels;
-- (void)loadMore:(VoidBlock)block;
+- (void)loadMore:(VoidBlock)finishedBlock;
 
 - (void)reloadTableViewDataSource;
 - (void)doneLoadingTableViewData;

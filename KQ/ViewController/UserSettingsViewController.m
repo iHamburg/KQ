@@ -44,12 +44,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
-//    if (indexPath.row == 0) {
-//        [UIAlertView showAlert:@"现在是测试版本v0.2" msg:nil cancel:@"OK"];
-//    }
-//    else{
-//        [UIAlertView showAlert:@"快券APP" msg:nil cancel:@"OK"];
-//    }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
