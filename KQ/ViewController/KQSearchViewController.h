@@ -18,6 +18,10 @@
 #import "District.h"
 #import "CouponType.h"
 
+typedef enum {
+    SearchCouponType,
+    SearchDistrict
+}SearchType;
 
 @interface KQSearchViewController : UIViewController<UISearchBarDelegate>{
 
@@ -27,29 +31,40 @@
     LibraryManager *_libraryManager;
     CouponManager *_manager;
     
-
-    NSArray *_districtHotKeywords, *_couponTypeHotKeywords;
-    NSDictionary *_districtDataSource, *_couponTypeDataSource;
     
     IBOutlet UISearchBar *_searchBar;
     IBOutlet TagsView *_hotSearchView;
     IBOutlet DistrictsTableView *_tableView;
- 
+    
+
+    NSArray *_districtHotKeywords, *_couponTypeHotKeywords;
+    NSDictionary *_districtDataSource, *_couponTypeDataSource; // district -> array of subdistrict
+    
+    
+    
 }
 
-@property (nonatomic, assign) int searchType;
-
+@property (nonatomic, assign) SearchType searchType; //
 @property (nonatomic, strong) DistrictsTableView *tableView;
+@property (nonatomic, strong) UISearchBar *searchBar;
+
+@property (nonatomic, strong) NSArray *districtHotKeywords;
+@property (nonatomic, strong) NSArray *couponTypeHotKeywords;
+
+@property (nonatomic, strong) NSString *keyword;
+@property (nonatomic, strong) NSString *districtId;
+@property (nonatomic, strong) NSString *subDistrictId;
+@property (nonatomic, strong) NSString *couponTypeId;
+@property (nonatomic, strong) NSString *subTypeId;
+@property (nonatomic, strong) NSMutableDictionary *searchParams;
+@property (nonatomic, strong) NSMutableArray *searchResults;
+
+@property (nonatomic, strong) CouponManager *manager;
 
 - (IBAction)segmentChanged:(id)sender;
 
-- (void)searchDistrict;
-- (void)searchCouponType;
-
-
-- (void)didSelectedDistrict:(District*)district;
-- (void)didSelectedCouponType:(CouponType*)couponType;
 - (void)toCouponList;
+- (void)startSearch;
 
 
 @end

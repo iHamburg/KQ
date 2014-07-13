@@ -56,11 +56,18 @@
 - (void)setShop:(Shop *)shop{
     _shop = shop;
     
-    CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(31.1, 121.1);
+    CLLocationCoordinate2D coord;
+    
+//    CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(31.1, 121.1);
+    if (ISEMPTY(shop.location)) {
+        coord = CLLocationCoordinate2DMake(31.1, 121.1);
+    }else{
+        coord = shop.location.coordinate;
+    }
+    
     _shopAnnotation = [[ShopAnnotation alloc] initWithLocation:coord];
     _shopAnnotation.shop = shop;
-//    L();
-//    NSLog(@"title # %@img # %@",shop.posterUrl);
+
 }
 
 - (void)viewDidLoad

@@ -13,7 +13,7 @@
 - (id)initWithDict:(NSDictionary*)dict{
     if (self = [self init]) {
         
-        NSLog(@"dict # %@",dict);
+//        NSLog(@"dict # %@",dict);
         
          dict = [dict dictionaryCheckNull];
         self.id = dict[@"objectId"];

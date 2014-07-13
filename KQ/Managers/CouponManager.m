@@ -45,9 +45,9 @@
      
         [[LibraryManager sharedInstance] startProgress:@"queryCouponType"];
         
-        [_networkClient queryCouponTypesWithBlock:^(NSArray *array, NSError *error) {
+        [_networkClient queryHeadCouponTypesWithBlock:^(NSArray *array, NSError *error) {
             if (array) {
-                //                NSLog(@"types # %@",array);
+//               NSLog(@"types # %@",array);
                 
                 NSMutableArray *types = [NSMutableArray array];
                 for (NSDictionary *dict in array) {
@@ -102,4 +102,25 @@
     
     return [_formatter stringFromDistance:distance];
 }
+
+
+- (CouponType*)couponTypeWithTitle:(NSString*)title{
+
+    for (CouponType *type in self.couponTypes) {
+        if ([type.title isEqualToString:title]) {
+            return type;
+        }
+    }
+    return nil;
+}
+- (District*)districtWithTitle:(NSString*)title{
+
+    for (District *district in self.districts) {
+        if ([district.title isEqualToString:title]) {
+            return district;
+        }
+    }
+    return nil;
+}
+
 @end

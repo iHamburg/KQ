@@ -116,13 +116,19 @@
 		}
 		
 		if (_state == LoadMoreNormal && scrollView.contentOffset.y < (scrollView.contentSize.height - 360) && scrollView.contentOffset.y > (scrollView.contentSize.height - 420) && !_loading) {
-			self.frame = CGRectMake(0, scrollView.contentSize.height, self.frame.size.width, self.frame.size.height);
+		
+            self.frame = CGRectMake(0, scrollView.contentSize.height - 30, self.frame.size.width, self.frame.size.height);
 			self.hidden = NO;
-		} else if (_state == LoadMoreNormal && scrollView.contentOffset.y > (scrollView.contentSize.height - 360) && !_loading) {
-			[self setState:LoadMorePulling];
-		} else if (_state == LoadMorePulling && scrollView.contentOffset.y < (scrollView.contentSize.height - 360) && scrollView.contentOffset.y > (scrollView.contentSize.height - 420) && !_loading) {
-			[self setState:LoadMoreNormal];
-		}
+		
+        } else if (_state == LoadMoreNormal && scrollView.contentOffset.y > (scrollView.contentSize.height - 360) && !_loading) {
+		
+            [self setState:LoadMorePulling];
+		
+        } else if (_state == LoadMorePulling && scrollView.contentOffset.y < (scrollView.contentSize.height - 360) && scrollView.contentOffset.y > (scrollView.contentSize.height - 420) && !_loading) {
+		
+            [self setState:LoadMoreNormal];
+		
+        }
 		
 		if (scrollView.contentInset.bottom != 0) {
 			scrollView.contentInset = UIEdgeInsetsZero;
@@ -153,13 +159,16 @@
 }
 
 - (void)loadMoreScrollViewDataSourceDidFinishedLoading:(UIScrollView *)scrollView {	
+
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:.3];
 	[scrollView setContentInset:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
 	[UIView commitAnimations];
 	
 	[self setState:LoadMoreNormal];
-	self.hidden = YES;
+	
+    self.hidden = YES;
+
 }
 
 

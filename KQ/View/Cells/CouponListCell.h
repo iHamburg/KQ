@@ -12,7 +12,6 @@
 
 @interface CouponListCell : CouponCell
 
-//@property (nonatomic, strong) NSBlockOperation *downloadedCountOperation;
 @property (nonatomic, strong) Shop *shop;
 
 @end

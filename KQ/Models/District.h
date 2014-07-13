@@ -10,11 +10,15 @@
 
 @interface District : NSObject<NSCopying>
 
+//branch new
+// develop
+// 
+
 @property (nonatomic, copy) NSString *id;
 @property (nonatomic, copy) NSString *parentId;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *cityId;
-@property (nonatomic, strong) NSMutableSet *subDistricts;
+@property (nonatomic, copy) NSArray *subDistricts;
 
 - (id)initWithDict:(NSDictionary*)dict;
 

@@ -122,6 +122,8 @@
 
 - (void)queryCoupons:(CouponStatus)status{
 
+
+    
 }
 
 - (void)demoEmptyTable{
@@ -129,6 +131,8 @@
     [self.tableView reloadData];
 
     [_libraryManager startHint:@"没有优惠券" duration:1];
+    
+
     
 }
 
@@ -150,6 +154,10 @@
         if (!ISEMPTY(couponDicts)) {
             
             for (NSDictionary *dict in couponDicts) {
+                if ([dict isKindOfClass:[NSNull class]]) {
+                    continue;
+                }
+                
                 Coupon *coupon = [Coupon couponWithDict:dict];
                 [_models addObject:coupon];
                 NSLog(@"coupon # %@",coupon.id);

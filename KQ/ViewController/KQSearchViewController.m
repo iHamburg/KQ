@@ -7,22 +7,59 @@
 //
 
 #import "KQSearchViewController.h"
+#import "Coupon.h"
 
 
 @interface KQSearchViewController ()
+
+- (void)addCurrentLocationToSearchParams:(NSMutableDictionary*)params;
 
 @end
 
 @implementation KQSearchViewController
 
-- (void)setSearchType:(int)searchType{
+- (void)setSearchType:(SearchType)searchType{
     _searchType = searchType;
     
-    if (_searchType == 0) {
-        [self searchDistrict];
+    if (_searchType == SearchDistrict) {
+//        [self searchDistrict];
+        _hotSearchView.titles = _districtHotKeywords;
+        _tableView.dataSource = _districtDataSource;
+        self.searchBar.placeholder = @"输入地区的名字查询";
+        
+        __weak KQSearchViewController *vc = self;
+        [_hotSearchView setSelectBlock:^(int tag) {
+            //        L();
+            NSString *title = vc.districtHotKeywords[tag];
+            District *district = [vc.manager districtWithTitle:title];
+            
+            [vc.searchParams removeAllObjects];
+            [vc.searchParams setObject:district.id forKey:@"districtId"];
+            [vc addCurrentLocationToSearchParams:vc.searchParams];
+            
+            [vc startSearch];
+        }];
+
     }
-    else if(_searchType == 1){
-        [self searchCouponType];
+    else if(_searchType == SearchCouponType){
+//        [self searchCouponType];
+        _hotSearchView.titles = _couponTypeHotKeywords;
+        _tableView.dataSource = _couponTypeDataSource;
+        self.searchBar.placeholder = @"输入分类的名字查询";
+
+        
+        __weak KQSearchViewController *vc = self;
+        [_hotSearchView setSelectBlock:^(int tag) {
+            L();
+            NSString *title = vc.couponTypeHotKeywords[tag];
+            CouponType *couponType = [vc.manager couponTypeWithTitle:title];
+            [vc.searchParams removeAllObjects];
+            [vc.searchParams setObject:couponType.id forKey:@"couponTypeId"];
+            [vc addCurrentLocationToSearchParams:vc.searchParams];
+            
+            [vc startSearch];
+        }];
+
     }
 }
 
@@ -65,6 +102,7 @@
 //    
 //    _searchBar = theSearchBar;
     
+    
     UISegmentedControl *seg = [[UISegmentedControl alloc] initWithItems:@[@"按地区找",@"按分类找"]];
     
     seg.frame = CGRectMake(0, 0, 160, 30);
@@ -72,35 +110,65 @@
     [seg addTarget:self action:@selector(segmentChanged:) forControlEvents:UIControlEventValueChanged];
     self.navigationItem.titleView = seg;
    
-    //TODO: dataSource应该可以用district
+    
+    self.searchParams = [NSMutableDictionary dictionary];
+    
+    
+    /// HotSearchView
+    _districtHotKeywords = @[@"徐汇区",@"静安区",@"浦东新区"];
+    _couponTypeHotKeywords = @[@"美食",@"休闲娱乐",@"购物"];
+    
+//    NSLog(@"couponkeywords # %@",_couponTypeHotKeywords);
+    
+    ///点击tableview，进行search
+    
+    
     NSArray *leftKeys = _manager.districts;
     NSMutableDictionary *dataSource = [NSMutableDictionary dictionary];
     for (District *district in leftKeys) {
-        NSArray *arr = @[district.title,district.title,district.title];
-//        [dataSource setObject:arr forKey:district.title];
-        [dataSource setObject:arr forKey:district];
+        
+        [dataSource setObject:district.subDistricts  forKey:district];
     }
+    
     _districtDataSource = [dataSource copy];
     
     NSArray *rightKeys = _manager.couponTypes;
     [dataSource removeAllObjects];
     for (CouponType *type in rightKeys) {
-        NSArray *arr = @[type.title,type.title,type.title];
-        [dataSource setObject:arr forKey:type];
+        //        NSArray *arr = @[type.title,type.title,type.title];
+        [dataSource setObject:type.subTypes forKey:type];
     }
-    
     _couponTypeDataSource = [dataSource copy];
     
-    _districtHotKeywords = @[@"徐汇区",@"静安区",@"浦东新区"];
- 
-    _couponTypeHotKeywords = @[@"咖啡厅",@"休闲娱乐",@"运动健身"];
-    
     __weak KQSearchViewController *vc = self;
-    [self.tableView setSelectedBlock:^(int index) {
-        [vc toCouponList];
+    [self.tableView setSelectedBlock:^(id object) {
+        
+        NSLog(@"select # %@",[object valueForKey:@"title"]);
+        [vc.searchParams removeAllObjects];
+        
+        if (vc.searchType == SearchDistrict) {
+            District *district = object;
+            if (![district.title isEqualToString:@"全部商区"]) {
+                [vc.searchParams setObject:district.id forKey:@"districtId"];
+            }
+        }
+        else if(vc.searchType == SearchCouponType){
+            CouponType *type = object;
+            if (![type.title isEqualToString:@"全部分类"]) {
+                [vc.searchParams setObject:type.id forKey:@"couponTypeId"];
+            }
+        }
+        
+
+        [vc addCurrentLocationToSearchParams:vc.searchParams];
+        
+        
+        [vc startSearch];
+
     }];
     
-    [self searchDistrict];
+
+    self.searchType = SearchDistrict;
 }
 
 - (void)didReceiveMemoryWarning
@@ -113,7 +181,10 @@
 - (void)viewWillAppear:(BOOL)animated{
 
     [super viewWillAppear:animated];
-    
+
+
+    //重新刷一下界面
+    self.searchType = self.searchType;
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -135,66 +206,122 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     L();
-    [self toCouponList];
+ 
+//    [self toCouponList];
+    
+    [searchBar resignFirstResponder];
+    
+    NSLog(@"search # %@",searchBar.text);
+    NSString *keyword = searchBar.text;
+    
+    KQSearchViewController *vc = self;
+    
+    [vc.searchParams removeAllObjects];
+    
+    if (vc.searchType == SearchDistrict) {
+    
+        [vc.searchParams setObject:keyword forKey:@"districtKeyword"];
+    }
+    else if(vc.searchType == SearchCouponType){
+        [vc.searchParams setObject:keyword forKey:@"couponTypeKeyword"];
+    }
+    
+    
+    [vc addCurrentLocationToSearchParams:vc.searchParams];
+    
+    
+    [vc startSearch];
+
+    
 }
 
 #pragma mark - IBAction
 
 - (IBAction)segmentChanged:(UISegmentedControl*)sender{
-    self.searchType = sender.selectedSegmentIndex;
+//    self.searchType = sender.selectedSegmentIndex;
+    
+    [self.searchBar resignFirstResponder];
+    
+    if (sender.selectedSegmentIndex == 0) {
+        self.searchType = SearchDistrict;
+    }
+    else if(sender.selectedSegmentIndex == 1){
+        self.searchType = SearchCouponType;
+    }
+    
 }
 
 
 
 #pragma mark - Fcns
-- (void)searchDistrict{
-    L();
+- (void)startSearch{
     
-    _hotSearchView.titles = _districtHotKeywords;
     
-    _tableView.dataSource = _districtDataSource;
+    NSLog(@"start Search # %@",self.searchParams);
     
-    __weak KQSearchViewController *vc = self;
-    [_hotSearchView setSelectBlock:^(int tag) {
-        L();
-        [vc toCouponList];
+    [_libraryManager startProgress:nil];
+    [_networkClient searchCoupons:self.searchParams block:^(NSArray *array, NSError *error) {
+        [_libraryManager dismissProgress:nil];
+
+        if (ISEMPTY(array)) {
+            
+            [_libraryManager startHint:@"暂时还没有结果" duration:1];
+        }else{
+        
+//            NSLog(@"search results # %@",array);
+            self.searchResults = [NSMutableArray array];
+            
+            for (NSDictionary *dict in array) {
+                if (!ISEMPTY(dict)) {
+                    BOOL flag = YES;
+                    ///如果dict的objectId在results的id
+                    for (Coupon *coupon in self.searchResults) {
+                        if ([coupon.id isEqualToString:dict[@"objectId"]]) {
+                            flag = NO;
+                            break;
+                        }
+                    }
+                    
+                    if (flag == NO) {
+                        continue;
+                    }
+                    
+                    Coupon *coupon = [Coupon couponWithDict:dict];
+                    coupon.nearestDistance = [_userController distanceFromLocation:coupon.nearestLocation];
+//                    NSLog(@"coupon.id # %@,title # %@",coupon.id,coupon.title);
+                    [self.searchResults addObject:coupon];
+                }
+            }
+//            NSLog(@"searchResults # %@",self.searchResults);
+         
+            [self toCouponList];
+        }
+        
     }];
-    
-}
-- (void)searchCouponType{
-    L();
-    _hotSearchView.titles = _couponTypeHotKeywords;
-    
-    _tableView.dataSource = _couponTypeDataSource;
-    
-    __weak KQSearchViewController *vc = self;
-    [_hotSearchView setSelectBlock:^(int tag) {
-        L();
-        [vc toCouponList];
-    }];
-
-}
-
-
-- (void)didSelectedDistrict:(District*)district{
-    
-}
-
-- (void)didSelectedCouponType:(CouponType*)couponType{
-    
 }
 
 - (void)toCouponList{
 
-    [self performSegueWithIdentifier:@"toSearchResults" sender:nil];
+    [self performSegueWithIdentifier:@"toSearchResults" sender:self.searchResults];
 }
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"toSearchResults"])
+    {
+        //        L();
+        [segue.destinationViewController setValue:sender forKeyPath:@"models"];
+        
+    }
 }
 
+
+- (void)addCurrentLocationToSearchParams:(NSMutableDictionary*)params{
+
+    CLLocationCoordinate2D coord = _userController.checkinLocation.coordinate;
+    [params setObject:[NSString stringWithFormat:@"%f",coord.latitude] forKey:@"latitude"];
+    [params setObject:[NSString stringWithFormat:@"%f",coord.longitude] forKey:@"longitude"];
+}
 
 @end

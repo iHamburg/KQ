@@ -23,7 +23,7 @@
 #pragma mark - CouponHeader
 @interface CouponHeaderCell : CouponCell{
 
-   IBOutlet UIButton *_downloadB, *_favoriteB;
+    IBOutlet UIButton *_downloadB, *_favoriteB;
     IBOutlet UIImageView *_bgV;
   
 }
@@ -57,7 +57,13 @@
     
     self.firstLabel.text = coupon.title;
     self.secondLabel.text = coupon.discountContent;
-    self.thirdLabel.text = [NSString stringWithFormat:@"%@人已获取",coupon.downloadedCount];
+    
+    NSString *downloaded = coupon.downloadedCount;
+    if (ISEMPTY(downloaded)) {
+        downloaded = @"0";
+    }
+
+    self.thirdLabel.text = [NSString stringWithFormat:@"%@人购买",downloaded];
 
 }
 
@@ -130,14 +136,15 @@
 
 @implementation CouponUsageCell
 
-- (void)setValue:(Coupon*)couponModel{
+- (void)setValue:(Coupon*)coupon{
     
 
     
-    _value = couponModel;
+    _value = coupon;
 
-    self.firstLabel.text = couponModel.usage;
-    
+    CGFloat height = [CouponUsageCell cellHeightWithValue:coupon];
+    self.firstLabel.frame = CGRectMake(10, 0, 300, height);
+    self.firstLabel.text = coupon.usage;
 
 }
 
@@ -154,7 +161,16 @@
     [self addSubview:self.firstLabel];
 }
 
-
++ (CGFloat)cellHeightWithValue:(Coupon*)coupon{
+    
+    //    NSLog(@"shop # %@",self.va)
+    NSString *text = coupon.usage;
+    CGSize constraint = CGSizeMake(300, 10000);
+    CGSize size = [text sizeWithFont:[UIFont fontWithName:kFontName size:12] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
+    
+    //    NSLog(@"size # %@",NSStringFromCGSize(size));
+    return size.height + 20;
+}
 @end
 
 
@@ -171,6 +187,8 @@
     
     _value = shop;
 
+    CGFloat height = [ShopDescCell cellHeightWithValue:shop];
+    self.firstLabel.frame = CGRectMake(10, 0, 300, height);
     self.firstLabel.text = shop.desc;
 }
 
@@ -181,16 +199,23 @@
     self.firstLabel.numberOfLines = 0;
     self.firstLabel.font = [UIFont fontWithName:kFontName size:12];
     self.firstLabel.textColor = kColorDardGray;
+//    self.firstLabel.backgroundColor = [UIColor redColor];
     [self addSubview:self.firstLabel];
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
+
+
 + (CGFloat)cellHeightWithValue:(Shop*)shop{
 
 //    NSLog(@"shop # %@",self.va)
-    
-    return 200;
+    NSString *text = shop.desc;
+    CGSize constraint = CGSizeMake(300, 10000);
+    CGSize size = [text sizeWithFont:[UIFont fontWithName:kFontName size:12] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
+
+//    NSLog(@"size # %@",NSStringFromCGSize(size));
+    return size.height + 20;
 }
 
 @end
@@ -215,7 +240,7 @@
     L();
     _coupon = coupon;
     
-    //如果用户已经登录
+    //如果用户已经登录, 查看coupon是否已经收藏
 
     if ([[UserController sharedInstance] isLogin]) {
         ///判断coupon是否已经收藏
@@ -237,26 +262,23 @@
         dict = [dict dictionaryCheckNull];
         
 //        NSLog(@"dict # %@",dict);
-     
-         if (!ISEMPTY(dict[@"branches"])) {
-             NSMutableArray *array = [NSMutableArray array];
-
-            NSArray *branches = dict[@"branches"];
+   
+        self.shop = [Shop shopWithDictionary:dict[@"shop"]];
+        
+        NSMutableArray *array = [NSMutableArray array];
+        
+        NSArray *branches = dict[@"shop"][@"shopBranches"];
+        
+        for (NSDictionary *shopDict in branches) {
             
-            for (NSDictionary *shopDict in branches) {
-                
-                
-                Shop *shop = [Shop shopWithDictionary:shopDict];
-                [array addObject:shop];
-            }
-             
-             self.shopBranches = [array copy];
+            
+            Shop *shop = [Shop shopWithDictionary:shopDict];
+            [array addObject:shop];
         }
         
-//        NSLog(@"branches # %@",self.shopBranches);
+        self.shopBranches = [array copy];
+//        NSLog(@"shopbranches # %@",self.shopBranches);
         
-        self.shop = [Shop shopWithDictionary:dict[@"coupon"][@"shop"]];
-
         self.nearestShopBranch = [self.shopBranches firstObject];
     
         [self.tableView reloadData];
@@ -278,10 +300,6 @@
     self.title = @"快券详情";
     
     
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(sharePressed:)];;
-
-    
-    
     [self test];
 }
 
@@ -296,7 +314,6 @@
 - (void)dealloc{
     L();
     
-//    [self removeObserver:<#(NSObject *)#> forKeyPath:<#(NSString *)#>]
 }
 
 #pragma mark - TableView
@@ -304,6 +321,9 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     CGFloat height = [super tableView:tableView heightForRowAtIndexPath:indexPath];
     
+    if (indexPath.section == 1) {
+        height = [CouponUsageCell cellHeightWithValue:self.coupon];
+    }
     if (indexPath.section == 3) {
         height = [ShopDescCell cellHeightWithValue:self.shop];
     }
@@ -317,11 +337,9 @@
     }
     
     
-    
     return 40;
 }
 
-//- （void)initco
 
 - (void)initConfigCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     __weak CouponDetailsViewController *vc = self;
@@ -398,7 +416,7 @@
         [(CouponHeaderCell*)cell setHasFavoritedCoupon:self.isFavoritedCoupon];
       
     }
-    
+
 }
 
 
@@ -425,6 +443,10 @@
 - (void)downloadCoupon:(Coupon*)coupon{
 
 //    NSLog(@"coupon # %@",coupon);
+    if (!_userController.isLogin) {
+        [_libraryManager startHint:@"请先登录快券"];
+        return;
+    }
     
      [_libraryManager startProgress:nil];
     
@@ -443,6 +465,12 @@
 }
 
 - (void)toggleFavoriteCoupon:(Coupon*)coupon{
+
+    if (!_userController.isLogin) {
+        [_libraryManager startHint:@"请先登录快券"];
+        return;
+    }
+
     
     if (self.isFavoritedCoupon) {
         [self unfavoriteCoupon:coupon];
@@ -455,7 +483,7 @@
 
     [_libraryManager startProgress:nil];
     
-    [_networkClient user:_userController.uid favoriteCoupon:coupon.id block:^(id obj, NSError *error) {
+    [_networkClient user:_userController.uid sessionToken:_userController.sessionToken favoriteCoupon:coupon.id block:^(id obj, NSError *error) {
 
             [_libraryManager dismissProgress:nil];
         
@@ -464,17 +492,17 @@
 
             self.isFavoritedCoupon = YES;
             
- 
             [_userController.people.favoritedCouponIds addObject:coupon.id];
             
             [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshFavoritedCoupons" object:nil];
         }
     }];
+    
 }
 - (void)unfavoriteCoupon:(Coupon*)coupon{
     
     [_libraryManager startProgress:nil];
-    [_networkClient user:_userController.uid unfavoriteCoupon:coupon.id block:^(id obj, NSError *error) {
+    [_networkClient user:_userController.uid sessionToken:_userController.sessionToken unfavoriteCoupon:coupon.id block:^(id obj, NSError *error) {
         
         [_libraryManager dismissProgress:nil];
 
@@ -503,11 +531,6 @@
 
 - (void)toShop{
 
-//    if (!_shopDetailsVC) {
-//        _shopDetailsVC = [[ShopDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped];
-//    }
-    
-//    _shopDetailsVC.shop = 
 
     [self performSegueWithIdentifier:@"toShop" sender:nil];
 }

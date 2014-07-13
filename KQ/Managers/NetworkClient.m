@@ -9,12 +9,22 @@
 #import "NetworkClient.h"
 
 #import "ErrorManager.h"
-#import "UserController.h"
+
 #import "AVOSEngine.h"
 
+#define api_newestCoupons       [RESTHOST stringByAppendingFormat:@"/newestCoupons"]
 
+#define api_searchCoupons        [RESTHOST stringByAppendingFormat:@"/searchCoupons"]
+
+//获取区域
 #define api_district             [RESTHOST stringByAppendingFormat:@"/district"]
+//获取一级区域
 #define api_headDistricts        [RESTHOST stringByAppendingFormat:@"/headDistricts"]
+
+//获取快券类型
+#define api_couponType           [RESTHOST stringByAppendingFormat:@"/couponType"]
+//获取一级类型
+#define api_headCouponTypes       [RESTHOST stringByAppendingFormat:@"/headCouponTypes"]
 
 //获取用户，用户注册
 #define api_user                [RESTHOST stringByAppendingFormat:@"/user"]
@@ -106,6 +116,12 @@
     [self getWithUrl:url parameters:@{@"skip":[NSString stringWithInt:skip]} block:block];
 }
 
+- (void)queryNewestCouponsSkip:(int)skip block:(IdResultBlock)block{
+
+    
+    [self getWithUrl:api_newestCoupons parameters:@{@"skip":[NSString stringWithInt:skip]} block:block];
+}
+
 - (void)queryCouponsWithShop:(NSString*)shopId block:(IdResultBlock)block{
     
     NSString *url = [RESTHOST stringByAppendingFormat:@"/coupon"];
@@ -120,25 +136,21 @@
 
 - (void)queryCouponTypesWithBlock:(IdResultBlock)block{
     NSString *url = [RESTHOST stringByAppendingFormat:@"/couponType"];
-    //    NSLog(@"url # %@",url);
+    
       [self getWithUrl:url parameters:nil block:block];
-}
-
-- (void)queryDistrictsWithBlock:(IdResultBlock)block{
-    NSString *url = [RESTHOST stringByAppendingFormat:@"/district"];
-    //    NSLog(@"url # %@",url);
-    [self getWithUrl:url parameters:nil block:block];
 }
 
 - (void)queryHeadDistrictsWithBlock:(IdResultBlock)block{
     
    
-    
-    //    NSLog(@"url # %@",url);
     [self getWithUrl:api_headDistricts parameters:nil block:block];
+
 }
 
+- (void)queryHeadCouponTypesWithBlock:(IdResultBlock)block{
 
+    [self getWithUrl:api_headCouponTypes parameters:nil block:block];
+}
 
 
 
@@ -160,6 +172,12 @@
     
 
        [self getWithUrl:url parameters:nil block:block];
+}
+
+
+- (void)searchCoupons:(NSDictionary*)params block:(IdResultBlock)block{
+
+    [self getWithUrl:api_searchCoupons parameters:params block:block];
 }
 
 #pragma mark - My
@@ -197,17 +215,17 @@
     [self getWithUrl:api_my_favoritedCoupon parameters:@{@"uid":uid} block:block];
 }
 
-- (void)user:(NSString*)uid favoriteCoupon:(NSString*)couponId block:(IdResultBlock)block{
+- (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken favoriteCoupon:(NSString*)couponId block:(IdResultBlock)block{
     
-    NSString *sessionToken = [[UserController sharedInstance] sessionToken];
+//    NSString *sessionToken = [[UserController sharedInstance] sessionToken];
     
     [self postWithUrl:api_my_favoritedCoupon parameters:@{@"uid":uid,@"couponId":couponId,@"sessionToken":sessionToken} block:block];
     
     
 }
-- (void)user:(NSString*)uid unfavoriteCoupon:(NSString*)couponId block:(IdResultBlock)block{
+- (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken unfavoriteCoupon:(NSString*)couponId block:(IdResultBlock)block{
 
-    NSString *sessionToken = [[UserController sharedInstance] sessionToken];
+//    NSString *sessionToken = [[UserController sharedInstance] sessionToken];
 
     [self deleteWithUrl:api_my_favoritedCoupon_delete(uid,sessionToken, couponId) parameters:nil block:block];
     
@@ -215,22 +233,19 @@
 
 
 - (void)queryFavoritedShop:(NSString*)uid block:(IdResultBlock)block{
-//    NSString *url = [RESTHOST stringByAppendingFormat:@"/favoritedShop/uid/%@",uid];
-    
-    
+  
     [self getWithUrl:api_my_favoritedShop parameters:@{@"uid":uid} block:block];
     
 }
 
 
-- (void)user:(NSString*)uid favoriteShop:(NSString*)shopId block:(IdResultBlock)block{
-    NSString *sessionToken = [[UserController sharedInstance] sessionToken];
+- (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken favoriteShop:(NSString*)shopId block:(IdResultBlock)block{
     
     [self postWithUrl:api_my_favoritedShop parameters:@{@"uid":uid,@"shopId":shopId,@"sessionToken":sessionToken} block:block];
     
 }
-- (void)user:(NSString*)uid unfavoriteShop:(NSString*)shopId block:(IdResultBlock)block{
-    NSString *sessionToken = [[UserController sharedInstance] sessionToken];
+- (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken unfavoriteShop:(NSString*)shopId block:(IdResultBlock)block{
+//    NSString *sessionToken = [[UserController sharedInstance] sessionToken];
     
     [self deleteWithUrl:api_my_favoritedShop_delete(uid,sessionToken, shopId) parameters:nil block:block];
     
@@ -241,7 +256,7 @@
 
 - (void)getWithUrl:(NSString*)url parameters:(NSDictionary*)parameters block:(IdResultBlock)block{
    
-    
+//
     
     AFHTTPRequestOperation *operation = [_clientManager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
 //        NSLog(@"get url # %@,response : %@ ", url,responseObject);
@@ -345,10 +360,6 @@
 
 - (void)deleteWithUrl:(NSString*)url parameters:(NSDictionary*)parameters block:(IdResultBlock)block{
     
-    
-    
-    
-    
     AFHTTPRequestOperation *operation = [_clientManager DELETE:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
 //        NSLog(@"delete url # %@,param # %@,response :%@ %@ ",url,parameters, operation.responseString, responseObject);
@@ -437,13 +448,30 @@
 }
 
 
+- (void)testSearchCoupon{
+
+    NSDictionary *params = @{@"districtId":@"53956995e4b08cd56b62ec77"};
+    
+    [self getWithUrl:api_searchCoupons parameters:params block:^(id object, NSError *error) {
+        NSLog(@"search obj # %@",object);
+    }];
+}
+
+- (void)testNewestCoupons{
+//    [self getW parameters:<#(NSDictionary *)#> block:<#^(id object, NSError *error)block#>]
+}
 
 - (void)test{
     L();
     
-//    [self queryIsUser:@"539676b4e4b09baa2ad7ac78" favoritedCoupon:@"539e8dfde4b023daacbd6fa6" block:^(id object, NSError *error) {
-//                NSLog(@"user rest obj # %@",object); 
+//    [self queryNewestCouponsSkip:0 limit:30 block:^(id object, NSError *error) {
+//        NSLog(@"newest coupons # %@",object);
+//
 //    }];
+    
+//    [self testSearchCoupon];
+    
+
     
 }
 

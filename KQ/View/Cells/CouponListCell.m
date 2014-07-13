@@ -28,7 +28,13 @@
     
     self.textLabel.text = value.title;
     _secondLabel.text = value.discountContent;
-    _downloadedL.text = [NSString stringWithFormat:@"%@人购买",value.downloadedCount];
+    
+    
+    NSString *downloaded = value.downloadedCount;
+    if (ISEMPTY(downloaded)) {
+        downloaded = @"0";
+    }
+    _downloadedL.text = [NSString stringWithFormat:@"%@人购买",downloaded];
 
 
     

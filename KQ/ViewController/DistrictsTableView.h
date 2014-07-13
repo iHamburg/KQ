@@ -9,12 +9,15 @@
 #import <UIKit/UIKit.h>
 
 @interface DistrictsTableView : UIView<UITableViewDataSource,UITableViewDelegate>{
-    UITableView *_leftTv, *_rightTv;
+
     
 }
 
+@property (nonatomic, strong) UITableView *leftTv;
+@property (nonatomic, strong) UITableView *rightTv;
+
 @property (nonatomic, strong) NSDictionary *dataSource; // district -> titles
 @property (nonatomic, assign) int leftIndex;
-@property (nonatomic, copy) void (^selectedBlock)(int);
+@property (nonatomic, copy) void (^selectedBlock)(id);
 
 @end

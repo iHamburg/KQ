@@ -137,7 +137,11 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "429"
             endingLineNumber = "429"
+<<<<<<< HEAD
             landmarkName = "-downloadCoupon:"
+=======
+            landmarkName = "-backPressed:"
+>>>>>>> v0.2
             landmarkType = "5">
             <Locations>
                <Location
@@ -215,7 +219,11 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "431"
             endingLineNumber = "431"
+<<<<<<< HEAD
             landmarkName = "-downloadCoupon:"
+=======
+            landmarkName = "-backPressed:"
+>>>>>>> v0.2
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -231,7 +239,11 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "437"
             endingLineNumber = "437"
+<<<<<<< HEAD
             landmarkName = "-downloadCoupon:"
+=======
+            landmarkName = "-sharePressed:"
+>>>>>>> v0.2
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -295,7 +307,11 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "559"
             endingLineNumber = "559"
+<<<<<<< HEAD
             landmarkName = "-test"
+=======
+            landmarkName = "-prepareForSegue:sender:"
+>>>>>>> v0.2
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -359,8 +375,13 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "531"
             endingLineNumber = "531"
+<<<<<<< HEAD
             landmarkName = "-prepareForSegue:sender:"
             landmarkType = "5">
+=======
+            landmarkName = "@implementation CouponDetailsViewController"
+            landmarkType = "3">
+>>>>>>> v0.2
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -439,8 +460,13 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "140"
             endingLineNumber = "140"
+<<<<<<< HEAD
             landmarkName = "@implementation NetworkClient"
             landmarkType = "3">
+=======
+            landmarkName = "-queryCouponTypesWithBlock:"
+            landmarkType = "5">
+>>>>>>> v0.2
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -695,7 +721,11 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "281"
             endingLineNumber = "281"
+<<<<<<< HEAD
             landmarkName = "-viewDidLoad"
+=======
+            landmarkName = "-setCoupon:"
+>>>>>>> v0.2
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -710,7 +740,13 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "258"
+<<<<<<< HEAD
             endingLineNumber = "258">
+=======
+            endingLineNumber = "258"
+            landmarkName = "-startSearch"
+            landmarkType = "5">
+>>>>>>> v0.2
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -724,7 +760,13 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "259"
+<<<<<<< HEAD
             endingLineNumber = "259">
+=======
+            endingLineNumber = "259"
+            landmarkName = "-startSearch"
+            landmarkType = "5">
+>>>>>>> v0.2
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -739,7 +781,11 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "121"
             endingLineNumber = "121"
+<<<<<<< HEAD
             landmarkName = "-queryCouponTypesWithBlock:"
+=======
+            landmarkName = "-queryNewestCouponsSkip:block:"
+>>>>>>> v0.2
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
