@@ -57,7 +57,13 @@
     
     self.firstLabel.text = coupon.title;
     self.secondLabel.text = coupon.discountContent;
-    self.thirdLabel.text = [NSString stringWithFormat:@"%@人已获取",coupon.downloadedCount];
+    
+    NSString *downloaded = coupon.downloadedCount;
+    if (ISEMPTY(downloaded)) {
+        downloaded = @"0";
+    }
+
+    self.thirdLabel.text = [NSString stringWithFormat:@"%@人购买",downloaded];
 
 }
 
@@ -215,7 +221,7 @@
     L();
     _coupon = coupon;
     
-    //如果用户已经登录
+    //如果用户已经登录, 查看coupon是否已经收藏
 
     if ([[UserController sharedInstance] isLogin]) {
         ///判断coupon是否已经收藏
@@ -237,26 +243,23 @@
         dict = [dict dictionaryCheckNull];
         
 //        NSLog(@"dict # %@",dict);
-     
-         if (!ISEMPTY(dict[@"branches"])) {
-             NSMutableArray *array = [NSMutableArray array];
-
-            NSArray *branches = dict[@"branches"];
+   
+        self.shop = [Shop shopWithDictionary:dict[@"shop"]];
+        
+        NSMutableArray *array = [NSMutableArray array];
+        
+        NSArray *branches = dict[@"shop"][@"shopBranches"];
+        
+        for (NSDictionary *shopDict in branches) {
             
-            for (NSDictionary *shopDict in branches) {
-                
-                
-                Shop *shop = [Shop shopWithDictionary:shopDict];
-                [array addObject:shop];
-            }
-             
-             self.shopBranches = [array copy];
+            
+            Shop *shop = [Shop shopWithDictionary:shopDict];
+            [array addObject:shop];
         }
         
-//        NSLog(@"branches # %@",self.shopBranches);
+        self.shopBranches = [array copy];
+//        NSLog(@"shopbranches # %@",self.shopBranches);
         
-        self.shop = [Shop shopWithDictionary:dict[@"coupon"][@"shop"]];
-
         self.nearestShopBranch = [self.shopBranches firstObject];
     
         [self.tableView reloadData];
@@ -455,7 +458,7 @@
 
     [_libraryManager startProgress:nil];
     
-    [_networkClient user:_userController.uid favoriteCoupon:coupon.id block:^(id obj, NSError *error) {
+    [_networkClient user:_userController.uid sessionToken:_userController.sessionToken favoriteCoupon:coupon.id block:^(id obj, NSError *error) {
 
             [_libraryManager dismissProgress:nil];
         
@@ -474,7 +477,7 @@
 - (void)unfavoriteCoupon:(Coupon*)coupon{
     
     [_libraryManager startProgress:nil];
-    [_networkClient user:_userController.uid unfavoriteCoupon:coupon.id block:^(id obj, NSError *error) {
+    [_networkClient user:_userController.uid sessionToken:_userController.sessionToken unfavoriteCoupon:coupon.id block:^(id obj, NSError *error) {
         
         [_libraryManager dismissProgress:nil];
 

@@ -7,14 +7,17 @@
 //
 
 #import <AFNetworking/AFNetworking.h>
+//#import "UserController.h"
+#import <CoreLocation/CoreLocation.h>
 
 #ifdef DEBUG
 //#define HOST @"http://localhost/kq/index.php/kqavos"
-//#define RESTHOST @"http://localhost/kq/index.php/kqapi"
+#define RESTHOST @"http://localhost/kq/index.php/kqapi2"
+#define MYHOST @"http://localhost/kq/index.php/kqmyapi2"
 
-#define HOST @"http://192.168.1.100/kq/index.php/kqavos"
-#define RESTHOST @"http://192.168.1.100/kq/index.php/kqapi2"
-#define MYHOST @"http://192.168.1.100/kq/index.php/kqmyapi2"
+
+//#define RESTHOST @"http://192.168.1.100/kq/index.php/kqapi2"
+//#define MYHOST @"http://192.168.1.100/kq/index.php/kqmyapi2"
 
 #else
 
@@ -24,7 +27,13 @@
 
 #endif
 
-
+typedef enum {
+    SearchType,
+    SearchSubType,
+    SearchDistrict,
+    SearchSubDistrict,
+    SearchCouponName
+}SearchMode;
 
 @interface NetworkClient : NSObject{
     AFHTTPRequestOperationManager *_clientManager;
@@ -69,6 +78,15 @@
 
 
 - (void)queryHotCouponsSkip:(int)skip block:(IdResultBlock)block;
+
+- (void)queryNewestCouponsSkip:(int)skip limit:(int)limit block:(IdResultBlock)block;
+/**
+ 
+ @params: districtId/subDistrictId/couponTypeId/subTypeId/keyword/latitude/longitude
+ 
+ */
+- (void)searchCoupons:(NSDictionary*)params block:(IdResultBlock)block;
+
 - (void)queryCouponsWithShop:(NSString*)shopId block:(IdResultBlock)block;
 
 
@@ -77,7 +95,6 @@
 /**
  *	@brief	获取所有一级商区
  */
-//- (void)queryDistrictsWithBlock:(IdResultBlock)block;
 
 - (void)queryHeadDistrictsWithBlock:(IdResultBlock)block;
 
@@ -106,15 +123,15 @@
  *	@brief	获取用户收藏的优惠券
  */
 - (void)queryFavoritedCoupon:(NSString*)uid block:(IdResultBlock)block;
-- (void)user:(NSString*)uid favoriteCoupon:(NSString*)couponId block:(IdResultBlock)block;
-- (void)user:(NSString*)uid unfavoriteCoupon:(NSString*)couponId block:(IdResultBlock)block;
+- (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken favoriteCoupon:(NSString*)couponId block:(IdResultBlock)block;
+- (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken unfavoriteCoupon:(NSString*)couponId block:(IdResultBlock)block;
 
 /**
  *	@brief	获取用户收藏的商户
  */
 - (void)queryFavoritedShop:(NSString*)uid block:(IdResultBlock)block;
-- (void)user:(NSString*)uid favoriteShop:(NSString*)shopId block:(IdResultBlock)block;
-- (void)user:(NSString*)uid unfavoriteShop:(NSString*)shopId block:(IdResultBlock)block;
+- (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken favoriteShop:(NSString*)shopId block:(IdResultBlock)block;
+- (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken unfavoriteShop:(NSString*)shopId block:(IdResultBlock)block;
 
 
 - (void)getWithUrl:(NSString*)url parameters:(NSDictionary*)parameters block:(IdResultBlock)block;

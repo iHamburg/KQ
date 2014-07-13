@@ -217,7 +217,7 @@
 - (void)favoriteShop:(Shop*)shop{
     [_libraryManager startProgress:nil];
     
-    [_networkClient user:_userController.uid favoriteShop:shop.id block:^(id obj, NSError *error) {
+    [_networkClient user:_userController.uid sessionToken:_userController.sessionToken favoriteShop:shop.id block:^(id obj, NSError *error) {
         
         [_libraryManager dismissProgress:nil];
         
@@ -236,7 +236,7 @@
 }
 - (void)unfavoriteShop:(Shop*)shop{
     [_libraryManager startProgress:nil];
-    [_networkClient user:_userController.uid unfavoriteShop:shop.id block:^(id obj, NSError *error) {
+    [_networkClient user:_userController.uid sessionToken:_userController.sessionToken unfavoriteShop:shop.id block:^(id obj, NSError *error) {
         
         [_libraryManager dismissProgress:nil];
         

@@ -153,7 +153,7 @@
         District *obj = self.districts[self.districtIndex-1];
         [params setObject:obj.id forKey:@"districtId"];
     }
-        NSLog(@"param # %@",params);
+//        NSLog(@"param # %@",params);
     
     [_networkClient getWithUrl:[RESTHOST stringByAppendingFormat:@"/nearestCoupon"] parameters:params block:^(NSArray* response, NSError *error) {
         

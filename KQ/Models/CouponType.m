@@ -24,7 +24,7 @@
 
     if (self = [super init]) {
         
-        NSLog(@"dict # %@",dict);
+//        NSLog(@"dict # %@",dict);
         
         dict = [dict dictionaryCheckNull];
         

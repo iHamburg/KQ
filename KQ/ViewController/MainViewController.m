@@ -115,9 +115,6 @@
 - (IBAction)cityPressed:(id)sender{
     //    L();
     
-//    CityViewController *vc = [[CityViewController alloc] initWithStyle:UITableViewStylePlain];
-//    
-//    [self.navigationController pushViewController:vc animated:YES];
 
     [self performSegueWithIdentifier:@"toCity" sender:nil];
 }
@@ -136,7 +133,6 @@
 
 - (void)configCell:(CouponListCell *)cell atIndexPath:(NSIndexPath *)indexPath{
 
-//    NSLog(@"config cell # %@",[NSString stringWithFormat:@"%d,%d",indexPath.section,indexPath.row ]);
     
     if ([cell isKindOfClass:[CouponListCell class]]) {
         
@@ -184,11 +180,7 @@
 
 - (void)tableView:(UITableView *)tableView didEndDisplayingCell:(ConfigCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
  
-//    NSLog(@"indexpath # %@ is removed # ",[NSString stringWithFormat:@"%d,%d",indexPath.section,indexPath.row ]);
-//    
-//    if (indexPath.section == 1 && indexPath.row == 0) {
-//        [cell cancelOperation];
-//    }
+
 }
 
 
@@ -207,7 +199,7 @@
   
     [self.models removeAllObjects];
     
-    [_networkClient queryHotCouponsSkip:0 block:^(NSArray *couponDicts, NSError *error) {
+    [_networkClient queryNewestCouponsSkip:0 limit:30 block:^(NSArray *couponDicts, NSError *error) {
         
         for (NSDictionary *dict in couponDicts) {
             
@@ -224,6 +216,8 @@
         
 
     }];
+    
+    
     
 }
 

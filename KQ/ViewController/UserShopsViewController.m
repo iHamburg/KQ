@@ -83,7 +83,7 @@
         else{
             for (NSDictionary *dict in couponDicts) {
                 
-                NSLog(@"dict # %@",dict);
+//                NSLog(@"dict # %@",dict);
                 
                 Shop *obj = [Shop shopWithDictionary:dict];
                 [self.models addObject:obj];
@@ -141,7 +141,7 @@
             if (!ISEMPTY(shopbranches)) {
                 NSMutableArray *shops = [NSMutableArray arrayWithCapacity:shopbranches.count];
                 for (NSDictionary *dict in shopbranches) {
-                    NSLog(@"dict # %@",dict);
+//                    NSLog(@"dict # %@",dict);
                     Shop *shop = [Shop shopWithDictionary:dict];
                     [shops addObject:shop];
                 }

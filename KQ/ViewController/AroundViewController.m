@@ -37,8 +37,6 @@
     
     self.config = [[TableConfiguration alloc] initWithResource:@"AroundConfig"];
  
-//    District *dis = [District allInstance];
-//    NSLog(@"district # %@",dis.title);
 }
 
 

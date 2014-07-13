@@ -47,7 +47,7 @@
         
         [_networkClient queryHeadCouponTypesWithBlock:^(NSArray *array, NSError *error) {
             if (array) {
-               NSLog(@"types # %@",array);
+//               NSLog(@"types # %@",array);
                 
                 NSMutableArray *types = [NSMutableArray array];
                 for (NSDictionary *dict in array) {
