@@ -15,8 +15,6 @@
 
 }
 
-//@property (nonatomic, strong)
-
 - (IBAction)logout;
 
 - (void)toCoupons;
@@ -24,7 +22,9 @@
 - (void)toCards;
 - (void)toFavoritedCoupons;
 - (void)toSettings;
+
 - (void)willLogout;
+
 /**
  *	@brief	登录成功
  */

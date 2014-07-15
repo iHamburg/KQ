@@ -117,8 +117,11 @@
     
     [[UserController sharedInstance] loginWithEmail:email pw:password block:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
+        
             [self close];
+            
             [[KQRootViewController sharedInstance] didLogin];
+        
         }
     }];
 }

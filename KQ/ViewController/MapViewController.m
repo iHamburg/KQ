@@ -58,7 +58,7 @@
     
     CLLocationCoordinate2D coord;
     
-//    CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(31.1, 121.1);
+
     if (ISEMPTY(shop.location)) {
         coord = CLLocationCoordinate2DMake(31.1, 121.1);
     }else{
@@ -123,40 +123,12 @@
         
          pinView.annotation = annotation;
         
-//        Shop *shop = annotation.shop;
-        
             pinView.pinColor = MKPinAnnotationColorRed;
             
             pinView.animatesDrop = YES;
             
             pinView.canShowCallout = YES;
-            
-            // If appropriate, customize the callout by adding accessory views (code not shown).
-//        UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-//        
-//        [rightButton addTarget:nil action:nil forControlEvents:UIControlEventTouchUpInside];
         
-//        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 45)];
-//        label.numberOfLines = 0;
-//        label.font = [UIFont fontWithName:kFontName size:13];
-//        label.text = [NSString stringWithFormat:@"%@\n%@",shop.title,shop.address];
-//        pinView.rightCalloutAccessoryView = label;
-        
-        
-        
-        // Add a custom image to the left side of the callout.
-        
-//        UIImageView *myCustomImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 67, 45)];
-//        myCustomImage.contentMode = UIViewContentModeScaleAspectFit;
-//        myCustomImage.layer.masksToBounds = YES;
-//        myCustomImage.backgroundColor = [UIColor redColor];
-//        NSLog(@"img # %@",shop.posterUrl);
-////        [myCustomImage setImageWithURL:[NSURL URLWithString:shop.posterUrl]];
-//        
-////        myCustomImage.image = [UIImage imageNamed:@"icon_menu.png"];
-//        pinView.leftCalloutAccessoryView = myCustomImage;
-        
-//        [pinView setSize:CGSizeMake(300, 60)];
     }
     
         

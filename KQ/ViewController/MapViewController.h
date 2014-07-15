@@ -16,10 +16,6 @@
 
 @property (nonatomic, strong) IBOutlet MKMapView *mapView;
 
-/**
- *	@brief	传递的是M
- */
-
 
 @property (nonatomic, strong) Shop *shop;
 

@@ -22,13 +22,15 @@
         self.nickname = dict[@"nickname"];
         
     
-        //!!!: 用了copy之后，set就不能是mutableSet了,因为是Copy！！
+
+        //!!!: 没有用到
         self.favoritedCouponIds = ISEMPTY(dict[@"favoritedCoupons"])?[NSMutableSet set]:[[NSMutableSet alloc] initWithArray:dict[@"favoritedCoupons"]];
    
        
         ///即使dict没有favoritedShops这个key=>(null)，也能正常初始化！！
         self.favoritedShopIds = ISEMPTY(dict[@"favoritedShops"])?[NSMutableSet set]:[[NSMutableSet alloc] initWithArray:dict[@"favoritedShops"]];
-   
+
+//        NSLog(@"self.favoritedShopIds # %@",self.favoritedCouponIds);
     }
     return self;
 }

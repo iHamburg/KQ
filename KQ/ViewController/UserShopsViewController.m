@@ -134,14 +134,13 @@
 {
     if ([segue.identifier isEqualToString:@"toShopDetails"])
     {
-        //        L();
         
         [_networkClient queryShopBranches:sender.id block:^(NSArray *shopbranches, NSError *error) {
             
             if (!ISEMPTY(shopbranches)) {
                 NSMutableArray *shops = [NSMutableArray arrayWithCapacity:shopbranches.count];
                 for (NSDictionary *dict in shopbranches) {
-//                    NSLog(@"dict # %@",dict);
+
                     Shop *shop = [Shop shopWithDictionary:dict];
                     [shops addObject:shop];
                 }

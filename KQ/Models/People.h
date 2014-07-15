@@ -23,8 +23,6 @@
 @property (nonatomic, strong) NSMutableSet *downloadedCouponIds; //set
 
 
-//@property (nonatomic, copy) UIImage *avatar;
-//???: 为什么用了copy之后，set就不能是mutableSet了
 + (id)people;
 
 + (id)peopleWithDict:(NSDictionary*)dict;

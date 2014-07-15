@@ -12,6 +12,9 @@
 @implementation Shop
 
 + (instancetype)shopWithDictionary:(NSDictionary*)dict{
+    
+    /// shop 没有储存shopBranches元素，是交给VC来储存了
+    
     Shop *shop = [Shop new];
     
     dict = [dict dictionaryCheckNull];

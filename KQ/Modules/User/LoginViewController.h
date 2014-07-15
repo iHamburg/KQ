@@ -13,7 +13,7 @@
    IBOutlet UITextField* _userTextField;
    IBOutlet UITextField *_passwordTextField;
 
-    IBOutlet    UIButton *_loginB;
+    IBOutlet UIButton *_loginB;
     IBOutlet UIButton *_forgetB;
     IBOutlet UIButton *_registerB;
     

@@ -1,13 +1,13 @@
 PODS:
   - AVOSCloud (2.5.6)
-  - FXLabel (1.5.8)
+  - Expecta (0.2.4)
 
 DEPENDENCIES:
   - AVOSCloud
-  - FXLabel
+  - Expecta (~> 0.2.4)
 
 SPEC CHECKSUMS:
   AVOSCloud: 3252d71314bcb17f783c0381eed86a384fba277b
-  FXLabel: d7c2cb1d2903d7a7ac04855d470ecf2079f4881e
+  Expecta: 112bcafa2304ee0f3c5e586505f24555a47b25d5
 
 COCOAPODS: 0.32.1

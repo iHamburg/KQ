@@ -776,9 +776,9 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="3yq-c0-kSS"/>
         <segue reference="Axn-XN-OKu"/>
+        <segue reference="orf-Q9-2pY"/>
+        <segue reference="VQX-eZ-hoW"/>
         <segue reference="OBc-rt-Nik"/>
-        <segue reference="bbA-ra-Tmf"/>
     </inferredMetricsTieBreakers>
 </document>

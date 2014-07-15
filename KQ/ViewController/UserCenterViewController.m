@@ -27,20 +27,18 @@
     [super setPeople:people];
     
     if (ISEMPTY(people.avatarUrl)) {
-//         [self.avatarV setImageWithURL:[NSURL URLWithString:people.avatarUrl] placeholderImage:DefaultImg];
+
         self.avatarV.image = DefaultImg;
     }
-//    else (!ISEMPTY([[UserController sharedInstance] avatar])){
-//        
-//    }
+
     else{
          [self.avatarV setImageWithURL:[NSURL URLWithString:people.avatarUrl] placeholderImage:DefaultImg];
     }
 //
-//    [self.avatarV seti]
+
     self.firstLabel.text = people.nickname;
 
-//        NSLog(@"avatarV # %@, firstLabel, # %@, opaque # %d",self.avatarV,self.firstLabel,self.firstLabel.opaque);
+
    
 }
 
@@ -109,20 +107,7 @@
     // save image to currentuser.avatar
   
     [[UserController sharedInstance] setAvatar:img200];
-//
-//    
-//
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-//        
-//        
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            L();
-//            /// 这里需要重新loadpeople
-//            
-//            NSLog(@"avatarV # %@",self.avatarV);
-//            self.avatarV.image = img200;
-//        });
-//    });
+
     //???: 为什么不能直接变设avatar？
     
     [self performSelector:@selector(imagePickerControllerDidCancel:) withObject:picker afterDelay:1];
@@ -174,10 +159,7 @@
 #pragma mark - UserCenterViewController
 
 @interface UserCenterViewController (){
-    ConfigViewController *_couponsVC;
-    ConfigViewController *_shopsVC;
-    ConfigViewController *_cardsVC;
-    ConfigViewController *_settingsVC;
+
 
 }
 
@@ -192,10 +174,7 @@
     // Do any additional setup after loading the view.
     self.title = @"我的";
     
-
     _config = [[TableConfiguration alloc] initWithResource:@"UserCenterLoginConfig"];
-    
-//    _userCardNib = [UINib nibWithNibName:@"UserCardCell" bundle:nil];
     
 
 }
@@ -203,21 +182,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     L();
-//    NSLog(@"uid # %@",_userController.uid);
-    
-//    if ([_userController isLogin]) {
-//        _config = [[TableConfiguration alloc] initWithResource:@"UserCenterLoginConfig"];
-//        
-//        NSLog(@"people # %@",_userController.people);
-////        [self loadUser:_userController.uid];
-//    }
-//    else{
-//        _config = [[TableConfiguration alloc] initWithResource:@"UserCenterConfig"];
-//    }
-    
-    
-    
-//    [self.tableView reloadData];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -233,11 +198,8 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)initConfigCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
 
-- (void)configCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
-    
-    
-    
     if ([cell isKindOfClass:[PeopleCell class]]) {
         [(PeopleCell*)cell setPeople:_userController.people];
     }
@@ -246,8 +208,7 @@
         
         cell.separatorInset = UIEdgeInsetsMake(0, 0, 0,0);
     }
-    
-    
+
 }
 
 
@@ -270,66 +231,40 @@
 #pragma mark - AlertView
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
 //    NSLog(@"button # %d",buttonIndex);
+    
     if (buttonIndex == 1) {
         [self willLogout];
     }
 }
 
-
+#pragma mark - IBAction
 
 - (IBAction)logout{
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"确定要退出当前账号吗？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"退出", nil];
-  
+    
     [alert show];
-
-//    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-//    picker.delegate = self;
-//    picker.sourceType =  UIImagePickerControllerSourceTypePhotoLibrary;
-//    
-//    [self presentViewController:picker animated:YES completion:^{
-//        
-//    }];
-
+    
+    
     
 }
+
 #pragma mark - Fcns
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
 
-    NSString *identifer = segue.identifier;
-    if ([identifer isEqualToString:@"toCoupons"]) {
-       
-    }
 }
 
 - (void)toCoupons{
-  
-//    if (!_couponsVC) {
-//        _couponsVC = [[UserCouponsViewController alloc] initWithStyle:UITableViewStylePlain];
-//    }
-//    
-//    [self.navigationController pushViewController:_couponsVC animated:YES];
-    
+
     [self performSegueWithIdentifier:@"toCoupons" sender:nil];
 }
 - (void)toShops{
-//    if (!_shopsVC) {
-//        _shopsVC = [[UserShopsViewController alloc] initWithStyle:UITableViewStylePlain];
-//    }
-//    
-//    [self.navigationController pushViewController:_shopsVC animated:YES];
 
     [self performSegueWithIdentifier:@"toShops" sender:nil];
 }
 - (void)toCards{
-
-//    if (!_cardsVC) {
-//        _cardsVC = [[UserCardsViewController alloc] initWithStyle:UITableViewStylePlain];
-//    }
-//    
-//    [self.navigationController pushViewController:_cardsVC animated:YES];
 
     [self performSegueWithIdentifier:@"toCards" sender:nil];
 }
@@ -340,11 +275,6 @@
 }
 - (void)toSettings{
 
-//    if (!_settingsVC) {
-//        _settingsVC = [[UserSettingsViewController alloc] initWithStyle:UITableViewStylePlain];
-//    }
-//    
-//    [self.navigationController pushViewController:_settingsVC animated:YES];
 
     [self performSegueWithIdentifier:@"toSettings" sender:nil];
 }
@@ -352,13 +282,13 @@
 - (void)willLogout{
     
     [_userController logout];
-    
 
     [_root didLogout];
 }
 
 - (void)didLogin{
 
+    //???: 什么时候调用？
     [self.tableView reloadData];
 }
 @end

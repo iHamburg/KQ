@@ -1,4 +1,8 @@
-platform :ios, "7.0"
+platform :ios, "6.0"
 
-pod "FXLabel"
 pod "AVOSCloud"
+
+
+target :KQTests, :exclusive => true do
+    pod 'Expecta',     '~> 0.2.4'
+end
