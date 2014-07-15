@@ -118,6 +118,8 @@ xcuserdata
 /KQ.xcworkspace/xcuserdata/
 /KQ.xcworkspace/xcuserdata/*
 
+Pods/*.xcodeproj/xcuserdata/
+Pods/*.xcodeproj/project.xcworkspace/xcuserdata/
 
 # OPTION 2: ---------------------------------
 #     get rid of ALL personal settings, but KEEP SOME OF THEM

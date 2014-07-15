@@ -20,7 +20,7 @@
     dict = [dict dictionaryCheckNull];
     
 //    NSLog(@"dict # %@",dict);
-    
+    //
     
     shop.id = dict[@"objectId"];
     NSArray *keys = @[@"parentId",@"address",@"phone",@"title",@"openTime",@"desc",@"posterUrl"];
