@@ -78,7 +78,7 @@
     self = [super init];
     if (self) {
         _clientManager = [AFHTTPRequestOperationManager manager];
-        
+        //
         // 必加的
         _clientManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
 

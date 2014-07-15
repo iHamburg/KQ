@@ -103,7 +103,7 @@
     [self.models removeAllObjects];
     
     [_networkClient queryFavoritedShop:_userController.uid block:^(NSArray *couponDicts, NSError *error) {
-        
+        //
       
         NSLog(@"shops # %@",couponDicts);
         if (ISEMPTY(couponDicts)) {
