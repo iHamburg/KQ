@@ -180,7 +180,7 @@
 
 
 - (void)initConfigCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
-    __weak ShopDetailsViewController *vc = self;
+  
     
     if([cell isKindOfClass:[ShopHeaderCell class]]){
         
@@ -216,6 +216,24 @@
             [aCell setValue:coupon];
         }
     }
+     else  if([cell isKindOfClass:[ShopBranchesCell class]]){
+         __weak ShopDetailsViewController *vc = self;
+         ShopBranchesCell *aCell = (ShopBranchesCell*)cell;
+         [(ShopBranchesCell*)cell setValue:[self.shopBranches firstObject]];
+         
+         [(ShopBranchesCell*)cell setShopBranchesNum:[self.shopBranches count]];
+         
+         aCell.toMapBlock = ^(Shop* shop){
+             
+             [vc toMap];
+         };
+         
+         aCell.toShopListBlock = ^{
+             [vc toShopList];
+         };
+         
+     }
+
     
 }
 
