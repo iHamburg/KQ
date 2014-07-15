@@ -186,29 +186,31 @@
         
         [cell setValue:self.shop forKeyPath:@"value"];
     }
-    else  if([cell isKindOfClass:[ShopBranchesCell class]]){
-        __weak ShopDetailsViewController *vc = self;
-        ShopBranchesCell *aCell = (ShopBranchesCell*)cell;
-        [(ShopBranchesCell*)cell setValue:[self.shopBranches firstObject]];
-        
-        [(ShopBranchesCell*)cell setShopBranchesNum:[self.shopBranches count]];
-        
-        aCell.toMapBlock = ^(Shop* shop){
-            
-            [vc toMap];
-        };
-        
-        aCell.toShopListBlock = ^{
-            [vc toShopList];
-        };
-        
-    }
+//    else  if([cell isKindOfClass:[ShopBranchesCell class]]){
+//        __weak ShopDetailsViewController *vc = self;
+//        ShopBranchesCell *aCell = (ShopBranchesCell*)cell;
+//        [(ShopBranchesCell*)cell setValue:[self.shopBranches firstObject]];
+//        
+//        [(ShopBranchesCell*)cell setShopBranchesNum:[self.shopBranches count]];
+//        
+//        aCell.toMapBlock = ^(Shop* shop){
+//            
+//            [vc toMap];
+//        };
+//        
+//        aCell.toShopListBlock = ^{
+//            [vc toShopList];
+//        };
+//        
+//    }
 
 }
 
 
 - (void)configCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
  
+    // bugfix branch
+    
      if([cell isKindOfClass:[CouponListCell class]]){
         CouponListCell *aCell = (CouponListCell*)cell;
         if (!ISEMPTY(self.coupons)) {
