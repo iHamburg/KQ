@@ -13,6 +13,7 @@
 @interface KQSearchViewController ()
 
 - (void)addCurrentLocationToSearchParams:(NSMutableDictionary*)params;
+- (void)toCouponList;
 
 @end
 
@@ -22,7 +23,7 @@
     _searchType = searchType;
     
     if (_searchType == SearchDistrict) {
-//        [self searchDistrict];
+
         _hotSearchView.titles = _districtHotKeywords;
         _tableView.dataSource = _districtDataSource;
         self.searchBar.placeholder = @"输入地区的名字查询";
@@ -118,11 +119,8 @@
     _districtHotKeywords = @[@"徐汇区",@"静安区",@"浦东新区"];
     _couponTypeHotKeywords = @[@"美食",@"休闲娱乐",@"购物"];
     
-//    NSLog(@"couponkeywords # %@",_couponTypeHotKeywords);
-    
-    ///点击tableview，进行search
-    
-    
+    ///init tableview
+
     NSArray *leftKeys = _manager.districts;
     NSMutableDictionary *dataSource = [NSMutableDictionary dictionary];
     for (District *district in leftKeys) {
@@ -158,7 +156,6 @@
                 [vc.searchParams setObject:type.id forKey:@"couponTypeId"];
             }
         }
-        
 
         [vc addCurrentLocationToSearchParams:vc.searchParams];
         
@@ -190,7 +187,7 @@
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
-    ///动态调整table的高度
+    ///动态调整table的高度,适应iphone和iphone5
     CGFloat hTable = 233;
     if (isPhone5) {
         hTable = 321;
@@ -206,8 +203,6 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     L();
- 
-//    [self toCouponList];
     
     [searchBar resignFirstResponder];
     
@@ -238,7 +233,7 @@
 #pragma mark - IBAction
 
 - (IBAction)segmentChanged:(UISegmentedControl*)sender{
-//    self.searchType = sender.selectedSegmentIndex;
+
     
     [self.searchBar resignFirstResponder];
     
@@ -268,7 +263,7 @@
             [_libraryManager startHint:@"暂时还没有结果" duration:1];
         }else{
         
-//            NSLog(@"search results # %@",array);
+
             self.searchResults = [NSMutableArray array];
             
             for (NSDictionary *dict in array) {
@@ -288,11 +283,11 @@
                     
                     Coupon *coupon = [Coupon couponWithDict:dict];
                     coupon.nearestDistance = [_userController distanceFromLocation:coupon.nearestLocation];
-//                    NSLog(@"coupon.id # %@,title # %@",coupon.id,coupon.title);
+
                     [self.searchResults addObject:coupon];
                 }
             }
-//            NSLog(@"searchResults # %@",self.searchResults);
+
          
             [self toCouponList];
         }

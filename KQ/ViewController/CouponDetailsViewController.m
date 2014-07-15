@@ -165,11 +165,12 @@
     
     //    NSLog(@"shop # %@",self.va)
     NSString *text = coupon.usage;
+    UIFont *font = [UIFont fontWithName:kFontName size:12];
     CGSize constraint = CGSizeMake(300, 10000);
-    CGSize size = [text sizeWithFont:[UIFont fontWithName:kFontName size:12] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
     
-    //    NSLog(@"size # %@",NSStringFromCGSize(size));
-    return size.height + 20;
+    CGRect textRect = [text boundingRectWithSize:constraint options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName:font} context:nil];
+    
+    return textRect.size.height + 20;
 }
 @end
 
@@ -211,11 +212,12 @@
 
 //    NSLog(@"shop # %@",self.va)
     NSString *text = shop.desc;
+    UIFont *font = [UIFont fontWithName:kFontName size:12];
     CGSize constraint = CGSizeMake(300, 10000);
-    CGSize size = [text sizeWithFont:[UIFont fontWithName:kFontName size:12] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
-
-//    NSLog(@"size # %@",NSStringFromCGSize(size));
-    return size.height + 20;
+    
+    CGRect textRect = [text boundingRectWithSize:constraint options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName:font} context:nil];
+    
+    return textRect.size.height + 20;
 }
 
 @end

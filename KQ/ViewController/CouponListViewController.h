@@ -30,4 +30,5 @@
 @property (nonatomic, strong) NSMutableDictionary *searchParams;
 
 - (void)toCouponDetails:(Coupon*)coupon;
+
 @end

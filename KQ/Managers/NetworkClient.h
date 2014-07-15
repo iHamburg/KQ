@@ -12,14 +12,13 @@
 #ifdef DEBUG
 
 
-//#define RESTHOST @"http://192.168.1.103/kq/index.php/kqapi2"
-#define RESTHOST @"http://115.29.148.47/kq/index.php/kqapi2"
+#define RESTHOST @"http://192.168.1.103/kq/index.php/kqapi3"
+//#define RESTHOST @"http://115.29.148.47/kq/index.php/kqapi2"
 
 #else
 
 //#define HOST @"http://115.29.148.47/kq/index.php/kqavos"
-#define RESTHOST @"http://115.29.148.47/kq/index.php/kqapi2"
-//#define MYHOST @"http://115.29.148.47/kq/index.php/kqmyapi2"
+#define RESTHOST @"http://115.29.148.47/kq/index.php/kqapi3"
 
 #endif
 
@@ -50,7 +49,6 @@
 
 
 
-
 /**
  *	@brief	用户注册登录
  */
@@ -60,26 +58,29 @@
 
 
 /**
- *	@brief	获取用户收藏的商户
+ *	
+ * @deprecated
+ * @brief	获取用户收藏的商户,应该也不需要了
  */
 - (void)queryShopBranches:(NSString*)parentId block:(IdResultBlock)block;
 
 
 
-- (void)queryHotCouponsSkip:(int)skip block:(IdResultBlock)block;
-
 - (void)queryNewestCouponsSkip:(int)skip block:(IdResultBlock)block;
 /**
  
+ @brief   返回搜索的快券
  @params: districtId/subDistrictId/couponTypeId/subTypeId/keyword/latitude/longitude
  
  */
 - (void)searchCoupons:(NSDictionary*)params block:(IdResultBlock)block;
 
+/**
+ deprecated , shop可以直接include coupons来获得
+ */
 - (void)queryCouponsWithShop:(NSString*)shopId block:(IdResultBlock)block;
 
 
-- (void)queryCouponTypesWithBlock:(IdResultBlock)block;
 
 /**
  *	@brief	获取所有一级商区

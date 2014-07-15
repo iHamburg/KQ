@@ -33,10 +33,10 @@
         CGFloat w = 140;
         CGFloat h = 68;
         UIButton *b = [UIButton buttonWithFrame:CGRectMake(15, 10, w, h) title:nil bgImageName:@"main_kuaiquan.png" target:self action:@selector(buttonPressed:)];
-//        b.tag = 0;
+
         
         UIButton *b2 = [UIButton buttonWithFrame:CGRectMake(165, 10, w, h) title:nil bgImageName:@"main_haiwai.png" target:self action:@selector(buttonPressed:)];
-//        b2.tag = 1;
+
         
         UIButton *b3 = [UIButton buttonWithFrame:CGRectMake(15, 78, w, h) title:nil bgImageName:@"main_huodong.png" target:self action:@selector(buttonPressed:)];
         
@@ -143,23 +143,7 @@
          [cell setValue:project];
    
     }
-    
-//    if (indexPath.section == 1 && indexPath.row == 0) {
-//        NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-//        cell.op = [[NSBlockOperation alloc] init];
-////        NSBlockOperation *op =
-//        
-//        __weak NSBlockOperation *weakOp = cell.op;
-//        [cell.op addExecutionBlock:^{
-//            for (int i = 0; i < 100000; i++) {
-//                if ([weakOp isCancelled])
-//                    break;
-//                //            processData(data[i]);
-//                NSLog(@" cell # %d",i);
-//            }
-//        }];
-//        [queue addOperation:cell.op];
-//    }
+   
 
 }
 
@@ -191,6 +175,8 @@
 #pragma mark - Fcns;
 
 
+
+
 /// 返回基本coupon，在load list的时候再载入购买人数的数据
 - (void)loadModels{
 
@@ -204,15 +190,7 @@
         
          [_libraryManager dismissProgress:nil];
         
-        for (NSDictionary *dict in couponDicts) {
-//            NSLog(@"dict # %@",dict);
-            
-            Coupon *coupon = [Coupon couponWithDict:dict];
-            [self.models addObject:coupon];
-
-        }
-        
-        [self.tableView reloadData];
+        [self addCouponsInModel:couponDicts];
         
     }];
   
@@ -232,13 +210,7 @@
     
     [_networkClient queryNewestCouponsSkip:count block:^(NSArray *couponDicts, NSError *error) {
         
-        for (NSDictionary *dict in couponDicts) {
-            Coupon *coupon = [Coupon couponWithDict:dict];
-            [_models addObject:coupon];
-            
-        }
-        
-        [self.tableView reloadData];
+        [self addCouponsInModel:couponDicts];
         
         finishedBlock();
     }];
@@ -261,6 +233,18 @@
         [segue.destinationViewController setValue:sender forKeyPath:@"coupon"];
         
     }
+}
+
+- (void)addCouponsInModel:(NSArray *)array {
+    for (NSDictionary *dict in array) {
+        //            NSLog(@"dict # %@",dict);
+        
+        Coupon *coupon = [Coupon couponWithDict:dict];
+        [self.models addObject:coupon];
+        
+    }
+    
+    [self.tableView reloadData];
 }
 
 @end

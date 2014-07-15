@@ -38,11 +38,12 @@
     
     //    NSLog(@"shop # %@",self.va)
     NSString *text = shop.desc;
+    UIFont *font = [UIFont fontWithName:kFontName size:12];
     CGSize constraint = CGSizeMake(300, 10000);
-    CGSize size = [text sizeWithFont:[UIFont fontWithName:kFontName size:12] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
     
-    //    NSLog(@"size # %@",NSStringFromCGSize(size));
-    return size.height + 20;
+    CGRect textRect = [text boundingRectWithSize:constraint options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName:font} context:nil];
+    
+    return textRect.size.height + 20;
 }
 
 @end
@@ -63,16 +64,17 @@
  
     ///判断coupon是否已经收藏
     self.shopFavorited = NO;
+    
     for (NSString *shopId in [[UserController sharedInstance]people].favoritedShopIds) {
 //        NSLog(@"shopId # %@,shop.id # %@",shopId,shop.id);
         
         if ([shopId isEqualToString:shop.id]) {
 
             self.shopFavorited = YES;
+            
             break;
         }
     }
-    
 
     
     [[NetworkClient sharedInstance] queryCouponsWithShop:shop.id block:^(NSArray *coupons, NSError *error) {
@@ -110,7 +112,7 @@
 
     _shopBranches = shopBranches;
 
-//    NSLog(@"shopBranches # %@",shopBranches);
+    NSLog(@"shopBranches # %@",shopBranches);
     
     [self.tableView reloadData];
 }
@@ -180,12 +182,13 @@
 
 
 - (void)initConfigCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
-  
+
     
     if([cell isKindOfClass:[ShopHeaderCell class]]){
         
         [cell setValue:self.shop forKeyPath:@"value"];
     }
+
 //    else  if([cell isKindOfClass:[ShopBranchesCell class]]){
 //        __weak ShopDetailsViewController *vc = self;
 //        ShopBranchesCell *aCell = (ShopBranchesCell*)cell;
@@ -203,13 +206,14 @@
 //        };
 //        
 //    }
-
 }
 
 
 - (void)configCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
  
-    // bugfix branch
+    //after conflict in v0.3 bugfix branch
+
+
     
      if([cell isKindOfClass:[CouponListCell class]]){
         CouponListCell *aCell = (CouponListCell*)cell;
@@ -221,8 +225,12 @@
      else  if([cell isKindOfClass:[ShopBranchesCell class]]){
          __weak ShopDetailsViewController *vc = self;
          ShopBranchesCell *aCell = (ShopBranchesCell*)cell;
-         [(ShopBranchesCell*)cell setValue:[self.shopBranches firstObject]];
+
+
          
+         //!!!: 如果self.shopBranches是需要asyn载入的，那么就不能放到initConfigCell中，因为只运行一次时可能shopBranches还没载入
+         [(ShopBranchesCell*)cell setValue:[self.shopBranches firstObject]];
+
          [(ShopBranchesCell*)cell setShopBranchesNum:[self.shopBranches count]];
          
          aCell.toMapBlock = ^(Shop* shop){

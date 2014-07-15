@@ -12,9 +12,14 @@
 
 #import "AVOSEngine.h"
 
+//获取最新的优惠券
 #define api_newestCoupons       [RESTHOST stringByAppendingFormat:@"/newestCoupons"]
 
+//搜索优惠券
 #define api_searchCoupons        [RESTHOST stringByAppendingFormat:@"/searchCoupons"]
+
+//获取优惠券
+#define api_coupon              [RESTHOST stringByAppendingFormat:@"/coupon"]
 
 //获取区域
 #define api_district             [RESTHOST stringByAppendingFormat:@"/district"]
@@ -25,6 +30,9 @@
 #define api_couponType           [RESTHOST stringByAppendingFormat:@"/couponType"]
 //获取一级类型
 #define api_headCouponTypes       [RESTHOST stringByAppendingFormat:@"/headCouponTypes"]
+
+//用户登录
+#define api_login               [RESTHOST stringByAppendingString:@"/login"]
 
 //获取用户，用户注册
 #define api_user                [RESTHOST stringByAppendingFormat:@"/user"]
@@ -37,10 +45,12 @@
 
 //用户收藏的快券
 #define api_my_favoritedCoupon  [RESTHOST stringByAppendingFormat:@"/myFavoritedCoupon"]
+///因为delete的参数不能用delete传，只有用get，所以要分开api
 #define api_my_favoritedCoupon_delete(uid,sessionToken,couponId)  [RESTHOST stringByAppendingFormat:@"/myFavoritedCoupon/uid/%@/sessionToken/%@/couponId/%@",uid,sessionToken,couponId]
 
 //用户收藏的商户(总店)
 #define api_my_favoritedShop    [RESTHOST stringByAppendingFormat:@"/myFavoritedShop"]
+
 #define api_my_favoritedShop_delete(uid,sessionToken,shopId)  [RESTHOST stringByAppendingFormat:@"/myFavoritedShop/uid/%@/sessionToken/%@/shopId/%@",uid,sessionToken,shopId]
 
 @interface NetworkClient (){
@@ -68,7 +78,7 @@
     self = [super init];
     if (self) {
         _clientManager = [AFHTTPRequestOperationManager manager];
-        
+        //
         // 必加的
         _clientManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
 
@@ -78,17 +88,16 @@
 
 #pragma mark -
 - (void)registerWithDict:(NSDictionary*)info block:(IdResultBlock)block{
+    //
     
-    ;
-//
     [self postWithUrl:api_user parameters:info block:block];
     
 }
 
 - (void)loginWithUsername:(NSString*)username password:(NSString*)password block:(IdResultBlock)block{
 
-    NSString *url = [RESTHOST stringByAppendingString:@"/login"];
-    [self getWithUrl:url parameters:@{@"username":username,@"password":password} block:block];
+
+    [self getWithUrl:api_login parameters:@{@"username":username,@"password":password} block:block];
   
     
 }
@@ -100,21 +109,14 @@
 
 - (void)queryCoupon:(NSString*)couponId block:(IdResultBlock)block{
 
+//
+//    NSString *url = [RESTHOST stringByAppendingFormat:@"/Coupon/id/%@",couponId];
+//
+//    [self getWithUrl:url parameters:nil block:block];
 
-    NSString *url = [RESTHOST stringByAppendingFormat:@"/Coupon/id/%@",couponId];
-
-    [self getWithUrl:url parameters:nil block:block];
-
+    [self getWithUrl:api_coupon parameters:@{@"id":couponId} block:block];
 }
 
-
-- (void)queryHotCouponsSkip:(int)skip block:(IdResultBlock)block{
-
-
-    NSString *url = [RESTHOST stringByAppendingFormat:@"/coupon"];
-    
-    [self getWithUrl:url parameters:@{@"skip":[NSString stringWithInt:skip]} block:block];
-}
 
 - (void)queryNewestCouponsSkip:(int)skip block:(IdResultBlock)block{
 
@@ -122,6 +124,8 @@
     [self getWithUrl:api_newestCoupons parameters:@{@"skip":[NSString stringWithInt:skip]} block:block];
 }
 
+
+/// deprecated
 - (void)queryCouponsWithShop:(NSString*)shopId block:(IdResultBlock)block{
     
     NSString *url = [RESTHOST stringByAppendingFormat:@"/coupon"];
@@ -133,12 +137,6 @@
 
 
 
-
-- (void)queryCouponTypesWithBlock:(IdResultBlock)block{
-    NSString *url = [RESTHOST stringByAppendingFormat:@"/couponType"];
-    
-      [self getWithUrl:url parameters:nil block:block];
-}
 
 - (void)queryHeadDistrictsWithBlock:(IdResultBlock)block{
     
@@ -154,17 +152,7 @@
 
 
 
-- (void)queryDownloadedCouponCount:(NSString*)couponId block:(IdResultBlock)block{
- 
-     NSString *url = [RESTHOST stringByAppendingFormat:@"/downloadedCouponCount"];
-    
-    NSDictionary *params = @{@"where":[AVOSEngine avosPointerWithField:@"coupon" className:@"Coupon" objectId:couponId],
-                             @"count":@1,
-                             @"limit":@0};
-    
-    [self getWithUrl:url parameters:params block:block];
-
-}
+///deprecated
 - (void)queryShopBranches:(NSString*)parentId block:(IdResultBlock)block{
 
 
@@ -200,6 +188,7 @@
 //                             @"include":@"coupon"};
 
     NSDictionary *params = @{@"uid":uid};
+    
     [self getWithUrl:api_my_downloadedCoupon parameters:params block:block];
 }
 
@@ -225,7 +214,6 @@
 }
 - (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken unfavoriteCoupon:(NSString*)couponId block:(IdResultBlock)block{
 
-//    NSString *sessionToken = [[UserController sharedInstance] sessionToken];
 
     [self deleteWithUrl:api_my_favoritedCoupon_delete(uid,sessionToken, couponId) parameters:nil block:block];
     
@@ -245,7 +233,7 @@
     
 }
 - (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken unfavoriteShop:(NSString*)shopId block:(IdResultBlock)block{
-//    NSString *sessionToken = [[UserController sharedInstance] sessionToken];
+
     
     [self deleteWithUrl:api_my_favoritedShop_delete(uid,sessionToken, shopId) parameters:nil block:block];
     
@@ -298,7 +286,7 @@
     
     AFHTTPRequestOperation *operation = [_clientManager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-//        NSLog(@"post url # %@, params # %@,response :%@ %@ ", url,parameters,operation.responseString, responseObject);
+        NSLog(@"post url # %@, params # %@,response :%@ %@ ", url,parameters,operation.responseString, responseObject);
         
         
         NSDictionary *dict = responseObject;

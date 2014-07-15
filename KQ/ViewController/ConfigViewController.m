@@ -7,7 +7,7 @@
 //
 
 #import "ConfigViewController.h"
-#import "ConfigCell.h"
+
 
 @interface ConfigViewController ()
 
@@ -34,7 +34,6 @@
     self.view.backgroundColor = kColorBG;
 
     self.navigationController.navigationBar.translucent = NO;
-//   [self.navigationController.navigationBar setBarTintColor:kColorYellow];  //背景色
     
 }
 

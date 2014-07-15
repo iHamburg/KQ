@@ -31,7 +31,7 @@
     static dispatch_once_t onceToken;
     
     dispatch_once(&onceToken, ^{
-//      sharedInstance = [[[self class] alloc] init];
+
        
         sharedInstance = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     });
@@ -71,17 +71,10 @@
     L();
     [super viewDidAppear:animated];
     
-    [self loadNetwork];
-    
     [self test];
     
 }
 
-- (void)loadNetwork{
-
-    L();
-
-}
 
 - (void)didReceiveMemoryWarning
 {
@@ -126,8 +119,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"toLogin"])
-    {
+    if ([segue.identifier isEqualToString:@"toLogin"]){
     }
 }
 
@@ -141,13 +133,6 @@
 }
 
 
-- (void)testRegex{
-
-//    NSArray *array = @[@"123abc",@"dsfec",@"klivs",@"df3123"];
-//    
-//    NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.";
-}
-
 - (void)test{
     L();
     
@@ -157,21 +142,6 @@
  
  
     
-    
-//    CFAbsoluteTime startNSLog = CFAbsoluteTimeGetCurrent();
-//    for (int i = 0; i < 10000; i++) {
-//        NSLog(@"%d", i);
-//    }
-//    CFAbsoluteTime endNSLog = CFAbsoluteTimeGetCurrent();
-//    CFAbsoluteTime startPrintf = CFAbsoluteTimeGetCurrent();
-//    for (int i = 0; i < 10000; i++) {
-//        printf("%d\n", i);
-//    }
-//    CFAbsoluteTime endPrintf = CFAbsoluteTimeGetCurrent();
-//    NSLog(@"NSLog time: %lf, printf time: %lf", endNSLog - startNSLog,
-//          endPrintf - startPrintf);
-    
-//    NSLog(@"dict # %@",dict(@"aaa"));
 
 }
 

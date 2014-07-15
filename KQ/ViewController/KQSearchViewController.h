@@ -63,7 +63,6 @@ typedef enum {
 
 - (IBAction)segmentChanged:(id)sender;
 
-- (void)toCouponList;
 - (void)startSearch;
 
 

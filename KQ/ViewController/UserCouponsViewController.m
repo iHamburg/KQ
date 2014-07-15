@@ -67,18 +67,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
 
     return _tableHeader;
-//    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
-//    v.backgroundColor = kColorBG;
-//  
-//    UISegmentedControl *seg = [[UISegmentedControl alloc] initWithItems:@[@"未使用",@"已使用",@"已过期"]];
-//    seg.selectedSegmentIndex = 0;
-//    seg.frame = CGRectMake(0, 0, 260, 30);
-//    seg.center = v.center;
-//    [seg addTarget:self action:@selector(segmentedControlChanged:) forControlEvents:UIControlEventValueChanged];
-//    [v addSubview:seg];
-//    
-//    
-//    return v;
+
     
 }
 
