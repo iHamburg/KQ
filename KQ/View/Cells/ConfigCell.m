@@ -34,8 +34,6 @@
 
 - (void)load{
 
-//    self.backgroundColor = [UIColor clearColor];
-
     
     self.textLabel.font = [UIFont fontWithName:kFontName size:16];
     self.detailTextLabel.font = [UIFont fontWithName:kFontName size:16];
@@ -43,10 +41,6 @@
     self.textLabel.textColor = kColorBlack;
     self.detailTextLabel.textColor = kColorBlack;
 
-}
-
-- (void)cancelOperation{
-    [_op cancel];
 }
 
 + (CGFloat)cellHeightWithValue:(id)value{

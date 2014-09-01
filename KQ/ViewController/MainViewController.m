@@ -106,8 +106,6 @@
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
 
-//    NSLog(@"_root # %@,root # %@",_root,[[[[UIApplication sharedApplication] delegate] window] rootViewController]);
-
 }
 
 #pragma mark - IBAction

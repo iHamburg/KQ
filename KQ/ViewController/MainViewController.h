@@ -9,7 +9,7 @@
 #import "NetTableViewController.h"
 
 
-@interface MainViewController : NetTableViewController<ConfigCellDelegate>
+@interface MainViewController : NetTableViewController
 
 - (void)toCouponDetails:(id)couponModel;
 

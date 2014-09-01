@@ -1766,7 +1766,7 @@
 					"$(PROJECT_DIR)/KQ/3rdLibraries/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
 				PRODUCT_NAME = "快券";
-				PROVISIONING_PROFILE = "32882D52-1ED4-4A69-88F3-977348F7A424";
+				PROVISIONING_PROFILE = "609FEA0D-E70D-4F2D-8E8B-0ADE353B1A05";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Adhoc;
@@ -1912,7 +1912,7 @@
 					"$(PROJECT_DIR)/KQ/3rdLibraries/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
 				PRODUCT_NAME = "快券";
-				PROVISIONING_PROFILE = "CD6514F3-5299-4837-B477-AD3D3E6C08E9";
+				PROVISIONING_PROFILE = "609FEA0D-E70D-4F2D-8E8B-0ADE353B1A05";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

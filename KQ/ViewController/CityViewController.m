@@ -40,7 +40,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    L();
     self.title = @"选择城市";
     
     NSString *cityPath = [NSString filePathForResource:@"citydict.plist"];
@@ -73,6 +73,15 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    L();
+    [super viewWillAppear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    L();
+    [super viewDidAppear:animated];
+}
 #pragma makr - IBAction
 - (IBAction)backPressed:(id)sender{
     [self back];

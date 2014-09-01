@@ -46,4 +46,5 @@
 - (CLLocationDistance)distanceFromLocation:(CLLocation*)location;
 
 - (void)test;
+
 @end
