@@ -12,7 +12,8 @@
 
 @interface RootViewController : UITabBarController{
 
-     BOOL rootLoadViewFlag;
+    BOOL rootLoadViewFlag;
+    
     NSMutableArray *testObjs;
 
 }
@@ -22,7 +23,7 @@
 
 - (void)registerNotification;
 - (void)handleAppFirstTimeOpen;
-- (void)handleRootFirstDidAppear;
+- (void)handleRootFirstWillAppear;
 
 //inherit
 - (void)test;

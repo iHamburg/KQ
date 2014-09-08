@@ -13,14 +13,18 @@
 #import "KQLoginViewController.h"
 #import "UserCenterViewController.h"
 #import "MainViewController.h"
-
+#import "EventViewController.h"
 
 
 @interface KQRootViewController (){
 
+    EventViewController *_eventVC;
     
 }
 
+@property (nonatomic, strong) IBOutlet EventViewController *eventVC;
+
+- (void)removeEvent;
 
 @end
 
@@ -32,7 +36,6 @@
     
     dispatch_once(&onceToken, ^{
 
-       
         sharedInstance = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     });
     
@@ -43,7 +46,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    L();
+    
+//    L();
     
     self.delegate = self;
    
@@ -66,20 +70,45 @@
 
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+    
+}
+
 - (void)viewDidAppear:(BOOL)animated{
     
     L();
     [super viewDidAppear:animated];
+
     
     [self test];
     
+    
 }
 
+- (void)handleRootFirstWillAppear{
+    
+    [super handleRootFirstWillAppear];
+    
+    [self performSegueWithIdentifier:@"toEvent" sender:self];
+
+}
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)registerNotification{
+    [super registerNotification];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"toLogin" object:nil queue:nil usingBlock:^(NSNotification *note) {
+        
+        [self performSegueWithIdentifier:@"toLogin" sender:self];
+    }];
+    
 }
 
 #pragma mark - TabbarController
@@ -100,7 +129,7 @@
 }
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
-//    L();
+
     
 }
 
@@ -117,9 +146,23 @@
 }
 
 
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"toLogin"]){
+    
+    }
+    else if([segue.identifier isEqualToString:@"toEvent"]){
+       
+        
+        _eventVC = segue.destinationViewController;
+        
+        __weak id vc = self;
+        _eventVC.back = ^{
+           
+            [(KQRootViewController*)vc removeEvent];
+            
+        };
     }
 }
 
@@ -132,6 +175,10 @@
     self.selectedIndex = 0;
 }
 
+- (void)removeEvent{
+    [self.eventVC.view removeFromSuperview];
+    self.eventVC = nil;
+}
 
 - (void)test{
     L();
@@ -139,7 +186,7 @@
     [[AVOSServer sharedInstance] test];
     [[NetworkClient sharedInstance] test];
     [[UserController sharedInstance] test];
- 
+
  
     
 

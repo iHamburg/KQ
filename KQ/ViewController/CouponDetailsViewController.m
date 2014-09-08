@@ -19,6 +19,7 @@
 #import "ShopDetailsViewController.h"
 #import "MapViewController.h"
 #import "ImageButtonCell.h"
+#import "AddCardViewController.h"
 
 #pragma mark - CouponHeader
 @interface CouponHeaderCell : CouponCell{
@@ -41,9 +42,10 @@
 @implementation CouponHeaderCell
 
 // 180: 135 + 45
+
 - (void)setValue:(Coupon*)coupon{
     
-//    L();
+
     _value = coupon;
     
     
@@ -97,7 +99,7 @@
 - (IBAction)downloadPressed:(id)sender{
 //    L();
     
-    _downloadBlock();
+    self.downloadBlock();
 }
 
 - (IBAction)favoriteToggled:(id)sender{
@@ -125,8 +127,25 @@
 }
 
 
+@end
+
+#pragma mark -
+@interface CoupenHeaderCell2: CouponHeaderCell{
+    
+}
 
 @end
+
+@implementation CoupenHeaderCell2
+
+
+
+@end
+
+
+
+
+
 
 #pragma mark - CouponUsage
 
@@ -369,11 +388,15 @@
         CouponHeaderCell *aCell = (CouponHeaderCell*)cell;
         
         aCell.downloadBlock = ^{
+            
             [vc downloadCoupon:self.coupon];
+        
         };
         
         aCell.toggleFavoriteBlock = ^{
+        
             [vc toggleFavoriteCoupon:self.coupon];
+        
         };
         
         
@@ -446,24 +469,33 @@
 
 //    NSLog(@"coupon # %@",coupon);
     if (!_userController.isLogin) {
-        [_libraryManager startHint:@"请先登录快券"];
+    
+//        [_libraryManager startHint:@"请先登录快券"];
+ 
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"toLogin" object:nil];
+        
         return;
+    
     }
-    
-     [_libraryManager startProgress:nil];
-    
-    [_networkClient user:_userController.uid downloadCoupon:coupon.id block:^(id obj, NSError *error) {
+    else if(!_userController.hasBankcard){
+        
+        AddCardViewController *vc = [[AddCardViewController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else{
+         [_libraryManager startProgress:nil];
+        
+         [_networkClient user:_userController.uid downloadCoupon:coupon.id block:^(id obj, NSError *error) {
 
-        [_libraryManager dismissProgress:nil];
-        
-        if (obj) {
-//          NSLog(@"did download");
+            [_libraryManager dismissProgress:nil];
             
-            [_libraryManager startHint:@"下载快券成功"];
-        }
-        
-    }];
-    
+             if (obj) {
+                
+                [_libraryManager startHint:@"下载快券成功"];
+            }
+            
+        }];
+    }
 }
 
 - (void)toggleFavoriteCoupon:(Coupon*)coupon{

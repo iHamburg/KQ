@@ -29,11 +29,13 @@
 @property (nonatomic, strong) NSString *uid;
 @property (nonatomic, strong) NSString *sessionToken;
 
+@property (nonatomic, readonly) BOOL isLogin;
+@property (nonatomic, readonly) BOOL hasBankcard;
 
 + (id)sharedInstance;
 
 
-- (BOOL)isLogin;
+//- (BOOL)isLogin;
 
 - (void)registerWithUserInfo:(NSDictionary*)userInfo block:(BooleanResultBlock)block;
 - (void)loginWithEmail:(NSString*)email pw:(NSString*)pw block:(BooleanResultBlock)block;
@@ -46,4 +48,5 @@
 - (CLLocationDistance)distanceFromLocation:(CLLocation*)location;
 
 - (void)test;
+
 @end

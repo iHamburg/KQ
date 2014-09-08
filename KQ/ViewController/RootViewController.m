@@ -49,7 +49,7 @@
         
         rootLoadViewFlag = NO;
         
-        [self handleRootFirstDidAppear];
+        [self handleRootFirstWillAppear];
         
 		if (isFirstOpen) {
 			
@@ -82,10 +82,11 @@
 }
 
 - (void)handleAppFirstTimeOpen{}
-- (void)handleRootFirstDidAppear{}
+- (void)handleRootFirstWillAppear{}
 
 
 - (void)registerNotification {
+   
     [[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(handleWillEnterForeground)
 												 name:UIApplicationWillEnterForegroundNotification

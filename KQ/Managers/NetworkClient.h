@@ -12,8 +12,8 @@
 #ifdef DEBUG
 
 
-#define RESTHOST @"http://192.168.1.103/kq/index.php/kqapi3"
-//#define RESTHOST @"http://115.29.148.47/kq/index.php/kqapi2"
+//#define RESTHOST @"http://192.168.1.100/kq/index.php/kqapi3"
+#define RESTHOST @"http://115.29.148.47/kq/index.php/kqapi3"
 
 #else
 
@@ -29,8 +29,6 @@
 
 
 + (id)sharedInstance;
-
-
 
 
 

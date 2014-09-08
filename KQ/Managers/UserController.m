@@ -41,6 +41,28 @@
     }];
 }
 
+- (BOOL)isLogin{
+    
+    
+    if (self.uid) {
+        return YES;
+    }
+    else
+        return NO;
+}
+
+- (BOOL)hasBankcard{
+    
+    if (!self.isLogin) {
+        return NO;
+    }
+    else if(ISEMPTY(self.people.cardIds)){
+        return NO;
+    }
+    else
+        return YES;
+}
+
 #pragma mark - Init
 
 + (id)sharedInstance {
@@ -122,34 +144,19 @@
     
     self.uid = [[NSUserDefaults standardUserDefaults] objectForKey:@"uid"];
     self.sessionToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
-    
-//    [_networkClient queryUserList:@[self.uid] block:^(NSArray* array, NSError *error) {
-//        if (!ISEMPTY(array)) {
-//            People *people = [People peopleWithDict:array[0]];
-//            self.people = people;
-//            NSLog(@"uid # %@,token # %@,people # %@",self.uid,people.sessionToken,people.phone);
-//            
-//        }
-//    }];
+ 
 
     [_networkClient queryUser:self.uid block:^(NSDictionary *dict, NSError *error) {
      
         if (!ISEMPTY(dict)) {
             self.people = [People peopleWithDict:dict];
+            
+//            NSLog(@"cards # %@",self.people.cardIds);
+//            NSLog(@"")
         }
         
         
     }];
-}
-
-- (BOOL)isLogin{
-
-    
-    if (self.uid) {
-        return YES;
-    }
-    else
-        return NO;
 }
 
 

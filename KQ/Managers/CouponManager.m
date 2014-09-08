@@ -43,7 +43,7 @@
         _networkClient = [NetworkClient sharedInstance];
         
      
-        [[LibraryManager sharedInstance] startProgress:@"queryCouponType"];
+//        [[LibraryManager sharedInstance] startProgress:@"queryCouponType"];
         
         [_networkClient queryHeadCouponTypesWithBlock:^(NSArray *array, NSError *error) {
             if (array) {
@@ -57,13 +57,12 @@
                 
                 self.couponTypes = types;
                 
-          
-                [[LibraryManager sharedInstance] dismissProgress:@"queryCouponType"];
+//                [[LibraryManager sharedInstance] dismissProgress:@"queryCouponType"];
             }
         }];
         
 
-        [[LibraryManager sharedInstance] startProgress:@"queryDistricts"];
+//        [[LibraryManager sharedInstance] startProgress:@"queryDistricts"];
         [_networkClient queryHeadDistrictsWithBlock:^(NSArray *array, NSError *error) {
             if (array) {
 //                    NSLog(@"distric # %@",array);
@@ -77,7 +76,7 @@
                 self.districts = types;
 
 
-                [[LibraryManager sharedInstance] dismissProgress:@"queryDistricts"];
+//                [[LibraryManager sharedInstance] dismissProgress:@"queryDistricts"];
 
             }
             

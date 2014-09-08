@@ -22,7 +22,6 @@
 - (void)shareWithText:(NSString*)text image:(UIImage*)image delegate:(id)delegate;
 
 
-
 - (void)startHint:(NSString*)text;
 - (void)startHint:(NSString *)text duration:(float)duration;
 
@@ -34,6 +33,7 @@
  *	@param 	key
  */
 - (void)startProgress:(NSString*)key;
+
 - (void)dismissProgress:(NSString*)key;
 
 @end

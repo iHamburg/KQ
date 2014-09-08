@@ -101,10 +101,12 @@
     NSRange range = [number rangeOfString:@"62"];
 //    NSLog(@"range # %@",NSStringFromRange(range));
 
-
     NSString *msg = @"请输入以62开头的13到19位银行卡号";
+    
     if (range.location!=0 || length<13 ||length>19) {
+        
         [UIAlertView showAlert:msg msg:nil cancel:@"OK"];
+    
         block(NO,nil);
        
     }
@@ -113,8 +115,8 @@
     }
 }
 
-- (void)addCard:(NSString*)number{
 
+- (void)addCard:(NSString*)number{
 
     [[LibraryManager sharedInstance] startProgress:nil];
     
@@ -126,8 +128,8 @@
 
             [self.navigationController popViewControllerAnimated:YES];
             
+            //!!!: 如果是从活动流程过来
             [_parent didAddCard];
-
             
         }
         

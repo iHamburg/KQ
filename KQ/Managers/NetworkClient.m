@@ -28,6 +28,7 @@
 
 //获取快券类型
 #define api_couponType           [RESTHOST stringByAppendingFormat:@"/couponType"]
+
 //获取一级类型
 #define api_headCouponTypes       [RESTHOST stringByAppendingFormat:@"/headCouponTypes"]
 
@@ -45,6 +46,7 @@
 
 //用户收藏的快券
 #define api_my_favoritedCoupon  [RESTHOST stringByAppendingFormat:@"/myFavoritedCoupon"]
+
 ///因为delete的参数不能用delete传，只有用get，所以要分开api
 #define api_my_favoritedCoupon_delete(uid,sessionToken,couponId)  [RESTHOST stringByAppendingFormat:@"/myFavoritedCoupon/uid/%@/sessionToken/%@/couponId/%@",uid,sessionToken,couponId]
 
@@ -109,12 +111,8 @@
 
 - (void)queryCoupon:(NSString*)couponId block:(IdResultBlock)block{
 
-//
-//    NSString *url = [RESTHOST stringByAppendingFormat:@"/Coupon/id/%@",couponId];
-//
-//    [self getWithUrl:url parameters:nil block:block];
-
     [self getWithUrl:api_coupon parameters:@{@"id":couponId} block:block];
+    
 }
 
 

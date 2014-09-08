@@ -16,7 +16,6 @@
 
 
 @interface MainCell : ConfigCell{
-
     
 }
 
@@ -60,9 +59,17 @@
 
 @end
 
+#pragma mark -
+
+
+
+#pragma mark - MainViewController
+
 @interface MainViewController (){
 
 }
+
+@property (nonatomic, strong) Coupon *eventCoupon;
 
 @end
 
@@ -79,7 +86,6 @@
     
     self.config = [[TableConfiguration alloc] initWithResource:@"mainConfig"];
 
-//    self.isLoadMore = NO;
 
 }
 
@@ -106,15 +112,16 @@
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
 
-//    NSLog(@"_root # %@,root # %@",_root,[[[[UIApplication sharedApplication] delegate] window] rootViewController]);
-
+    
+    
 }
+
+
 
 #pragma mark - IBAction
 
 - (IBAction)cityPressed:(id)sender{
     //    L();
-    
 
     [self performSegueWithIdentifier:@"toCity" sender:nil];
 }
@@ -182,13 +189,13 @@
 
     L();
 
-    [_libraryManager startProgress:nil];
+//    [_libraryManager startProgress:nil];
   
     [self.models removeAllObjects];
     
     [_networkClient queryNewestCouponsSkip:0 block:^(NSArray *couponDicts, NSError *error) {
         
-         [_libraryManager dismissProgress:nil];
+//         [_libraryManager dismissProgress:nil];
         
         [self addCouponsInModel:couponDicts];
         
@@ -245,6 +252,19 @@
     }
     
     [self.tableView reloadData];
+    
+  
+    
+    //FIXME: 这里对于eventCoupon的判定也可以根据id，不一定是第一个coupon
+    self.eventCoupon = [self.models firstObject];
+
+    [self toEventCoupon:self.eventCoupon];
+    
 }
 
+
+- (void)toEventCoupon:(Coupon*)coupon{
+    
+    [self performSegueWithIdentifier:@"toCouponDetails" sender:coupon];
+}
 @end

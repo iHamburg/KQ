@@ -13,7 +13,7 @@
 
 @property (nonatomic, unsafe_unretained) UserCardsViewController *parent;
 
-//- (BOOL)validate
+
 
 - (void)addCard:(NSString*)number;
 - (void)validateWithBlock:(BooleanResultBlock)block;
