@@ -43,7 +43,6 @@
     } afterDelay:3];
 }
 
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -53,7 +52,7 @@
 
 
 - (IBAction)handleTap:(id)sender{
-    L();
+ //   L();
     
     self.back();
     

@@ -13,4 +13,5 @@
 
 @property (nonatomic, strong) IBOutlet UIImageView *bgV;
 @property (nonatomic, copy) void(^back)(void);
+//
 @end
