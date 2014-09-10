@@ -31,6 +31,7 @@
     
 //	self.window.rootViewController = [KQRootViewController sharedInstance];
     
+    // after cloned from hamburg, changed from Forest
     
     
     return YES;
