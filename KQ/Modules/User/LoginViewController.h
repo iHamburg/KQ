@@ -14,14 +14,17 @@
     
     IBOutlet UITextField* _userTextField;
     IBOutlet UITextField *_passwordTextField;
-    IBOutlet UIImageView *_tfBgV;
+
 
     IBOutlet UIButton *_loginB;
     IBOutlet UIButton *_forgetB;
     IBOutlet UIButton *_registerB;
     
-    UIImageView *_bgV;
+
     UITableView *_tableView;
+    
+    NSArray *_tfs, *_tableImageNames;
+    
 }
 
 - (IBAction)loginPressed:(id)sender;

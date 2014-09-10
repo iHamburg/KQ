@@ -296,21 +296,12 @@
                     <view key="view" contentMode="scaleToFill" id="sbg-y8-l8b">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="login_tf_bg.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Kcc-qn-r8P">
-                                <rect key="frame" x="7" y="15" width="306" height="93"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            </imageView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="hello" id="GkP-y7-j6I">
                         <barButtonItem key="backBarButtonItem" title="back" id="TNC-0Q-Bey"/>
                     </navigationItem>
                     <nil key="simulatedTopBarMetrics"/>
-                    <connections>
-                        <outlet property="_tfBgV" destination="Kcc-qn-r8P" id="Bqg-kp-ikd"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Y8-pg-oSg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -770,9 +761,6 @@
             <point key="canvasLocation" x="688" y="3422"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="login_tf_bg.jpg" width="306" height="93"/>
-    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

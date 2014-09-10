@@ -21,7 +21,7 @@
 
 @implementation LoginViewController
 
-
+#define kCellHeight 44.0
 
 - (void)viewDidLoad{
 
@@ -41,7 +41,7 @@
     }
     
     
-    _userTextField = [[UITextField alloc] initWithFrame:CGRectMake(60, 17, 250, 40)];
+    _userTextField = [[UITextField alloc] initWithFrame:CGRectMake(60, 0, 250, kCellHeight)];
     _userTextField.keyboardType = UIKeyboardTypeNumberPad;
     _userTextField.returnKeyType = UIReturnKeyNext;
     _userTextField.placeholder = @"用户名";
@@ -52,7 +52,7 @@
 //    _userTextField.leftViewMode = UITextFieldViewModeAlways;
     
     
-    _passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake(60, CGRectGetMaxY(_userTextField.frame)+5, 250, 40)];//f
+    _passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake(60, 0, 250, kCellHeight)];//f
 
     _passwordTextField.secureTextEntry = YES;
     _passwordTextField.delegate = self;
@@ -60,17 +60,14 @@
     _passwordTextField.placeholder = @"密码";
     _passwordTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     
+    _tfs = @[_userTextField,_passwordTextField];
+    _tableImageNames = @[@"icon-user.png",@"icon-password01.png"];
     
-    
-    
-    
-//    [self.view addSubview:_userTextField];
-//    [self.view addSubview:_passwordTextField];
-//    [self.view addSubview:_registerB];
     
     
     _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
-    _scrollView.contentSize = CGSizeMake(0, 2000);
+    
+    _scrollView.contentSize = CGSizeMake(0, 600);
 
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, _w, 88 + 70) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
@@ -80,14 +77,18 @@
     
     _loginB = [UIButton buttonWithFrame:CGRectMake(10, CGRectGetMaxY(_tableView.frame) , 300, 40) title:LString(@"登录") bgImageName:nil target:self action:@selector(loginPressed:)];
     _loginB.backgroundColor = kColorYellow;
-    _loginB.titleLabel.font = [UIFont fontWithName:FONTNAME size:10];
+    _loginB.titleLabel.font = [UIFont fontWithName:kFontBoldName size:18];
     _loginB.layer.cornerRadius = 3;
     
     CGFloat y = CGRectGetMaxY(_loginB.frame) + 10;
     _registerB = [UIButton buttonWithFrame:CGRectMake(10, y, 100, 30) title:@"注册" bgImageName:nil target:self action:@selector(toRegister)];
+    _registerB.titleLabel.font = [UIFont fontWithName:kFontName size:18];
+    _registerB.contentHorizontalAlignment =UIControlContentHorizontalAlignmentLeft;
+
     
-    
-    _forgetB = [UIButton buttonWithFrame:CGRectMake(200, y, 100, 30) title:@"忘记密码？" bgImageName:nil target:self action:@selector(toForget)];
+    _forgetB = [UIButton buttonWithFrame:CGRectMake(210, y, 100, 30) title:@"忘记密码?" bgImageName:nil target:self action:@selector(toForget)];
+    _forgetB.contentHorizontalAlignment =UIControlContentHorizontalAlignmentRight;
+    _forgetB.titleLabel.font = [UIFont fontWithName:kFontName size:18];
     
     
     [_scrollView addSubview:_loginB];
@@ -97,6 +98,8 @@
    
 
     [self.view addSubview:_scrollView];
+
+    
 }
 
 
@@ -144,7 +147,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 44;
+    return kCellHeight;
 }
 
 
@@ -160,13 +163,11 @@
     
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier1];
-//        cell.textLabel.font = [UIFont fontWithName:FONTNAME size:16];
-//        cell.detailTextLabel.font = [UIFont fontWithName:FONTNAME size:16];
         
-        [cell.contentView addSubview:_userTextField];
+        [cell.contentView addSubview:_tfs[indexPath.row]];
     }
     
-    cell.imageView.image = [UIImage imageNamed:@"icon-user.png"];
+    cell.imageView.image = [UIImage imageNamed:_tableImageNames[indexPath.row]];
     
 
     
@@ -196,10 +197,6 @@
     }];
 }
 
-
-//- (void)enterForget{
-//
-//}
 
 
 - (IBAction)backPressed:(id)sender{

@@ -31,9 +31,9 @@
     self.title = @"用户注册";
     
     self.view.backgroundColor = kColorBG;
-//    self.view.backgroundColor = kColorWhite;
+
     
-//    scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+    scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     
     
     _bgV = [[UIImageView alloc] initWithFrame:CGRectMake(7, 10, 306, 182)];
@@ -75,15 +75,16 @@
     [scrollView addSubview:_usernameTextField];
     [scrollView addSubview:_registerB];
 
-//    
+
     scrollView.contentSize = CGSizeMake(0, 568);
+    
+    [self.view addSubview:scrollView];
     
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-//    [_userTextField becomeFirstResponder];
 }
 
 #pragma mark - Private methods

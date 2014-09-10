@@ -15,8 +15,6 @@
 
 
 
-
-
 #pragma mark - Key
 
 #define kUmengAppKey @"538860f456240ba9610181b2" // 在share的时候要用到
@@ -28,19 +26,18 @@
 #pragma mark - UI
 
 
-#define kColorGreen  [UIColor colorWithRed:0 green:173.0/255 blue:183.0/255 alpha:1]
-//#define kColorYellow  [UIColor colorWithRed:255.0/255 green:130.0/255 blue:0.0/255 alpha:1]
-#define kColorYellow  [UIColor colorWithRed:253.0/255 green:130.0/255 blue:37.0/255 alpha:1]
+#define kColorGreen     [UIColor colorWithRed:0 green:173.0/255 blue:183.0/255 alpha:1]
+#define kColorYellow        [UIColor colorWithRed:253.0/255 green:130.0/255 blue:37.0/255 alpha:1]
 #define kColorDarkYellow  [UIColor colorWithRed:255.0/255 green:134.0/255 blue:36.0/255 alpha:1]
 #define kColorLightYellow  [UIColor colorWithRed:255.0/255 green:164.0/255 blue:0.0/255 alpha:1]
-#define kColorBlack  [UIColor colorWithRed:23.0/255 green:33.0/255 blue:42.0/255 alpha:1]
+#define kColorBlack     [UIColor colorWithRed:23.0/255 green:33.0/255 blue:42.0/255 alpha:1]
 #define kColorDardGray [UIColor colorWithRed:100.0/255 green:100.0/255 blue:100.0/255 alpha:1]
-#define kColorGray  [UIColor colorWithRed:146.0/255 green:146.0/255 blue:146.0/255 alpha:1]
+#define kColorGray      [UIColor colorWithRed:146.0/255 green:146.0/255 blue:146.0/255 alpha:1]
 #define kColorLightGray  [UIColor colorWithRed:213.0/255 green:213.0/255 blue:213.0/255 alpha:1]
-#define kColorWhite [UIColor colorWithWhite:.97 alpha:1]
-#define kColorBG    [UIColor colorWithRed:242.0/255 green:242.0/255 blue:242.0/255 alpha:1]
-#define kColorRed    [UIColor colorWithRed:236.0/255 green:102.0/255 blue:57.0/255 alpha:1]
-#define kColorBlue     [UIColor colorWithRed:61.0/255 green:125.0/255 blue:245.0/255 alpha:1]
+#define kColorWhite     [UIColor colorWithWhite:.97 alpha:1]
+#define kColorBG        [UIColor colorWithRed:242.0/255 green:242.0/255 blue:242.0/255 alpha:1]
+#define kColorRed       [UIColor colorWithRed:236.0/255 green:102.0/255 blue:57.0/255 alpha:1]
+#define kColorBlue      [UIColor colorWithRed:61.0/255 green:125.0/255 blue:245.0/255 alpha:1]
 
 #define kHNavigationbar (isPad?44.0:32.0)
 #define kHPopNavigationbar (isPad?(isIOS7?44.0:36.0):32.0)

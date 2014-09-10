@@ -20,7 +20,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    _tfBgV.hidden = YES;
     
     _userTextField.placeholder = @"手机号";
 
@@ -51,6 +50,9 @@
 
 - (void)toRegister{
     L();
+    KQRegisterViewController *vc = [[KQRegisterViewController alloc] init];
+    
+    [self.navigationController pushViewController:vc animated:YES];
 
 }
 
