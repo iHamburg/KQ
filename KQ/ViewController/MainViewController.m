@@ -84,6 +84,7 @@
     self.title = @"快券";
     self.navigationController.tabBarItem.title = @"首页";
     
+    
     self.config = [[TableConfiguration alloc] initWithResource:@"mainConfig"];
 
 
@@ -253,11 +254,14 @@
     [self.tableView reloadData];
     
   
-    
-    //FIXME: 这里对于eventCoupon的判定也可以根据id，不一定是第一个coupon
-    self.eventCoupon = [self.models firstObject];
-
-    [self toEventCoupon:self.eventCoupon];
+    if (kIsMainApplyEvent) {
+        
+        //FIXME: 这里对于eventCoupon的判定也可以根据id，不一定是第一个coupon
+        self.eventCoupon = [self.models firstObject];
+        
+        [self toEventCoupon:self.eventCoupon];
+        
+    }
     
 }
 

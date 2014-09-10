@@ -79,10 +79,6 @@ void report_memory() {
 	
 }
 
-//NSDictionary* avosPoint(NSString* field,NSString* className, NSString* objectId){
-//
-//   return @{field:@{@"__type":@"Pointer",@"className":className,@"objectId":objectId}};
-//}
 
 //BOOL isPaid(void){
 //	

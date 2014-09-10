@@ -40,48 +40,63 @@
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     
+    
     _userTextField = [[UITextField alloc] initWithFrame:CGRectMake(60, 17, 250, 40)];
-//    _userTextField.leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_user.png"]];
-//    _userTextField.leftViewMode = UITextFieldViewModeAlways;
     _userTextField.keyboardType = UIKeyboardTypeNumberPad;
     _userTextField.returnKeyType = UIReturnKeyNext;
     _userTextField.placeholder = @"用户名";
     _userTextField.delegate = self;
-//    _userTextField.backgroundColor = [UIColor colorWithWhite:1 alpha:0.5];
     _userTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+//    _userTextField.backgroundColor = [UIColor colorWithWhite:1 alpha:0.5];
+//    _userTextField.leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_user.png"]];
+//    _userTextField.leftViewMode = UITextFieldViewModeAlways;
     
     
     _passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake(60, CGRectGetMaxY(_userTextField.frame)+5, 250, 40)];//f
-//    _passwordTextField.center = CGPointMake(_w/2, CGRectGetMaxY(_userTextField.frame)+40);
-//    _passwordTextField.leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_password.png"]];
-//    _passwordTextField.leftViewMode = UITextFieldViewModeAlways;
+
     _passwordTextField.secureTextEntry = YES;
     _passwordTextField.delegate = self;
     _passwordTextField.returnKeyType = UIReturnKeyGo;
     _passwordTextField.placeholder = @"密码";
-//    _passwordTextField.backgroundColor = [UIColor colorWithWhite:1 alpha:0.5];
     _passwordTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     
-    CGFloat y = CGRectGetMaxY(_passwordTextField.frame) ;
-    
-    _loginB = [UIButton buttonWithFrame:CGRectMake(30, y, 120, 40) title:LString(@"登录") bgImageName:nil target:self action:@selector(loginPressed:)];
-    _loginB.backgroundColor = kColorYellow;
-    _loginB.titleLabel.font = [UIFont fontWithName:FONTNAME size:20];
     
     
-//    _registerB = [UIButton buttonWithFrame:CGRectMake(170, y, 120, 40) title:@"注册" bgImageName:nil target:self action:@selector(registerPressed:)];
-//    _registerB.titleLabel.font = [UIFont fontWithName:FONTNAME size:20];
-//    _registerB.backgroundColor = kColorYellow;
     
-    [self.view addSubview:_userTextField];
-    [self.view addSubview:_passwordTextField];
-    [self.view addSubview:_loginB];
+    
+//    [self.view addSubview:_userTextField];
+//    [self.view addSubview:_passwordTextField];
 //    [self.view addSubview:_registerB];
     
-    self.view.backgroundColor = kColorWhite;
     
+    _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+    _scrollView.contentSize = CGSizeMake(0, 2000);
+
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, _w, 88 + 70) style:UITableViewStyleGrouped];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    _tableView.scrollEnabled = NO;
+    
+    
+    _loginB = [UIButton buttonWithFrame:CGRectMake(10, CGRectGetMaxY(_tableView.frame) , 300, 40) title:LString(@"登录") bgImageName:nil target:self action:@selector(loginPressed:)];
+    _loginB.backgroundColor = kColorYellow;
+    _loginB.titleLabel.font = [UIFont fontWithName:FONTNAME size:10];
+    _loginB.layer.cornerRadius = 3;
+    
+    CGFloat y = CGRectGetMaxY(_loginB.frame) + 10;
+    _registerB = [UIButton buttonWithFrame:CGRectMake(10, y, 100, 30) title:@"注册" bgImageName:nil target:self action:@selector(toRegister)];
+    
+    
+    _forgetB = [UIButton buttonWithFrame:CGRectMake(200, y, 100, 30) title:@"忘记密码？" bgImageName:nil target:self action:@selector(toForget)];
+    
+    
+    [_scrollView addSubview:_loginB];
+    [_scrollView addSubview:_registerB];
+    [_scrollView addSubview:_forgetB];
+    [_scrollView addSubview:_tableView];
    
 
+    [self.view addSubview:_scrollView];
 }
 
 
@@ -108,7 +123,62 @@
 - (IBAction)forgetPressed:(id)sender{
 
     
-    [self enterForget];
+    [self toForget];
+}
+
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    
+    return 1;
+    
+}
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    
+    return 2;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 44;
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    
+    static NSString *CellIdentifier1 = @"Cell1";
+    
+    
+    //!!!: 可以根据Setting的不同进行不同的工作
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier1];
+    
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier1];
+//        cell.textLabel.font = [UIFont fontWithName:FONTNAME size:16];
+//        cell.detailTextLabel.font = [UIFont fontWithName:FONTNAME size:16];
+        
+        [cell.contentView addSubview:_userTextField];
+    }
+    
+    cell.imageView.image = [UIImage imageNamed:@"icon-user.png"];
+    
+
+    
+    return cell;
+    
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+   
+    
+    
 }
 
 #pragma mark - Fcns
@@ -127,9 +197,9 @@
 }
 
 
-- (void)enterForget{
-
-}
+//- (void)enterForget{
+//
+//}
 
 
 - (IBAction)backPressed:(id)sender{
@@ -138,6 +208,10 @@
 }
 
 - (void)toRegister{
+    
+}
+
+- (void)toForget{
     
 }
 

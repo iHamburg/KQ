@@ -11,7 +11,6 @@
 @interface MainViewController : NetTableViewController
 
 
-
 - (void)toCouponDetails:(id)couponModel;
 
 

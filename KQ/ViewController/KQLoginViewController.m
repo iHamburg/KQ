@@ -20,11 +20,17 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    _tfBgV.hidden = YES;
+    
     _userTextField.placeholder = @"手机号";
-    _loginB.frame = CGRectMake(10, 120, 300, 40);
+
+    
     [_loginB setBackgroundColor:kColorRed];
     
-    self.title = @"登录快券";
+    [_registerB setTitleColor:kColorBlue forState:UIControlStateNormal];
+    [_forgetB setTitleColor:kColorBlue forState:UIControlStateNormal];
+    
+    self.title = @"登录";
   
     self.navigationController.navigationBar.translucent = NO;
     
@@ -45,10 +51,11 @@
 
 - (void)toRegister{
     L();
-//    RegisterViewController *vc = [[KQRegisterViewController alloc] init];
-//    [self.navigationController pushViewController:vc animated:YES];
 
-//    [self performSegueWithIdentifier:@"toRegister" sender:nil];
+}
+
+- (void)toForget{
+    
 }
 
 

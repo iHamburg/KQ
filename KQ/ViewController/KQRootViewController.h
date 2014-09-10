@@ -8,9 +8,10 @@
 
 #import "RootViewController.h"
 
+#define kIsMainApplyEvent  NO
 
 @interface KQRootViewController : RootViewController<UITabBarControllerDelegate>{
-//
+
 
 }
 

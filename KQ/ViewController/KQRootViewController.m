@@ -91,7 +91,12 @@
     
     [super handleRootFirstWillAppear];
     
-    [self performSegueWithIdentifier:@"toEvent" sender:self];
+
+    if (kIsMainApplyEvent) {
+        [self performSegueWithIdentifier:@"toEvent" sender:self];
+    }
+    
+
 
 }
 
