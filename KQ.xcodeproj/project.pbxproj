@@ -226,6 +226,20 @@
 		26FD1F871958CE9B0074A738 /* around_demo@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 26FD1F861958CE9B0074A738 /* around_demo@2x.jpg */; };
 		6EB0E79B2DF0497980209FAA /* libPods-KQTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D77DC981FBD7460891F5B186 /* libPods-KQTests.a */; };
 		82746BA17C3B4D42AE8196DB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE34221828C240E6B918B199 /* libPods.a */; };
+		8596C64719C13462003B3440 /* icon-index01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8596C64319C13462003B3440 /* icon-index01@2x.png */; };
+		8596C64819C13462003B3440 /* icon-nearby01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8596C64419C13462003B3440 /* icon-nearby01@2x.png */; };
+		8596C64919C13462003B3440 /* icon-search01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8596C64519C13462003B3440 /* icon-search01@2x.png */; };
+		8596C64A19C13462003B3440 /* icon-user01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8596C64619C13462003B3440 /* icon-user01@2x.png */; };
+		8596C64F19C13681003B3440 /* icon-index02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8596C64B19C13681003B3440 /* icon-index02@2x.png */; };
+		8596C65019C13681003B3440 /* icon-nearby02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8596C64C19C13681003B3440 /* icon-nearby02@2x.png */; };
+		8596C65119C13681003B3440 /* icon-search02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8596C64D19C13681003B3440 /* icon-search02@2x.png */; };
+		8596C65219C13681003B3440 /* icon-user02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8596C64E19C13681003B3440 /* icon-user02@2x.png */; };
+		8596C65419C16F09003B3440 /* register_banner.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8596C65319C16F09003B3440 /* register_banner.jpg */; };
+		8596C65619C1789F003B3440 /* icon-agreement03@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8596C65519C1789F003B3440 /* icon-agreement03@2x.png */; };
+		8596C65919C17A19003B3440 /* AgreementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8596C65819C17A19003B3440 /* AgreementViewController.m */; };
+		8596C65C19C184CD003B3440 /* SignViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8596C65B19C184CD003B3440 /* SignViewController.m */; };
+		8596C65F19C18891003B3440 /* ForgetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8596C65E19C18891003B3440 /* ForgetPasswordViewController.m */; };
+		8596C66119C19592003B3440 /* event_banner.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8596C66019C19592003B3440 /* event_banner.jpg */; };
 		85CAC52D19C057DD007A1F86 /* icon-agreement01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 85CAC52119C057DD007A1F86 /* icon-agreement01@2x.png */; };
 		85CAC52E19C057DD007A1F86 /* icon-agreement02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 85CAC52219C057DD007A1F86 /* icon-agreement02@2x.png */; };
 		85CAC52F19C057DD007A1F86 /* icon-credit card@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 85CAC52319C057DD007A1F86 /* icon-credit card@2x.png */; };
@@ -602,6 +616,23 @@
 		26F4FA4019B582B70019430A /* event_1136@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "event_1136@2x.jpg"; sourceTree = "<group>"; };
 		26F4FA4119B582B70019430A /* event.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = event.jpg; sourceTree = "<group>"; };
 		26FD1F861958CE9B0074A738 /* around_demo@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "around_demo@2x.jpg"; sourceTree = "<group>"; };
+		8596C64319C13462003B3440 /* icon-index01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-index01@2x.png"; sourceTree = "<group>"; };
+		8596C64419C13462003B3440 /* icon-nearby01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-nearby01@2x.png"; sourceTree = "<group>"; };
+		8596C64519C13462003B3440 /* icon-search01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-search01@2x.png"; sourceTree = "<group>"; };
+		8596C64619C13462003B3440 /* icon-user01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-user01@2x.png"; sourceTree = "<group>"; };
+		8596C64B19C13681003B3440 /* icon-index02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-index02@2x.png"; sourceTree = "<group>"; };
+		8596C64C19C13681003B3440 /* icon-nearby02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-nearby02@2x.png"; sourceTree = "<group>"; };
+		8596C64D19C13681003B3440 /* icon-search02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-search02@2x.png"; sourceTree = "<group>"; };
+		8596C64E19C13681003B3440 /* icon-user02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-user02@2x.png"; sourceTree = "<group>"; };
+		8596C65319C16F09003B3440 /* register_banner.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = register_banner.jpg; sourceTree = "<group>"; };
+		8596C65519C1789F003B3440 /* icon-agreement03@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-agreement03@2x.png"; sourceTree = "<group>"; };
+		8596C65719C17A19003B3440 /* AgreementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgreementViewController.h; sourceTree = "<group>"; };
+		8596C65819C17A19003B3440 /* AgreementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgreementViewController.m; sourceTree = "<group>"; };
+		8596C65A19C184CD003B3440 /* SignViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = SignViewController.h; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		8596C65B19C184CD003B3440 /* SignViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = SignViewController.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 1; };
+		8596C65D19C18891003B3440 /* ForgetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgetPasswordViewController.h; sourceTree = "<group>"; };
+		8596C65E19C18891003B3440 /* ForgetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgetPasswordViewController.m; sourceTree = "<group>"; };
+		8596C66019C19592003B3440 /* event_banner.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = event_banner.jpg; sourceTree = "<group>"; };
 		85CAC52119C057DD007A1F86 /* icon-agreement01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-agreement01@2x.png"; sourceTree = "<group>"; };
 		85CAC52219C057DD007A1F86 /* icon-agreement02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-agreement02@2x.png"; sourceTree = "<group>"; };
 		85CAC52319C057DD007A1F86 /* icon-credit card@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-credit card@2x.png"; sourceTree = "<group>"; };
@@ -744,6 +775,7 @@
 		26DEB4B11941942B0063AADC /* icons */ = {
 			isa = PBXGroup;
 			children = (
+				8596C64219C13462003B3440 /* tabIcon */,
 				26B26C6F194D8A3B007C1DE6 /* icon_mycards@2x.png */,
 				26B26C70194D8A3B007C1DE6 /* icon_mycoupons@2x.png */,
 				26B26C71194D8A3B007C1DE6 /* icon_myfavoritedcoupons@2x.png */,
@@ -767,6 +799,7 @@
 				26DE6441195ECA15008835D6 /* icon_fullStar@2x.png */,
 				85CAC52119C057DD007A1F86 /* icon-agreement01@2x.png */,
 				85CAC52219C057DD007A1F86 /* icon-agreement02@2x.png */,
+				8596C65519C1789F003B3440 /* icon-agreement03@2x.png */,
 				85CAC52319C057DD007A1F86 /* icon-credit card@2x.png */,
 				85CAC52419C057DD007A1F86 /* icon-delete@2x.png */,
 				85CAC52519C057DD007A1F86 /* icon-identifying@2x.png */,
@@ -784,6 +817,8 @@
 		26E0BDBD194B9C5400FECD2A /* images */ = {
 			isa = PBXGroup;
 			children = (
+				8596C65319C16F09003B3440 /* register_banner.jpg */,
+				8596C66019C19592003B3440 /* event_banner.jpg */,
 				26F4FA4019B582B70019430A /* event_1136@2x.jpg */,
 				26F4FA4119B582B70019430A /* event.jpg */,
 				26DE73AE1963A37C008B2E52 /* bg_nav@2x.png */,
@@ -1156,10 +1191,16 @@
 		26E3A573192DE042004F8C8C /* User */ = {
 			isa = PBXGroup;
 			children = (
+				8596C65A19C184CD003B3440 /* SignViewController.h */,
+				8596C65B19C184CD003B3440 /* SignViewController.m */,
 				26E3A574192DE042004F8C8C /* LoginViewController.h */,
 				26E3A575192DE042004F8C8C /* LoginViewController.m */,
 				26E3A576192DE042004F8C8C /* RegisterViewController.h */,
 				26E3A577192DE042004F8C8C /* RegisterViewController.m */,
+				8596C65D19C18891003B3440 /* ForgetPasswordViewController.h */,
+				8596C65E19C18891003B3440 /* ForgetPasswordViewController.m */,
+				8596C65719C17A19003B3440 /* AgreementViewController.h */,
+				8596C65819C17A19003B3440 /* AgreementViewController.m */,
 				26E3A5E4192E2158004F8C8C /* KQLoginViewController.h */,
 				26E3A5E5192E2158004F8C8C /* KQLoginViewController.m */,
 				26E3A5E7192E216C004F8C8C /* KQRegisterViewController.h */,
@@ -1396,6 +1437,21 @@
 			name = Segue;
 			sourceTree = "<group>";
 		};
+		8596C64219C13462003B3440 /* tabIcon */ = {
+			isa = PBXGroup;
+			children = (
+				8596C64319C13462003B3440 /* icon-index01@2x.png */,
+				8596C64419C13462003B3440 /* icon-nearby01@2x.png */,
+				8596C64519C13462003B3440 /* icon-search01@2x.png */,
+				8596C64619C13462003B3440 /* icon-user01@2x.png */,
+				8596C64B19C13681003B3440 /* icon-index02@2x.png */,
+				8596C64C19C13681003B3440 /* icon-nearby02@2x.png */,
+				8596C64D19C13681003B3440 /* icon-search02@2x.png */,
+				8596C64E19C13681003B3440 /* icon-user02@2x.png */,
+			);
+			path = tabIcon;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1481,9 +1537,12 @@
 				26EE1F9D1945EF76007C98AA /* UserCenterLoginConfig.plist in Resources */,
 				85CAC53719C057DD007A1F86 /* icon-tip@2x.png in Resources */,
 				26E16BB6194F1CD500036039 /* couponHeaderBGPattern@2x.jpg in Resources */,
+				8596C65019C13681003B3440 /* icon-nearby02@2x.png in Resources */,
 				85CAC52D19C057DD007A1F86 /* icon-agreement01@2x.png in Resources */,
 				26DEB4BF19419B440063AADC /* citydict.plist in Resources */,
 				26FD1F871958CE9B0074A738 /* around_demo@2x.jpg in Resources */,
+				8596C64919C13462003B3440 /* icon-search01@2x.png in Resources */,
+				8596C64819C13462003B3440 /* icon-nearby01@2x.png in Resources */,
 				85CAC52F19C057DD007A1F86 /* icon-credit card@2x.png in Resources */,
 				26B26C77194D8A3B007C1DE6 /* icon_myfavoritedshops@2x.png in Resources */,
 				26E0BDCB194BA86700FECD2A /* main_kuaiquan@2x.png in Resources */,
@@ -1496,11 +1555,13 @@
 				26E08B2219545A7B00E55A96 /* ShopBranchListConfig.plist in Resources */,
 				26821B5119532DB6005549D3 /* Root.storyboard in Resources */,
 				26E3203519526785000A14EF /* UserCardsConfig.plist in Resources */,
+				8596C64A19C13462003B3440 /* icon-user01@2x.png in Resources */,
 				26E1661A193976780041CDD6 /* UMSnsAccountViewController.xib in Resources */,
 				26DE2D8419501DE900F9C46E /* UserAvatarCell.xib in Resources */,
 				26E16615193976780041CDD6 /* UMSCommentInputController.xib in Resources */,
 				26DE6443195ECA15008835D6 /* icon_fullStar@2x.png in Resources */,
 				26E08B2419545B7300E55A96 /* ShopBranchListCell.xib in Resources */,
+				8596C64F19C13681003B3440 /* icon-index02@2x.png in Resources */,
 				26E0BDBA194B95CA00FECD2A /* icon_main2@2x.png in Resources */,
 				26E0BDC9194BA86700FECD2A /* main_haiwai@2x.png in Resources */,
 				85CAC53419C057DD007A1F86 /* icon-password01@2x.png in Resources */,
@@ -1518,6 +1579,7 @@
 				26B26C75194D8A3B007C1DE6 /* icon_mycoupons@2x.png in Resources */,
 				26E50C651958654600CBFEE8 /* card_bg@2x.png in Resources */,
 				26DEB4BB1941942B0063AADC /* icon_menu@2x.png in Resources */,
+				8596C65419C16F09003B3440 /* register_banner.jpg in Resources */,
 				85CAC53219C057DD007A1F86 /* icon-info@2x.png in Resources */,
 				26919EE3195D7DC000974010 /* UserSettingsConfig.plist in Resources */,
 				26E290FD193DB41600B7E0C9 /* mainConfig.plist in Resources */,
@@ -1536,6 +1598,7 @@
 				26E3A545192DE02F004F8C8C /* Images.xcassets in Resources */,
 				26E0BDB8194B946400FECD2A /* icon_main@2x.png in Resources */,
 				26E36BD31951AC6B0008707A /* userCenter_bg.png in Resources */,
+				8596C65119C13681003B3440 /* icon-search02@2x.png in Resources */,
 				26E50C6E19588E2700CBFEE8 /* register_tf_bg@2x.jpg in Resources */,
 				262CF1431958AFB600A4FA26 /* coupon_header_bg@2x.png in Resources */,
 				26E1661C193976780041CDD6 /* UMSocialSDKResourcesNew.bundle in Resources */,
@@ -1543,9 +1606,12 @@
 				26E50C671958687D00CBFEE8 /* card_add@2x.png in Resources */,
 				85CAC53319C057DD007A1F86 /* icon-name@2x.png in Resources */,
 				26E16616193976780041CDD6 /* UMSCommentInputControlleriPad.xib in Resources */,
+				8596C65619C1789F003B3440 /* icon-agreement03@2x.png in Resources */,
 				85CAC53819C057DD007A1F86 /* icon-user@2x.png in Resources */,
 				26D393EC194E9027000ED175 /* quickquan300.jpg in Resources */,
+				8596C66119C19592003B3440 /* event_banner.jpg in Resources */,
 				26DE6445195EEBB0008835D6 /* ShopListCell.xib in Resources */,
+				8596C64719C13462003B3440 /* icon-index01@2x.png in Resources */,
 				26E50C5919584E7300CBFEE8 /* icon_location@2x.png in Resources */,
 				26E16617193976780041CDD6 /* UMShareEditViewController.xib in Resources */,
 				26E50C5C195856D600CBFEE8 /* search_demo@2x.jpg in Resources */,
@@ -1564,6 +1630,7 @@
 				85CAC53119C057DD007A1F86 /* icon-identifying@2x.png in Resources */,
 				26B26C78194D8A3B007C1DE6 /* icon_mysettings@2x.png in Resources */,
 				26B26C6E194D7166007C1DE6 /* icon_user@2x.png in Resources */,
+				8596C65219C13681003B3440 /* icon-user02@2x.png in Resources */,
 				26E36BD51951BA470008707A /* UserCouponsConfig.plist in Resources */,
 				26E0BDCA194BA86700FECD2A /* main_huodong@2x.png in Resources */,
 				26E3A53A192DE02F004F8C8C /* Main.storyboard in Resources */,
@@ -1716,6 +1783,7 @@
 				26E14B8C193C65FD007A7081 /* ConfigCell.m in Sources */,
 				26E3A5CF192DE042004F8C8C /* ExternVariables.m in Sources */,
 				26E14B8E193C65FD007A7081 /* LoadMoreCell.m in Sources */,
+				8596C65919C17A19003B3440 /* AgreementViewController.m in Sources */,
 				26E14B9C193C65FD007A7081 /* TextViewCell.m in Sources */,
 				26E14B53193C64B6007A7081 /* MainViewController.m in Sources */,
 				26E3A5BE192DE042004F8C8C /* NSArray+Extras.m in Sources */,
@@ -1743,9 +1811,11 @@
 				26E290F5193DB23600B7E0C9 /* Card.m in Sources */,
 				26E3A5D3192DE042004F8C8C /* RootViewController.m in Sources */,
 				26E14BC5193CC313007A7081 /* Coupon.m in Sources */,
+				8596C65C19C184CD003B3440 /* SignViewController.m in Sources */,
 				26E3A5B7192DE042004F8C8C /* SettingCell.m in Sources */,
 				263527E21946FD98003A30DD /* NSDictionary+Extras.m in Sources */,
 				26E29104193DBC4000B7E0C9 /* CouponDetailsViewController.m in Sources */,
+				8596C65F19C18891003B3440 /* ForgetPasswordViewController.m in Sources */,
 				26E3A5CA192DE042004F8C8C /* UIImage+Extras.m in Sources */,
 				261D34C11946C1ED009F75CF /* UserSettingsViewController.m in Sources */,
 				26E14BA2193C6754007A7081 /* KQLabel.m in Sources */,

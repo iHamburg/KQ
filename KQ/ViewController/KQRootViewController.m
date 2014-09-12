@@ -14,6 +14,7 @@
 #import "UserCenterViewController.h"
 #import "MainViewController.h"
 #import "EventViewController.h"
+#import "UserController.h"
 
 
 @interface KQRootViewController (){
@@ -52,17 +53,23 @@
     self.delegate = self;
    
     UITabBar *tabBar = self.tabBar;
-    [tabBar setTintColor:kColorYellow];
+    [tabBar setTintColor:[UIColor colorWithRed:252.0/255 green:81.0/255 blue:32.0/255 alpha:1]];
     [tabBar setBarTintColor:[UIColor whiteColor]];
     UITabBarItem *tabBarItem1 = [tabBar.items objectAtIndex:0];
     UITabBarItem *tabBarItem2 = [tabBar.items objectAtIndex:1];
     UITabBarItem *tabBarItem3 = [tabBar.items objectAtIndex:2];
     UITabBarItem *tabBarItem4 = [tabBar.items objectAtIndex:3];
     
-    [tabBarItem1 setImage:[UIImage imageNamed:@"icon_main2.png"]];
-    [tabBarItem2 setImage:[UIImage imageNamed:@"icon_location.png"]];
-    [tabBarItem3 setImage:[UIImage imageNamed:@"icon_search.png"]];
-    [tabBarItem4 setImage:[UIImage imageNamed:@"icon_tabuser.png"]];
+    [tabBarItem1 setImage:[UIImage imageNamed:@"icon-index01.png"]];
+    [tabBarItem2 setImage:[UIImage imageNamed:@"icon-nearby01.png"]];
+    [tabBarItem3 setImage:[UIImage imageNamed:@"icon-search01.png"]];
+    [tabBarItem4 setImage:[UIImage imageNamed:@"icon-user01.png"]];
+    
+     [tabBarItem1 setSelectedImage:[UIImage imageNamed:@"icon-index02.png"]];
+     [tabBarItem2 setSelectedImage:[UIImage imageNamed:@"icon-nearby02.png"]];
+     [tabBarItem3 setSelectedImage:[UIImage imageNamed:@"icon-search02.png"]];
+     [tabBarItem4 setSelectedImage:[UIImage imageNamed:@"icon-user02.png"]];
+    
     [tabBarItem2 setTitle:@"附近"];
     [tabBarItem3 setTitle:@"搜索"];
     [tabBarItem4 setTitle:@"我的"];
@@ -116,6 +123,26 @@
     
 }
 
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"toLogin"]){
+        
+    }
+    else if([segue.identifier isEqualToString:@"toEvent"]){
+        
+        
+        _eventVC = segue.destinationViewController;
+        
+        __weak id vc = self;
+        _eventVC.back = ^{
+            
+            [(KQRootViewController*)vc removeEvent];
+            
+        };
+    }
+}
 #pragma mark - TabbarController
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UINavigationController *)viewController{
@@ -142,7 +169,18 @@
 
 #pragma mark - Fcns
 
-
+- (void)startEvent{
+    
+    //判断是否登录
+    
+    if ([[UserController sharedInstance] isLogin]) {
+        NSLog(@" is login");
+    }
+    else{
+        NSLog(@" isn't login ");
+    }
+    
+}
 
 
 - (IBAction)toLogin {
@@ -152,24 +190,6 @@
 
 
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"toLogin"]){
-    
-    }
-    else if([segue.identifier isEqualToString:@"toEvent"]){
-       
-        
-        _eventVC = segue.destinationViewController;
-        
-        __weak id vc = self;
-        _eventVC.back = ^{
-           
-            [(KQRootViewController*)vc removeEvent];
-            
-        };
-    }
-}
 
 - (void)didLogin{
 //    self.selectedIndex = 3;

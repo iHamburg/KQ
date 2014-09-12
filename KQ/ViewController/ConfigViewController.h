@@ -6,7 +6,7 @@
 //  Copyright (c) 2014年 Xappsoft. All rights reserved.
 //
 
-#import "KQRootViewController.h"
+
 #import "TableConfiguration.h"
 #import "UserController.h"
 #import "NetworkClient.h"
@@ -16,9 +16,9 @@
 
 @interface ConfigViewController : UITableViewController{
 
-    TableConfiguration *_config;
-    KQRootViewController *_root;
-    UserController *_userController;
+    TableConfiguration *_config;    // Table配置文件
+    
+    UserController *_userController;  // 用户控制器
     NetworkClient *_networkClient;
     LibraryManager *_libraryManager;
     CouponManager *_manager;
@@ -27,12 +27,11 @@
 }
 
 @property (nonatomic, strong) TableConfiguration *config;
-@property (nonatomic, strong) KQRootViewController *root;
 @property (nonatomic, strong) UserController *userController;
 
 
-- (void)initConfigCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath;
-- (void)configCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath;
+- (void)initConfigCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath; //开始只调用一次的cell配置
+- (void)configCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath;     //每次reload table都会调用的cell配置
 
 
 @end

@@ -13,6 +13,7 @@
 #import "UserCardsViewController.h"
 #import "UserSettingsViewController.h"
 #import "UIImageView+WebCache.h"
+#import "KQRootViewController.h"
 
 
 @interface UserAvatarCell : PeopleCell<UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate>
@@ -283,7 +284,9 @@
     
     [_userController logout];
 
-    [_root didLogout];
+//    [_root didLogout];
+    
+    [[KQRootViewController sharedInstance] didLogout];
 }
 
 - (void)didLogin{

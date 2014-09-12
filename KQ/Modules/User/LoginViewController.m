@@ -10,12 +10,11 @@
 
 #import "UserController.h"
 #import "KQRootViewController.h"
+#import "ForgetPasswordViewController.h"
 
 
 @interface LoginViewController ()
 
-@property (nonatomic, strong) IBOutlet UITextField *userTextField;
-@property (nonatomic, strong) IBOutlet UITextField *passwordTextField;
 
 @end
 
@@ -27,24 +26,14 @@
 
     [super viewDidLoad];
     
-  
-    UIBarButtonItem *bb = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_back.png" target:self action:@selector(backPressed:)]];
-
-    self.navigationItem.leftBarButtonItem = bb;
-
+    
     self.title = @"用户登录";
-    
-    
-    if (isIOS7) {
-        
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-    }
-    
+
     
     _userTextField = [[UITextField alloc] initWithFrame:CGRectMake(60, 0, 250, kCellHeight)];
     _userTextField.keyboardType = UIKeyboardTypeNumberPad;
     _userTextField.returnKeyType = UIReturnKeyNext;
-    _userTextField.placeholder = @"用户名";
+    _userTextField.placeholder = @"手机号";
     _userTextField.delegate = self;
     _userTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
 //    _userTextField.backgroundColor = [UIColor colorWithWhite:1 alpha:0.5];
@@ -64,10 +53,6 @@
     _tableImageNames = @[@"icon-user.png",@"icon-password01.png"];
     
     
-    
-    _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
-    
-    _scrollView.contentSize = CGSizeMake(0, 600);
 
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, _w, 88 + 70) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
@@ -97,7 +82,7 @@
     [_scrollView addSubview:_tableView];
    
 
-    [self.view addSubview:_scrollView];
+     _scrollView.contentSize = CGSizeMake(0, 600);
 
     
 }
@@ -178,8 +163,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
    
+
+}
+
+#pragma mark - 
+- (void)back{
     
-    
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+        
+    }];
 }
 
 #pragma mark - Fcns
@@ -189,7 +181,9 @@
     [[UserController sharedInstance] loginWithEmail:email pw:password block:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
         
-            [self close];
+            [self back];
+            
+            //TODO: 这里发一个消息更好！
             
             [[KQRootViewController sharedInstance] didLogin];
         
@@ -199,26 +193,18 @@
 
 
 
-- (IBAction)backPressed:(id)sender{
-    
-    [self close];
-}
 
 - (void)toRegister{
     
 }
 
 - (void)toForget{
+    L();
     
+    ForgetPasswordViewController *vc = [[ForgetPasswordViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)close{
-    
-    
-    [self.navigationController dismissViewControllerAnimated:YES completion:^{
-        
-    }];
-}
 
 
 

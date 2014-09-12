@@ -31,7 +31,7 @@
 #define kColorDarkYellow  [UIColor colorWithRed:255.0/255 green:134.0/255 blue:36.0/255 alpha:1]
 #define kColorLightYellow  [UIColor colorWithRed:255.0/255 green:164.0/255 blue:0.0/255 alpha:1]
 #define kColorBlack     [UIColor colorWithRed:23.0/255 green:33.0/255 blue:42.0/255 alpha:1]
-#define kColorDardGray [UIColor colorWithRed:100.0/255 green:100.0/255 blue:100.0/255 alpha:1]
+#define kColorDardGray  [UIColor colorWithRed:100.0/255 green:100.0/255 blue:100.0/255 alpha:1]
 #define kColorGray      [UIColor colorWithRed:146.0/255 green:146.0/255 blue:146.0/255 alpha:1]
 #define kColorLightGray  [UIColor colorWithRed:213.0/255 green:213.0/255 blue:213.0/255 alpha:1]
 #define kColorWhite     [UIColor colorWithWhite:.97 alpha:1]
@@ -40,7 +40,9 @@
 #define kColorBlue      [UIColor colorWithRed:61.0/255 green:125.0/255 blue:245.0/255 alpha:1]
 
 #define kHNavigationbar (isPad?44.0:32.0)
+
 #define kHPopNavigationbar (isPad?(isIOS7?44.0:36.0):32.0)
+
 
 typedef void (^VoidBlock)();
 typedef void (^BooleanResultBlock)(BOOL succeeded, NSError *error);
@@ -53,7 +55,10 @@ typedef void (^StringResultBlock)(NSString *string, NSError *error);
 typedef void (^IdResultBlock)(id object, NSError *error);
 typedef void (^ProgressBlock)(int percentDone);
 
+
+
 #pragma mark - Debug & Release
+
 
 #ifdef DEBUG
 

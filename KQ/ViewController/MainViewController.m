@@ -12,7 +12,7 @@
 #import "CouponDetailsViewController.h"
 #import "KQRootViewController.h"
 #import "CityViewController.h"
-
+#import "ImageCell.h"
 
 
 @interface MainCell : ConfigCell{
@@ -84,10 +84,10 @@
     self.title = @"快券";
     self.navigationController.tabBarItem.title = @"首页";
     
-    
     self.config = [[TableConfiguration alloc] initWithResource:@"mainConfig"];
 
 
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 }
 
 - (void)didReceiveMemoryWarning
@@ -101,12 +101,12 @@
     [super viewWillAppear:animated];
     
     
-    NSString *city = _userController.city;
-    if (ISEMPTY(city)) {
-        city = @"选择城市";
-    }
-    
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:city style:UIBarButtonItemStylePlain target:self action:@selector(cityPressed:)];
+//    NSString *city = _userController.city;
+//    if (ISEMPTY(city)) {
+//        city = @"选择城市";
+//    }
+//    
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:city style:UIBarButtonItemStylePlain target:self action:@selector(cityPressed:)];
 
 }
 
@@ -120,23 +120,45 @@
 
 #pragma mark - IBAction
 
-- (IBAction)cityPressed:(id)sender{
-    //    L();
-
-    [self performSegueWithIdentifier:@"toCity" sender:nil];
-}
+//- (IBAction)cityPressed:(id)sender{
+//    //    L();
+//
+//    [self performSegueWithIdentifier:@"toCity" sender:nil];
+//}
 
 #pragma mark - TableView
 
-
+//- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+//    if (section == 0) {
+//        return nil;
+//    }
+//    else{
+//        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 320, 38)];
+//        label.text = @"表格头";
+//        return label;
+//    }
+//}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
 
     if (section == 1) {
-        return 20;
+        return 40;
     }
     return 1.0f;
     
+
+}
+
+- (void)initConfigCell:(ConfigCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+    
+    if([cell isKindOfClass:[ImageCell class]]){
+        
+        [cell setValue:[UIImage imageNamed:@"event_banner.jpg"]];
+        
+        [cell addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(test)]];
+        
+        
+    }
 
 }
 
@@ -151,7 +173,10 @@
    
     }
    
+}
 
+- (void)test{
+    L();
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -171,15 +196,10 @@
 
 }
 
-- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(ConfigCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
- 
-
-}
-
-
 
 
 #pragma mark - Fcns;
+
 
 
 
@@ -228,8 +248,8 @@
 - (void)toCouponDetails:(Coupon*)coupon{
 
 
-
     [self performSegueWithIdentifier:@"toCouponDetails" sender:coupon];
+    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

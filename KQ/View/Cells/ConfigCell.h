@@ -9,13 +9,16 @@
 #import "KQLabel.h"
 
 @interface ConfigCell : UITableViewCell{
+    
     NSString *_key;
+   
     id _value;
     
     
     UILabel *_firstLabel;
     UILabel *_secondLabel;
     UILabel *_thirdLabel;
+    
     UIImageView *_avatarV;
     
 
@@ -31,7 +34,7 @@
 
 
 /**
- *	@brief	cell初始化完后，是否在VC进行初始设置的flag
+ *	@brief 判断cell是否初始化完成，
  */
 @property (nonatomic, assign) BOOL isInited;
 
@@ -39,7 +42,7 @@
 
 + (CGFloat)cellHeightWithValue:(id)value;
 
-- (void)load;
+- (void)load;  //Cell的初始化
 
 
 @end

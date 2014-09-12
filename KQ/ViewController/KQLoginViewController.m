@@ -33,7 +33,7 @@
   
     self.navigationController.navigationBar.translucent = NO;
     
-    self.view.backgroundColor = kColorBG;
+    
  }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -56,9 +56,9 @@
 
 }
 
-- (void)toForget{
-    
-}
+//- (void)toForget{
+//    
+//}
 
 
 @end

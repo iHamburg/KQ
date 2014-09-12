@@ -11,14 +11,24 @@
 @implementation ImageCell
 
 
+
 - (void)setValue:(UIImage*)image{
+
+    
 
     self.imageView.image = image;
 
 }
 
+- (void)load{
+    
+    [super load];
+
+}
+
 - (void)layoutSubviews{
     
+    //默认组件的frame只能在layoutSubviews中设定. 或者可以在load中确定具体的size
     self.imageView.frame = self.bounds;
 }
 

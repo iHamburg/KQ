@@ -8,6 +8,7 @@
 
 #import "ConfigCell.h"
 #import "Coupon.h"
+
 @interface CouponCell : ConfigCell
 
 @end

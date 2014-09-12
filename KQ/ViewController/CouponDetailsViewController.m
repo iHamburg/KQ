@@ -219,7 +219,8 @@
     self.firstLabel.numberOfLines = 0;
     self.firstLabel.font = [UIFont fontWithName:kFontName size:12];
     self.firstLabel.textColor = kColorDardGray;
-//    self.firstLabel.backgroundColor = [UIColor redColor];
+
+    //    self.firstLabel.backgroundColor = [UIColor redColor];
     [self addSubview:self.firstLabel];
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -252,13 +253,12 @@
 @implementation CouponDetailsViewController
 
 
-/**
- 
- */
-
 - (void)setCoupon:(Coupon *)coupon{
     
     L();
+    
+    NSParameterAssert(coupon);
+    
     _coupon = coupon;
     
     //如果用户已经登录, 查看coupon是否已经收藏
@@ -276,6 +276,8 @@
             }
         }
     }
+    
+    
   
     /// 从CouponList过来，需要coupon的details
     [[NetworkClient sharedInstance] queryCoupon:coupon.id block:^(NSDictionary *dict, NSError *error) {
@@ -290,15 +292,16 @@
         
         NSArray *branches = dict[@"shop"][@"shopBranches"];
         
+        
         for (NSDictionary *shopDict in branches) {
-            
             
             Shop *shop = [Shop shopWithDictionary:shopDict];
             [array addObject:shop];
         }
         
         self.shopBranches = [array copy];
-//        NSLog(@"shopbranches # %@",self.shopBranches);
+        
+//      NSLog(@"shopbranches # %@",self.shopBranches);
         
         self.nearestShopBranch = [self.shopBranches firstObject];
     

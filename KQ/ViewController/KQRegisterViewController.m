@@ -8,6 +8,7 @@
 
 #import "KQRegisterViewController.h"
 #import "UserController.h"
+#import "AgreementViewController.h"
 
 @interface KQRegisterViewController ()
 
@@ -44,6 +45,17 @@
 
 }
 
+#pragma mark - Fcn
+
+
+- (void)toAgreement{
+    
+    AgreementViewController *vc = [[AgreementViewController alloc]init];
+    vc.title = @"快券注册协议";
+    
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 -(IBAction)signUpUserPressed:(id)sender
 {
     
@@ -51,8 +63,13 @@
     
     [self validateWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
+//            NSDictionary *info = @{@"username":self.userTextField.text,@"password":_passwordTextField.text,@"phone":_userTextField.text,
+//                                   @"nickname":_usernameTextField.text};
+
+            
+            // 这里
             NSDictionary *info = @{@"username":self.userTextField.text,@"password":_passwordTextField.text,@"phone":_userTextField.text,
-                                   @"nickname":_usernameTextField.text};
+                                  @"nickname":@"bla"};
             
             //    NSLog(@"info # %@",info);
             
@@ -66,7 +83,7 @@
 - (void)validateWithBlock:(BooleanResultBlock)block{
 
       NSString *msg = @"请输入所有信息";
-    if (ISEMPTY(_userTextField.text) || ISEMPTY(_passwordTextField.text) || ISEMPTY(_usernameTextField.text)) {
+    if (ISEMPTY(_userTextField.text) || ISEMPTY(_passwordTextField.text)) {
         [UIAlertView showAlert:msg msg:nil cancel:@"OK"];
         block(NO,nil);
         

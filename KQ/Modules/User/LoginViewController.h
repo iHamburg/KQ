@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LoginViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>{
+#import "SignViewController.h"
+
+@interface LoginViewController : SignViewController{
     
-    UIScrollView *_scrollView;
     
     IBOutlet UITextField* _userTextField;
     IBOutlet UITextField *_passwordTextField;
@@ -20,10 +21,6 @@
     IBOutlet UIButton *_forgetB;
     IBOutlet UIButton *_registerB;
     
-
-    UITableView *_tableView;
-    
-    NSArray *_tfs, *_tableImageNames;
     
 }
 
@@ -35,4 +32,5 @@
 
 - (void)toRegister;
 - (void)toForget;
+
 @end

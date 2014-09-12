@@ -20,7 +20,6 @@
 {
     [super viewDidLoad];
 
-    _root = [KQRootViewController sharedInstance];
     _userController = [UserController sharedInstance];
     _networkClient = [NetworkClient sharedInstance];
     _libraryManager = [LibraryManager sharedInstance];
@@ -88,9 +87,9 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     CGFloat height = [_config heightForRowInSection:indexPath.section];
+
     if (height>0) {
-        
-//        NSLog(@"height # %f",height);
+
         return height;
     }
     else
@@ -120,7 +119,6 @@
 
     }
     
-//    NSLog(@"className # %@, nib # %@",cellClassName,nib);
     
     ConfigCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
     

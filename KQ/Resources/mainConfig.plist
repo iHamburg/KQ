@@ -13,13 +13,13 @@
 					<key>label</key>
 					<string></string>
 					<key>class</key>
-					<string>MainCell</string>
+					<string>ImageCell</string>
 					<key>selector</key>
 					<string></string>
 				</dict>
 			</array>
 			<key>height</key>
-			<string>150</string>
+			<string>125</string>
 		</dict>
 		<dict>
 			<key>rows</key>
@@ -36,11 +36,11 @@
 				</dict>
 			</array>
 			<key>header</key>
-			<string>热门优惠券</string>
+			<string>热门快券 HOT</string>
 			<key>dynamic</key>
 			<integer>1</integer>
 			<key>height</key>
-			<string>80</string>
+			<string>85</string>
 		</dict>
 	</array>
 </dict>

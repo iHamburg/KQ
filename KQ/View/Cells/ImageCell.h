@@ -8,7 +8,9 @@
 
 #import "ConfigCell.h"
 
-@interface ImageCell : ConfigCell
+@interface ImageCell : ConfigCell{
+//    UIImageView *_bgV;
+}
 
 
 

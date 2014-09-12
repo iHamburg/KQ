@@ -10,6 +10,7 @@
 #import "CouponType.h"
 #import "District.h"
 #import "AVOSEngine.h"
+#import "KQRootViewController.h"
 
 @interface CouponListViewController ()
 
@@ -55,7 +56,10 @@
                                                           ]];
     
     dropDownView = [[DropDownListView alloc] initWithFrame:CGRectMake(0,0, 320, 40) dataSource:self delegate:self];
-    dropDownView.mSuperView = _root.view;
+    
+    //???一定要是root的view吗？
+    dropDownView.mSuperView = [[KQRootViewController sharedInstance]view];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated{

@@ -22,7 +22,7 @@
 //        self.thirdLabel = [[KQLabel alloc] initWithFrame:CGRectZero];
 //        self.avatarV = [[UIImageView alloc] initWithFrame:CGRectZero];
 //        [self addSubview:self.firstLabel];
-//        
+//
 //        NSLog(@"textlabel # %@,details label # %@",self.textLabel, self.detailTextLabel);
     }
     return self;
