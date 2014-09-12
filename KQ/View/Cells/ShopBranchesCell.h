@@ -8,7 +8,7 @@
 
 #import "CouponCell.h"
 
-
+#import "Shop.h"
 
 @interface ShopBranchesCell : CouponCell<UIAlertViewDelegate>{
 
