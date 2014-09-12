@@ -37,5 +37,6 @@
 + (id)couponWithDict:(NSDictionary*)dict;
 
 - (id)initWithDict:(NSDictionary*)dict;
+
 - (void)display;
 @end

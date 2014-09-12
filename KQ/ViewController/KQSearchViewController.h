@@ -38,6 +38,7 @@ typedef enum {
     
 
     NSArray *_districtHotKeywords, *_couponTypeHotKeywords;
+
     NSDictionary *_districtDataSource, *_couponTypeDataSource; // district -> array of subdistrict
     
     

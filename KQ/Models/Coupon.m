@@ -62,6 +62,7 @@
 - (void)display{
     
     NSArray *keys = @[@"id",@"shopId",@"title",@"avatarUrl",@"validate",@"discountContent",@"usage",@"maxNumber",@"downloadedCount"];
+    
     NSLog(@"--------------Begin Display Coupon # %@------------\n",self);
     for (NSString *key in keys) {
         NSLog(@"%@ => %@",key, [self valueForKey:key]);

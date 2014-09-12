@@ -21,7 +21,7 @@
 #import "ImageButtonCell.h"
 #import "AddCardViewController.h"
 
-#pragma mark - CouponHeader
+#pragma mark - Cell: CouponHeader
 @interface CouponHeaderCell : CouponCell{
 
     IBOutlet UIButton *_downloadB, *_favoriteB;
@@ -147,7 +147,7 @@
 
 
 
-#pragma mark - CouponUsage
+#pragma mark - Cell: CouponUsage
 
 @interface CouponUsageCell : CouponCell
 
@@ -196,7 +196,7 @@
 
 
 
-#pragma mark - ShopDescCell
+#pragma mark - Cell: ShopDescCell
 @interface ShopDescCell : ConfigCell
 
 @end
@@ -244,6 +244,8 @@
 
 #pragma mark - CouponDetailsViewController
 
+#import "ShopDetailsViewController.h"
+
 @interface CouponDetailsViewController (){
     
 }
@@ -262,13 +264,11 @@
     _coupon = coupon;
     
     //如果用户已经登录, 查看coupon是否已经收藏
-
     if ([[UserController sharedInstance] isLogin]) {
         ///判断coupon是否已经收藏
         for (NSString *couponId in [[UserController sharedInstance]people].favoritedCouponIds) {
             
             //        NSLog(@"couponId # %@",couponId);
-            
             if ([couponId isEqualToString:coupon.id]) {
                 
                 self.isFavoritedCoupon = YES;
@@ -568,8 +568,16 @@
 
 - (void)toShop{
 
+    ShopDetailsViewController *vc = [[ShopDetailsViewController alloc] init];
+    vc.view.alpha = 1.0;
+    vc.shop = self.shop;
+    vc.shopBranches = self.shopBranches;
+    
+    
+    [self.navigationController pushViewController:vc animated:YES];
+    
 
-    [self performSegueWithIdentifier:@"toShop" sender:nil];
+//    [self performSegueWithIdentifier:@"toShop" sender:nil];
 }
 
 - (void)toShopList{

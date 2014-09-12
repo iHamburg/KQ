@@ -13,59 +13,13 @@
 #import "KQRootViewController.h"
 #import "CityViewController.h"
 #import "ImageCell.h"
-
-
-@interface MainCell : ConfigCell{
-    
-}
-
-@end
-
-@implementation MainCell
-
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
-    
-    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        
-        self.backgroundColor = kColorLightYellow;
-        
-        CGFloat w = 140;
-        CGFloat h = 68;
-        UIButton *b = [UIButton buttonWithFrame:CGRectMake(15, 10, w, h) title:nil bgImageName:@"main_kuaiquan.png" target:self action:@selector(buttonPressed:)];
-
-        
-        UIButton *b2 = [UIButton buttonWithFrame:CGRectMake(165, 10, w, h) title:nil bgImageName:@"main_haiwai.png" target:self action:@selector(buttonPressed:)];
-
-        
-        UIButton *b3 = [UIButton buttonWithFrame:CGRectMake(15, 78, w, h) title:nil bgImageName:@"main_huodong.png" target:self action:@selector(buttonPressed:)];
-        
-        UIButton *b4 = [UIButton buttonWithFrame:CGRectMake(165, 78, w, h) title:nil bgImageName:@"main_mingxing.png" target:self action:@selector(buttonPressed:)];
-        [self addSubview:b];
-        [self addSubview:b2];
-        [self addSubview:b3];
-        [self addSubview:b4];
-        
-        
-    }
-    
-    return self;
-}
-
-- (IBAction)buttonPressed:(id)sender{
-    L();
-    
-//    [UIAlertView showAlert:@"敬请期待" msg:@"更多功能即将上线" cancel:@"知道了"];
-}
-
-@end
-
-#pragma mark -
-
+#import "CouponDetailsViewController.h"
 
 
 #pragma mark - MainViewController
 
 @interface MainViewController (){
+    UINavigationController *_couponDetailsNav;
 
 }
 
@@ -85,7 +39,6 @@
     self.navigationController.tabBarItem.title = @"首页";
     
     self.config = [[TableConfiguration alloc] initWithResource:@"mainConfig"];
-
 
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 }
@@ -118,8 +71,8 @@
 
 
 
-#pragma mark - IBAction
-
+//#pragma mark - IBAction
+//
 //- (IBAction)cityPressed:(id)sender{
 //    //    L();
 //
@@ -202,8 +155,6 @@
 
 
 
-
-
 /// 返回基本coupon，在load list的时候再载入购买人数的数据
 - (void)loadModels{
 
@@ -248,9 +199,14 @@
 - (void)toCouponDetails:(Coupon*)coupon{
 
 
-    [self performSegueWithIdentifier:@"toCouponDetails" sender:coupon];
+    CouponDetailsViewController *vc = [[CouponDetailsViewController alloc] init];
+    vc.view.alpha = 1;
+    vc.coupon = coupon;
     
+    [_root addNavVCAboveTab:vc];
 }
+
+
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -274,14 +230,14 @@
     [self.tableView reloadData];
     
   
-    if (kIsMainApplyEvent) {
-        
-        //FIXME: 这里对于eventCoupon的判定也可以根据id，不一定是第一个coupon
-        self.eventCoupon = [self.models firstObject];
-        
-        [self toEventCoupon:self.eventCoupon];
-        
-    }
+//    if (kIsMainApplyEvent) {
+//        
+//        //FIXME: 这里对于eventCoupon的判定也可以根据id，不一定是第一个coupon
+//        self.eventCoupon = [self.models firstObject];
+//        
+//        [self toEventCoupon:self.eventCoupon];
+//        
+//    }
     
 }
 

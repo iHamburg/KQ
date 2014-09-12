@@ -15,6 +15,8 @@
 #import "MainViewController.h"
 #import "EventViewController.h"
 #import "UserController.h"
+#import "KQTabBarViewController.h"
+
 
 
 @interface KQRootViewController (){
@@ -48,33 +50,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-//    L();
-    
-    self.delegate = self;
-   
-    UITabBar *tabBar = self.tabBar;
-    [tabBar setTintColor:[UIColor colorWithRed:252.0/255 green:81.0/255 blue:32.0/255 alpha:1]];
-    [tabBar setBarTintColor:[UIColor whiteColor]];
-    UITabBarItem *tabBarItem1 = [tabBar.items objectAtIndex:0];
-    UITabBarItem *tabBarItem2 = [tabBar.items objectAtIndex:1];
-    UITabBarItem *tabBarItem3 = [tabBar.items objectAtIndex:2];
-    UITabBarItem *tabBarItem4 = [tabBar.items objectAtIndex:3];
-    
-    [tabBarItem1 setImage:[UIImage imageNamed:@"icon-index01.png"]];
-    [tabBarItem2 setImage:[UIImage imageNamed:@"icon-nearby01.png"]];
-    [tabBarItem3 setImage:[UIImage imageNamed:@"icon-search01.png"]];
-    [tabBarItem4 setImage:[UIImage imageNamed:@"icon-user01.png"]];
-    
-     [tabBarItem1 setSelectedImage:[UIImage imageNamed:@"icon-index02.png"]];
-     [tabBarItem2 setSelectedImage:[UIImage imageNamed:@"icon-nearby02.png"]];
-     [tabBarItem3 setSelectedImage:[UIImage imageNamed:@"icon-search02.png"]];
-     [tabBarItem4 setSelectedImage:[UIImage imageNamed:@"icon-user02.png"]];
-    
-    [tabBarItem2 setTitle:@"附近"];
-    [tabBarItem3 setTitle:@"搜索"];
-    [tabBarItem4 setTitle:@"我的"];
-    
+    L();
 
+    _tabVC = [[KQTabBarViewController alloc] init];
+    
+    [self.view addSubview:_tabVC.view];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -87,20 +68,24 @@
     
     L();
     [super viewDidAppear:animated];
-
+    
     
     [self test];
     
+//    NSLog(@"root.subViews # %@",self.view.subviews);
     
 }
 
 - (void)handleRootFirstWillAppear{
     
+    L();
+    
     [super handleRootFirstWillAppear];
     
-
+    
     if (kIsMainApplyEvent) {
-        [self performSegueWithIdentifier:@"toEvent" sender:self];
+        
+        [self startEvent];
     }
     
 
@@ -112,6 +97,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 - (void)registerNotification{
     [super registerNotification];
@@ -130,42 +116,54 @@
     if ([segue.identifier isEqualToString:@"toLogin"]){
         
     }
-    else if([segue.identifier isEqualToString:@"toEvent"]){
-        
-        
-        _eventVC = segue.destinationViewController;
-        
-        __weak id vc = self;
-        _eventVC.back = ^{
-            
-            [(KQRootViewController*)vc removeEvent];
-            
-        };
-    }
-}
-#pragma mark - TabbarController
-
-- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UINavigationController *)viewController{
-//    L();
-    
-    UIViewController *rootVC = [viewController.viewControllers firstObject];
-    
-    if ([rootVC isKindOfClass:[UserCenterViewController class]] && ![[UserController sharedInstance] isLogin]) {
-        
-        [self toLogin];
-        
-        return NO;
-    }
-    
-    return YES;
+//    else if([segue.identifier isEqualToString:@"toEvent"]){
+//        
+//        
+//        _eventVC = segue.destinationViewController;
+//        
+//        __weak id vc = self;
+//        _eventVC.back = ^{
+//            
+//            [(KQRootViewController*)vc removeEvent];
+//            
+//        };
+//    }
 }
 
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
+#pragma mark - IBAction
+- (IBAction)backPressed:(id)sender{
+    [self removeNavVCAboveTab];
+}
 
-    
+#pragma mark - Fcns
+
+
+- (void)addVCAboveTab:(UIViewController*)vc{
+
+    [_tabVC.view addSubview:vc.view];
+
 }
 
 
+- (void)removeVCFromTab:(UIViewController *)vc{
+    [vc.view removeFromSuperview];
+}
+
+
+- (void)addNavVCAboveTab:(UIViewController*)vc{
+ 
+    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_back.png" target:self action:@selector(backPressed:)]];
+    _nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    [_tabVC.view addSubview:_nav.view];
+    
+    
+    
+}
+- (void)removeNavVCAboveTab{
+    
+    [_nav.view removeFromSuperview];
+    
+}
 
 #pragma mark - Fcns
 
@@ -174,18 +172,34 @@
     //判断是否登录
     
     if ([[UserController sharedInstance] isLogin]) {
-        NSLog(@" is login");
+        NSLog(@"user has login, go to mainPage");
+        
+       
     }
     else{
-        NSLog(@" isn't login ");
+        NSLog(@"no user, show event Page");
+        
+        _eventVC = [[EventViewController alloc] init];
+        _eventVC.toEventCoupon = ^(Coupon* coupon){
+        
+            L();
+        };
+        
+        [self.view addSubview:_eventVC.view];
+        
+      
+        
     }
     
 }
 
 
+
+
 - (IBAction)toLogin {
 
-    [self performSegueWithIdentifier:@"toLogin" sender:self];
+//    [self performSegueWithIdentifier:@"toLogin" sender:self];
+    
 }
 
 
@@ -197,7 +211,7 @@
 }
 - (void)didLogout{
 
-    self.selectedIndex = 0;
+//    self.selectedIndex = 0;
 }
 
 - (void)removeEvent{

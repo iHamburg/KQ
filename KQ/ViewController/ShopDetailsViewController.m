@@ -120,6 +120,9 @@
 - (id)initWithCoder:(NSCoder *)aDecoder{
     
     if (self = [super initWithCoder:aDecoder]) {
+        
+        
+        
         _favoritedBB = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_emptyStar.png"] style:UIBarButtonItemStylePlain target:self action:@selector(favoritePressed:)];
         
         
@@ -136,8 +139,8 @@
     self.config = [[TableConfiguration alloc] initWithResource:@"ShopConfig"];
 
     self.title = self.shop.title;
-    
 
+//    self.title = @"商户";
 }
 
 - (void)didReceiveMemoryWarning

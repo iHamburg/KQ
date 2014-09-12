@@ -24,6 +24,7 @@
     _networkClient = [NetworkClient sharedInstance];
     _libraryManager = [LibraryManager sharedInstance];
     _manager = [CouponManager sharedInstance]; //需要调用HUD，必须等root已经有view
+    _root = [KQRootViewController sharedInstance];
     
     if (isIOS7) {
         

@@ -15,7 +15,7 @@
 #import "UIImageView+WebCache.h"
 #import "KQRootViewController.h"
 
-
+#pragma mark - Cell: UserAvatar
 @interface UserAvatarCell : PeopleCell<UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @end
@@ -55,9 +55,6 @@
     self.avatarV.userInteractionEnabled = YES;
     [self.avatarV addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarVPressed:)]];
     
-//    NSLog(@"avatar # %@, userinteract # %d",self.avatarV,self.avatarV.userInteractionEnabled);
-//    self.firstLabel.opaque = YES;
-    
     
     [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarVPressed:)]];
     self.backgroundColor = kColorBG;
@@ -95,6 +92,7 @@
     
     /// 存储所有的图片，保存入photoalbum，然后把图片加到album中，一页 3张图
     //    UIImage *editedImage = [info objectForKey:@"UIImagePickerControllerEditedImage"];
+    
 	UIImage *originalImage = info[UIImagePickerControllerOriginalImage];
     //    NSURL *url = info[UIImagePickerControllerMediaURL];
     //    [importImages addObject:originalImage];
@@ -260,31 +258,34 @@
 - (void)toCoupons{
 
     [self performSegueWithIdentifier:@"toCoupons" sender:nil];
+    
 }
 - (void)toShops{
 
     [self performSegueWithIdentifier:@"toShops" sender:nil];
+    
 }
 - (void)toCards{
 
     [self performSegueWithIdentifier:@"toCards" sender:nil];
+    
 }
 - (void)toFavoritedCoupons{
 
     
     [self performSegueWithIdentifier:@"toFavoritedCoupons" sender:nil];
+    
 }
 - (void)toSettings{
 
-
     [self performSegueWithIdentifier:@"toSettings" sender:nil];
+    
 }
 
 - (void)willLogout{
     
     [_userController logout];
 
-//    [_root didLogout];
     
     [[KQRootViewController sharedInstance] didLogout];
 }
@@ -293,5 +294,6 @@
 
     //???: 什么时候调用？
     [self.tableView reloadData];
+    
 }
 @end

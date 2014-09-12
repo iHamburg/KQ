@@ -43,7 +43,7 @@
 
     }
     else if(_searchType == SearchCouponType){
-//        [self searchCouponType];
+
         _hotSearchView.titles = _couponTypeHotKeywords;
         _tableView.dataSource = _couponTypeDataSource;
         self.searchBar.placeholder = @"输入分类的名字查询";
@@ -90,20 +90,6 @@
     [self.navigationController.navigationBar setTintColor:kColorYellow];
   
     
-
-//    UISearchBar * theSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width-50, 40)];
-//    
-//    theSearchBar.placeholder = @"enter province name";
-//    
-//    theSearchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-//    
-//    theSearchBar.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
-//    
-//    theSearchBar.delegate = self;
-//    
-//    _searchBar = theSearchBar;
-    
-    
     UISegmentedControl *seg = [[UISegmentedControl alloc] initWithItems:@[@"按地区找",@"按分类找"]];
     
     seg.frame = CGRectMake(0, 0, 160, 30);
@@ -139,6 +125,7 @@
     _couponTypeDataSource = [dataSource copy];
     
     __weak KQSearchViewController *vc = self;
+   
     [self.tableView setSelectedBlock:^(id object) {
         
         NSLog(@"select # %@",[object valueForKey:@"title"]);

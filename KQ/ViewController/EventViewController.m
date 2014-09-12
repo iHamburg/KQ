@@ -8,6 +8,7 @@
 
 #import "EventViewController.h"
 #import "KQRootViewController.h"
+#import "NetworkClient.h"
 
 @interface EventViewController ()
 
@@ -20,27 +21,21 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.bgV = [[UIImageView alloc] initWithFrame:self.view.bounds];
-
-    if (isPhone5) {
-        self.bgV.image = [UIImage imageNamed:@"event_1136.jpg"];
-    }
-    else{
-        self.bgV.image = [UIImage imageNamed:@"event.jpg"];
-    }
-
-//    self.bgV.userInteractionEnabled = YES;
-//    
-//    [self.bgV addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)]];
-
-    [self.view addSubview:self.bgV];
     
-    [self performBlock:^{
+    
+    self.bgV.image = [UIImage imageNamed:@"bg-landingpage.jpg"];
+    self.bgV.contentMode = UIViewContentModeTop;
+    self.bgV.userInteractionEnabled = YES;
+    [self.bgV addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)]];
+    
 
-        self.bgV.userInteractionEnabled = YES;
-        
-        [self.bgV addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)]];
-        
-    } afterDelay:3];
+    UIButton *button = [UIButton buttonWithFrame:CGRectMake(85, _h - 64, 150, 44) title:nil bgImageName:@"btn-receive.png" target:self action:@selector(eventButtonClicked:)];
+    
+    
+    [self.view addSubview:self.bgV];
+    [self.view addSubview:button];
+
+ 
 }
 
 - (void)didReceiveMemoryWarning
@@ -54,19 +49,19 @@
 - (IBAction)handleTap:(id)sender{
  //   L();
     
-    self.back();
-    
+    [self back];
+}
+
+- (IBAction)eventButtonClicked:(id)sender{
+    self.toEventCoupon(self.coupon);
 }
 
 
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)back{
+    L();
+    [self.view removeFromSuperview];
 }
+
 
 
 @end

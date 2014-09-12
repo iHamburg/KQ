@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "UtilLib.h"
 
-@interface RootViewController : UITabBarController{
+@interface RootViewController : UIViewController{
 
     BOOL rootLoadViewFlag;
     

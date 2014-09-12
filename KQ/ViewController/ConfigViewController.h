@@ -13,6 +13,7 @@
 #import "LibraryManager.h"
 #import "ConfigCell.h"
 #import "CouponManager.h"
+#import "KQRootViewController.h"
 
 @interface ConfigViewController : UITableViewController{
 
@@ -23,7 +24,8 @@
     LibraryManager *_libraryManager;
     CouponManager *_manager;
     
-
+    KQRootViewController *_root;
+    
 }
 
 @property (nonatomic, strong) TableConfiguration *config;
