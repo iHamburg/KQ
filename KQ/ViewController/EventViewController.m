@@ -31,11 +31,11 @@
 
     UIButton *button = [UIButton buttonWithFrame:CGRectMake(85, _h - 64, 150, 44) title:nil bgImageName:@"btn-receive.png" target:self action:@selector(eventButtonClicked:)];
     
-    
     self.coupon = [[Coupon alloc] init];
     self.coupon.id = kEventCouponId;
     self.coupon.avatarUrl = @"http://www.quickquan.com/images/moti_coupon.jpg";
     self.coupon.discountContent = @"0元享18元套餐";
+    self.coupon.usage = @"新用户注册即可0元享受，价值18元的美味摩提2个！榴莲慕思摩提、蓝莓味摩提香甜好味、松软曼妙口感！30家店通用";
     
     [self.view addSubview:self.bgV];
     [self.view addSubview:button];
@@ -53,12 +53,13 @@
 
 - (IBAction)handleTap:(id)sender{
  //   L();
-    
     [self back];
 }
 
 - (IBAction)eventButtonClicked:(id)sender{
+
     self.toEventCoupon(self.coupon);
+
 }
 
 

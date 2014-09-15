@@ -25,6 +25,7 @@
 #import "ShopBranchListViewController.h"
 #import "ShopDetailsViewController.h"
 #import "MapViewController.h"
+#import "AfterDownloadViewController.h"
 
 #pragma mark - Cell: CouponHeader
 @interface CouponHeaderCell : CouponCell{
@@ -57,12 +58,21 @@
     
     __weak id cell = self;
     
-    [self.avatarV setImageWithURL:[NSURL URLWithString:coupon.avatarUrl] placeholderImage:DefaultImg success:^(UIImage *image, BOOL cached) {
+//    [self.avatarV setImageWithURL:[NSURL URLWithString:coupon.avatarUrl] placeholderImage:DefaultImg success:^(UIImage *image, BOOL cached) {
+//    
+//        Coupon *aCoupon = [(CouponHeaderCell*)cell value];
+//        [aCoupon setAvatar:image];
+//    
+//    } failure:^(NSError *error) {}];
+
+//    self.avatarV.contentMode = UIViewContentModeCenter;
+    
+    [self.avatarV setImageWithURL:[NSURL URLWithString:coupon.avatarUrl] placeholderImage:[UIImage imageNamed:@"loading-pic02.png"] success:^(UIImage *image, BOOL cached) {
+        
         Coupon *aCoupon = [(CouponHeaderCell*)cell value];
         [aCoupon setAvatar:image];
-    } failure:^(NSError *error) {
         
-    }];
+    } failure:^(NSError *error) {}];
     
     self.firstLabel.text = coupon.title;
     self.secondLabel.text = coupon.discountContent;
@@ -504,8 +514,10 @@
 #pragma mark - IBAction
 
 
+///toCouponDetails, 按back之后没有实现
 - (IBAction)backPressed:(id)sender{
-
+    L();
+    
     [self dismissViewControllerAnimated:YES completion:^{
         
     }];
@@ -525,7 +537,6 @@
 
 //    NSLog(@"coupon # %@",coupon);
     if (!_userController.isLogin) {
-    
  
         [[NSNotificationCenter defaultCenter] postNotificationName:@"toLogin" object:nil];
         
@@ -534,9 +545,11 @@
     }
     else if(!_userController.hasBankcard){
         
-        AddCardViewController *vc = [[AddCardViewController alloc] init];
-        [self.navigationController pushViewController:vc animated:YES];
-    
+//        AddCardViewController *vc = [[AddCardViewController alloc] init];
+//        [self.navigationController pushViewController:vc animated:YES];
+        [self toAfterDownload];
+        
+
     }
     else{
          [_libraryManager startProgress:nil];
@@ -653,6 +666,14 @@
 
 }
 
+- (void)toAfterDownload{
+    
+    AfterDownloadViewController *vc = [[AfterDownloadViewController alloc] init];
+    vc.view.alpha = 1;
+    vc.source = 1;
+    [self.navigationController pushViewController:vc animated:YES];
+    
+}
 
 - (void)test{
 

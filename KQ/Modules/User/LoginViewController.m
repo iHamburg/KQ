@@ -184,7 +184,6 @@
             [self back];
             
             //TODO: 这里发一个消息更好！
-            
             [[KQRootViewController sharedInstance] didLogin];
         
         }

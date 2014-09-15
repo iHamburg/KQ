@@ -167,6 +167,7 @@
     eventCoupon.id = kEventCouponId;
     eventCoupon.avatarUrl = @"http://www.quickquan.com/images/moti_coupon.jpg";
     eventCoupon.discountContent = @"0元享18元套餐";
+    eventCoupon.usage = @"新用户注册即可0元享受，价值18元的美味摩提2个！榴莲慕思摩提、蓝莓味摩提香甜好味、松软曼妙口感！30家店通用";
     [self toCouponDetails:eventCoupon];
 }
 
@@ -179,13 +180,13 @@
 
     L();
 
-    [_libraryManager startProgress:nil];
+//    [_libraryManager startProgress:nil];
   
     [self.models removeAllObjects];
     
     [_networkClient queryNewestCouponsSkip:0 block:^(NSArray *couponDicts, NSError *error) {
         
-         [_libraryManager dismissProgress:nil];
+//         [_libraryManager dismissProgress:nil];
         
         [self addCouponsInModel:couponDicts];
         

@@ -8,8 +8,13 @@
 
 #import "SignViewController.h"
 
-@interface AfterDownloadViewController : SignViewController
+@interface AfterDownloadViewController : SignViewController{
+
+}
+
+@property (nonatomic, assign) int source; // 0:从注册来，dissmiss； 1： 从coupondetails的下载来，pop
 
 - (void)toAddCard;
+
 
 @end

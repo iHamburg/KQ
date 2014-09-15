@@ -9,6 +9,7 @@
 #import "UserController.h"
 #import <MapKit/MapKit.h>
 #import "AVOSEngine.h"
+#import "Card.h"
 
 
 @interface UserController (){
@@ -151,10 +152,25 @@
         if (!ISEMPTY(dict)) {
             self.people = [People peopleWithDict:dict];
             
-//            NSLog(@"cards # %@",self.people.cardIds);
-//            NSLog(@"")
         }
         
+        [_networkClient queryCards:self.uid block:^(NSArray *array, NSError *error) {
+            
+            NSLog(@"cards # %@",array);
+            
+            if (ISEMPTY(array)) {
+                return ;
+            }
+            
+            self.people.cardIds = [NSMutableSet set];
+            
+            for (NSDictionary *dict in array) {
+                [self.people.cardIds addObject:dict[@"objectId"]];
+                
+                
+            }
+            NSLog(@"people.cardIds # %@",self.people.cardIds);
+        }];
         
     }];
 }

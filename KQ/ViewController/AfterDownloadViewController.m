@@ -126,7 +126,7 @@
     
     UILabel *l2 = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(l.frame)+10, _w - 20, 60)];
     l2.textColor = kColorDardGray;
-    l2.text = @"您只需添加一张银行卡到\"我的银行卡\"开通服务。即可现场刷卡，使用已下载的快券啦！";
+    l2.text = @"您只需添加一张银行卡到\"我的银行卡\"开通 服务。即可现场刷卡，使用已下载的快券啦！";
     l2.font = [UIFont fontWithName:kFontBoldName size:12];
     l2.numberOfLines = 0;
     
@@ -163,8 +163,14 @@
 
 
 - (void)back{
-    [self.navigationController dismissViewControllerAnimated:YES completion:^{
-        
-    }];
+    
+    if (self.source == 0) {
+        [self.navigationController dismissViewControllerAnimated:YES completion:^{
+            
+        }];
+    }
+    else{
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 @end

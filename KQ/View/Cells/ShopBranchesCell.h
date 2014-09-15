@@ -12,7 +12,9 @@
 
 @interface ShopBranchesCell : CouponCell<UIAlertViewDelegate>{
 
+    
     NSString *_phoneNumber;
+
 }
 
 @property (nonatomic, strong) IBOutlet UIButton *shopListB;

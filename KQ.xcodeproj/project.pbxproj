@@ -246,6 +246,7 @@
 		8596C65C19C184CD003B3440 /* SignViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8596C65B19C184CD003B3440 /* SignViewController.m */; };
 		8596C65F19C18891003B3440 /* ForgetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8596C65E19C18891003B3440 /* ForgetPasswordViewController.m */; };
 		8596C66119C19592003B3440 /* event_banner.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8596C66019C19592003B3440 /* event_banner.jpg */; };
+		85C5E2E019C68E250047BAE3 /* loading-pic02.png in Resources */ = {isa = PBXBuildFile; fileRef = 85C5E2DF19C68E250047BAE3 /* loading-pic02.png */; };
 		85CAC52D19C057DD007A1F86 /* icon-agreement01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 85CAC52119C057DD007A1F86 /* icon-agreement01@2x.png */; };
 		85CAC52E19C057DD007A1F86 /* icon-agreement02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 85CAC52219C057DD007A1F86 /* icon-agreement02@2x.png */; };
 		85CAC52F19C057DD007A1F86 /* icon-credit card@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 85CAC52319C057DD007A1F86 /* icon-credit card@2x.png */; };
@@ -511,7 +512,7 @@
 		26E36B8C195132ED0008707A /* LoadMoreTableFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadMoreTableFooterView.m; sourceTree = "<group>"; };
 		26E36BD21951AC6B0008707A /* userCenter_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = userCenter_bg.png; sourceTree = "<group>"; };
 		26E36BD41951BA470008707A /* UserCouponsConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserCouponsConfig.plist; sourceTree = "<group>"; };
-		26E3A521192DE02F004F8C8C /* 快券.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "快券.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		26E3A521192DE02F004F8C8C /* 快券 0.2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "快券 0.2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		26E3A524192DE02F004F8C8C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		26E3A526192DE02F004F8C8C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		26E3A528192DE02F004F8C8C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -648,6 +649,7 @@
 		8596C65D19C18891003B3440 /* ForgetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgetPasswordViewController.h; sourceTree = "<group>"; };
 		8596C65E19C18891003B3440 /* ForgetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgetPasswordViewController.m; sourceTree = "<group>"; };
 		8596C66019C19592003B3440 /* event_banner.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = event_banner.jpg; sourceTree = "<group>"; };
+		85C5E2DF19C68E250047BAE3 /* loading-pic02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loading-pic02.png"; sourceTree = "<group>"; };
 		85CAC52119C057DD007A1F86 /* icon-agreement01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-agreement01@2x.png"; sourceTree = "<group>"; };
 		85CAC52219C057DD007A1F86 /* icon-agreement02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-agreement02@2x.png"; sourceTree = "<group>"; };
 		85CAC52319C057DD007A1F86 /* icon-credit card@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-credit card@2x.png"; sourceTree = "<group>"; };
@@ -832,6 +834,7 @@
 		26E0BDBD194B9C5400FECD2A /* images */ = {
 			isa = PBXGroup;
 			children = (
+				85C5E2DF19C68E250047BAE3 /* loading-pic02.png */,
 				26DD2D9919C5F97000A2CB13 /* search_screenshot.jpg */,
 				26DD2D9719C5D94C00A2CB13 /* addCardTfBg.jpg */,
 				26DD2D9319C5D22B00A2CB13 /* card1.jpg */,
@@ -1045,7 +1048,7 @@
 		26E3A522192DE02F004F8C8C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				26E3A521192DE02F004F8C8C /* 快券.app */,
+				26E3A521192DE02F004F8C8C /* 快券 0.2.app */,
 				26E3A54A192DE02F004F8C8C /* KQTests.xctest */,
 			);
 			name = Products;
@@ -1495,7 +1498,7 @@
 			);
 			name = KQ;
 			productName = KQ;
-			productReference = 26E3A521192DE02F004F8C8C /* 快券.app */;
+			productReference = 26E3A521192DE02F004F8C8C /* 快券 0.2.app */;
 			productType = "com.apple.product-type.application";
 		};
 		26E3A549192DE02F004F8C8C /* KQTests */ = {
@@ -1560,6 +1563,7 @@
 				26DE6439195EB423008835D6 /* bg_unfavoriteB@2x.jpg in Resources */,
 				26EE1F9D1945EF76007C98AA /* UserCenterLoginConfig.plist in Resources */,
 				85CAC53719C057DD007A1F86 /* icon-tip@2x.png in Resources */,
+				85C5E2E019C68E250047BAE3 /* loading-pic02.png in Resources */,
 				26E16BB6194F1CD500036039 /* couponHeaderBGPattern@2x.jpg in Resources */,
 				8596C65019C13681003B3440 /* icon-nearby02@2x.png in Resources */,
 				855AA51E19C2D083002B7099 /* btn-receive@2x.png in Resources */,
@@ -1951,7 +1955,7 @@
 					"$(PROJECT_DIR)/KQ/3rdLibraries/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/KQ/3rdLibraries/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
-				PRODUCT_NAME = "快券";
+				PRODUCT_NAME = "快券 0.2";
 				PROVISIONING_PROFILE = "609FEA0D-E70D-4F2D-8E8B-0ADE353B1A05";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2069,7 +2073,7 @@
 					"$(PROJECT_DIR)/KQ/3rdLibraries/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/KQ/3rdLibraries/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
-				PRODUCT_NAME = "快券";
+				PRODUCT_NAME = "快券 0.2";
 				PROVISIONING_PROFILE = "4EB69DDD-1BBD-49D7-86FF-45FE69872990";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2097,7 +2101,7 @@
 					"$(PROJECT_DIR)/KQ/3rdLibraries/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/KQ/3rdLibraries/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
-				PRODUCT_NAME = "快券";
+				PRODUCT_NAME = "快券 0.2";
 				PROVISIONING_PROFILE = "609FEA0D-E70D-4F2D-8E8B-0ADE353B1A05";
 				WRAPPER_EXTENSION = app;
 			};

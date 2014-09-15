@@ -33,6 +33,7 @@
 - (void)toMap;
 - (void)toShop;
 - (void)toShopList;
+- (void)toAfterDownload;
 
 
 

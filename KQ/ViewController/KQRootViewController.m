@@ -18,7 +18,9 @@
 #import "KQTabBarViewController.h"
 #import "CouponDetailsViewController.h"
 #import "KQLoginViewController.h"
-    //#import "AfterDownloadViewController.h"
+#import "UserCouponsViewController.h"
+
+//#import "AfterDownloadViewController.h"
 //#import "AfterDownloadBankViewController.h"
 
 
@@ -165,8 +167,10 @@
         _eventVC = [[EventViewController alloc] init];
         _eventVC.toEventCoupon = ^(Coupon* coupon){
         
-            [vc toCouponDetails:coupon];
-
+            KQRootViewController *root = vc;
+            [root toCouponDetails:coupon];
+            
+            [root.eventVC.view removeFromSuperview];
         };
         
         [self.view addSubview:_eventVC.view];
@@ -177,10 +181,6 @@
     
 }
 
-- (void)removeEvent{
-    [self.eventVC.view removeFromSuperview];
-    self.eventVC = nil;
-}
 
 //点击banner
 - (void)toCouponDetails:(Coupon*)coupon{
@@ -188,13 +188,25 @@
     vc.view.alpha = 1;
     vc.coupon = coupon;
     vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_back.png" target:self action:@selector(backPressed:)]];
+   
     _nav = [[UINavigationController alloc] initWithRootViewController:vc];
-    
-    
     [self.view addSubview:_nav.view];
     
     
-    [_eventVC.view removeFromSuperview];
+
+}
+
+- (void)toMyCoupons{
+    // 如果在toCouponDetails，先退出来
+    [_nav.view removeFromSuperview];
+    
+    UserCouponsViewController *vc = [[UserCouponsViewController alloc] init];
+    vc.view.alpha = 1;
+    
+    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_back.png" target:self action:@selector(backPressed:)]];
+    
+    _nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self.view addSubview:_nav.view];
 }
 
 /**

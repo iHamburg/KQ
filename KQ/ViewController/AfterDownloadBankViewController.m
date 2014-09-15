@@ -175,10 +175,16 @@
 
 - (void)toMyCoupons{
     L();
+
+//    [[KQRootViewController sharedInstance] toMyCoupons];
+
+   
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+             [[KQRootViewController sharedInstance] toMyCoupons];
+    }];
 }
 - (void)toMain{
     L();
-//    [[KQRootViewController sharedInstance] removeNavVCAboveTab];
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
         
     }];

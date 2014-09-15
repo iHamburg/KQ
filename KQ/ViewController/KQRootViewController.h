@@ -31,6 +31,7 @@
 
 
 - (void)toCouponDetails:(Coupon*)coupon; //点击banner进入coupondetails
+- (void)toMyCoupons;
 
 - (void)didLogin;
 - (void)didLogout;

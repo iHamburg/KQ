@@ -69,7 +69,7 @@
 
 
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, _w, 300) style:UITableViewStyleGrouped];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, _w, 250) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.scrollEnabled = NO;
@@ -143,7 +143,7 @@
         return 1;
     }
     else{
-        return 4;
+        return 3;
     }
 }
 

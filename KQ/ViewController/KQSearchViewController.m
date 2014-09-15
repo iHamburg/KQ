@@ -183,6 +183,9 @@
     [self.tableView setSize:CGSizeMake(320, hTable)];
 //    NSLog(@"self # %@, table # %@",self.view, _tableView);
     
+    UIImageView *screenshot = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _w, 462)];
+    screenshot.image = [UIImage imageNamed:@"search_screenshot.jpg"];
+    [self.view addSubview:screenshot];
 
 }
 
