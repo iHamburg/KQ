@@ -29,6 +29,7 @@
     
     [self.view addSubview:_scrollView];
 
+    _network = [NetworkClient sharedInstance];
     
 }
 
@@ -77,9 +78,16 @@
     
 }
 
+- (IBAction)submitClicked:(id)sender{
+    [self submit];
+}
 
 - (void)back{
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)submit{
+    
 }
 
 @end

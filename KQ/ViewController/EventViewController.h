@@ -15,10 +15,11 @@
 @property (nonatomic, strong) UIImage *bgImage;
 @property (nonatomic, strong) IBOutlet UIImageView *bgV;
 
-@property (nonatomic, copy) void(^toEventCoupon)(Coupon*); //由root来控制toEventCoupon的流程
+//@property (nonatomic, copy) void(^toEventCoupon)(Coupon*); //没有必要由root来控制toEventCoupon的流程，
 
 
 
 - (void)back;
+- (void)toCouponDetails;
 
 @end

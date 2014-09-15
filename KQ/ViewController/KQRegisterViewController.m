@@ -72,8 +72,7 @@
 -(IBAction)signUpUserPressed:(id)sender
 {
     
- 
-    
+    ///  先进行validate， 通过后再注册
     [self validateWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
 //            NSDictionary *info = @{@"username":self.userTextField.text,@"password":_passwordTextField.text,@"phone":_userTextField.text,

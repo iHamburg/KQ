@@ -13,10 +13,11 @@
     IBOutlet UITextField* _userTextField, *_verifyTextField;
 
     UIButton *_identifyB;
-    UIButton *_button;
+
+    NSString *_username, *_captcha1;
 
 }
 
-- (void)submit;
+
 
 @end

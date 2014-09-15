@@ -23,14 +23,9 @@
 
 - (void)toLogin;
 
-- (void)addVCAboveTab:(UIViewController*)vc;
-- (void)removeVCFromTab:(UIViewController *)vc;
-
-- (void)addNavVCAboveTab:(UIViewController*)vc;
-- (void)removeNavVCAboveTab;
 
 
-- (void)toCouponDetails:(Coupon*)coupon; //点击banner进入coupondetails
+- (void)toCouponDetails:(Coupon*)coupon; //从tab内，跳到tab外
 - (void)toMyCoupons;
 
 - (void)didLogin;

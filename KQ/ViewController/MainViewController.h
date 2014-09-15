@@ -13,7 +13,9 @@
 
 
 - (IBAction)handleBannerTap:(id)sender;
-- (void)toCouponDetails:(id)couponModel;
+
+
+- (void)toCouponDetails:(id)couponModel; /// 从root调用detais+nav，盖在tab上
 
 
 @end

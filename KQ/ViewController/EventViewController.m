@@ -58,16 +58,24 @@
 
 - (IBAction)eventButtonClicked:(id)sender{
 
-    self.toEventCoupon(self.coupon);
+//    self.toEventCoupon(self.coupon);
 
+    [self toCouponDetails];
 }
 
+#pragma mark - Fcns
 
 - (void)back{
     L();
     [self.view removeFromSuperview];
 }
 
+- (void)toCouponDetails{
+    
+    [[KQRootViewController sharedInstance] toCouponDetails:self.coupon];
+    
+    [self.view removeFromSuperview];
+}
 
 
 @end

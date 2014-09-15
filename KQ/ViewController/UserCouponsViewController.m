@@ -30,7 +30,6 @@
     // Do any additional setup after loading the view.
     self.title = @"我的快券";
 
-//    L();
 
     _tableHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
     _tableHeader.backgroundColor = kColorBG;
@@ -67,7 +66,6 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
 
     return _tableHeader;
-
     
 }
 
@@ -99,19 +97,26 @@
 - (IBAction)segmentedControlChanged:(UISegmentedControl*)sender{
     int index = sender.selectedSegmentIndex;
     NSLog(@"index # %d",index);
-    if (index == 1 ||index == 2) {
-        [self demoEmptyTable];
-    }
-    else{
-        [self loadModels];
-    }
+
+    [self queryCoupons:index];
 }
 
 #pragma mark - Fcns;
 
 - (void)queryCoupons:(CouponStatus)status{
 
-
+    switch (status) {
+        case CouponStatusUnused:
+            [self loadModels];
+            break;
+        case CouponStatusUsed:
+        case CouponStatusExpired:
+            
+            //应该显示不同的优惠券
+            [self demoEmptyTable];
+        default:
+            break;
+    }
     
 }
 
@@ -121,7 +126,6 @@
 
     [_libraryManager startHint:@"没有优惠券" duration:1];
     
-
     
 }
 
@@ -172,12 +176,8 @@
 
 - (void)toCouponDetails:(Coupon*)coupon{
     
-    
-    CouponDetailsViewController *vc = [[CouponDetailsViewController alloc] init];
-    vc.view.alpha = 1;
-    vc.coupon = coupon;
-    [self.navigationController pushViewController:vc animated:YES];
-    
+
+    [_root toCouponDetails:coupon];
 
 }
 

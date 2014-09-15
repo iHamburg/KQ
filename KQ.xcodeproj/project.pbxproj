@@ -25,7 +25,6 @@
 		26821B4C19528CC1005549D3 /* CouponHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26821B4B19528CC1005549D3 /* CouponHeaderCell.xib */; };
 		26821B4F19530EE2005549D3 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26821B4E19530EE2005549D3 /* MapViewController.m */; };
 		26821B5119532DB6005549D3 /* Root.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26821B5019532DB6005549D3 /* Root.storyboard */; };
-		268BD74219B6A7AF0031B27B /* EventMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 268BD74119B6A7AF0031B27B /* EventMainViewController.m */; };
 		26919EE3195D7DC000974010 /* UserSettingsConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 26919EE2195D7DC000974010 /* UserSettingsConfig.plist */; };
 		26919EE6195D7E3200974010 /* SwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26919EE5195D7E3200974010 /* SwitchCell.m */; };
 		26919EED195DBBEB00974010 /* KQSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26919EEC195DBBEB00974010 /* KQSearchViewController.m */; };
@@ -229,6 +228,7 @@
 		26FD1F871958CE9B0074A738 /* around_demo@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 26FD1F861958CE9B0074A738 /* around_demo@2x.jpg */; };
 		6EB0E79B2DF0497980209FAA /* libPods-KQTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D77DC981FBD7460891F5B186 /* libPods-KQTests.a */; };
 		82746BA17C3B4D42AE8196DB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE34221828C240E6B918B199 /* libPods.a */; };
+		850A67B519C6EA6E00DCA982 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 850A67B419C6EA6E00DCA982 /* ChangePasswordViewController.m */; };
 		855AA51A19C2932E002B7099 /* KQTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 855AA51919C2932E002B7099 /* KQTabBarViewController.m */; };
 		855AA51C19C2CC5E002B7099 /* bg-landingpage@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 855AA51B19C2CC5E002B7099 /* bg-landingpage@2x.jpg */; };
 		855AA51E19C2D083002B7099 /* btn-receive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 855AA51D19C2D083002B7099 /* btn-receive@2x.png */; };
@@ -299,8 +299,6 @@
 		26821B4D19530EE2005549D3 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		26821B4E19530EE2005549D3 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		26821B5019532DB6005549D3 /* Root.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Root.storyboard; sourceTree = "<group>"; };
-		268BD74019B6A7AF0031B27B /* EventMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventMainViewController.h; sourceTree = "<group>"; };
-		268BD74119B6A7AF0031B27B /* EventMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventMainViewController.m; sourceTree = "<group>"; };
 		26919EE2195D7DC000974010 /* UserSettingsConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserSettingsConfig.plist; sourceTree = "<group>"; };
 		26919EE4195D7E3200974010 /* SwitchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwitchCell.h; sourceTree = "<group>"; };
 		26919EE5195D7E3200974010 /* SwitchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwitchCell.m; sourceTree = "<group>"; };
@@ -628,6 +626,8 @@
 		26F4FA3D19B55E6A0019430A /* AddSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddSegue.h; path = KQ/View/Segue/AddSegue.h; sourceTree = SOURCE_ROOT; };
 		26F4FA3E19B55E6A0019430A /* AddSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddSegue.m; path = KQ/View/Segue/AddSegue.m; sourceTree = SOURCE_ROOT; };
 		26FD1F861958CE9B0074A738 /* around_demo@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "around_demo@2x.jpg"; sourceTree = "<group>"; };
+		850A67B319C6EA6E00DCA982 /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
+		850A67B419C6EA6E00DCA982 /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
 		855AA51819C2932E002B7099 /* KQTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KQTabBarViewController.h; sourceTree = "<group>"; };
 		855AA51919C2932E002B7099 /* KQTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KQTabBarViewController.m; sourceTree = "<group>"; };
 		855AA51B19C2CC5E002B7099 /* bg-landingpage@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "bg-landingpage@2x.jpg"; sourceTree = "<group>"; };
@@ -881,8 +881,6 @@
 			children = (
 				26E14B51193C64B6007A7081 /* MainViewController.h */,
 				26E14B52193C64B6007A7081 /* MainViewController.m */,
-				268BD74019B6A7AF0031B27B /* EventMainViewController.h */,
-				268BD74119B6A7AF0031B27B /* EventMainViewController.m */,
 				26E166271939EF6B0041CDD6 /* CityViewController.h */,
 				26E166281939EF6B0041CDD6 /* CityViewController.m */,
 			);
@@ -1221,6 +1219,8 @@
 				26E3A577192DE042004F8C8C /* RegisterViewController.m */,
 				8596C65D19C18891003B3440 /* ForgetPasswordViewController.h */,
 				8596C65E19C18891003B3440 /* ForgetPasswordViewController.m */,
+				850A67B319C6EA6E00DCA982 /* ChangePasswordViewController.h */,
+				850A67B419C6EA6E00DCA982 /* ChangePasswordViewController.m */,
 				8596C65719C17A19003B3440 /* AgreementViewController.h */,
 				8596C65819C17A19003B3440 /* AgreementViewController.m */,
 				26E3A5E4192E2158004F8C8C /* KQLoginViewController.h */,
@@ -1762,7 +1762,6 @@
 				26E3A5B8192DE042004F8C8C /* SettingController.m in Sources */,
 				26E3A5D1192DE042004F8C8C /* InsetsLabel.m in Sources */,
 				855AA51A19C2932E002B7099 /* KQTabBarViewController.m in Sources */,
-				268BD74219B6A7AF0031B27B /* EventMainViewController.m in Sources */,
 				26D4B6FA195C374E00C1B727 /* CouponManager.m in Sources */,
 				261D34B81946C1BF009F75CF /* UserCouponsViewController.m in Sources */,
 				26E14BC2193CC20C007A7081 /* People.m in Sources */,
@@ -1831,6 +1830,7 @@
 				26DE644A195F07DE008835D6 /* TagsView.m in Sources */,
 				26919EE6195D7E3200974010 /* SwitchCell.m in Sources */,
 				26E29108193DE11700B7E0C9 /* ShopDetailsViewController.m in Sources */,
+				850A67B519C6EA6E00DCA982 /* ChangePasswordViewController.m in Sources */,
 				26E3A5BF192DE042004F8C8C /* NSDate+TKCategory.m in Sources */,
 				2606CC6A19B4BF4000DACBC8 /* EventViewController.m in Sources */,
 				26D393E5194E8F18000ED175 /* SDWebImageDecoder.m in Sources */,

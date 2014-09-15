@@ -32,7 +32,12 @@
 
 @property (nonatomic, strong) IBOutlet EventViewController *eventVC;
 
-- (void)removeEvent;
+- (void)addVCAboveTab:(UIViewController*)vc;
+- (void)removeVCFromTab:(UIViewController *)vc;
+
+- (void)addNavVCAboveTab:(UIViewController*)vc;
+- (void)removeNavVCAboveTab;
+
 
 @end
 
@@ -114,11 +119,11 @@
 
 
 #pragma mark - IBAction
-- (IBAction)backPressed:(id)sender{
+- (IBAction)removeNavPressed:(id)sender{
     [self removeNavVCAboveTab];
 }
 
-#pragma mark - Fcns
+#pragma mark - Private Fcns
 
 
 - (void)addVCAboveTab:(UIViewController*)vc{
@@ -133,11 +138,13 @@
 }
 
 
+///??? 如果有多个vc叠加的话会怎么样？
 - (void)addNavVCAboveTab:(UIViewController*)vc{
  
-    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_back.png" target:self action:@selector(backPressed:)]];
+    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_back.png" target:self action:@selector(removeNavPressed:)]];
     _nav = [[UINavigationController alloc] initWithRootViewController:vc];
-    [_tabVC.view addSubview:_nav.view];
+  
+    [self.view addSubview:_nav.view];
     
     
     
@@ -162,17 +169,8 @@
     else{
         NSLog(@"no user, show event Page");
         
-        __weak id vc = self;
-        
         _eventVC = [[EventViewController alloc] init];
-        _eventVC.toEventCoupon = ^(Coupon* coupon){
-        
-            KQRootViewController *root = vc;
-            [root toCouponDetails:coupon];
-            
-            [root.eventVC.view removeFromSuperview];
-        };
-        
+
         [self.view addSubview:_eventVC.view];
         
       
@@ -184,14 +182,24 @@
 
 //点击banner
 - (void)toCouponDetails:(Coupon*)coupon{
+    
     CouponDetailsViewController *vc = [[CouponDetailsViewController alloc] init];
     vc.view.alpha = 1;
     vc.coupon = coupon;
-    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_back.png" target:self action:@selector(backPressed:)]];
+    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_back.png" target:self action:@selector(removeNavPressed:)]];
    
     _nav = [[UINavigationController alloc] initWithRootViewController:vc];
+
+    [_nav.view setOrigin:CGPointMake(_w, 0)];
     [self.view addSubview:_nav.view];
-    
+  
+    [UIView animateWithDuration:.4 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        
+        [_nav.view setOrigin:CGPointMake(0, 0)];
+        
+    } completion:^(BOOL finished) {
+        
+    }];
     
 
 }
@@ -214,11 +222,28 @@
 - (void)toLogin {
 
     KQLoginViewController *vc = [[KQLoginViewController alloc] init];
+    vc.view.alpha = 1;
+    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_back.png" target:self action:@selector(removeNavPressed:)]];
     
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
+    
+//    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
+//        
+//    }];
+
+    _nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    
+    [_nav.view setOrigin:CGPointMake(_w, 0)];
+    [self.view addSubview:_nav.view];
+    
+    [UIView animateWithDuration:.4 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        
+        [_nav.view setOrigin:CGPointMake(0, 0)];
+        
+    } completion:^(BOOL finished) {
         
     }];
-    
+
+   
     
 }
 
@@ -229,9 +254,9 @@
 //    self.selectedIndex = 3;
     
 }
+
 - (void)didLogout{
 
-//    self.selectedIndex = 0;
     _tabVC.selectedIndex = 0;
 }
 

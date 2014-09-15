@@ -55,6 +55,8 @@
 
 #define api_my_favoritedShop_delete(uid,sessionToken,shopId)  [RESTHOST stringByAppendingFormat:@"/myFavoritedShop/uid/%@/sessionToken/%@/shopId/%@",uid,sessionToken,shopId]
 
+#define api_requestCaptchaForgetPassword [RESTHOST stringByAppendingFormat:@"/requestCaptchaForgetPassword"]
+
 @interface NetworkClient (){
     
 }
@@ -164,6 +166,11 @@
 - (void)searchCoupons:(NSDictionary*)params block:(IdResultBlock)block{
 
     [self getWithUrl:api_searchCoupons parameters:params block:block];
+}
+
+- (void)requestCaptchaForgetPassword:(NSString*)username block:(IdResultBlock)block{
+    
+    [self getWithUrl:api_requestCaptchaForgetPassword parameters:@{@"username":username} block:block];
 }
 
 #pragma mark - My
@@ -456,6 +463,9 @@
 //    }];
     
 //    [self testSearchCoupon];
+//    [self requestCaptchaForgetPassword:@"dsfsdfds" block:^(id object, NSError *error) {
+//        NSLog(@"object # %@",object);
+//    }];
     
 
     

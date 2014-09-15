@@ -7,6 +7,7 @@
 //
 
 #import "ForgetPasswordViewController.h"
+#import "ChangePasswordViewController.h"
 
 @interface ForgetPasswordViewController ()
 
@@ -15,6 +16,19 @@
 @implementation ForgetPasswordViewController
 
 #define kCellHeight 44.0
+/*
+ 
+ UserCase 忘记密码
+ 
+  用户输入手机号
+  用户点击获取验证码
+     客户端从服务器获得captcha1
+     用户从手机获得captcha1
+  用户输入从手机获得的captcha
+  用户提交
+  系统比较用户输入的captcha和captcha1，如果一致的话，进入修改密码，如果不一致则提示用户
+ 
+ */
 
 - (void)viewDidLoad
 {
@@ -44,22 +58,16 @@
     _tableView.dataSource = self;
     _tableView.scrollEnabled = NO;
 
-    _button = [UIButton buttonWithFrame:CGRectMake(10, CGRectGetMaxY(_tableView.frame) + 10 , 300, 40) title:@"提交" bgImageName:nil target:self action:@selector(buttonPressed:)];
-    [_button.titleLabel setFont:[UIFont fontWithName:kFontBoldName size:18]];
-    _button.layer.cornerRadius = 3;
-    _button.backgroundColor = kColorRed;
+    _submitBtn = [UIButton buttonWithFrame:CGRectMake(10, CGRectGetMaxY(_tableView.frame) + 10 , 300, 40) title:@"提交" bgImageName:nil target:self action:@selector(submitClicked:)];
+    [_submitBtn.titleLabel setFont:[UIFont fontWithName:kFontBoldName size:18]];
+    _submitBtn.layer.cornerRadius = 3;
+    _submitBtn.backgroundColor = kColorRed;
 
     [_scrollView addSubview:_tableView];
-    [_scrollView addSubview:_button];
+    [_scrollView addSubview:_submitBtn];
     
      _scrollView.contentSize = CGSizeMake(0, 600);
     
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 
@@ -72,15 +80,6 @@
     return 1;
     
 }
-
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-//    if (section == 0) {
-//        return 1.0;
-//    }
-//    else{
-//        return 20;
-//    }
-//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -141,27 +140,26 @@
 
 - (IBAction)identifyClicked:(id)sender{
     L();
+    _username = _userTextField.text;
+//    _captcha = _verifyTextField.text;
+    
+    [_network requestCaptchaForgetPassword:_username block:^(id object, NSError *error) {
+        NSLog(@"object # %@",object);
+    }];
+
 }
 
-- (IBAction)buttonPressed:(id)sender{
-    [self submit];
-    
-}
+
 
 
 - (void)submit{
     L();
+    
+    ChangePasswordViewController *vc = [[ChangePasswordViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+    
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

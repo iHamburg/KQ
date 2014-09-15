@@ -153,7 +153,9 @@
         
         Coupon *coupon = _models[indexPath.row];
         
-        [self toCouponDetails:coupon];
+//        [self toCouponDetails:coupon];
+        
+        [_root toCouponDetails:coupon];
         
     }
  
@@ -218,25 +220,10 @@
 
 - (void)toCouponDetails:(Coupon*)coupon{
 
-
-    CouponDetailsViewController *vc = [[CouponDetailsViewController alloc] init];
-    vc.view.alpha = 1;
-    vc.coupon = coupon;
-    
-    [_root addNavVCAboveTab:vc];
+    [_root toCouponDetails:coupon];
 }
 
 
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"toCouponDetails"])
-    {
-        //        L();
-        [segue.destinationViewController setValue:sender forKeyPath:@"coupon"];
-        
-    }
-}
 
 - (void)addCouponsInModel:(NSArray *)array {
     for (NSDictionary *dict in array) {
