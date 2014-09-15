@@ -111,8 +111,11 @@
 
 - (void)testNav:(NSString*)className{
     
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[[NSClassFromString(className) alloc] init]];
-    nav.view.frame = self.view.bounds;
+
+    UIViewController *vc = [[NSClassFromString(className) alloc] init];
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+//    nav.view.frame = self.view.bounds;
     
     [testObjs addObject:nav];
     

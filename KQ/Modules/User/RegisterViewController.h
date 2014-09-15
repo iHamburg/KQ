@@ -10,20 +10,16 @@
 
 #import "SignViewController.h"
 
-@interface RegisterViewController : SignViewController{
+@interface RegisterViewController : SignViewController<UIAlertViewDelegate>{
 
 
     IBOutlet UIButton *_registerB;
     IBOutlet UIButton  *_identifyB;
     IBOutlet UITextField *_userTextField;
     IBOutlet UITextField *_passwordTextField, *_verifyTextField, *_usernameTextField, *_rePasswordTextField;
-
-   
     
     UIButton *_selectBtn,*_agreementB;
     UILabel *_readL;
-    
-    
     BOOL _selected;
 
 }

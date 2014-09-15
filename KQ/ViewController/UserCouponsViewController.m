@@ -8,7 +8,7 @@
 
 #import "UserCouponsViewController.h"
 #import "CouponListCell.h"
-
+#import "CouponDetailsViewController.h"
 
 #pragma mark - UserCouponsVC
 
@@ -173,20 +173,13 @@
 - (void)toCouponDetails:(Coupon*)coupon{
     
     
+    CouponDetailsViewController *vc = [[CouponDetailsViewController alloc] init];
+    vc.view.alpha = 1;
+    vc.coupon = coupon;
+    [self.navigationController pushViewController:vc animated:YES];
     
-    [self performSegueWithIdentifier:@"toCouponDetails" sender:coupon];
-}
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"toCouponDetails"])
-    {
-        //        L();
-        [segue.destinationViewController setValue:sender forKeyPath:@"coupon"];
-        
-    }
 }
-
 
 
 @end

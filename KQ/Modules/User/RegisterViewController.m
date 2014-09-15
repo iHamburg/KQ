@@ -30,7 +30,6 @@
     self.view.backgroundColor = kColorBG;
 
     
-  
     _tableImageNames = @[@"icon-user.png",@"icon-identifying.png",@"icon-password01.png",@"icon-password02.png"];
     
     CGFloat x = 60;
@@ -79,7 +78,8 @@
     CGFloat y = CGRectGetMaxY(_tableView.frame);
     
     //TODO: 可以用TogoleBtn refactor
-    _selectBtn = [UIButton buttonWithFrame:CGRectMake(10, y, 30, 30) title:nil bgImageName:@"icon-agreement01.png" target:self action:@selector(selectAgreementClicked:)];
+    _selected = YES;
+    _selectBtn = [UIButton buttonWithFrame:CGRectMake(10, y, 30, 30) title:nil bgImageName:@"icon-agreement03.png" target:self action:@selector(selectAgreementClicked:)];
 
     _readL = [[UILabel alloc] initWithFrame:CGRectMake(45, y, 100, 30)];
     _readL.text = @"我已阅读并同意";
@@ -235,26 +235,12 @@
 #pragma mark - Private methods
 
 
-//- (IBAction)backPressed:(id)sender{
-//    
-//    [self close];
-//}
-
 -(IBAction)signUpUserPressed:(id)sender
 {
 
    
 }
 
-
-//
-//- (void)close{
-//    
-//    
-//    [self.navigationController dismissViewControllerAnimated:YES completion:^{
-//        
-//    }];
-//}
 
 - (void)toAgreement{
     

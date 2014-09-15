@@ -22,14 +22,6 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Discount" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rsQ-zB-9XK">
-                            <rect key="frame" x="130" y="49" width="161" height="22"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                         <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Coupon Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SM5-rz-d5e">
                             <rect key="frame" x="130" y="19" width="161" height="22"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -46,10 +38,10 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </imageView>
                 <button contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hi8-hv-xhK">
-                    <rect key="frame" x="0.0" y="200" width="160" height="45"/>
+                    <rect key="frame" x="200" y="207" width="100" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                    <state key="normal" title="下载快券" backgroundImage="bg_downloadB.jpg">
+                    <state key="normal" title="下载快券">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -57,8 +49,16 @@
                         <action selector="downloadPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="cGR-3P-9cG"/>
                     </connections>
                 </button>
-                <button contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QW3-p6-yhX">
-                    <rect key="frame" x="160" y="200" width="160" height="45"/>
+                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Discount" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rsQ-zB-9XK">
+                    <rect key="frame" x="20" y="211" width="161" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button hidden="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QW3-p6-yhX">
+                    <rect key="frame" x="140" y="20" width="160" height="45"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                     <state key="normal" title="收藏快券" backgroundImage="bg_favoriteB.jpg">
@@ -75,7 +75,6 @@
             <connections>
                 <outlet property="_bgV" destination="4mC-46-ZiS" id="EG6-Ig-0py"/>
                 <outlet property="_downloadB" destination="hi8-hv-xhK" id="dgh-cq-F3h"/>
-                <outlet property="_favoriteB" destination="QW3-p6-yhX" id="Ce7-wj-DQ2"/>
                 <outlet property="avatarV" destination="xUS-2f-NAh" id="r7k-LS-qew"/>
                 <outlet property="firstLabel" destination="SM5-rz-d5e" id="FR5-Lr-VoY"/>
                 <outlet property="secondLabel" destination="rsQ-zB-9XK" id="3Y6-Fh-geO"/>
@@ -84,7 +83,6 @@
         </view>
     </objects>
     <resources>
-        <image name="bg_downloadB.jpg" width="158" height="44"/>
         <image name="bg_favoriteB.jpg" width="160" height="44"/>
     </resources>
 </document>

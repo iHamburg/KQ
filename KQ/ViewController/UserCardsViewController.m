@@ -112,7 +112,6 @@
 
 - (void)viewWillAppear:(BOOL)animated{
 
-//    L();
     [super viewWillAppear:animated];
   
 }
@@ -150,8 +149,7 @@
      [_networkClient queryCards:_userController.uid block:^(NSArray *array, NSError *error) {
      
          [_libraryManager dismissProgress:nil];
-
-         
+       
         if (ISEMPTY(array)) {
             return ;
         }
@@ -175,15 +173,12 @@
 
 - (IBAction)addCard{
     L();
-
-    [self performSegueWithIdentifier:@"AddCard" sender:nil];
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    L();
-
-    [segue.destinationViewController setValue:self forKeyPath:@"parent"];
     
+    AddCardViewController *vc = [[AddCardViewController alloc] init];
+    vc.view.alpha = 1;
+    vc.parent = self;
+    [self.navigationController pushViewController:vc animated:YES];
+
 }
 
 - (void)didAddCard{

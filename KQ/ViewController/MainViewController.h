@@ -12,6 +12,7 @@
 @interface MainViewController : NetTableViewController
 
 
+- (IBAction)handleBannerTap:(id)sender;
 - (void)toCouponDetails:(id)couponModel;
 
 

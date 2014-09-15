@@ -8,12 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "UserCardsViewController.h"
+#import "SignViewController.h"
 
 @interface AddCardViewController : UIViewController<UITextFieldDelegate>
 
 @property (nonatomic, unsafe_unretained) UserCardsViewController *parent;
 
 
+- (void)toAgreement; //显示银联协议
+- (void)toAfterDownloadBank;
 
 - (void)addCard:(NSString*)number;
 - (void)validateWithBlock:(BooleanResultBlock)block;

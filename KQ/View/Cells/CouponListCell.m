@@ -27,6 +27,7 @@
     _value = value;
     
     self.textLabel.text = value.title;
+  
     _secondLabel.text = value.discountContent;
     
     
@@ -63,25 +64,29 @@
 //    L();
     
     
-    self.separatorInset = UIEdgeInsetsMake(0, 0, 0,0);
+    self.separatorInset = UIEdgeInsetsMake(0, 0, 0,0); // 分割线是全屏的
     
     self.imageView.frame = CGRectMake(10, 10, 108, 65);
     self.imageView.layer.masksToBounds = YES;
     self.imageView.layer.cornerRadius = 3;
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     
+    // title
     self.textLabel.frame = CGRectMake(130, 10, 150, 20);
-    self.textLabel.font = [UIFont fontWithName:kFontName size:13];
+    self.textLabel.font = [UIFont fontWithName:kFontBoldName size:14];
     self.textLabel.textAlignment = NSTextAlignmentLeft;
     
-    _secondLabel = [[KQLabel alloc] initWithFrame:CGRectMake(130, CGRectGetMaxY(self.textLabel.frame), 150, 20)];
-    _secondLabel.font = [UIFont fontWithName:kFontName size:12];
+    _secondLabel = [[KQLabel alloc] initWithFrame:CGRectMake(130, CGRectGetMaxY(self.textLabel.frame)+10, 150, 20)];
+    _secondLabel.font = [UIFont fontWithName:kFontBoldName size:14];
     _secondLabel.textAlignment = NSTextAlignmentLeft;
     _secondLabel.textColor = kColorDarkYellow;
     
-    _downloadedL = [[KQLabel alloc] initWithFrame:CGRectMake(130, 50, 150, 20)];
+    _downloadedL = [[KQLabel alloc] initWithFrame:CGRectMake(130, 50, 180, 30)];
     _downloadedL.font = [UIFont fontWithName:kFontName size:11];
+    _downloadedL.textColor = kColorGray;
+    _downloadedL.textAlignment  = NSTextAlignmentRight;
     
+    //distance
     _thirdLabel = [[KQLabel alloc] initWithFrame:CGRectMake(250, 20, 60, 30)];
     _thirdLabel.font = [UIFont fontWithName:kFontName size:12];
     

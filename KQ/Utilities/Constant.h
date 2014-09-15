@@ -7,6 +7,8 @@
 #define kDefaultCityId @"5395652ee4b08cd56b62dc4e"
 
 
+#define kEventCouponId @"54059191e4b031c444ff0764"
+
 #pragma mark - file
 
 
@@ -26,7 +28,7 @@
 #pragma mark - UI
 
 
-#define kColorGreen     [UIColor colorWithRed:0 green:173.0/255 blue:183.0/255 alpha:1]
+#define kColorGreen     [UIColor colorWithRed:30.0/255 green:175.0/255 blue:65.0/255 alpha:1]
 #define kColorYellow        [UIColor colorWithRed:253.0/255 green:130.0/255 blue:37.0/255 alpha:1]
 #define kColorDarkYellow  [UIColor colorWithRed:255.0/255 green:134.0/255 blue:36.0/255 alpha:1]
 #define kColorLightYellow  [UIColor colorWithRed:255.0/255 green:164.0/255 blue:0.0/255 alpha:1]
@@ -36,8 +38,9 @@
 #define kColorLightGray  [UIColor colorWithRed:213.0/255 green:213.0/255 blue:213.0/255 alpha:1]
 #define kColorWhite     [UIColor colorWithWhite:.97 alpha:1]
 #define kColorBG        [UIColor colorWithRed:242.0/255 green:242.0/255 blue:242.0/255 alpha:1]
-#define kColorRed       [UIColor colorWithRed:236.0/255 green:102.0/255 blue:57.0/255 alpha:1]
+#define kColorRed       [UIColor colorWithRed:244.0/255 green:99.0/255 blue:56.0/255 alpha:1]
 #define kColorBlue      [UIColor colorWithRed:61.0/255 green:125.0/255 blue:245.0/255 alpha:1]
+#define kColorTableBG      [UIColor colorWithRed:237.0/255 green:237.0/255 blue:237.0/255 alpha:1]
 
 #define kHNavigationbar (isPad?44.0:32.0)
 

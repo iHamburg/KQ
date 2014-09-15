@@ -75,22 +75,35 @@
 //
 //- (IBAction)cityPressed:(id)sender{
 //    //    L();
-//
-//    [self performSegueWithIdentifier:@"toCity" sender:nil];
 //}
 
 #pragma mark - TableView
 
-//- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-//    if (section == 0) {
-//        return nil;
-//    }
-//    else{
-//        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 320, 38)];
-//        label.text = @"表格头";
-//        return label;
-//    }
-//}
+- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    if (section == 0) {
+        return nil;
+    }
+    else{
+        
+        UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 38)];
+        v.backgroundColor = kColorTableBG;
+        
+        CGFloat fontSize = 13;
+        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 60, 38)];
+        [label setFont:[UIFont fontWithName:kFontName size:fontSize]];
+        label.text = @"热门快券";
+        
+        UILabel *l2 = [[UILabel alloc] initWithFrame:CGRectMake(70, 0, 40, 38)];
+        l2.text = @"HOT";
+        l2.textColor = kColorYellow;
+        [label setFont:[UIFont fontWithName:kFontName size:fontSize]];
+        
+        [v addSubview:label];
+        [v addSubview:l2];
+        
+        return v;
+    }
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
 
@@ -108,7 +121,8 @@
         
         [cell setValue:[UIImage imageNamed:@"event_banner.jpg"]];
         
-        [cell addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(test)]];
+        //点击活动的banner
+        [cell addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleBannerTap:)]];
         
         
     }
@@ -128,9 +142,6 @@
    
 }
 
-- (void)test{
-    L();
-}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
@@ -149,9 +160,17 @@
 
 }
 
+#pragma mark - IBAction
 
+- (IBAction)handleBannerTap:(id)sender{
+    Coupon *eventCoupon = [[Coupon alloc] init];
+    eventCoupon.id = kEventCouponId;
+    eventCoupon.avatarUrl = @"http://www.quickquan.com/images/moti_coupon.jpg";
+    eventCoupon.discountContent = @"0元享18元套餐";
+    [self toCouponDetails:eventCoupon];
+}
 
-#pragma mark - Fcns;
+#pragma mark - Fcns
 
 
 
@@ -160,13 +179,13 @@
 
     L();
 
-//    [_libraryManager startProgress:nil];
+    [_libraryManager startProgress:nil];
   
     [self.models removeAllObjects];
     
     [_networkClient queryNewestCouponsSkip:0 block:^(NSArray *couponDicts, NSError *error) {
         
-//         [_libraryManager dismissProgress:nil];
+         [_libraryManager dismissProgress:nil];
         
         [self addCouponsInModel:couponDicts];
         
@@ -228,22 +247,7 @@
     }
     
     [self.tableView reloadData];
-    
-  
-//    if (kIsMainApplyEvent) {
-//        
-//        //FIXME: 这里对于eventCoupon的判定也可以根据id，不一定是第一个coupon
-//        self.eventCoupon = [self.models firstObject];
-//        
-//        [self toEventCoupon:self.eventCoupon];
-//        
-//    }
-    
+   
 }
 
-
-- (void)toEventCoupon:(Coupon*)coupon{
-    
-    [self performSegueWithIdentifier:@"toCouponDetails" sender:coupon];
-}
 @end

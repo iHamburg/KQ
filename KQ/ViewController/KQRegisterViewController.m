@@ -9,6 +9,8 @@
 #import "KQRegisterViewController.h"
 #import "UserController.h"
 #import "AgreementViewController.h"
+#import "AfterDownloadViewController.h"
+#import "NetworkClient.h"
 
 @interface KQRegisterViewController ()
 
@@ -35,14 +37,25 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    L();
-}
+#pragma mark - Alert
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
 
-- (void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
+   
+    
+    [[NetworkClient sharedInstance] user:[[UserController sharedInstance] uid] downloadCoupon:kEventCouponId block:^(id obj, NSError *error) {
+        
 
+        
+        if (obj) {
+            
+//            [_libraryManager startHint:@"下载快券成功"];
+
+            NSLog(@"下载快券成功");
+        }
+        
+    }];
+    
+    [self toAfterDownload];
 }
 
 #pragma mark - Fcn
@@ -69,7 +82,7 @@
             
             // 这里
             NSDictionary *info = @{@"username":self.userTextField.text,@"password":_passwordTextField.text,@"phone":_userTextField.text,
-                                  @"nickname":@"bla"};
+                                  @"nickname":@"KQ84567033"};
             
             //    NSLog(@"info # %@",info);
             
@@ -100,13 +113,20 @@
     
     [[UserController sharedInstance] registerWithUserInfo:userInfo block:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
-            [self.navigationController dismissViewControllerAnimated:YES completion:^{
-                
-            }];
+
+            /// 注册成功后显示提示窗
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"注册成功" message:@"前往领取免费摩提快券" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            [alert show];
         }
     }];
 
     
+}
+
+- (void)toAfterDownload{
+    
+    AfterDownloadViewController *vc = [[AfterDownloadViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 

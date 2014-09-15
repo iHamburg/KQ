@@ -8,6 +8,7 @@
 
 #import "ShopBranchListViewController.h"
 #import "ShopBranchesCell.h"
+#import "MapViewController.h"
 
 @interface ShopBranchListCell : ConfigCell{
    }
@@ -78,22 +79,26 @@
 
 #pragma mark - Fcns
 - (void)toMap:(id)shop{
+    MapViewController *vc = [[MapViewController alloc] init];
+    vc.view.alpha = 1;
+    vc.shop = shop;
+    [self.navigationController pushViewController:vc animated:YES];
     
-    [self performSegueWithIdentifier:@"toMap" sender:shop];
+
 }
 
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    
-    NSString *identifier = segue.identifier;
-    
-  if([identifier isEqualToString:@"toMap"]){
-        
-        [segue.destinationViewController setValue:sender forKeyPath:@"shop"];
-        
-}
-   
-}
+//
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+//{
+//    
+//    NSString *identifier = segue.identifier;
+//    
+//  if([identifier isEqualToString:@"toMap"]){
+//        
+//        [segue.destinationViewController setValue:sender forKeyPath:@"shop"];
+//        
+//}
+//   
+//}
 
 @end

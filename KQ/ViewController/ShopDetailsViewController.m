@@ -10,6 +10,9 @@
 #import "UIImageView+WebCache.h"
 #import "ShopBranchesCell.h"
 #import "CouponListCell.h"
+#import "ShopBranchListViewController.h"
+#import "CouponDetailsViewController.h"
+#import "MapViewController.h"
 
 #pragma mark - ShopHeaderCell
 
@@ -138,9 +141,9 @@
     // Do any additional setup after loading the view.
     self.config = [[TableConfiguration alloc] initWithResource:@"ShopConfig"];
 
-    self.title = self.shop.title;
+//    self.title = self.shop.title;
 
-//    self.title = @"商户";
+    self.title = @"商户详情";
 }
 
 - (void)didReceiveMemoryWarning
@@ -318,47 +321,59 @@
 }
 
 - (void)toShopList{
+    ShopBranchListViewController *vc = [[ShopBranchListViewController alloc] init];
+    vc.view.alpha = 1;
+    vc.models = [self.shopBranches mutableCopy];
+    
+    [self.navigationController pushViewController:vc animated:YES];
     
     
-    [self performSegueWithIdentifier:@"toShopBranch" sender:nil];
 }
 
 - (void)toMap{
-    
-    [self performSegueWithIdentifier:@"toMap" sender:nil];
+    MapViewController *vc = [[MapViewController alloc] init];
+    vc.view.alpha = 1;
+    vc.shop = [self.shopBranches firstObject];
+    [self.navigationController pushViewController:vc animated:YES];
+
 }
 
 - (void)toCouponDetails:(id)coupon{
-    [self performSegueWithIdentifier:@"toCouponDetails" sender:coupon];
+   
+    CouponDetailsViewController *vc = [[CouponDetailsViewController alloc] init];
+    vc.view.alpha = 1;
+    vc.coupon = coupon;
+    
+    [self.navigationController pushViewController:vc animated:YES];
 
 }
-
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    
-    NSString *identifier = segue.identifier;
-    
-   if([identifier isEqualToString:@"toShopBranch"]){
-        
-        //set models
-        //        NSLog(@"shopBranches # %@",self.shopBranches);
-        
-        [segue.destinationViewController setValue:self.shopBranches forKeyPath:@"models"];
-        
-    }
-   else if([identifier isEqualToString:@"toMap"]){
-       
-       [segue.destinationViewController setValue:[self.shopBranches firstObject] forKeyPath:@"shop"];
-       
-   }
-   else if([identifier isEqualToString:@"toCouponDetails"]){
-       
-       [segue.destinationViewController setValue:sender forKeyPath:@"coupon"];
-       
-   }
-    
-}
-
+//
+//
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+//{
+//    
+//    NSString *identifier = segue.identifier;
+//    
+//   if([identifier isEqualToString:@"toShopBranch"]){
+//        
+//        //set models
+//        //        NSLog(@"shopBranches # %@",self.shopBranches);
+//        
+//        [segue.destinationViewController setValue:self.shopBranches forKeyPath:@"models"];
+//        
+//    }
+//   else if([identifier isEqualToString:@"toMap"]){
+//       
+//       [segue.destinationViewController setValue:[self.shopBranches firstObject] forKeyPath:@"shop"];
+//       
+//   }
+//   else if([identifier isEqualToString:@"toCouponDetails"]){
+//       
+//       [segue.destinationViewController setValue:sender forKeyPath:@"coupon"];
+//       
+//   }
+//    
+//}
+//
 
 @end

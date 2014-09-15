@@ -21,6 +21,11 @@
 #import "ImageButtonCell.h"
 #import "AddCardViewController.h"
 
+
+#import "ShopBranchListViewController.h"
+#import "ShopDetailsViewController.h"
+#import "MapViewController.h"
+
 #pragma mark - Cell: CouponHeader
 @interface CouponHeaderCell : CouponCell{
 
@@ -39,6 +44,7 @@
 
 @end
 
+
 @implementation CouponHeaderCell
 
 // 180: 135 + 45
@@ -50,6 +56,7 @@
     
     
     __weak id cell = self;
+    
     [self.avatarV setImageWithURL:[NSURL URLWithString:coupon.avatarUrl] placeholderImage:DefaultImg success:^(UIImage *image, BOOL cached) {
         Coupon *aCoupon = [(CouponHeaderCell*)cell value];
         [aCoupon setAvatar:image];
@@ -88,24 +95,27 @@
 
 - (void)load{
     [super load];
-    _bgV.image = [UIImage imageNamed:@"coupon_header_bg.png"];
+//    _bgV.image = [UIImage imageNamed:@"coupon_header_bg.png"];
     self.selectionStyle = UITableViewCellSeparatorStyleNone;
     [self.contentView removeFromSuperview];
 
-    self.avatarV.layer.cornerRadius = 5;
-    self.avatarV.layer.masksToBounds = YES;
+    
+    _downloadB.backgroundColor = kColorRed;
+    _downloadB.layer.cornerRadius = 3;
+
+    _secondLabel.textColor = kColorRed;
+    
 }
 
 - (IBAction)downloadPressed:(id)sender{
-//    L();
     
     self.downloadBlock();
 }
 
 - (IBAction)favoriteToggled:(id)sender{
-//    L();
     
     _toggleFavoriteBlock();
+
 }
 
 
@@ -227,9 +237,13 @@
 }
 
 
-
+/**
+ 
+ 自适应调整cell高度
+ */
 + (CGFloat)cellHeightWithValue:(Shop*)shop{
 
+    
 //    NSLog(@"shop # %@",self.va)
     NSString *text = shop.desc;
     UIFont *font = [UIFont fontWithName:kFontName size:12];
@@ -305,6 +319,10 @@
         
         self.nearestShopBranch = [self.shopBranches firstObject];
     
+        self.coupon.usage = dict[@"usage"];
+        self.coupon.avatarUrl = dict[@"avatarUrl"];
+        self.coupon.title = dict[@"title"];
+        
         [self.tableView reloadData];
     }];
     
@@ -409,6 +427,8 @@
         
     }
     else if([cell isKindOfClass:[CouponUsageCell class]]){
+        
+        
         [(CouponUsageCell*)cell setValue:self.coupon];
     }
     else if([cell isKindOfClass:[ShopDescCell class]]){
@@ -422,13 +442,16 @@
         cell.imageView.image = [UIImage imageNamed:@"icon_myfavoritedshops.png"];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    
+ 
+
     
 
 }
 
 - (void)configCell:(ConfigCell *)cell atIndexPath:(NSIndexPath *)indexPath{
 
+     __weak CouponDetailsViewController *vc = self;
+    
     if([cell isKindOfClass:[ShopBranchesCell class]]){
         
       
@@ -443,6 +466,36 @@
     
         [(CouponHeaderCell*)cell setHasFavoritedCoupon:self.isFavoritedCoupon];
       
+    }
+    else if([cell isKindOfClass:[CouponHeaderCell class]]){
+        
+        [(CouponHeaderCell*)cell setValue:self.coupon];
+        
+        [(CouponHeaderCell*)cell setHasFavoritedCoupon:self.isFavoritedCoupon];
+        CouponHeaderCell *aCell = (CouponHeaderCell*)cell;
+        
+        aCell.downloadBlock = ^{
+            
+            L();
+            [vc downloadCoupon:self.coupon];
+            
+        };
+        
+        aCell.toggleFavoriteBlock = ^{
+            
+            [vc toggleFavoriteCoupon:self.coupon];
+            
+        };
+        
+        
+        [self addObserver:cell forKeyPath:@"isFavoritedCoupon" options:NSKeyValueObservingOptionNew context:nil];
+        
+        
+        
+    }
+    else if([cell isKindOfClass:[CouponUsageCell class]]){
+        
+        [(CouponUsageCell*)cell setValue:self.coupon];
     }
 
 }
@@ -473,7 +526,6 @@
 //    NSLog(@"coupon # %@",coupon);
     if (!_userController.isLogin) {
     
-//        [_libraryManager startHint:@"请先登录快券"];
  
         [[NSNotificationCenter defaultCenter] postNotificationName:@"toLogin" object:nil];
         
@@ -484,6 +536,7 @@
         
         AddCardViewController *vc = [[AddCardViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
+    
     }
     else{
          [_libraryManager startProgress:nil];
@@ -577,48 +630,27 @@
     [self.navigationController pushViewController:vc animated:YES];
     
 
-//    [self performSegueWithIdentifier:@"toShop" sender:nil];
 }
 
 - (void)toShopList{
 
+    ShopBranchListViewController *vc = [[ShopBranchListViewController alloc] init];
+    vc.view.alpha = 1;
+    vc.models = [self.shopBranches mutableCopy];
+    
+    [self.navigationController pushViewController:vc animated:YES];
+    
 
-    [self performSegueWithIdentifier:@"toShopBranch" sender:nil];
 }
 
 - (void)toMap{
 
-    [self performSegueWithIdentifier:@"toMap" sender:nil];
-}
+    MapViewController *vc = [[MapViewController alloc] init];
+    vc.view.alpha = 1;
+    vc.shop = self.nearestShopBranch;
+    [self.navigationController pushViewController:vc animated:YES];
+    
 
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    
-    NSString *identifier = segue.identifier;
-    
-    if ([segue.identifier isEqualToString:@"toShop"])
-    {
-        //        L();
-    
-        [segue.destinationViewController setValue:self.shop forKeyPath:@"shop"];
-        [segue.destinationViewController setValue:self.shopBranches forKeyPath:@"shopBranches"];
-
-        
-    }
-    else if([identifier isEqualToString:@"toShopBranch"]){
-    
-        //set models
-//        NSLog(@"shopBranches # %@",self.shopBranches);
-        
-        [segue.destinationViewController setValue:self.shopBranches forKeyPath:@"models"];
-        
-    }
-    else if([identifier isEqualToString:@"toMap"]){
-    
-        [segue.destinationViewController setValue:self.nearestShopBranch forKeyPath:@"shop"];
-        
-    }
 }
 
 

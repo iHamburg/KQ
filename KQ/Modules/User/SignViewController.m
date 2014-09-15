@@ -63,6 +63,8 @@
     
 	UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier1];
     
+    cell.textLabel.text = @"abc";
+    
     return cell;
     
 }
@@ -74,11 +76,6 @@
     [self back];
     
 }
-
-
-//- (void)back{
-//    
-//}
 
 
 - (void)back{

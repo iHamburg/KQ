@@ -32,6 +32,11 @@
     UIButton *button = [UIButton buttonWithFrame:CGRectMake(85, _h - 64, 150, 44) title:nil bgImageName:@"btn-receive.png" target:self action:@selector(eventButtonClicked:)];
     
     
+    self.coupon = [[Coupon alloc] init];
+    self.coupon.id = kEventCouponId;
+    self.coupon.avatarUrl = @"http://www.quickquan.com/images/moti_coupon.jpg";
+    self.coupon.discountContent = @"0元享18元套餐";
+    
     [self.view addSubview:self.bgV];
     [self.view addSubview:button];
 

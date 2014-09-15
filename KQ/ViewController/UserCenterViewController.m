@@ -14,6 +14,7 @@
 #import "UserSettingsViewController.h"
 #import "UIImageView+WebCache.h"
 #import "KQRootViewController.h"
+#import "UserFavoritedCouponsViewController.h"
 
 #pragma mark - Cell: UserAvatar
 @interface UserAvatarCell : PeopleCell<UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate>
@@ -59,7 +60,7 @@
     [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarVPressed:)]];
     self.backgroundColor = kColorBG;
     self.separatorInset = UIEdgeInsetsMake(0, 160, 0, 160);
-
+    
 
 }
 
@@ -257,28 +258,37 @@
 
 - (void)toCoupons{
 
-    [self performSegueWithIdentifier:@"toCoupons" sender:nil];
+    
+    UserCouponsViewController *vc = [[UserCouponsViewController alloc] init];
+    
+    [self.navigationController pushViewController:vc animated:YES];
     
 }
 - (void)toShops{
 
-    [self performSegueWithIdentifier:@"toShops" sender:nil];
+    
+    UserShopsViewController *vc = [[UserShopsViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
     
 }
 - (void)toCards{
 
-    [self performSegueWithIdentifier:@"toCards" sender:nil];
+    UserCardsViewController *vc = [[UserCardsViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
     
 }
 - (void)toFavoritedCoupons{
 
     
-    [self performSegueWithIdentifier:@"toFavoritedCoupons" sender:nil];
+    
+    UserFavoritedCouponsViewController *vc = [[UserFavoritedCouponsViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
     
 }
 - (void)toSettings{
 
-    [self performSegueWithIdentifier:@"toSettings" sender:nil];
+    UserSettingsViewController *vc = [[UserSettingsViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
     
 }
 

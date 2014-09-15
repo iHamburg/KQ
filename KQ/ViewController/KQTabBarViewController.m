@@ -7,7 +7,7 @@
 //
 
 #import "KQTabBarViewController.h"
-
+#import "KQRootViewController.h"
 
 
 @interface KQTabBarViewController ()
@@ -27,7 +27,7 @@
     _aroundVC = [[AroundViewController alloc] init];
     _searchVC = [[KQSearchViewController alloc] init];
     _userCenterVC = [[UserCenterViewController alloc] init];
-    
+    self.delegate = self;
     
     NSArray *vcs = @[_mainVC,_aroundVC,_searchVC,_userCenterVC];
     NSMutableArray *tabVCs = [NSMutableArray array];
@@ -73,20 +73,21 @@
 
 #pragma mark - TabbarController
 
-//- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UINavigationController *)viewController{
-//    //    L();
-//    
-//    UIViewController *rootVC = [viewController.viewControllers firstObject];
-//    
-//    if ([rootVC isKindOfClass:[UserCenterViewController class]] && ![[UserController sharedInstance] isLogin]) {
-//        
-//        [self toLogin];
-//        
-//        return NO;
-//    }
-//    
-//    return YES;
-//}
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UINavigationController *)viewController{
+    //    L();
+    
+    if (![[UserController sharedInstance] isLogin]) {
+        UIViewController *rootVC = [viewController.viewControllers firstObject];
+        if ([rootVC isKindOfClass:[UserCenterViewController class]]){
+            
+            [[KQRootViewController sharedInstance] toLogin];
+            return NO;
+        }
+        else
+            return YES;
+    }
+    return YES;
+}
 //
 //- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
 //    

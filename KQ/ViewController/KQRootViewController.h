@@ -11,6 +11,7 @@
 #define kIsMainApplyEvent  YES
 
 @class KQTabBarViewController;
+@class Coupon;
 
 @interface KQRootViewController : RootViewController<UITabBarControllerDelegate>{
 
@@ -20,7 +21,7 @@
 }
 
 
-- (IBAction)toLogin;
+- (void)toLogin;
 
 - (void)addVCAboveTab:(UIViewController*)vc;
 - (void)removeVCFromTab:(UIViewController *)vc;
@@ -28,7 +29,8 @@
 - (void)addNavVCAboveTab:(UIViewController*)vc;
 - (void)removeNavVCAboveTab;
 
-//- (void)toEventCoupon:(
+
+- (void)toCouponDetails:(Coupon*)coupon; //点击banner进入coupondetails
 
 - (void)didLogin;
 - (void)didLogout;

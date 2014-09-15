@@ -34,7 +34,6 @@
 - (IBAction)cityPressed:(id)sender{
     L();
     
-//    [self performSegueWithIdentifier:@"toCity" sender:nil];
 }
 
 

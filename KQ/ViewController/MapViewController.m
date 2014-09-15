@@ -9,6 +9,8 @@
 #import "MapViewController.h"
 #import "UIImageView+WebCache.h"
 
+#pragma mark - ShopAnnotation
+
 @interface ShopAnnotation : NSObject<MKAnnotation>
 
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
@@ -77,6 +79,8 @@
     
     self.title = @"地图";
     
+    
+    
     if (isIOS7) {
         
         self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -84,7 +88,10 @@
     
     
     self.navigationController.navigationBar.translucent = NO;
+    _mapView = [[MKMapView alloc]initWithFrame:self.view.bounds];
     _mapView.delegate = self;
+    
+    [self.view addSubview:_mapView];
 }
 
 - (void)viewWillAppear:(BOOL)animated{

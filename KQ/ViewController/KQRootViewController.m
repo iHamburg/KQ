@@ -16,7 +16,10 @@
 #import "EventViewController.h"
 #import "UserController.h"
 #import "KQTabBarViewController.h"
-
+#import "CouponDetailsViewController.h"
+#import "KQLoginViewController.h"
+    //#import "AfterDownloadViewController.h"
+//#import "AfterDownloadBankViewController.h"
 
 
 @interface KQRootViewController (){
@@ -72,7 +75,6 @@
     
     [self test];
     
-//    NSLog(@"root.subViews # %@",self.view.subviews);
     
 }
 
@@ -103,32 +105,11 @@
     [super registerNotification];
     
     [[NSNotificationCenter defaultCenter] addObserverForName:@"toLogin" object:nil queue:nil usingBlock:^(NSNotification *note) {
-        
-        [self performSegueWithIdentifier:@"toLogin" sender:self];
+        [self toLogin];
     }];
     
 }
 
-
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"toLogin"]){
-        
-    }
-//    else if([segue.identifier isEqualToString:@"toEvent"]){
-//        
-//        
-//        _eventVC = segue.destinationViewController;
-//        
-//        __weak id vc = self;
-//        _eventVC.back = ^{
-//            
-//            [(KQRootViewController*)vc removeEvent];
-//            
-//        };
-//    }
-}
 
 #pragma mark - IBAction
 - (IBAction)backPressed:(id)sender{
@@ -179,10 +160,13 @@
     else{
         NSLog(@"no user, show event Page");
         
+        __weak id vc = self;
+        
         _eventVC = [[EventViewController alloc] init];
         _eventVC.toEventCoupon = ^(Coupon* coupon){
         
-            L();
+            [vc toCouponDetails:coupon];
+
         };
         
         [self.view addSubview:_eventVC.view];
@@ -193,12 +177,36 @@
     
 }
 
+- (void)removeEvent{
+    [self.eventVC.view removeFromSuperview];
+    self.eventVC = nil;
+}
 
+//点击banner
+- (void)toCouponDetails:(Coupon*)coupon{
+    CouponDetailsViewController *vc = [[CouponDetailsViewController alloc] init];
+    vc.view.alpha = 1;
+    vc.coupon = coupon;
+    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_back.png" target:self action:@selector(backPressed:)]];
+    _nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    
+    
+    [self.view addSubview:_nav.view];
+    
+    
+    [_eventVC.view removeFromSuperview];
+}
 
+/**
+ **/
+- (void)toLogin {
 
-- (IBAction)toLogin {
-
-//    [self performSegueWithIdentifier:@"toLogin" sender:self];
+    KQLoginViewController *vc = [[KQLoginViewController alloc] init];
+    
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
+        
+    }];
+    
     
 }
 
@@ -212,22 +220,22 @@
 - (void)didLogout{
 
 //    self.selectedIndex = 0;
+    _tabVC.selectedIndex = 0;
 }
 
-- (void)removeEvent{
-    [self.eventVC.view removeFromSuperview];
-    self.eventVC = nil;
-}
+
 
 - (void)test{
     L();
+    
+    [super test];
     
     [[AVOSServer sharedInstance] test];
     [[NetworkClient sharedInstance] test];
     [[UserController sharedInstance] test];
 
  
-    
+//    [self testNav:@"AddCardViewController"];
 
 }
 

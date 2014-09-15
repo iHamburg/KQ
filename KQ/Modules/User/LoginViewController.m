@@ -54,7 +54,7 @@
     
     
 
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, _w, 88 + 70) style:UITableViewStyleGrouped];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, _w, 88 + 50) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.scrollEnabled = NO;
@@ -75,11 +75,11 @@
     _forgetB.contentHorizontalAlignment =UIControlContentHorizontalAlignmentRight;
     _forgetB.titleLabel.font = [UIFont fontWithName:kFontName size:18];
     
-    
+    [_scrollView addSubview:_tableView];
     [_scrollView addSubview:_loginB];
     [_scrollView addSubview:_registerB];
     [_scrollView addSubview:_forgetB];
-    [_scrollView addSubview:_tableView];
+
    
 
      _scrollView.contentSize = CGSizeMake(0, 600);
@@ -91,7 +91,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-    [_userTextField becomeFirstResponder];
+//    [_userTextField becomeFirstResponder];
 }
 
 #pragma mark - IBAction
