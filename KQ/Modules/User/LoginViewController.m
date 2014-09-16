@@ -167,12 +167,12 @@
 }
 
 #pragma mark - 
-//- (void)back{
-//    
-//    [self.navigationController dismissViewControllerAnimated:YES completion:^{
-//        
-//    }];
-//}
+- (void)back{
+    
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+}
 
 #pragma mark - Fcns
 

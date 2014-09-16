@@ -226,22 +226,22 @@
     vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_back.png" target:self action:@selector(removeNavPressed:)]];
     
     
-//    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
-//        
-//    }];
-
-    _nav = [[UINavigationController alloc] initWithRootViewController:vc];
-    
-    [_nav.view setOrigin:CGPointMake(_w, 0)];
-    [self.view addSubview:_nav.view];
-    
-    [UIView animateWithDuration:.4 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        
-        [_nav.view setOrigin:CGPointMake(0, 0)];
-        
-    } completion:^(BOOL finished) {
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
         
     }];
+
+//    _nav = [[UINavigationController alloc] initWithRootViewController:vc];
+//    
+//    [_nav.view setOrigin:CGPointMake(_w, 0)];
+//    [self.view addSubview:_nav.view];
+//    
+//    [UIView animateWithDuration:.4 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+//        
+//        [_nav.view setOrigin:CGPointMake(0, 0)];
+//        
+//    } completion:^(BOOL finished) {
+//        
+//    }];
 
    
     

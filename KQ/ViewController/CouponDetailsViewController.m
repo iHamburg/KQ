@@ -545,8 +545,6 @@
     }
     else if(!_userController.hasBankcard){
         
-//        AddCardViewController *vc = [[AddCardViewController alloc] init];
-//        [self.navigationController pushViewController:vc animated:YES];
         [self toAfterDownload];
         
 

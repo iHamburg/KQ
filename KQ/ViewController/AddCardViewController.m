@@ -202,6 +202,10 @@
                 [_parent didAddCard];
             }
             else{
+                
+                
+                // 更新userController.cardSet?
+                
                 [self toAfterDownloadBank];
             }
             
