@@ -26,6 +26,11 @@
 
 @end
 
+
+/**
+ 
+ 
+ */
 @implementation AddCardViewController
 
 
@@ -203,8 +208,10 @@
             }
             else{
                 
-                
                 // 更新userController.cardSet?
+                
+                [[UserController sharedInstance] loadUser];
+                
                 
                 [self toAfterDownloadBank];
             }
