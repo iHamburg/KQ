@@ -211,7 +211,7 @@
     UserCouponsViewController *vc = [[UserCouponsViewController alloc] init];
     vc.view.alpha = 1;
     
-    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_back.png" target:self action:@selector(backPressed:)]];
+    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_back.png" target:self action:@selector(removeNavPressed:)]];
     
     _nav = [[UINavigationController alloc] initWithRootViewController:vc];
     [self.view addSubview:_nav.view];

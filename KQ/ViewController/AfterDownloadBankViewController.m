@@ -175,9 +175,6 @@
 
 - (void)toMyCoupons{
     L();
-
-//    [[KQRootViewController sharedInstance] toMyCoupons];
-
    
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
              [[KQRootViewController sharedInstance] toMyCoupons];
