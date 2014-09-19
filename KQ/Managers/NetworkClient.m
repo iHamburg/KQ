@@ -82,17 +82,17 @@
     self = [super init];
     if (self) {
         _clientManager = [AFHTTPRequestOperationManager manager];
-        //
+        
+        
         // 必加的
         _clientManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
 
-          }
+    }
     return self;
 }
 
 #pragma mark -
 - (void)registerWithDict:(NSDictionary*)info block:(IdResultBlock)block{
-    //
     
     [self postWithUrl:api_user parameters:info block:block];
     
@@ -108,12 +108,17 @@
 
 - (void)queryUser:(NSString*)uid block:(IdResultBlock)block{
     
+    
     [self getWithUrl:api_user parameters:@{@"uid":uid} block:block];
+    
+    
 }
 
 - (void)queryCoupon:(NSString*)couponId block:(IdResultBlock)block{
 
+    
     [self getWithUrl:api_coupon parameters:@{@"id":couponId} block:block];
+    
     
 }
 
