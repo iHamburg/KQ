@@ -19,10 +19,7 @@
 #import "CouponDetailsViewController.h"
 #import "KQLoginViewController.h"
 #import "UserCouponsViewController.h"
-
-//#import "AfterDownloadViewController.h"
-//#import "AfterDownloadBankViewController.h"
-
+#import "NSString+md5.h"
 
 @interface KQRootViewController (){
 
@@ -44,12 +41,15 @@
 @implementation KQRootViewController
 
 + (id)sharedInstance{
+   
     static id sharedInstance = nil;
+    
     static dispatch_once_t onceToken;
     
     dispatch_once(&onceToken, ^{
 
         sharedInstance = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+    
     });
     
     return sharedInstance;
@@ -274,6 +274,9 @@
  
 //    [self testNav:@"AddCardViewController"];
 
+    NSLog(@"123456 md5 cyrp # %@",[@"123456" stringWithMD5]);
 }
+
+
 
 @end

@@ -259,6 +259,7 @@
 		85CAC53619C057DD007A1F86 /* icon-phonenember@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 85CAC52A19C057DD007A1F86 /* icon-phonenember@2x.png */; };
 		85CAC53719C057DD007A1F86 /* icon-tip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 85CAC52B19C057DD007A1F86 /* icon-tip@2x.png */; };
 		85CAC53819C057DD007A1F86 /* icon-user@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 85CAC52C19C057DD007A1F86 /* icon-user@2x.png */; };
+		85EE360919D3D7FD0065CE2A /* NSString+md5.m in Sources */ = {isa = PBXBuildFile; fileRef = 85EE360819D3D7FD0065CE2A /* NSString+md5.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -662,6 +663,8 @@
 		85CAC52A19C057DD007A1F86 /* icon-phonenember@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-phonenember@2x.png"; sourceTree = "<group>"; };
 		85CAC52B19C057DD007A1F86 /* icon-tip@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-tip@2x.png"; sourceTree = "<group>"; };
 		85CAC52C19C057DD007A1F86 /* icon-user@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-user@2x.png"; sourceTree = "<group>"; };
+		85EE360719D3D7FD0065CE2A /* NSString+md5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+md5.h"; sourceTree = "<group>"; };
+		85EE360819D3D7FD0065CE2A /* NSString+md5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+md5.m"; sourceTree = "<group>"; };
 		AE34221828C240E6B918B199 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C79B3B69F6594C019D92F398 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		D77DC981FBD7460891F5B186 /* libPods-KQTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KQTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1288,6 +1291,8 @@
 				26E3A583192DE042004F8C8C /* NSMutableArray+Extras.h */,
 				26E3A584192DE042004F8C8C /* NSMutableArray+Extras.m */,
 				26E3A585192DE042004F8C8C /* NSString+Extras.h */,
+				85EE360719D3D7FD0065CE2A /* NSString+md5.h */,
+				85EE360819D3D7FD0065CE2A /* NSString+md5.m */,
 				26E3A586192DE042004F8C8C /* NSString+Extras.m */,
 				26E3A587192DE042004F8C8C /* NSString+TKCategory.h */,
 				26E3A588192DE042004F8C8C /* NSString+TKCategory.m */,
@@ -1527,7 +1532,7 @@
 		26E3A519192DE02F004F8C8C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = Xappsoft;
 				TargetAttributes = {
 					26E3A549192DE02F004F8C8C = {
@@ -1818,6 +1823,7 @@
 				26E14B8E193C65FD007A7081 /* LoadMoreCell.m in Sources */,
 				8596C65919C17A19003B3440 /* AgreementViewController.m in Sources */,
 				26E14B9C193C65FD007A7081 /* TextViewCell.m in Sources */,
+				85EE360919D3D7FD0065CE2A /* NSString+md5.m in Sources */,
 				26E14B53193C64B6007A7081 /* MainViewController.m in Sources */,
 				26E3A5BE192DE042004F8C8C /* NSArray+Extras.m in Sources */,
 				26E3A5C6192DE042004F8C8C /* UIButton+Extras.m in Sources */,
@@ -1937,7 +1943,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C79B3B69F6594C019D92F398 /* Pods.xcconfig */;
 			buildSettings = {
-				ARCHS = armv7;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2055,7 +2060,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C79B3B69F6594C019D92F398 /* Pods.xcconfig */;
 			buildSettings = {
-				ARCHS = armv7;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2083,7 +2087,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C79B3B69F6594C019D92F398 /* Pods.xcconfig */;
 			buildSettings = {
-				ARCHS = armv7;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				FRAMEWORK_SEARCH_PATHS = (
