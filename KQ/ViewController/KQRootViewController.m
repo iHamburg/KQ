@@ -258,6 +258,7 @@
 - (void)didLogout{
 
     _tabVC.selectedIndex = 0;
+    
 }
 
 
@@ -274,7 +275,6 @@
  
 //    [self testNav:@"AddCardViewController"];
 
-    NSLog(@"123456 md5 cyrp # %@",[@"123456" stringWithMD5]);
 }
 
 
