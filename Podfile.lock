@@ -1,13 +1,10 @@
 PODS:
   - AVOSCloud (2.5.6)
-  - Expecta (0.2.4)
 
 DEPENDENCIES:
   - AVOSCloud
-  - Expecta (~> 0.2.4)
 
 SPEC CHECKSUMS:
   AVOSCloud: 3252d71314bcb17f783c0381eed86a384fba277b
-  Expecta: 112bcafa2304ee0f3c5e586505f24555a47b25d5
 
-COCOAPODS: 0.32.1
+COCOAPODS: 0.34.1
