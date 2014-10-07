@@ -1,1 +1,1 @@
-../../../AVOSCloud/iOS/release-v2.5.6/AVOSCloud.framework/Versions/A/Headers/AVSearchQuery.h
+../../../AVOSCloud/iOS/release-v2.6.5.1/AVOSCloud.framework/Headers/AVSearchQuery.h

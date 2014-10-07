@@ -410,6 +410,7 @@ static natural_t get_free_memory(void)
     NSDirectoryEnumerator *fileEnumerator = [[NSFileManager defaultManager] enumeratorAtPath:diskCachePath];
     for (NSString *fileName in fileEnumerator)
     {
+        [fileName compare:@""];
         count += 1;
     }
     

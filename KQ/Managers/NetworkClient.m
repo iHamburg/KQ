@@ -472,7 +472,10 @@
 //        NSLog(@"object # %@",object);
 //    }];
     
-
+//
+//    [self getWithUrl:@"http://115.29.148.47/kq/index.php/kqapi3/newestCoupons" parameters:nil block:^(id object, NSError *error) {
+//        NSLog(@"obj # %@",object);
+//    }];
     
 }
 

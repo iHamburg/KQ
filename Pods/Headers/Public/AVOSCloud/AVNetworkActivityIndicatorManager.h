@@ -1,1 +1,1 @@
-../../../AVOSCloud/iOS/release-v2.5.6/AVOSCloud.framework/Versions/A/Headers/AVNetworkActivityIndicatorManager.h
+../../../AVOSCloud/iOS/release-v2.6.5.1/AVOSCloud.framework/PrivateHeaders/AVNetworkActivityIndicatorManager.h
