@@ -1863,7 +1863,7 @@
 					"$(PROJECT_DIR)/KQ/3rdLibraries/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
 				PRODUCT_NAME = "快券 0.2";
-				PROVISIONING_PROFILE = "609FEA0D-E70D-4F2D-8E8B-0ADE353B1A05";
+				PROVISIONING_PROFILE = "cce46e28-0e6c-4b24-8dd0-37ebca8b0250";
 				WARNING_CFLAGS = (
 					"-Wno-arc-performSelector-leaks\n-Wno-arc-performSelector-leaks\n-Wno-arc-performSelector-leaks",
 				);
@@ -1972,7 +1972,7 @@
 					"$(PROJECT_DIR)/KQ/3rdLibraries/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
 				PRODUCT_NAME = "快券 0.2";
-				PROVISIONING_PROFILE = "4EB69DDD-1BBD-49D7-86FF-45FE69872990";
+				PROVISIONING_PROFILE = "85a3d14e-784e-4b58-bb91-97cae3a9dd92";
 				WARNING_CFLAGS = (
 					"-Wno-arc-performSelector-leaks\n-Wno-arc-performSelector-leaks\n-Wno-arc-performSelector-leaks",
 				);

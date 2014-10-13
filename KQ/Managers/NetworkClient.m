@@ -119,7 +119,6 @@
     
     [self getWithUrl:api_coupon parameters:@{@"id":couponId} block:block];
     
-    
 }
 
 
@@ -133,9 +132,13 @@
 /// deprecated
 - (void)queryCouponsWithShop:(NSString*)shopId block:(IdResultBlock)block{
     
+    
+    
     NSString *url = [RESTHOST stringByAppendingFormat:@"/coupon"];
     
      NSDictionary *params = @{@"where":[AVOSEngine avosPointerWithField:@"shop" className:@"Shop" objectId:shopId]} ;
+    
+    NSLog(@"params # %@",params);
     
     [self getWithUrl:url parameters:params block:block];
 }

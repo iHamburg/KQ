@@ -36,6 +36,7 @@
     _userTextField.placeholder = @"手机号";
     _userTextField.delegate = self;
     _userTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    
 //    _userTextField.backgroundColor = [UIColor colorWithWhite:1 alpha:0.5];
 //    _userTextField.leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_user.png"]];
 //    _userTextField.leftViewMode = UITextFieldViewModeAlways;
@@ -169,6 +170,7 @@
 #pragma mark - 
 - (void)back{
     
+    L();
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
         
     }];

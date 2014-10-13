@@ -93,7 +93,6 @@
  */
 - (void)queryHeadCouponTypesWithBlock:(IdResultBlock)block;
 
-
 /**
  *	@brief	获取用户的银行卡
  */

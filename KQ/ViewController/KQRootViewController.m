@@ -224,7 +224,7 @@
 
     KQLoginViewController *vc = [[KQLoginViewController alloc] init];
     vc.view.alpha = 1;
-    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_back.png" target:self action:@selector(removeNavPressed:)]];
+//    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_back.png" target:self action:@selector(removeNavPressed:)]];
     
     
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
