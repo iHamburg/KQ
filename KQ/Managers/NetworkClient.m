@@ -23,8 +23,11 @@
 
 //获取区域
 #define api_district             [RESTHOST stringByAppendingFormat:@"/district"]
+
+
 //获取一级区域
 #define api_headDistricts        [RESTHOST stringByAppendingFormat:@"/headDistricts"]
+
 
 //获取快券类型
 #define api_couponType           [RESTHOST stringByAppendingFormat:@"/couponType"]
@@ -56,6 +59,9 @@
 #define api_my_favoritedShop_delete(uid,sessionToken,shopId)  [RESTHOST stringByAppendingFormat:@"/myFavoritedShop/uid/%@/sessionToken/%@/shopId/%@",uid,sessionToken,shopId]
 
 #define api_requestCaptchaForgetPassword [RESTHOST stringByAppendingFormat:@"/requestCaptchaForgetPassword"]
+
+#define api_edit_user_info       [RESTHOST stringByAppendingFormat:@"/editUserInfo"]
+
 
 @interface NetworkClient (){
     
@@ -252,6 +258,8 @@
     
 }
 
+
+
 #pragma mark - Intern Fcns
 
 
@@ -393,6 +401,14 @@
 
 #pragma mark - Test
 
+- (void)testEdit{
+
+    NSDictionary *params = @{@"uid":@"131111112",@"password":@"111",@"sessionToken":@"B5rwxTtjvQDiC2FJeHSd",@"nickname":@"bcs"};
+    
+    [self postWithUrl:api_edit_user_info parameters:params block:^(id object, NSError *error) {
+        NSLog(@"object # %@",object);
+    }];
+}
 
 - (void)testRegister{
     NSDictionary *params = @{@"username":@"bcss",@"password":@"111",@"phone":@"222",@"nickname":@"bcs"};
@@ -464,6 +480,8 @@
 - (void)test{
     L();
     
+    
+    
 //    [self queryNewestCouponsSkip:0 limit:30 block:^(id object, NSError *error) {
 //        NSLog(@"newest coupons # %@",object);
 //
@@ -478,6 +496,8 @@
 //    [self getWithUrl:@"http://115.29.148.47/kq/index.php/kqapi3/newestCoupons" parameters:nil block:^(id object, NSError *error) {
 //        NSLog(@"obj # %@",object);
 //    }];
+    
+//    [self testEdit];
     
 }
 
