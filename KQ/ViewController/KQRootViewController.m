@@ -273,8 +273,13 @@
     [[NetworkClient sharedInstance] test];
     [[UserController sharedInstance] test];
 
- 
-//    [self testNav:@"AddCardViewController"];
+ //    [self testNav:@"AddCardViewController"];
+    
+    CGRect r = [UIScreen mainScreen].bounds;
+    NSLog(@"screen # %@",NSStringFromCGRect(r));
+    r = CGRectApplyAffineTransform(r, CGAffineTransformMakeRotation(90 * M_PI / 180.));
+        NSLog(@"screen # %@",NSStringFromCGRect(r));
+
 
 }
 
