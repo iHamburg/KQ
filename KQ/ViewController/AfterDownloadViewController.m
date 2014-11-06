@@ -79,7 +79,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    int section  = indexPath.section;
+    int section  = (int)indexPath.section;
     
     
     static NSString *CellIdentifier1 = @"Cell1";

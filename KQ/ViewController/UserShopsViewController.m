@@ -178,7 +178,7 @@
     }
 }
 
-int nearestShopSort(Shop* obj1, Shop* obj2, void *context ) {
+NSInteger nearestShopSort(Shop* obj1, Shop* obj2, void *context ) {
     // returns random number -1 0 1
     return obj1.distance - obj2.distance;
 }

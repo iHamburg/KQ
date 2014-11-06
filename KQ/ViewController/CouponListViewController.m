@@ -72,10 +72,10 @@
 #pragma mark - dropDownListDelegate
 
 /// 只要点击选项就重载tableview
--(void) chooseAtSection:(NSInteger)section index:(NSInteger)index
+-(void) chooseAtSection:(int)section index:(int)index
 {
     
-    NSLog(@"选了section:%d ,index:%d",section,index);
+//    NSLog(@"选了section:%ld ,index:%ld",(long)section,(long)index);
   
     if (section == 0) {
         //type

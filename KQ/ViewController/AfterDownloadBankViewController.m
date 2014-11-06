@@ -65,7 +65,7 @@
 
 #pragma mark - IBAction
 - (IBAction)buttonClicked:(id)sender{
-    int tag = [sender tag];
+    int tag = (int)[sender tag];
     switch (tag) {
         case 1:
             [self toMyCoupons];
@@ -136,7 +136,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    int section  = indexPath.section;
+    int section  = (int)indexPath.section;
     
     
     static NSString *CellIdentifier1 = @"Cell1";

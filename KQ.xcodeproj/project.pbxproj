@@ -1844,6 +1844,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 85755EEFD65D18BA8065DE33 /* Pods.adhoc.xcconfig */;
 			buildSettings = {
+				ARCHS = armv7;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1864,6 +1865,7 @@
 				);
 				PRODUCT_NAME = "快券 0.2";
 				PROVISIONING_PROFILE = "cce46e28-0e6c-4b24-8dd0-37ebca8b0250";
+				VALID_ARCHS = "$(ARCHS_STANDARD)";
 				WARNING_CFLAGS = (
 					"-Wno-arc-performSelector-leaks\n-Wno-arc-performSelector-leaks\n-Wno-arc-performSelector-leaks",
 				);
@@ -1953,6 +1955,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D80B217ABBB3BC95985B11D7 /* Pods.debug.xcconfig */;
 			buildSettings = {
+				ARCHS = armv7;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1973,6 +1976,7 @@
 				);
 				PRODUCT_NAME = "快券 0.2";
 				PROVISIONING_PROFILE = "85a3d14e-784e-4b58-bb91-97cae3a9dd92";
+				VALID_ARCHS = "$(ARCHS_STANDARD)";
 				WARNING_CFLAGS = (
 					"-Wno-arc-performSelector-leaks\n-Wno-arc-performSelector-leaks\n-Wno-arc-performSelector-leaks",
 				);
@@ -1984,6 +1988,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6426E4542FA68E50EDEB04AD /* Pods.release.xcconfig */;
 			buildSettings = {
+				ARCHS = armv7;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2004,6 +2009,7 @@
 				);
 				PRODUCT_NAME = "快券 0.2";
 				PROVISIONING_PROFILE = "609FEA0D-E70D-4F2D-8E8B-0ADE353B1A05";
+				VALID_ARCHS = "$(ARCHS_STANDARD)";
 				WARNING_CFLAGS = (
 					"-Wno-arc-performSelector-leaks\n-Wno-arc-performSelector-leaks\n-Wno-arc-performSelector-leaks",
 				);

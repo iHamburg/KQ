@@ -91,7 +91,7 @@
 				break;
 		}
 		
-		start = r.location + 1;
+		start = (int)r.location + 1;
 	}
 	
 	return s;

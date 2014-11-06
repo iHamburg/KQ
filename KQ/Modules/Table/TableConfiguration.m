@@ -114,14 +114,8 @@
 }
 
 - (NSString *)cellIdentifierInSection:(NSInteger)section{
-//    if ([self isDynamicSection:section]) {
-//        return nil;
-//    }
-//    else{
-//        return [NSString stringWithInt:section];
-//    }
 
-    return [NSString stringWithInt:section];
+    return [NSString stringWithInt:(int)section];
 
 }
 
