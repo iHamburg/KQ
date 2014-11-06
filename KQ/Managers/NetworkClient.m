@@ -162,6 +162,7 @@
 - (void)queryHeadCouponTypesWithBlock:(IdResultBlock)block{
 
     [self getWithUrl:api_headCouponTypes parameters:nil block:block];
+
 }
 
 
