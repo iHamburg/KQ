@@ -25,9 +25,18 @@
 
 
 
-- (void)toCouponDetails:(Coupon*)coupon; //从tab内，跳到tab外
+/**
+ *	@brief	<#Description#>
+ *
+ *	@param 	coupon 	<#coupon description#>
+ */
+- (void)toCouponDetails:(Coupon*)coupon;
+ //从tab内，跳到tab外
 - (void)toMyCoupons;
 
+/**
+ *	@brief	<#Description#>
+ */
 - (void)didLogin;
 - (void)didLogout;
 
