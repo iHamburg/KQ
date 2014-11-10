@@ -20,8 +20,7 @@
         self.phone = dict[@"phone"];
         self.avatarUrl = dict[@"avatarUrl"];
         self.nickname = dict[@"nickname"];
-        
-    
+   
 
         //!!!: 没有用到
         self.favoritedCouponIds = ISEMPTY(dict[@"favoritedCoupons"])?[NSMutableSet set]:[[NSMutableSet alloc] initWithArray:dict[@"favoritedCoupons"]];

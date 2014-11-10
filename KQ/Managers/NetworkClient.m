@@ -33,7 +33,8 @@
 #define api_couponType           [RESTHOST stringByAppendingFormat:@"/couponType"]
 
 //获取一级类型
-#define api_headCouponTypes       [RESTHOST stringByAppendingFormat:@"/headCouponTypes"]
+#define api_headCouponTypes       [RESTHOST stringByAppendingFormat:@"/district"]
+
 
 //用户登录
 #define api_login               [RESTHOST stringByAppendingString:@"/login"]

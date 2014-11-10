@@ -10,6 +10,14 @@
 
 @implementation Card
 
+- (id)initWithDict:(NSDictionary*)dict{
+    if (self = [super init]) {
+        
+    }
+    
+    return self;
+}
+
 + (id)cardWithDict:(NSDictionary*)dict{
     Card *card = [Card new];
 
