@@ -15,8 +15,9 @@
     District *obj = [District new];
     obj.id = self.id;
     obj.title = self.title;
-    obj.parentId = self.parentId;
-    obj.subDistricts = self.subDistricts;
+    
+//    obj.parentId = self.parentId;
+//    obj.subDistricts = self.subDistricts;
 
     return obj;
 }
@@ -28,27 +29,27 @@
         
 //        NSLog(@"dict # %@",dict);
         
-        self.id = dict[@"objectId"];
+        self.id = dict[@"id"];
         self.title = dict[@"title"];
 
-        if (!ISEMPTY(dict[@"subDistricts"])) {
-            
-            NSArray *array = dict[@"subDistricts"];
-          
-            
-            NSMutableArray *subDistricts = [NSMutableArray array];
-            for (NSDictionary *dict in array) {
-                District *district = [District districtWithDict:dict];
-                [subDistricts addObject:district];
-            }
-            
-            self.subDistricts = subDistricts;
-            
-        }
-        
-        if (!ISEMPTY(dict[@"parent"])) {
-            self.parentId = dict[@"parentId"][@"objectId"];
-        }
+//        if (!ISEMPTY(dict[@"subDistricts"])) {
+//            
+//            NSArray *array = dict[@"subDistricts"];
+//          
+//            
+//            NSMutableArray *subDistricts = [NSMutableArray array];
+//            for (NSDictionary *dict in array) {
+//                District *district = [District districtWithDict:dict];
+//                [subDistricts addObject:district];
+//            }
+//            
+////            self.subDistricts = subDistricts;
+//            
+//        }
+//
+//        if (!ISEMPTY(dict[@"parent"])) {
+//            self.parentId = dict[@"parentId"][@"objectId"];
+//        }
     }
     
     return self;

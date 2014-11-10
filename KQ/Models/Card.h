@@ -15,9 +15,11 @@
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *peopleId;
 @property (nonatomic, strong) NSString *bankId;
-@property (nonatomic, strong) NSString *level;
+//@property (nonatomic, strong) NSString *level;
 
 @property (nonatomic, strong) NSString *bankName;
+
+- (id)initWithDict:(NSDictionary*)dict;
 + (id)cardWithDict:(NSDictionary*)dict;
 
 @end

@@ -11,6 +11,11 @@
 @implementation NSDictionary (Extras)
 
 - (NSDictionary*)dictionaryCheckNull{
+
+    if ([self isKindOfClass:[NSDictionary class]]) {
+        return nil;
+    }
+    
     NSMutableDictionary *mutDict = [self mutableCopy];
     
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
