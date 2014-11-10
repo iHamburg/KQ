@@ -19,10 +19,7 @@
 #import "CouponDetailsViewController.h"
 #import "KQLoginViewController.h"
 #import "UserCouponsViewController.h"
-
-//#import "AfterDownloadViewController.h"
-//#import "AfterDownloadBankViewController.h"
-
+#import "NSString+md5.h"
 
 @interface KQRootViewController (){
 
@@ -44,12 +41,15 @@
 @implementation KQRootViewController
 
 + (id)sharedInstance{
+   
     static id sharedInstance = nil;
+    
     static dispatch_once_t onceToken;
     
     dispatch_once(&onceToken, ^{
 
         sharedInstance = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+    
     });
     
     return sharedInstance;
@@ -59,6 +59,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
     
     L();
 
@@ -211,7 +212,7 @@
     UserCouponsViewController *vc = [[UserCouponsViewController alloc] init];
     vc.view.alpha = 1;
     
-    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_back.png" target:self action:@selector(backPressed:)]];
+    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_back.png" target:self action:@selector(removeNavPressed:)]];
     
     _nav = [[UINavigationController alloc] initWithRootViewController:vc];
     [self.view addSubview:_nav.view];
@@ -223,7 +224,7 @@
 
     KQLoginViewController *vc = [[KQLoginViewController alloc] init];
     vc.view.alpha = 1;
-    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_back.png" target:self action:@selector(removeNavPressed:)]];
+//    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_back.png" target:self action:@selector(removeNavPressed:)]];
     
     
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
@@ -258,6 +259,7 @@
 - (void)didLogout{
 
     _tabVC.selectedIndex = 0;
+    
 }
 
 
@@ -271,9 +273,16 @@
     [[NetworkClient sharedInstance] test];
     [[UserController sharedInstance] test];
 
- 
-//    [self testNav:@"AddCardViewController"];
+ //    [self testNav:@"AddCardViewController"];
+    
+    CGRect r = [UIScreen mainScreen].bounds;
+    NSLog(@"screen # %@",NSStringFromCGRect(r));
+    r = CGRectApplyAffineTransform(r, CGAffineTransformMakeRotation(90 * M_PI / 180.));
+        NSLog(@"screen # %@",NSStringFromCGRect(r));
+
 
 }
+
+
 
 @end

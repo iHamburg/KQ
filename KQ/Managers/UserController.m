@@ -156,7 +156,7 @@
         
         [_networkClient queryCards:self.uid block:^(NSArray *array, NSError *error) {
             
-            NSLog(@"cards # %@",array);
+//            NSLog(@"cards # %@",array);
             
             if (ISEMPTY(array)) {
                 return ;
@@ -169,7 +169,7 @@
                 
                 
             }
-            NSLog(@"people.cardIds # %@",self.people.cardIds);
+//            NSLog(@"people.cardIds # %@",self.people.cardIds);
         }];
         
     }];

@@ -15,6 +15,8 @@
 #import "AfterDownloadBankViewController.h"
 
 @interface AddCardViewController (){
+    
+    
     UITextField *_tf;
     UIButton *_button;
     
@@ -26,6 +28,11 @@
 
 @end
 
+
+/**
+ 
+ 
+ */
 @implementation AddCardViewController
 
 
@@ -39,6 +46,7 @@
     if (isIOS7) {
         
         self.edgesForExtendedLayout = UIRectEdgeNone;
+   
     }
     
     self.title = @"添加银行卡";
@@ -203,8 +211,10 @@
             }
             else{
                 
-                
                 // 更新userController.cardSet?
+                
+                [[UserController sharedInstance] loadUser];
+                
                 
                 [self toAfterDownloadBank];
             }
@@ -215,11 +225,15 @@
 }
 
 - (void)toAgreement{
+    
     L();
+    
 }
 
 - (void)toAfterDownloadBank{
+    
     AfterDownloadBankViewController *vc = [[AfterDownloadBankViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
+
 }
 @end

@@ -14,6 +14,7 @@
 #import "UserCenterViewController.h"
 
 @interface KQTabBarViewController : UITabBarController<UITabBarControllerDelegate>{
+    
     MainViewController *_mainVC;
     AroundViewController *_aroundVC;
     KQSearchViewController *_searchVC;

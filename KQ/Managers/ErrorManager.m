@@ -38,7 +38,7 @@
 
 + (void)alertError:(NSError*)error{
 
-    NSString *msg = [ErrorManager localizedDescriptionForCode:error.code];
+    NSString *msg = [ErrorManager localizedDescriptionForCode:(CustomErrorCode)error.code];
     if ([msg isEqualToString:LString(@"未知错误")]) {
         msg = [error localizedDescription];
     }

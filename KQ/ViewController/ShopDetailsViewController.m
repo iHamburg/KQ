@@ -80,19 +80,23 @@
     }
 
     
-    [[NetworkClient sharedInstance] queryCouponsWithShop:shop.id block:^(NSArray *coupons, NSError *error) {
-        
-//        NSLog(@"coupons # %@",coupons);
-        
-        self.coupons = [NSMutableArray array];
-        
-        for (NSDictionary *couponDict in coupons) {
-            Coupon *coupon = [Coupon couponWithDict:couponDict];
-            [self.coupons addObject:coupon];
-        }
-        
-        [self.tableView reloadData];
-    }];
+//    这里商户的
+//    [[NetworkClient sharedInstance] queryCouponsWithShop:shop.id block:^(NSArray *coupons, NSError *error) {
+//        
+////        NSLog(@"coupons # %@",coupons);
+//        
+//        self.coupons = [NSMutableArray array];
+//        
+//        for (NSDictionary *couponDict in coupons) {
+//            NSLog(@"couponDict # %@",couponDict);
+//            
+//            Coupon *coupon = [Coupon couponWithDict:couponDict];
+//            [self.coupons addObject:coupon];
+//        }
+//        
+//        [self.tableView reloadData];
+//    }];
+    
 }
 
 - (void)setShopFavorited:(BOOL)isShopFavorited{

@@ -25,7 +25,11 @@
 
 - (id)initWithDict:(NSDictionary*)dict{
     if (self= [self init]) {
-        dict = [dict dictionaryCheckNull];
+        
+        if ([dict isKindOfClass:[NSDictionary class]]) {
+            dict = [dict dictionaryCheckNull];
+        }
+
         
 //        NSLog(@"couponDict # %@",dict);
         

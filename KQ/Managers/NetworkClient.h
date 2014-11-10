@@ -9,16 +9,20 @@
 #import <AFNetworking/AFNetworking.h>
 #import <CoreLocation/CoreLocation.h>
 
+
 #ifdef DEBUG
 
 
 //#define RESTHOST @"http://192.168.1.100/kq/index.php/kqapi3"
-#define RESTHOST @"http://115.29.148.47/kq/index.php/kqapi3"
+//#define RESTHOST @"http://115.29.148.47/kq/index.php/kqapi3"
+#define RESTHOST @"http://61.153.100.241/kq/index.php/kqapi3"
 
 #else
 
 //#define HOST @"http://115.29.148.47/kq/index.php/kqavos"
-#define RESTHOST @"http://115.29.148.47/kq/index.php/kqapi3"
+//#define RESTHOST @"http://115.29.148.47/kq/index.php/kqapi3"
+//#define RESTHOST @"http://115.29.148.47/kq/index.php/kqapi3"
+#define RESTHOST @"http://61.153.100.241/kq/index.php/kqapi3"
 
 #endif
 
@@ -92,7 +96,6 @@
  *
  */
 - (void)queryHeadCouponTypesWithBlock:(IdResultBlock)block;
-
 
 /**
  *	@brief	获取用户的银行卡

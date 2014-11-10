@@ -23,8 +23,11 @@
 
 //获取区域
 #define api_district             [RESTHOST stringByAppendingFormat:@"/district"]
+
+
 //获取一级区域
 #define api_headDistricts        [RESTHOST stringByAppendingFormat:@"/headDistricts"]
+
 
 //获取快券类型
 #define api_couponType           [RESTHOST stringByAppendingFormat:@"/couponType"]
@@ -57,6 +60,9 @@
 
 #define api_requestCaptchaForgetPassword [RESTHOST stringByAppendingFormat:@"/requestCaptchaForgetPassword"]
 
+#define api_edit_user_info       [RESTHOST stringByAppendingFormat:@"/editUserInfo"]
+
+
 @interface NetworkClient (){
     
 }
@@ -82,17 +88,17 @@
     self = [super init];
     if (self) {
         _clientManager = [AFHTTPRequestOperationManager manager];
-        //
+        
+        
         // 必加的
         _clientManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
 
-          }
+    }
     return self;
 }
 
 #pragma mark -
 - (void)registerWithDict:(NSDictionary*)info block:(IdResultBlock)block{
-    //
     
     [self postWithUrl:api_user parameters:info block:block];
     
@@ -108,11 +114,15 @@
 
 - (void)queryUser:(NSString*)uid block:(IdResultBlock)block{
     
+    
     [self getWithUrl:api_user parameters:@{@"uid":uid} block:block];
+    
+    
 }
 
 - (void)queryCoupon:(NSString*)couponId block:(IdResultBlock)block{
 
+    
     [self getWithUrl:api_coupon parameters:@{@"id":couponId} block:block];
     
 }
@@ -128,9 +138,13 @@
 /// deprecated
 - (void)queryCouponsWithShop:(NSString*)shopId block:(IdResultBlock)block{
     
+    
+    
     NSString *url = [RESTHOST stringByAppendingFormat:@"/coupon"];
     
      NSDictionary *params = @{@"where":[AVOSEngine avosPointerWithField:@"shop" className:@"Shop" objectId:shopId]} ;
+    
+    NSLog(@"params # %@",params);
     
     [self getWithUrl:url parameters:params block:block];
 }
@@ -148,6 +162,7 @@
 - (void)queryHeadCouponTypesWithBlock:(IdResultBlock)block{
 
     [self getWithUrl:api_headCouponTypes parameters:nil block:block];
+
 }
 
 
@@ -244,6 +259,8 @@
     
 }
 
+
+
 #pragma mark - Intern Fcns
 
 
@@ -277,7 +294,6 @@
     
     [operation start];
 }
-
 
 /**
  
@@ -386,6 +402,14 @@
 
 #pragma mark - Test
 
+- (void)testEdit{
+
+    NSDictionary *params = @{@"uid":@"131111112",@"password":@"111",@"sessionToken":@"B5rwxTtjvQDiC2FJeHSd",@"nickname":@"bcs"};
+    
+    [self postWithUrl:api_edit_user_info parameters:params block:^(id object, NSError *error) {
+        NSLog(@"object # %@",object);
+    }];
+}
 
 - (void)testRegister{
     NSDictionary *params = @{@"username":@"bcss",@"password":@"111",@"phone":@"222",@"nickname":@"bcs"};
@@ -457,6 +481,8 @@
 - (void)test{
     L();
     
+    
+    
 //    [self queryNewestCouponsSkip:0 limit:30 block:^(id object, NSError *error) {
 //        NSLog(@"newest coupons # %@",object);
 //
@@ -467,7 +493,12 @@
 //        NSLog(@"object # %@",object);
 //    }];
     
-
+//
+//    [self getWithUrl:@"http://115.29.148.47/kq/index.php/kqapi3/newestCoupons" parameters:nil block:^(id object, NSError *error) {
+//        NSLog(@"obj # %@",object);
+//    }];
+    
+//    [self testEdit];
     
 }
 

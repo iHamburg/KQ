@@ -109,7 +109,7 @@
         rowCount = 1;
     }
     else{
-        rowCount = self.rightKeys.count;
+        rowCount = (int)self.rightKeys.count;
     }
 
     
@@ -134,7 +134,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
     
-    int row = indexPath.row;
+    int row = (int)indexPath.row;
     
     if (tableView == _leftTv) {
         
@@ -153,7 +153,7 @@
     
  
     if (tableView == _leftTv) {
-        self.leftIndex = indexPath.row;
+        self.leftIndex = (int)indexPath.row;
     }
     else{
         

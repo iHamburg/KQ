@@ -12,8 +12,6 @@
 		261D34BB1946C1C9009F75CF /* UserShopsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 261D34BA1946C1C9009F75CF /* UserShopsViewController.m */; };
 		261D34BE1946C1D4009F75CF /* UserCardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 261D34BD1946C1D4009F75CF /* UserCardsViewController.m */; };
 		261D34C11946C1ED009F75CF /* UserSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 261D34C01946C1ED009F75CF /* UserSettingsViewController.m */; };
-		262AAEE719740B8100C30EDE /* NetworkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 262AAEE619740B8100C30EDE /* NetworkTests.m */; };
-		262AAEE819740C2B00C30EDE /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26E16622193976A10041CDD6 /* AFNetworking.framework */; };
 		262CF1431958AFB600A4FA26 /* coupon_header_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 262CF1421958AFB600A4FA26 /* coupon_header_bg@2x.png */; };
 		262CF1451958B44800A4FA26 /* icon_telefon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 262CF1441958B44800A4FA26 /* icon_telefon@2x.png */; };
 		262CF1471958B88100A4FA26 /* icon_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 262CF1461958B88100A4FA26 /* icon_arrow@2x.png */; };
@@ -167,11 +165,6 @@
 		26E3A53A192DE02F004F8C8C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26E3A538192DE02F004F8C8C /* Main.storyboard */; };
 		26E3A53D192DE02F004F8C8C /* KQ.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 26E3A53B192DE02F004F8C8C /* KQ.xcdatamodeld */; };
 		26E3A545192DE02F004F8C8C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26E3A544192DE02F004F8C8C /* Images.xcassets */; };
-		26E3A54C192DE02F004F8C8C /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26E3A54B192DE02F004F8C8C /* XCTest.framework */; };
-		26E3A54D192DE02F004F8C8C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26E3A524192DE02F004F8C8C /* Foundation.framework */; };
-		26E3A54E192DE02F004F8C8C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26E3A528192DE02F004F8C8C /* UIKit.framework */; };
-		26E3A54F192DE02F004F8C8C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26E3A52A192DE02F004F8C8C /* CoreData.framework */; };
-		26E3A559192DE02F004F8C8C /* KQTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E3A558192DE02F004F8C8C /* KQTests.m */; };
 		26E3A5B5192DE042004F8C8C /* ErrorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E3A565192DE042004F8C8C /* ErrorManager.m */; };
 		26E3A5B7192DE042004F8C8C /* SettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E3A56D192DE042004F8C8C /* SettingCell.m */; };
 		26E3A5B8192DE042004F8C8C /* SettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E3A56F192DE042004F8C8C /* SettingController.m */; };
@@ -226,7 +219,6 @@
 		26F2380C19B7422A00D3031B /* CouponHeaderCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26F2380B19B7422A00D3031B /* CouponHeaderCell2.xib */; };
 		26F4FA3F19B55E6A0019430A /* AddSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 26F4FA3E19B55E6A0019430A /* AddSegue.m */; };
 		26FD1F871958CE9B0074A738 /* around_demo@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 26FD1F861958CE9B0074A738 /* around_demo@2x.jpg */; };
-		6EB0E79B2DF0497980209FAA /* libPods-KQTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D77DC981FBD7460891F5B186 /* libPods-KQTests.a */; };
 		82746BA17C3B4D42AE8196DB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE34221828C240E6B918B199 /* libPods.a */; };
 		850A67B519C6EA6E00DCA982 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 850A67B419C6EA6E00DCA982 /* ChangePasswordViewController.m */; };
 		855AA51A19C2932E002B7099 /* KQTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 855AA51919C2932E002B7099 /* KQTabBarViewController.m */; };
@@ -259,20 +251,10 @@
 		85CAC53619C057DD007A1F86 /* icon-phonenember@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 85CAC52A19C057DD007A1F86 /* icon-phonenember@2x.png */; };
 		85CAC53719C057DD007A1F86 /* icon-tip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 85CAC52B19C057DD007A1F86 /* icon-tip@2x.png */; };
 		85CAC53819C057DD007A1F86 /* icon-user@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 85CAC52C19C057DD007A1F86 /* icon-user@2x.png */; };
+		85EE360919D3D7FD0065CE2A /* NSString+md5.m in Sources */ = {isa = PBXBuildFile; fileRef = 85EE360819D3D7FD0065CE2A /* NSString+md5.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		26E3A550192DE02F004F8C8C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 26E3A519192DE02F004F8C8C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 26E3A520192DE02F004F8C8C;
-			remoteInfo = KQ;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		00C51E4CE38243CE9896D23E /* Pods-KQTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KQTests.xcconfig"; path = "Pods/Pods-KQTests.xcconfig"; sourceTree = "<group>"; };
 		2606CC6819B4BF4000DACBC8 /* EventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventViewController.h; sourceTree = "<group>"; };
 		2606CC6919B4BF4000DACBC8 /* EventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventViewController.m; sourceTree = "<group>"; };
 		261D34B61946C1BF009F75CF /* UserCouponsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserCouponsViewController.h; sourceTree = "<group>"; };
@@ -523,7 +505,6 @@
 		26E3A539192DE02F004F8C8C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		26E3A53C192DE02F004F8C8C /* KQ.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KQ.xcdatamodel; sourceTree = "<group>"; };
 		26E3A544192DE02F004F8C8C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
-		26E3A54A192DE02F004F8C8C /* KQTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KQTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		26E3A54B192DE02F004F8C8C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		26E3A554192DE02F004F8C8C /* KQTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KQTests-Info.plist"; sourceTree = "<group>"; };
 		26E3A558192DE02F004F8C8C /* KQTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KQTests.m; sourceTree = "<group>"; };
@@ -626,12 +607,14 @@
 		26F4FA3D19B55E6A0019430A /* AddSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddSegue.h; path = KQ/View/Segue/AddSegue.h; sourceTree = SOURCE_ROOT; };
 		26F4FA3E19B55E6A0019430A /* AddSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddSegue.m; path = KQ/View/Segue/AddSegue.m; sourceTree = SOURCE_ROOT; };
 		26FD1F861958CE9B0074A738 /* around_demo@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "around_demo@2x.jpg"; sourceTree = "<group>"; };
+		6426E4542FA68E50EDEB04AD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		850A67B319C6EA6E00DCA982 /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
 		850A67B419C6EA6E00DCA982 /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
 		855AA51819C2932E002B7099 /* KQTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KQTabBarViewController.h; sourceTree = "<group>"; };
 		855AA51919C2932E002B7099 /* KQTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KQTabBarViewController.m; sourceTree = "<group>"; };
 		855AA51B19C2CC5E002B7099 /* bg-landingpage@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "bg-landingpage@2x.jpg"; sourceTree = "<group>"; };
 		855AA51D19C2D083002B7099 /* btn-receive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-receive@2x.png"; sourceTree = "<group>"; };
+		85755EEFD65D18BA8065DE33 /* Pods.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.adhoc.xcconfig; path = "Pods/Target Support Files/Pods/Pods.adhoc.xcconfig"; sourceTree = "<group>"; };
 		8596C64319C13462003B3440 /* icon-index01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-index01@2x.png"; sourceTree = "<group>"; };
 		8596C64419C13462003B3440 /* icon-nearby01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-nearby01@2x.png"; sourceTree = "<group>"; };
 		8596C64519C13462003B3440 /* icon-search01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-search01@2x.png"; sourceTree = "<group>"; };
@@ -662,9 +645,11 @@
 		85CAC52A19C057DD007A1F86 /* icon-phonenember@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-phonenember@2x.png"; sourceTree = "<group>"; };
 		85CAC52B19C057DD007A1F86 /* icon-tip@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-tip@2x.png"; sourceTree = "<group>"; };
 		85CAC52C19C057DD007A1F86 /* icon-user@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-user@2x.png"; sourceTree = "<group>"; };
+		85EE360719D3D7FD0065CE2A /* NSString+md5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+md5.h"; sourceTree = "<group>"; };
+		85EE360819D3D7FD0065CE2A /* NSString+md5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+md5.m"; sourceTree = "<group>"; };
 		AE34221828C240E6B918B199 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		C79B3B69F6594C019D92F398 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		D77DC981FBD7460891F5B186 /* libPods-KQTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KQTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D80B217ABBB3BC95985B11D7 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -691,19 +676,6 @@
 				26E16620193976780041CDD6 /* libSocialWechat.a in Frameworks */,
 				26E3A525192DE02F004F8C8C /* Foundation.framework in Frameworks */,
 				82746BA17C3B4D42AE8196DB /* libPods.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		26E3A547192DE02F004F8C8C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				26E3A54C192DE02F004F8C8C /* XCTest.framework in Frameworks */,
-				262AAEE819740C2B00C30EDE /* AFNetworking.framework in Frameworks */,
-				26E3A54F192DE02F004F8C8C /* CoreData.framework in Frameworks */,
-				26E3A54E192DE02F004F8C8C /* UIKit.framework in Frameworks */,
-				26E3A54D192DE02F004F8C8C /* Foundation.framework in Frameworks */,
-				6EB0E79B2DF0497980209FAA /* libPods-KQTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1038,8 +1010,7 @@
 				26E3A552192DE02F004F8C8C /* KQTests */,
 				26E3A523192DE02F004F8C8C /* Frameworks */,
 				26E3A522192DE02F004F8C8C /* Products */,
-				C79B3B69F6594C019D92F398 /* Pods.xcconfig */,
-				00C51E4CE38243CE9896D23E /* Pods-KQTests.xcconfig */,
+				58B145BF08E3EE768D2699BD /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1047,7 +1018,6 @@
 			isa = PBXGroup;
 			children = (
 				26E3A521192DE02F004F8C8C /* 快券 0.2.app */,
-				26E3A54A192DE02F004F8C8C /* KQTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1288,6 +1258,8 @@
 				26E3A583192DE042004F8C8C /* NSMutableArray+Extras.h */,
 				26E3A584192DE042004F8C8C /* NSMutableArray+Extras.m */,
 				26E3A585192DE042004F8C8C /* NSString+Extras.h */,
+				85EE360719D3D7FD0065CE2A /* NSString+md5.h */,
+				85EE360819D3D7FD0065CE2A /* NSString+md5.m */,
 				26E3A586192DE042004F8C8C /* NSString+Extras.m */,
 				26E3A587192DE042004F8C8C /* NSString+TKCategory.h */,
 				26E3A588192DE042004F8C8C /* NSString+TKCategory.m */,
@@ -1464,6 +1436,16 @@
 			name = Segue;
 			sourceTree = "<group>";
 		};
+		58B145BF08E3EE768D2699BD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D80B217ABBB3BC95985B11D7 /* Pods.debug.xcconfig */,
+				6426E4542FA68E50EDEB04AD /* Pods.release.xcconfig */,
+				85755EEFD65D18BA8065DE33 /* Pods.adhoc.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		8596C64219C13462003B3440 /* tabIcon */ = {
 			isa = PBXGroup;
 			children = (
@@ -1501,39 +1483,14 @@
 			productReference = 26E3A521192DE02F004F8C8C /* 快券 0.2.app */;
 			productType = "com.apple.product-type.application";
 		};
-		26E3A549192DE02F004F8C8C /* KQTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 26E3A55F192DE02F004F8C8C /* Build configuration list for PBXNativeTarget "KQTests" */;
-			buildPhases = (
-				B4DECD049C534857A932529F /* Check Pods Manifest.lock */,
-				26E3A546192DE02F004F8C8C /* Sources */,
-				26E3A547192DE02F004F8C8C /* Frameworks */,
-				26E3A548192DE02F004F8C8C /* Resources */,
-				0695F14CDC7A432B8BD82192 /* Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				26E3A551192DE02F004F8C8C /* PBXTargetDependency */,
-			);
-			name = KQTests;
-			productName = KQTests;
-			productReference = 26E3A54A192DE02F004F8C8C /* KQTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		26E3A519192DE02F004F8C8C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = Xappsoft;
-				TargetAttributes = {
-					26E3A549192DE02F004F8C8C = {
-						TestTargetID = 26E3A520192DE02F004F8C8C;
-					};
-				};
 			};
 			buildConfigurationList = 26E3A51C192DE02F004F8C8C /* Build configuration list for PBXProject "KQ" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1550,7 +1507,6 @@
 			projectRoot = "";
 			targets = (
 				26E3A520192DE02F004F8C8C /* KQ */,
-				26E3A549192DE02F004F8C8C /* KQTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1674,31 +1630,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		26E3A548192DE02F004F8C8C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0695F14CDC7A432B8BD82192 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-KQTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		41BC52050B944795A064C7F5 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1711,25 +1645,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		79C06EEF62C44F3F82D8F28A /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		B4DECD049C534857A932529F /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1818,6 +1737,7 @@
 				26E14B8E193C65FD007A7081 /* LoadMoreCell.m in Sources */,
 				8596C65919C17A19003B3440 /* AgreementViewController.m in Sources */,
 				26E14B9C193C65FD007A7081 /* TextViewCell.m in Sources */,
+				85EE360919D3D7FD0065CE2A /* NSString+md5.m in Sources */,
 				26E14B53193C64B6007A7081 /* MainViewController.m in Sources */,
 				26E3A5BE192DE042004F8C8C /* NSArray+Extras.m in Sources */,
 				26E3A5C6192DE042004F8C8C /* UIButton+Extras.m in Sources */,
@@ -1868,24 +1788,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		26E3A546192DE02F004F8C8C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				262AAEE719740B8100C30EDE /* NetworkTests.m in Sources */,
-				26E3A559192DE02F004F8C8C /* KQTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		26E3A551192DE02F004F8C8C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 26E3A520192DE02F004F8C8C /* KQ */;
-			targetProxy = 26E3A550192DE02F004F8C8C /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		26E3A538192DE02F004F8C8C /* Main.storyboard */ = {
@@ -1905,6 +1808,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv7s,
+					armv7,
+				);
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1927,7 +1834,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1935,7 +1842,7 @@
 		};
 		26DEB4AB19416CB70063AADC /* Adhoc */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C79B3B69F6594C019D92F398 /* Pods.xcconfig */;
+			baseConfigurationReference = 85755EEFD65D18BA8065DE33 /* Pods.adhoc.xcconfig */;
 			buildSettings = {
 				ARCHS = armv7;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1947,6 +1854,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KQ/KQ-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "KQ/KQ-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
@@ -1956,28 +1864,12 @@
 					"$(PROJECT_DIR)/KQ/3rdLibraries/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
 				PRODUCT_NAME = "快券 0.2";
-				PROVISIONING_PROFILE = "609FEA0D-E70D-4F2D-8E8B-0ADE353B1A05";
-				WRAPPER_EXTENSION = app;
-			};
-			name = Adhoc;
-		};
-		26DEB4AC19416CB70063AADC /* Adhoc */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 00C51E4CE38243CE9896D23E /* Pods-KQTests.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/快券.app/快券";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(PROJECT_DIR)",
+				PROVISIONING_PROFILE = "cce46e28-0e6c-4b24-8dd0-37ebca8b0250";
+				VALID_ARCHS = "$(ARCHS_STANDARD)";
+				WARNING_CFLAGS = (
+					"-Wno-arc-performSelector-leaks\n-Wno-arc-performSelector-leaks\n-Wno-arc-performSelector-leaks",
 				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "KQ/KQ-Prefix.pch";
-				INFOPLIST_FILE = "KQTests/KQTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
+				WRAPPER_EXTENSION = app;
 			};
 			name = Adhoc;
 		};
@@ -1985,6 +1877,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv7s,
+					armv7,
+				);
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -2013,7 +1909,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -2023,6 +1919,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv7s,
+					armv7,
+				);
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -2045,7 +1945,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -2053,7 +1953,7 @@
 		};
 		26E3A55D192DE02F004F8C8C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C79B3B69F6594C019D92F398 /* Pods.xcconfig */;
+			baseConfigurationReference = D80B217ABBB3BC95985B11D7 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ARCHS = armv7;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -2065,6 +1965,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KQ/KQ-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "KQ/KQ-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
@@ -2074,14 +1975,18 @@
 					"$(PROJECT_DIR)/KQ/3rdLibraries/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
 				PRODUCT_NAME = "快券 0.2";
-				PROVISIONING_PROFILE = "4EB69DDD-1BBD-49D7-86FF-45FE69872990";
+				PROVISIONING_PROFILE = "85a3d14e-784e-4b58-bb91-97cae3a9dd92";
+				VALID_ARCHS = "$(ARCHS_STANDARD)";
+				WARNING_CFLAGS = (
+					"-Wno-arc-performSelector-leaks\n-Wno-arc-performSelector-leaks\n-Wno-arc-performSelector-leaks",
+				);
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
 		};
 		26E3A55E192DE02F004F8C8C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C79B3B69F6594C019D92F398 /* Pods.xcconfig */;
+			baseConfigurationReference = 6426E4542FA68E50EDEB04AD /* Pods.release.xcconfig */;
 			buildSettings = {
 				ARCHS = armv7;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -2093,6 +1998,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KQ/KQ-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "KQ/KQ-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
@@ -2103,51 +2009,11 @@
 				);
 				PRODUCT_NAME = "快券 0.2";
 				PROVISIONING_PROFILE = "609FEA0D-E70D-4F2D-8E8B-0ADE353B1A05";
+				VALID_ARCHS = "$(ARCHS_STANDARD)";
+				WARNING_CFLAGS = (
+					"-Wno-arc-performSelector-leaks\n-Wno-arc-performSelector-leaks\n-Wno-arc-performSelector-leaks",
+				);
 				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
-		26E3A560192DE02F004F8C8C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 00C51E4CE38243CE9896D23E /* Pods-KQTests.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/快券.app/快券";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(PROJECT_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "KQ/KQ-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "KQTests/KQTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		26E3A561192DE02F004F8C8C /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 00C51E4CE38243CE9896D23E /* Pods-KQTests.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/快券.app/快券";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(PROJECT_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "KQ/KQ-Prefix.pch";
-				INFOPLIST_FILE = "KQTests/KQTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
 		};
@@ -2170,16 +2036,6 @@
 				26E3A55D192DE02F004F8C8C /* Debug */,
 				26E3A55E192DE02F004F8C8C /* Release */,
 				26DEB4AB19416CB70063AADC /* Adhoc */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		26E3A55F192DE02F004F8C8C /* Build configuration list for PBXNativeTarget "KQTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				26E3A560192DE02F004F8C8C /* Debug */,
-				26E3A561192DE02F004F8C8C /* Release */,
-				26DEB4AC19416CB70063AADC /* Adhoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

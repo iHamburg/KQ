@@ -95,7 +95,7 @@
 
 #pragma mark - SegmentedControl
 - (IBAction)segmentedControlChanged:(UISegmentedControl*)sender{
-    int index = sender.selectedSegmentIndex;
+    int index = (int)sender.selectedSegmentIndex;
     NSLog(@"index # %d",index);
 
     [self queryCoupons:index];

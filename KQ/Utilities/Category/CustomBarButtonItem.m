@@ -22,7 +22,7 @@
     [barButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
     [barButton setTitleShadowColor:[[UIColor blackColor] colorWithAlphaComponent:0.5] forState:UIControlStateNormal];
 
-    barButton.frame = CGRectMake(0, 0, image.size.width + 15 + [title sizeWithFont:font].width, 30);
+//    barButton.frame = CGRectMake(0, 0, image.size.width + 15 + [title sizeWithFont:font].width, 30);
 
 	   
     
@@ -55,7 +55,7 @@
 	
 	//    [barButton setBackgroundImage:[UIImage imageNamed:@"bar-button-item-background.png"] forState:UIControlStateNormal];
   
-	barButton.frame = CGRectMake(0, 0, image.size.width + 15 + [title sizeWithFont:font].width, 35);
+//	barButton.frame = CGRectMake(0, 0, image.size.width + 15 + [title sizeWithFont:font].width, 35);
 	
     if (self = [super initWithCustomView:barButton]) {
         self.target = target;
