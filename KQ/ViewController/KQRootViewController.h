@@ -8,16 +8,36 @@
 
 #import "RootViewController.h"
 
+#define kIsMainApplyEvent  YES
+
+@class KQTabBarViewController;
+@class Coupon;
 
 @interface KQRootViewController : RootViewController<UITabBarControllerDelegate>{
 
-
+    KQTabBarViewController *_tabVC;
+    UINavigationController *_nav;  // above在tab上的nav
+    
 }
 
 
-- (IBAction)toLogin;
+- (void)toLogin;
 
 
+
+/**
+ *	@brief	<#Description#>
+ *
+ *	@param 	coupon 	<#coupon description#>
+ */
+- (void)toCouponDetails:(Coupon*)coupon;
+
+ //从tab内，跳到tab外
+- (void)toMyCoupons;
+
+/**
+ *	@brief	<#Description#>
+ */
 - (void)didLogin;
 - (void)didLogout;
 

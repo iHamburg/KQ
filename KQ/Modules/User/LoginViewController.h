@@ -8,16 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LoginViewController : UIViewController<UITextFieldDelegate>{
-    
-   IBOutlet UITextField* _userTextField;
-   IBOutlet UITextField *_passwordTextField;
+#import "SignViewController.h"
 
-    IBOutlet    UIButton *_loginB;
+@interface LoginViewController : SignViewController{
+    
+    
+    IBOutlet UITextField* _userTextField;
+    IBOutlet UITextField *_passwordTextField;
+
+
+    IBOutlet UIButton *_loginB;
     IBOutlet UIButton *_forgetB;
     IBOutlet UIButton *_registerB;
     
-    UIImageView *_bgV;
+    
 }
 
 - (IBAction)loginPressed:(id)sender;
@@ -25,5 +29,8 @@
 - (IBAction)forgetPressed:(id)sender;
 
 - (void)loginWithEmail:(NSString*)email password:(NSString *)password;
+
 - (void)toRegister;
+- (void)toForget;
+
 @end

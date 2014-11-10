@@ -12,57 +12,18 @@
 #import "CouponDetailsViewController.h"
 #import "KQRootViewController.h"
 #import "CityViewController.h"
+#import "ImageCell.h"
+#import "CouponDetailsViewController.h"
 
 
-
-@interface MainCell : ConfigCell{
-
-    
-}
-
-@end
-
-@implementation MainCell
-
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
-    
-    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        
-        self.backgroundColor = kColorLightYellow;
-        
-        CGFloat w = 140;
-        CGFloat h = 68;
-        UIButton *b = [UIButton buttonWithFrame:CGRectMake(15, 10, w, h) title:nil bgImageName:@"main_kuaiquan.png" target:self action:@selector(buttonPressed:)];
-//        b.tag = 0;
-        
-        UIButton *b2 = [UIButton buttonWithFrame:CGRectMake(165, 10, w, h) title:nil bgImageName:@"main_haiwai.png" target:self action:@selector(buttonPressed:)];
-//        b2.tag = 1;
-        
-        UIButton *b3 = [UIButton buttonWithFrame:CGRectMake(15, 78, w, h) title:nil bgImageName:@"main_huodong.png" target:self action:@selector(buttonPressed:)];
-        
-        UIButton *b4 = [UIButton buttonWithFrame:CGRectMake(165, 78, w, h) title:nil bgImageName:@"main_mingxing.png" target:self action:@selector(buttonPressed:)];
-        [self addSubview:b];
-        [self addSubview:b2];
-        [self addSubview:b3];
-        [self addSubview:b4];
-        
-        
-    }
-    
-    return self;
-}
-
-- (IBAction)buttonPressed:(id)sender{
-    L();
-    
-//    [UIAlertView showAlert:@"敬请期待" msg:@"更多功能即将上线" cancel:@"知道了"];
-}
-
-@end
+#pragma mark - MainViewController
 
 @interface MainViewController (){
+    UINavigationController *_couponDetailsNav;
 
 }
+
+@property (nonatomic, strong) Coupon *eventCoupon;
 
 @end
 
@@ -79,8 +40,7 @@
     
     self.config = [[TableConfiguration alloc] initWithResource:@"mainConfig"];
 
-//    self.isLoadMore = NO;
-
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 }
 
 - (void)didReceiveMemoryWarning
@@ -94,42 +54,79 @@
     [super viewWillAppear:animated];
     
     
-    NSString *city = _userController.city;
-    if (ISEMPTY(city)) {
-        city = @"选择城市";
-    }
-    
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:city style:UIBarButtonItemStylePlain target:self action:@selector(cityPressed:)];
+//    NSString *city = _userController.city;
+//    if (ISEMPTY(city)) {
+//        city = @"选择城市";
+//    }
+//    
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:city style:UIBarButtonItemStylePlain target:self action:@selector(cityPressed:)];
 
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
 
-//    NSLog(@"_root # %@,root # %@",_root,[[[[UIApplication sharedApplication] delegate] window] rootViewController]);
 
 }
 
-#pragma mark - IBAction
 
-- (IBAction)cityPressed:(id)sender{
-    //    L();
-    
 
-    [self performSegueWithIdentifier:@"toCity" sender:nil];
-}
+//#pragma mark - IBAction
+//
+//- (IBAction)cityPressed:(id)sender{
+//    //    L();
+//}
 
 #pragma mark - TableView
 
-
+- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    if (section == 0) {
+        return nil;
+    }
+    else{
+        
+        UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 38)];
+        v.backgroundColor = kColorTableBG;
+        
+        CGFloat fontSize = 13;
+        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 60, 38)];
+        [label setFont:[UIFont fontWithName:kFontName size:fontSize]];
+        label.text = @"热门快券";
+        
+        UILabel *l2 = [[UILabel alloc] initWithFrame:CGRectMake(70, 0, 40, 38)];
+        l2.text = @"HOT";
+        l2.textColor = kColorYellow;
+        [label setFont:[UIFont fontWithName:kFontName size:fontSize]];
+        
+        [v addSubview:label];
+        [v addSubview:l2];
+        
+        return v;
+    }
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
 
     if (section == 1) {
-        return 20;
+        return 40;
+//        return 60;
     }
     return 1.0f;
     
+
+}
+
+- (void)initConfigCell:(ConfigCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+    
+    if([cell isKindOfClass:[ImageCell class]]){
+        
+        [cell setValue:[UIImage imageNamed:@"event_banner.jpg"]];
+        
+        //点击活动的banner
+        [cell addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleBannerTap:)]];
+        
+        
+    }
 
 }
 
@@ -143,25 +140,9 @@
          [cell setValue:project];
    
     }
-    
-//    if (indexPath.section == 1 && indexPath.row == 0) {
-//        NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-//        cell.op = [[NSBlockOperation alloc] init];
-////        NSBlockOperation *op =
-//        
-//        __weak NSBlockOperation *weakOp = cell.op;
-//        [cell.op addExecutionBlock:^{
-//            for (int i = 0; i < 100000; i++) {
-//                if ([weakOp isCancelled])
-//                    break;
-//                //            processData(data[i]);
-//                NSLog(@" cell # %d",i);
-//            }
-//        }];
-//        [queue addOperation:cell.op];
-//    }
-
+   
 }
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
@@ -173,22 +154,28 @@
         
         Coupon *coupon = _models[indexPath.row];
         
-        [self toCouponDetails:coupon];
+//        [self toCouponDetails:coupon];
+        
+        [_root toCouponDetails:coupon];
         
     }
  
 
 }
 
-- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(ConfigCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
- 
+#pragma mark - IBAction
 
+- (IBAction)handleBannerTap:(id)sender{
+    Coupon *eventCoupon = [[Coupon alloc] init];
+    eventCoupon.id = kEventCouponId;
+    eventCoupon.avatarUrl = @"http://www.quickquan.com/images/moti_coupon.jpg";
+    eventCoupon.discountContent = @"0元享18元套餐";
+    eventCoupon.usage = @"新用户注册即可0元享受，价值18元的美味摩提2个！榴莲慕思摩提、蓝莓味摩提香甜好味、松软曼妙口感！30家店通用";
+    [self toCouponDetails:eventCoupon];
 }
 
+#pragma mark - Fcns
 
-
-
-#pragma mark - Fcns;
 
 
 /// 返回基本coupon，在load list的时候再载入购买人数的数据
@@ -196,23 +183,15 @@
 
     L();
 
-    [_libraryManager startProgress:nil];
+//    [_libraryManager startProgress:nil];
   
     [self.models removeAllObjects];
     
     [_networkClient queryNewestCouponsSkip:0 block:^(NSArray *couponDicts, NSError *error) {
         
-         [_libraryManager dismissProgress:nil];
+//         [_libraryManager dismissProgress:nil];
         
-        for (NSDictionary *dict in couponDicts) {
-//            NSLog(@"dict # %@",dict);
-            
-            Coupon *coupon = [Coupon couponWithDict:dict];
-            [self.models addObject:coupon];
-
-        }
-        
-        [self.tableView reloadData];
+        [self addCouponsInModel:couponDicts];
         
     }];
   
@@ -232,13 +211,7 @@
     
     [_networkClient queryNewestCouponsSkip:count block:^(NSArray *couponDicts, NSError *error) {
         
-        for (NSDictionary *dict in couponDicts) {
-            Coupon *coupon = [Coupon couponWithDict:dict];
-            [_models addObject:coupon];
-            
-        }
-        
-        [self.tableView reloadData];
+        [self addCouponsInModel:couponDicts];
         
         finishedBlock();
     }];
@@ -248,19 +221,22 @@
 
 - (void)toCouponDetails:(Coupon*)coupon{
 
-
-
-    [self performSegueWithIdentifier:@"toCouponDetails" sender:coupon];
+    [_root toCouponDetails:coupon];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"toCouponDetails"])
-    {
-        //        L();
-        [segue.destinationViewController setValue:sender forKeyPath:@"coupon"];
+
+
+- (void)addCouponsInModel:(NSArray *)array {
+    for (NSDictionary *dict in array) {
+        //            NSLog(@"dict # %@",dict);
+        
+        Coupon *coupon = [Coupon couponWithDict:dict];
+        [self.models addObject:coupon];
         
     }
+    
+    [self.tableView reloadData];
+   
 }
 
 @end

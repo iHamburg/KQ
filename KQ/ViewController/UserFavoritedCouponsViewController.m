@@ -8,6 +8,8 @@
 
 #import "UserFavoritedCouponsViewController.h"
 #import "CouponListCell.h"
+#import "CouponDetailsViewController.h"
+
 @interface UserFavoritedCouponsViewController ()
 
 @end
@@ -120,18 +122,20 @@
 
 - (void)toCouponDetails:(Coupon*)coupon{
     
-    
-    [self performSegueWithIdentifier:@"toCouponDetails" sender:coupon];
+    CouponDetailsViewController *vc = [[CouponDetailsViewController alloc] init];
+    vc.view.alpha = 1;
+    vc.coupon = coupon;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"toCouponDetails"])
-    {
-        //        L();
-        [segue.destinationViewController setValue:sender forKeyPath:@"coupon"];
-        
-    }
-}
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+//{
+//    if ([segue.identifier isEqualToString:@"toCouponDetails"])
+//    {
+//        //        L();
+//        [segue.destinationViewController setValue:sender forKeyPath:@"coupon"];
+//        
+//    }
+//}
 
 @end

@@ -8,10 +8,11 @@
 
 #import "AroundViewController.h"
 
-#import "CouponType.h"
-#import "District.h"
+#import "CouponDetailsViewController.h"
+
 #import <CoreLocation/CoreLocation.h>
-#import "AVOSEngine.h"
+
+
 
 
 @interface AroundViewController (){
@@ -45,6 +46,16 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)toCouponDetails:(Coupon*)coupon{
+//    CouponDetailsViewController *vc = [[CouponDetailsViewController alloc] init];
+//    vc.view.alpha = 1;
+//    vc.coupon = coupon;
+//    
+//     [_root addNavVCAboveTab:vc];
+
+    [_root toCouponDetails:coupon];
 }
 
 @end

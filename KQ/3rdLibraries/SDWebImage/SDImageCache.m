@@ -38,8 +38,11 @@ static natural_t get_free_memory(void)
     }
 
     /* Stats in bytes */
-    natural_t mem_free = vm_stat.free_count * pagesize;
-    return mem_free;
+//    natural_t mem_free = vm_stat.free_count * pagesize;
+//    return mem_free;
+
+//    natural_t mem_free =
+    return (natural_t)(vm_stat.free_count * pagesize);
 }
 
 @implementation SDImageCache
@@ -410,6 +413,7 @@ static natural_t get_free_memory(void)
     NSDirectoryEnumerator *fileEnumerator = [[NSFileManager defaultManager] enumeratorAtPath:diskCachePath];
     for (NSString *fileName in fileEnumerator)
     {
+        [fileName compare:@""];
         count += 1;
     }
     
@@ -431,7 +435,7 @@ static natural_t get_free_memory(void)
 
 - (int)getMemoryCount
 {
-    return [[memCache allKeys] count];
+    return (int)[[memCache allKeys] count];
 }
 
 @end

@@ -8,6 +8,7 @@
 
 #import "ButtonCell.h"
 
+// 左边是图片的button
 @interface ImageButtonCell : ButtonCell{
     UIImageView *_bgV;
 }

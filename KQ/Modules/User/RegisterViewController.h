@@ -8,17 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RegisterViewController : UIViewController{
+#import "SignViewController.h"
 
-   IBOutlet UIScrollView *scrollView;
-   IBOutlet    UIImageView *_bgV;
+@interface RegisterViewController : SignViewController<UIAlertViewDelegate>{
+
 
     IBOutlet UIButton *_registerB;
-    IBOutlet UIButton *_agreementB, *_identifyB;
+    IBOutlet UIButton  *_identifyB;
     IBOutlet UITextField *_userTextField;
-    IBOutlet UITextField *_passwordTextField, *_verifyTextField, *_usernameTextField;
-
-    UITextField *_rePasswordTextField;
+    IBOutlet UITextField *_passwordTextField, *_verifyTextField, *_usernameTextField, *_rePasswordTextField;
+    
+    UIButton *_selectBtn,*_agreementB;
+    UILabel *_readL;
+    BOOL _selected;
 
 }
 
@@ -27,7 +29,10 @@
 
 
 - (IBAction)signUpUserPressed:(id)sender;
-- (IBAction)agreementPressed:(id)sender;
+- (IBAction)identifyClicked:(id)sender;
+
+- (void)toAgreement;
+
 - (void)registerUser:(NSDictionary*)userInfo;
 - (void)validateWithBlock:(BooleanResultBlock)block;
 

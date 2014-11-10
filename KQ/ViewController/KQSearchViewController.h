@@ -38,6 +38,7 @@ typedef enum {
     
 
     NSArray *_districtHotKeywords, *_couponTypeHotKeywords;
+
     NSDictionary *_districtDataSource, *_couponTypeDataSource; // district -> array of subdistrict
     
     
@@ -63,7 +64,6 @@ typedef enum {
 
 - (IBAction)segmentChanged:(id)sender;
 
-- (void)toCouponList;
 - (void)startSearch;
 
 

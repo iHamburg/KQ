@@ -9,6 +9,7 @@
 #import "UserController.h"
 #import <MapKit/MapKit.h>
 #import "AVOSEngine.h"
+#import "Card.h"
 
 
 @interface UserController (){
@@ -39,6 +40,28 @@
             [self loadUser];
         }
     }];
+}
+
+- (BOOL)isLogin{
+    
+    
+    if (self.uid) {
+        return YES;
+    }
+    else
+        return NO;
+}
+
+- (BOOL)hasBankcard{
+    
+    if (!self.isLogin) {
+        return NO;
+    }
+    else if(ISEMPTY(self.people.cardIds)){
+        return NO;
+    }
+    else
+        return YES;
 }
 
 #pragma mark - Init
@@ -122,34 +145,34 @@
     
     self.uid = [[NSUserDefaults standardUserDefaults] objectForKey:@"uid"];
     self.sessionToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
-    
-//    [_networkClient queryUserList:@[self.uid] block:^(NSArray* array, NSError *error) {
-//        if (!ISEMPTY(array)) {
-//            People *people = [People peopleWithDict:array[0]];
-//            self.people = people;
-//            NSLog(@"uid # %@,token # %@,people # %@",self.uid,people.sessionToken,people.phone);
-//            
-//        }
-//    }];
+ 
 
     [_networkClient queryUser:self.uid block:^(NSDictionary *dict, NSError *error) {
      
         if (!ISEMPTY(dict)) {
             self.people = [People peopleWithDict:dict];
+            
         }
         
+        [_networkClient queryCards:self.uid block:^(NSArray *array, NSError *error) {
+            
+//            NSLog(@"cards # %@",array);
+            
+            if (ISEMPTY(array)) {
+                return ;
+            }
+            
+            self.people.cardIds = [NSMutableSet set];
+            
+            for (NSDictionary *dict in array) {
+                [self.people.cardIds addObject:dict[@"objectId"]];
+                
+                
+            }
+//            NSLog(@"people.cardIds # %@",self.people.cardIds);
+        }];
         
     }];
-}
-
-- (BOOL)isLogin{
-
-    
-    if (self.uid) {
-        return YES;
-    }
-    else
-        return NO;
 }
 
 

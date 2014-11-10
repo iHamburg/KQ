@@ -12,7 +12,7 @@
 
 @optional
 
--(void) chooseAtSection:(NSInteger)section index:(NSInteger)index;
+-(void) chooseAtSection:(int)section index:(int)index;
 @end
 
 @protocol DropDownChooseDataSource <NSObject>

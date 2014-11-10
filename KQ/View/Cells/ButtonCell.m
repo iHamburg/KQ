@@ -10,17 +10,14 @@
 
 @implementation ButtonCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
-    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        self.textLabel.textAlignment = NSTextAlignmentCenter;
-        self.accessoryType = UITableViewCellAccessoryNone;
-    }
-    return self;
+
+- (void)load{
+    self.textLabel.textAlignment = NSTextAlignmentCenter;
+    self.accessoryType = UITableViewCellAccessoryNone;
 }
 
 - (void)layoutSubviews{
     
-
     self.textLabel.frame = self.bounds;
 }
 

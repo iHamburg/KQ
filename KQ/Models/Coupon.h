@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Shop.h"
+//#import "Shop.h"
 #import <CoreLocation/CoreLocation.h>
 
 @interface Coupon : NSObject
@@ -37,5 +37,6 @@
 + (id)couponWithDict:(NSDictionary*)dict;
 
 - (id)initWithDict:(NSDictionary*)dict;
+
 - (void)display;
 @end

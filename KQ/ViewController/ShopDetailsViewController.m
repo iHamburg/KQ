@@ -10,6 +10,9 @@
 #import "UIImageView+WebCache.h"
 #import "ShopBranchesCell.h"
 #import "CouponListCell.h"
+#import "ShopBranchListViewController.h"
+#import "CouponDetailsViewController.h"
+#import "MapViewController.h"
 
 #pragma mark - ShopHeaderCell
 
@@ -38,11 +41,12 @@
     
     //    NSLog(@"shop # %@",self.va)
     NSString *text = shop.desc;
+    UIFont *font = [UIFont fontWithName:kFontName size:12];
     CGSize constraint = CGSizeMake(300, 10000);
-    CGSize size = [text sizeWithFont:[UIFont fontWithName:kFontName size:12] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
     
-    //    NSLog(@"size # %@",NSStringFromCGSize(size));
-    return size.height + 20;
+    CGRect textRect = [text boundingRectWithSize:constraint options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName:font} context:nil];
+    
+    return textRect.size.height + 20;
 }
 
 @end
@@ -63,31 +67,36 @@
  
     ///判断coupon是否已经收藏
     self.shopFavorited = NO;
+    
     for (NSString *shopId in [[UserController sharedInstance]people].favoritedShopIds) {
 //        NSLog(@"shopId # %@,shop.id # %@",shopId,shop.id);
         
         if ([shopId isEqualToString:shop.id]) {
 
             self.shopFavorited = YES;
+            
             break;
         }
     }
-    
 
     
-    [[NetworkClient sharedInstance] queryCouponsWithShop:shop.id block:^(NSArray *coupons, NSError *error) {
-        
-//        NSLog(@"coupons # %@",coupons);
-        
-        self.coupons = [NSMutableArray array];
-        
-        for (NSDictionary *couponDict in coupons) {
-            Coupon *coupon = [Coupon couponWithDict:couponDict];
-            [self.coupons addObject:coupon];
-        }
-        
-        [self.tableView reloadData];
-    }];
+//    这里商户的
+//    [[NetworkClient sharedInstance] queryCouponsWithShop:shop.id block:^(NSArray *coupons, NSError *error) {
+//        
+////        NSLog(@"coupons # %@",coupons);
+//        
+//        self.coupons = [NSMutableArray array];
+//        
+//        for (NSDictionary *couponDict in coupons) {
+//            NSLog(@"couponDict # %@",couponDict);
+//            
+//            Coupon *coupon = [Coupon couponWithDict:couponDict];
+//            [self.coupons addObject:coupon];
+//        }
+//        
+//        [self.tableView reloadData];
+//    }];
+    
 }
 
 - (void)setShopFavorited:(BOOL)isShopFavorited{
@@ -110,7 +119,7 @@
 
     _shopBranches = shopBranches;
 
-//    NSLog(@"shopBranches # %@",shopBranches);
+    NSLog(@"shopBranches # %@",shopBranches);
     
     [self.tableView reloadData];
 }
@@ -118,6 +127,9 @@
 - (id)initWithCoder:(NSCoder *)aDecoder{
     
     if (self = [super initWithCoder:aDecoder]) {
+        
+        
+        
         _favoritedBB = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_emptyStar.png"] style:UIBarButtonItemStylePlain target:self action:@selector(favoritePressed:)];
         
         
@@ -133,9 +145,9 @@
     // Do any additional setup after loading the view.
     self.config = [[TableConfiguration alloc] initWithResource:@"ShopConfig"];
 
-    self.title = self.shop.title;
-    
+//    self.title = self.shop.title;
 
+    self.title = @"商户详情";
 }
 
 - (void)didReceiveMemoryWarning
@@ -180,12 +192,13 @@
 
 
 - (void)initConfigCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
-  
+
     
     if([cell isKindOfClass:[ShopHeaderCell class]]){
         
         [cell setValue:self.shop forKeyPath:@"value"];
     }
+
 //    else  if([cell isKindOfClass:[ShopBranchesCell class]]){
 //        __weak ShopDetailsViewController *vc = self;
 //        ShopBranchesCell *aCell = (ShopBranchesCell*)cell;
@@ -203,13 +216,14 @@
 //        };
 //        
 //    }
-
 }
 
 
 - (void)configCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
  
-    // bugfix branch
+    //after conflict in v0.3 bugfix branch
+
+
     
      if([cell isKindOfClass:[CouponListCell class]]){
         CouponListCell *aCell = (CouponListCell*)cell;
@@ -221,8 +235,12 @@
      else  if([cell isKindOfClass:[ShopBranchesCell class]]){
          __weak ShopDetailsViewController *vc = self;
          ShopBranchesCell *aCell = (ShopBranchesCell*)cell;
-         [(ShopBranchesCell*)cell setValue:[self.shopBranches firstObject]];
+
+
          
+         //!!!: 如果self.shopBranches是需要asyn载入的，那么就不能放到initConfigCell中，因为只运行一次时可能shopBranches还没载入
+         [(ShopBranchesCell*)cell setValue:[self.shopBranches firstObject]];
+
          [(ShopBranchesCell*)cell setShopBranchesNum:[self.shopBranches count]];
          
          aCell.toMapBlock = ^(Shop* shop){
@@ -307,47 +325,59 @@
 }
 
 - (void)toShopList{
+    ShopBranchListViewController *vc = [[ShopBranchListViewController alloc] init];
+    vc.view.alpha = 1;
+    vc.models = [self.shopBranches mutableCopy];
+    
+    [self.navigationController pushViewController:vc animated:YES];
     
     
-    [self performSegueWithIdentifier:@"toShopBranch" sender:nil];
 }
 
 - (void)toMap{
-    
-    [self performSegueWithIdentifier:@"toMap" sender:nil];
+    MapViewController *vc = [[MapViewController alloc] init];
+    vc.view.alpha = 1;
+    vc.shop = [self.shopBranches firstObject];
+    [self.navigationController pushViewController:vc animated:YES];
+
 }
 
 - (void)toCouponDetails:(id)coupon{
-    [self performSegueWithIdentifier:@"toCouponDetails" sender:coupon];
+   
+    CouponDetailsViewController *vc = [[CouponDetailsViewController alloc] init];
+    vc.view.alpha = 1;
+    vc.coupon = coupon;
+    
+    [self.navigationController pushViewController:vc animated:YES];
 
 }
-
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    
-    NSString *identifier = segue.identifier;
-    
-   if([identifier isEqualToString:@"toShopBranch"]){
-        
-        //set models
-        //        NSLog(@"shopBranches # %@",self.shopBranches);
-        
-        [segue.destinationViewController setValue:self.shopBranches forKeyPath:@"models"];
-        
-    }
-   else if([identifier isEqualToString:@"toMap"]){
-       
-       [segue.destinationViewController setValue:[self.shopBranches firstObject] forKeyPath:@"shop"];
-       
-   }
-   else if([identifier isEqualToString:@"toCouponDetails"]){
-       
-       [segue.destinationViewController setValue:sender forKeyPath:@"coupon"];
-       
-   }
-    
-}
-
+//
+//
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+//{
+//    
+//    NSString *identifier = segue.identifier;
+//    
+//   if([identifier isEqualToString:@"toShopBranch"]){
+//        
+//        //set models
+//        //        NSLog(@"shopBranches # %@",self.shopBranches);
+//        
+//        [segue.destinationViewController setValue:self.shopBranches forKeyPath:@"models"];
+//        
+//    }
+//   else if([identifier isEqualToString:@"toMap"]){
+//       
+//       [segue.destinationViewController setValue:[self.shopBranches firstObject] forKeyPath:@"shop"];
+//       
+//   }
+//   else if([identifier isEqualToString:@"toCouponDetails"]){
+//       
+//       [segue.destinationViewController setValue:sender forKeyPath:@"coupon"];
+//       
+//   }
+//    
+//}
+//
 
 @end

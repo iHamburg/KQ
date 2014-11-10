@@ -22,4 +22,6 @@
 - (void)initVariables;
 - (void)checkVersion;
 - (void)customizeAppearance;
+
+
 @end

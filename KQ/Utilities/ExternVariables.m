@@ -69,7 +69,7 @@ void report_memory() {
                                    &size);
     if( kerr == KERN_SUCCESS ) {
         
-		NSLog(@"Memory in use (in MB): %u", (info.resident_size/1024));
+		NSLog(@"Memory in use (in MB): %d", (info.resident_size/1024));
     } else {
         NSLog(@"Error with task_info(): %s", mach_error_string(kerr));
     }
@@ -79,10 +79,6 @@ void report_memory() {
 	
 }
 
-//NSDictionary* avosPoint(NSString* field,NSString* className, NSString* objectId){
-//
-//   return @{field:@{@"__type":@"Pointer",@"className":className,@"objectId":objectId}};
-//}
 
 //BOOL isPaid(void){
 //	

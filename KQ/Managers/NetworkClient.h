@@ -9,17 +9,20 @@
 #import <AFNetworking/AFNetworking.h>
 #import <CoreLocation/CoreLocation.h>
 
+
 #ifdef DEBUG
 
 
-//#define RESTHOST @"http://192.168.1.103/kq/index.php/kqapi2"
-#define RESTHOST @"http://115.29.148.47/kq/index.php/kqapi2"
+//#define RESTHOST @"http://192.168.1.100/kq/index.php/kqapi3"
+//#define RESTHOST @"http://115.29.148.47/kq/index.php/kqapi3"
+#define RESTHOST @"http://61.153.100.241/kq/index.php/kqapi3"
 
 #else
 
 //#define HOST @"http://115.29.148.47/kq/index.php/kqavos"
-#define RESTHOST @"http://115.29.148.47/kq/index.php/kqapi2"
-//#define MYHOST @"http://115.29.148.47/kq/index.php/kqmyapi2"
+//#define RESTHOST @"http://115.29.148.47/kq/index.php/kqapi3"
+//#define RESTHOST @"http://115.29.148.47/kq/index.php/kqapi3"
+#define RESTHOST @"http://61.153.100.241/kq/index.php/kqapi3"
 
 #endif
 
@@ -30,8 +33,6 @@
 
 
 + (id)sharedInstance;
-
-
 
 
 
@@ -50,7 +51,6 @@
 
 
 
-
 /**
  *	@brief	用户注册登录
  */
@@ -60,26 +60,29 @@
 
 
 /**
- *	@brief	获取用户收藏的商户
+ *	
+ * @deprecated
+ * @brief	获取用户收藏的商户,应该也不需要了
  */
 - (void)queryShopBranches:(NSString*)parentId block:(IdResultBlock)block;
 
 
 
-- (void)queryHotCouponsSkip:(int)skip block:(IdResultBlock)block;
-
 - (void)queryNewestCouponsSkip:(int)skip block:(IdResultBlock)block;
 /**
  
+ @brief   返回搜索的快券
  @params: districtId/subDistrictId/couponTypeId/subTypeId/keyword/latitude/longitude
  
  */
 - (void)searchCoupons:(NSDictionary*)params block:(IdResultBlock)block;
 
+/**
+ deprecated , shop可以直接include coupons来获得
+ */
 - (void)queryCouponsWithShop:(NSString*)shopId block:(IdResultBlock)block;
 
 
-- (void)queryCouponTypesWithBlock:(IdResultBlock)block;
 
 /**
  *	@brief	获取所有一级商区
@@ -93,7 +96,6 @@
  *
  */
 - (void)queryHeadCouponTypesWithBlock:(IdResultBlock)block;
-
 
 /**
  *	@brief	获取用户的银行卡
@@ -121,6 +123,10 @@
 - (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken favoriteShop:(NSString*)shopId block:(IdResultBlock)block;
 - (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken unfavoriteShop:(NSString*)shopId block:(IdResultBlock)block;
 
+/**
+ *	@brief	用户忘记密码时点击获得验证码
+ */
+- (void)requestCaptchaForgetPassword:(NSString*)username block:(IdResultBlock)block;
 
 - (void)getWithUrl:(NSString*)url parameters:(NSDictionary*)parameters block:(IdResultBlock)block;
 - (void)postWithUrl:(NSString*)url parameters:(NSDictionary*)parameters block:(IdResultBlock)block;

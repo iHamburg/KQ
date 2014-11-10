@@ -22,7 +22,7 @@
 //        self.thirdLabel = [[KQLabel alloc] initWithFrame:CGRectZero];
 //        self.avatarV = [[UIImageView alloc] initWithFrame:CGRectZero];
 //        [self addSubview:self.firstLabel];
-//        
+//
 //        NSLog(@"textlabel # %@,details label # %@",self.textLabel, self.detailTextLabel);
     }
     return self;
@@ -34,8 +34,6 @@
 
 - (void)load{
 
-//    self.backgroundColor = [UIColor clearColor];
-
     
     self.textLabel.font = [UIFont fontWithName:kFontName size:16];
     self.detailTextLabel.font = [UIFont fontWithName:kFontName size:16];
@@ -43,10 +41,6 @@
     self.textLabel.textColor = kColorBlack;
     self.detailTextLabel.textColor = kColorBlack;
 
-}
-
-- (void)cancelOperation{
-    [_op cancel];
 }
 
 + (CGFloat)cellHeightWithValue:(id)value{

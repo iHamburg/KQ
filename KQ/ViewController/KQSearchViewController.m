@@ -13,6 +13,7 @@
 @interface KQSearchViewController ()
 
 - (void)addCurrentLocationToSearchParams:(NSMutableDictionary*)params;
+- (void)toCouponList;
 
 @end
 
@@ -22,7 +23,7 @@
     _searchType = searchType;
     
     if (_searchType == SearchDistrict) {
-//        [self searchDistrict];
+
         _hotSearchView.titles = _districtHotKeywords;
         _tableView.dataSource = _districtDataSource;
         self.searchBar.placeholder = @"输入地区的名字查询";
@@ -42,7 +43,7 @@
 
     }
     else if(_searchType == SearchCouponType){
-//        [self searchCouponType];
+
         _hotSearchView.titles = _couponTypeHotKeywords;
         _tableView.dataSource = _couponTypeDataSource;
         self.searchBar.placeholder = @"输入分类的名字查询";
@@ -89,20 +90,6 @@
     [self.navigationController.navigationBar setTintColor:kColorYellow];
   
     
-
-//    UISearchBar * theSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width-50, 40)];
-//    
-//    theSearchBar.placeholder = @"enter province name";
-//    
-//    theSearchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-//    
-//    theSearchBar.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
-//    
-//    theSearchBar.delegate = self;
-//    
-//    _searchBar = theSearchBar;
-    
-    
     UISegmentedControl *seg = [[UISegmentedControl alloc] initWithItems:@[@"按地区找",@"按分类找"]];
     
     seg.frame = CGRectMake(0, 0, 160, 30);
@@ -118,11 +105,8 @@
     _districtHotKeywords = @[@"徐汇区",@"静安区",@"浦东新区"];
     _couponTypeHotKeywords = @[@"美食",@"休闲娱乐",@"购物"];
     
-//    NSLog(@"couponkeywords # %@",_couponTypeHotKeywords);
-    
-    ///点击tableview，进行search
-    
-    
+    ///init tableview
+
     NSArray *leftKeys = _manager.districts;
     NSMutableDictionary *dataSource = [NSMutableDictionary dictionary];
     for (District *district in leftKeys) {
@@ -141,6 +125,7 @@
     _couponTypeDataSource = [dataSource copy];
     
     __weak KQSearchViewController *vc = self;
+   
     [self.tableView setSelectedBlock:^(id object) {
         
         NSLog(@"select # %@",[object valueForKey:@"title"]);
@@ -158,7 +143,6 @@
                 [vc.searchParams setObject:type.id forKey:@"couponTypeId"];
             }
         }
-        
 
         [vc addCurrentLocationToSearchParams:vc.searchParams];
         
@@ -190,7 +174,7 @@
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
-    ///动态调整table的高度
+    ///动态调整table的高度,适应iphone和iphone5
     CGFloat hTable = 233;
     if (isPhone5) {
         hTable = 321;
@@ -199,6 +183,9 @@
     [self.tableView setSize:CGSizeMake(320, hTable)];
 //    NSLog(@"self # %@, table # %@",self.view, _tableView);
     
+    UIImageView *screenshot = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _w, 462)];
+    screenshot.image = [UIImage imageNamed:@"search_screenshot.jpg"];
+    [self.view addSubview:screenshot];
 
 }
 
@@ -206,8 +193,6 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     L();
- 
-//    [self toCouponList];
     
     [searchBar resignFirstResponder];
     
@@ -238,7 +223,7 @@
 #pragma mark - IBAction
 
 - (IBAction)segmentChanged:(UISegmentedControl*)sender{
-//    self.searchType = sender.selectedSegmentIndex;
+
     
     [self.searchBar resignFirstResponder];
     
@@ -268,7 +253,7 @@
             [_libraryManager startHint:@"暂时还没有结果" duration:1];
         }else{
         
-//            NSLog(@"search results # %@",array);
+
             self.searchResults = [NSMutableArray array];
             
             for (NSDictionary *dict in array) {
@@ -288,11 +273,11 @@
                     
                     Coupon *coupon = [Coupon couponWithDict:dict];
                     coupon.nearestDistance = [_userController distanceFromLocation:coupon.nearestLocation];
-//                    NSLog(@"coupon.id # %@,title # %@",coupon.id,coupon.title);
+
                     [self.searchResults addObject:coupon];
                 }
             }
-//            NSLog(@"searchResults # %@",self.searchResults);
+
          
             [self toCouponList];
         }

@@ -8,7 +8,7 @@
 
 #import "UserCouponsViewController.h"
 #import "CouponListCell.h"
-
+#import "CouponDetailsViewController.h"
 
 #pragma mark - UserCouponsVC
 
@@ -30,7 +30,6 @@
     // Do any additional setup after loading the view.
     self.title = @"我的快券";
 
-//    L();
 
     _tableHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
     _tableHeader.backgroundColor = kColorBG;
@@ -67,18 +66,6 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
 
     return _tableHeader;
-//    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
-//    v.backgroundColor = kColorBG;
-//  
-//    UISegmentedControl *seg = [[UISegmentedControl alloc] initWithItems:@[@"未使用",@"已使用",@"已过期"]];
-//    seg.selectedSegmentIndex = 0;
-//    seg.frame = CGRectMake(0, 0, 260, 30);
-//    seg.center = v.center;
-//    [seg addTarget:self action:@selector(segmentedControlChanged:) forControlEvents:UIControlEventValueChanged];
-//    [v addSubview:seg];
-//    
-//    
-//    return v;
     
 }
 
@@ -108,21 +95,28 @@
 
 #pragma mark - SegmentedControl
 - (IBAction)segmentedControlChanged:(UISegmentedControl*)sender{
-    int index = sender.selectedSegmentIndex;
+    int index = (int)sender.selectedSegmentIndex;
     NSLog(@"index # %d",index);
-    if (index == 1 ||index == 2) {
-        [self demoEmptyTable];
-    }
-    else{
-        [self loadModels];
-    }
+
+    [self queryCoupons:index];
 }
 
 #pragma mark - Fcns;
 
 - (void)queryCoupons:(CouponStatus)status{
 
-
+    switch (status) {
+        case CouponStatusUnused:
+            [self loadModels];
+            break;
+        case CouponStatusUsed:
+        case CouponStatusExpired:
+            
+            //应该显示不同的优惠券
+            [self demoEmptyTable];
+        default:
+            break;
+    }
     
 }
 
@@ -132,7 +126,6 @@
 
     [_libraryManager startHint:@"没有优惠券" duration:1];
     
-
     
 }
 
@@ -183,21 +176,10 @@
 
 - (void)toCouponDetails:(Coupon*)coupon{
     
-    
-    
-    [self performSegueWithIdentifier:@"toCouponDetails" sender:coupon];
-}
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"toCouponDetails"])
-    {
-        //        L();
-        [segue.destinationViewController setValue:sender forKeyPath:@"coupon"];
-        
-    }
-}
+    [_root toCouponDetails:coupon];
 
+}
 
 
 @end

@@ -8,6 +8,8 @@
 
 #import "UserShopsViewController.h"
 #import "ShopListCell.h"
+#import "ShopDetailsViewController.h"
+
 
 @interface UserShopsViewController ()
 
@@ -103,7 +105,7 @@
     [self.models removeAllObjects];
     
     [_networkClient queryFavoritedShop:_userController.uid block:^(NSArray *couponDicts, NSError *error) {
-        
+        //
       
         NSLog(@"shops # %@",couponDicts);
         if (ISEMPTY(couponDicts)) {
@@ -126,22 +128,42 @@
 }
 
 - (void)toShopDetails:(Shop*)shop{
-    [self performSegueWithIdentifier:@"toShopDetails" sender:shop];
+//    [self performSegueWithIdentifier:@"toShopDetails" sender:shop];
+    
+    ShopDetailsViewController *vc = [[ShopDetailsViewController alloc] init];
+    vc.view.alpha = 1;
+    vc.shop = shop;
+    [_networkClient queryShopBranches:shop.id block:^(NSArray *shopbranches, NSError *error) {
+        
+        if (!ISEMPTY(shopbranches)) {
+            NSMutableArray *shops = [NSMutableArray arrayWithCapacity:shopbranches.count];
+            for (NSDictionary *dict in shopbranches) {
+                
+                Shop *shop = [Shop shopWithDictionary:dict];
+                [shops addObject:shop];
+            }
+            
+            shops = [[shops sortedArrayUsingFunction:nearestShopSort context:nil] mutableCopy];
+//            [segue.destinationViewController setValue:shops forKeyPath:@"shopBranches"];
+            vc.shopBranches = shops;
+        }
+    }];
 
+
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(Shop*)sender
 {
     if ([segue.identifier isEqualToString:@"toShopDetails"])
     {
-        //        L();
         
         [_networkClient queryShopBranches:sender.id block:^(NSArray *shopbranches, NSError *error) {
             
             if (!ISEMPTY(shopbranches)) {
                 NSMutableArray *shops = [NSMutableArray arrayWithCapacity:shopbranches.count];
                 for (NSDictionary *dict in shopbranches) {
-//                    NSLog(@"dict # %@",dict);
+
                     Shop *shop = [Shop shopWithDictionary:dict];
                     [shops addObject:shop];
                 }
@@ -156,7 +178,7 @@
     }
 }
 
-int nearestShopSort(Shop* obj1, Shop* obj2, void *context ) {
+NSInteger nearestShopSort(Shop* obj1, Shop* obj2, void *context ) {
     // returns random number -1 0 1
     return obj1.distance - obj2.distance;
 }

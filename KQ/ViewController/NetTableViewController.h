@@ -22,6 +22,7 @@
  *	@brief	models 一种通过loadModels载入，另一种是外部指派。
  */
 @property (nonatomic, strong) NSMutableArray *models;
+
 @property (nonatomic, assign) BOOL isLoadMore;
 
 /**
@@ -34,4 +35,6 @@
 
 - (void)reloadTableViewDataSource;
 - (void)doneLoadingTableViewData;
+
+
 @end

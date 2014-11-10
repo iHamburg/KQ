@@ -21,5 +21,6 @@
     _switch.selected = YES;
     self.accessoryView = _switch;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    
 }
 @end

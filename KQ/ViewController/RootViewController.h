@@ -5,14 +5,15 @@
 //  Created by AppDevelopper on 14-4-3.
 //  Copyright (c) 2014年 Xappsoft. All rights reserved.
 //
-//!!!:REUSE
+
 
 #import <UIKit/UIKit.h>
 #import "UtilLib.h"
 
-@interface RootViewController : UITabBarController{
+@interface RootViewController : UIViewController{
 
-     BOOL rootLoadViewFlag;
+    BOOL rootLoadViewFlag;
+    
     NSMutableArray *testObjs;
 
 }
@@ -22,7 +23,7 @@
 
 - (void)registerNotification;
 - (void)handleAppFirstTimeOpen;
-- (void)handleRootFirstDidAppear;
+- (void)handleRootFirstWillAppear;
 
 //inherit
 - (void)test;

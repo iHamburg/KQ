@@ -19,9 +19,9 @@
 				</dict>
 			</array>
 			<key>nib</key>
-			<string>CouponHeaderCell</string>
+			<string>CouponHeaderCell2</string>
 			<key>height</key>
-			<string>180</string>
+			<string>245</string>
 		</dict>
 		<dict>
 			<key>rows</key>

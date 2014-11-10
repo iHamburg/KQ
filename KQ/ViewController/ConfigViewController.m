@@ -7,7 +7,7 @@
 //
 
 #import "ConfigViewController.h"
-#import "ConfigCell.h"
+
 
 @interface ConfigViewController ()
 
@@ -20,11 +20,11 @@
 {
     [super viewDidLoad];
 
-    _root = [KQRootViewController sharedInstance];
     _userController = [UserController sharedInstance];
     _networkClient = [NetworkClient sharedInstance];
     _libraryManager = [LibraryManager sharedInstance];
     _manager = [CouponManager sharedInstance]; //需要调用HUD，必须等root已经有view
+    _root = [KQRootViewController sharedInstance];
     
     if (isIOS7) {
         
@@ -34,7 +34,6 @@
     self.view.backgroundColor = kColorBG;
 
     self.navigationController.navigationBar.translucent = NO;
-//   [self.navigationController.navigationBar setBarTintColor:kColorYellow];  //背景色
     
 }
 
@@ -89,9 +88,9 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     CGFloat height = [_config heightForRowInSection:indexPath.section];
+
     if (height>0) {
-        
-//        NSLog(@"height # %f",height);
+
         return height;
     }
     else
@@ -121,7 +120,6 @@
 
     }
     
-//    NSLog(@"className # %@, nib # %@",cellClassName,nib);
     
     ConfigCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
     

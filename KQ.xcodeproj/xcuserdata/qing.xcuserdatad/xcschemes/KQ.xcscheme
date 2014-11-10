@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "26E3A520192DE02F004F8C8C"
-               BuildableName = "&#x5feb;&#x5238;.app"
+               BuildableName = "&#x5feb;&#x5238; 0.2.app"
                BlueprintName = "KQ"
                ReferencedContainer = "container:KQ.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "26E3A520192DE02F004F8C8C"
-            BuildableName = "&#x5feb;&#x5238;.app"
+            BuildableName = "&#x5feb;&#x5238; 0.2.app"
             BlueprintName = "KQ"
             ReferencedContainer = "container:KQ.xcodeproj">
          </BuildableReference>
@@ -62,11 +62,18 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "26E3A520192DE02F004F8C8C"
-            BuildableName = "&#x5feb;&#x5238;.app"
+            BuildableName = "&#x5feb;&#x5238; 0.2.app"
             BlueprintName = "KQ"
             ReferencedContainer = "container:KQ.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "NSZombieEnabled"
+            value = "YES"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -80,7 +87,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "26E3A520192DE02F004F8C8C"
-            BuildableName = "&#x5feb;&#x5238;.app"
+            BuildableName = "&#x5feb;&#x5238; 0.2.app"
             BlueprintName = "KQ"
             ReferencedContainer = "container:KQ.xcodeproj">
          </BuildableReference>

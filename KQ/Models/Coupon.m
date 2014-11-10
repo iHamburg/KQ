@@ -25,7 +25,11 @@
 
 - (id)initWithDict:(NSDictionary*)dict{
     if (self= [self init]) {
-        dict = [dict dictionaryCheckNull];
+        
+        if ([dict isKindOfClass:[NSDictionary class]]) {
+            dict = [dict dictionaryCheckNull];
+        }
+
         
 //        NSLog(@"couponDict # %@",dict);
         
@@ -62,6 +66,7 @@
 - (void)display{
     
     NSArray *keys = @[@"id",@"shopId",@"title",@"avatarUrl",@"validate",@"discountContent",@"usage",@"maxNumber",@"downloadedCount"];
+    
     NSLog(@"--------------Begin Display Coupon # %@------------\n",self);
     for (NSString *key in keys) {
         NSLog(@"%@ => %@",key, [self valueForKey:key]);
