@@ -209,9 +209,7 @@
 		26E50C6E19588E2700CBFEE8 /* register_tf_bg@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 26E50C6D19588E2700CBFEE8 /* register_tf_bg@2x.jpg */; };
 		26E570AF193E9B7F009AB7F8 /* ShopListConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 26E570AE193E9B7F009AB7F8 /* ShopListConfig.plist */; };
 		26EE1F9019457511007C98AA /* NetworkClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EE1F8F19457511007C98AA /* NetworkClient.m */; };
-		26EE1F93194585E4007C98AA /* AVOSEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EE1F92194585E4007C98AA /* AVOSEngine.m */; };
 		26EE1F9619458C0B007C98AA /* CouponType.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EE1F9519458C0A007C98AA /* CouponType.m */; };
-		26EE1F9919459548007C98AA /* AVOSServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EE1F9819459548007C98AA /* AVOSServer.m */; };
 		26EE1F9B1945971A007C98AA /* db.plist in Resources */ = {isa = PBXBuildFile; fileRef = 26EE1F9A1945971A007C98AA /* db.plist */; };
 		26EE1F9D1945EF76007C98AA /* UserCenterLoginConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 26EE1F9C1945EF76007C98AA /* UserCenterLoginConfig.plist */; };
 		26EF8738195FCD22006BA22C /* SearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF8737195FCD22006BA22C /* SearchResultsViewController.m */; };
@@ -590,12 +588,8 @@
 		26E570AE193E9B7F009AB7F8 /* ShopListConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ShopListConfig.plist; sourceTree = "<group>"; };
 		26EE1F8E19457511007C98AA /* NetworkClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkClient.h; sourceTree = "<group>"; };
 		26EE1F8F19457511007C98AA /* NetworkClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkClient.m; sourceTree = "<group>"; };
-		26EE1F91194585E4007C98AA /* AVOSEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVOSEngine.h; sourceTree = "<group>"; };
-		26EE1F92194585E4007C98AA /* AVOSEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVOSEngine.m; sourceTree = "<group>"; };
 		26EE1F9419458C0A007C98AA /* CouponType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponType.h; sourceTree = "<group>"; };
 		26EE1F9519458C0A007C98AA /* CouponType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponType.m; sourceTree = "<group>"; };
-		26EE1F9719459548007C98AA /* AVOSServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVOSServer.h; sourceTree = "<group>"; };
-		26EE1F9819459548007C98AA /* AVOSServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVOSServer.m; sourceTree = "<group>"; };
 		26EE1F9A1945971A007C98AA /* db.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = db.plist; sourceTree = "<group>"; };
 		26EE1F9C1945EF76007C98AA /* UserCenterLoginConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserCenterLoginConfig.plist; sourceTree = "<group>"; };
 		26EF8736195FCD22006BA22C /* SearchResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultsViewController.h; sourceTree = "<group>"; };
@@ -1108,10 +1102,6 @@
 				26E3A565192DE042004F8C8C /* ErrorManager.m */,
 				26EE1F8E19457511007C98AA /* NetworkClient.h */,
 				26EE1F8F19457511007C98AA /* NetworkClient.m */,
-				26EE1F91194585E4007C98AA /* AVOSEngine.h */,
-				26EE1F92194585E4007C98AA /* AVOSEngine.m */,
-				26EE1F9719459548007C98AA /* AVOSServer.h */,
-				26EE1F9819459548007C98AA /* AVOSServer.m */,
 				26D4B6F8195C374E00C1B727 /* CouponManager.h */,
 				26D4B6F9195C374E00C1B727 /* CouponManager.m */,
 			);
@@ -1696,7 +1686,6 @@
 				261D34BB1946C1C9009F75CF /* UserShopsViewController.m in Sources */,
 				26821B4819527CF3005549D3 /* LibraryManager.m in Sources */,
 				26E3A537192DE02F004F8C8C /* AppDelegate.m in Sources */,
-				26EE1F9919459548007C98AA /* AVOSServer.m in Sources */,
 				26D393E8194E8F18000ED175 /* SDWebImagePrefetcher.m in Sources */,
 				26E290F8193DB24E00B7E0C9 /* Comment.m in Sources */,
 				26D393E6194E8F18000ED175 /* SDWebImageDownloader.m in Sources */,
@@ -1751,7 +1740,6 @@
 				26D393E5194E8F18000ED175 /* SDWebImageDecoder.m in Sources */,
 				26D393E3194E8F18000ED175 /* MKAnnotationView+WebCache.m in Sources */,
 				26E3A5C4192DE042004F8C8C /* UIAlertView+Extras.m in Sources */,
-				26EE1F93194585E4007C98AA /* AVOSEngine.m in Sources */,
 				26E3A53D192DE02F004F8C8C /* KQ.xcdatamodeld in Sources */,
 				26EF8738195FCD22006BA22C /* SearchResultsViewController.m in Sources */,
 				263527E51946FECB003A30DD /* AddCardViewController.m in Sources */,
@@ -1800,6 +1788,7 @@
 /* Begin XCBuildConfiguration section */
 		26DEB4AA19416CB70063AADC /* Adhoc */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 85755EEFD65D18BA8065DE33 /* Pods.adhoc.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = (
@@ -1836,7 +1825,6 @@
 		};
 		26DEB4AB19416CB70063AADC /* Adhoc */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 85755EEFD65D18BA8065DE33 /* Pods.adhoc.xcconfig */;
 			buildSettings = {
 				ARCHS = armv7;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;

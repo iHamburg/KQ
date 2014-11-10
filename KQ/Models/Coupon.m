@@ -29,7 +29,9 @@
         if ([dict isKindOfClass:[NSDictionary class]]) {
             dict = [dict dictionaryCheckNull];
         }
-
+        else{
+            return nil;
+        }
         
 //        NSLog(@"couponDict # %@",dict);
         

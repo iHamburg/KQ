@@ -10,7 +10,6 @@
 
 #import "ErrorManager.h"
 
-#import "AVOSEngine.h"
 
 //获取最新的优惠券
 #define api_newestCoupons       [RESTHOST stringByAppendingFormat:@"/newestCoupons"]
@@ -138,16 +137,16 @@
 
 /// deprecated
 - (void)queryCouponsWithShop:(NSString*)shopId block:(IdResultBlock)block{
-    
-    
-    
-    NSString *url = [RESTHOST stringByAppendingFormat:@"/coupon"];
-    
-     NSDictionary *params = @{@"where":[AVOSEngine avosPointerWithField:@"shop" className:@"Shop" objectId:shopId]} ;
-    
-    NSLog(@"params # %@",params);
-    
-    [self getWithUrl:url parameters:params block:block];
+//    
+//    
+//    
+//    NSString *url = [RESTHOST stringByAppendingFormat:@"/coupon"];
+//    
+//     NSDictionary *params = @{@"where":[AVOSEngine avosPointerWithField:@"shop" className:@"Shop" objectId:shopId]} ;
+//    
+//    NSLog(@"params # %@",params);
+//    
+//    [self getWithUrl:url parameters:params block:block];
 }
 
 

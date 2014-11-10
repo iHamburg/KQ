@@ -109,9 +109,11 @@
 
     NSArray *leftKeys = _manager.districts;
     NSMutableDictionary *dataSource = [NSMutableDictionary dictionary];
+  
     for (District *district in leftKeys) {
-        
-        [dataSource setObject:district.subDistricts  forKey:district];
+      
+        //TODO:  district 换成2行而不是3行的
+//        [dataSource setObject:district.subDistricts  forKey:district];
     }
     
     _districtDataSource = [dataSource copy];

@@ -8,7 +8,7 @@
 
 #import "UserController.h"
 #import <MapKit/MapKit.h>
-#import "AVOSEngine.h"
+
 #import "Card.h"
 
 
@@ -35,11 +35,11 @@
 
 - (void)setAvatar:(UIImage *)avatar{
     //
-    [[AVOSEngine sharedInstance] saveImageForUser:avatar key:@"avatar" block:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
-            [self loadUser];
-        }
-    }];
+//    [[AVOSEngine sharedInstance] saveImageForUser:avatar key:@"avatar" block:^(BOOL succeeded, NSError *error) {
+//        if (succeeded) {
+//            [self loadUser];
+//        }
+//    }];
 }
 
 - (BOOL)isLogin{
@@ -185,9 +185,7 @@
             
             [self didLoginWithUid:dict[@"objectId"] token:dict[@"sessionToken"]];
             
-            [[AVOSEngine sharedInstance] loginWithUsername:userInfo[@"username"] password:userInfo[@"password"] block:^(id object, NSError *error) {
-                
-            }];
+          
             
             block(YES,nil);
             
@@ -214,9 +212,7 @@
             
             [self didLoginWithUid:dict[@"objectId"] token:dict[@"sessionToken"]];
             
-            [[AVOSEngine sharedInstance] loginWithUsername:email password:pw block:^(id object, NSError *error) {
-                
-            }];
+         
             
             block(YES,nil);
         }
@@ -253,8 +249,7 @@
     [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"token"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    [[AVOSEngine sharedInstance] logout];
-    
+       
 }
 
 

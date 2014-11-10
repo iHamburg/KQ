@@ -8,7 +8,7 @@
 
 #import "KQRootViewController.h"
 #import "SearchViewController.h"
-#import "AVOSServer.h"
+
 #import "NetworkClient.h"
 #import "KQLoginViewController.h"
 #import "UserCenterViewController.h"
@@ -269,7 +269,6 @@
     
     [super test];
     
-    [[AVOSServer sharedInstance] test];
     [[NetworkClient sharedInstance] test];
     [[UserController sharedInstance] test];
 

@@ -12,8 +12,6 @@
 #import "KQRootViewController.h"
 
 
-#import <AVOSCloud/AVOSCloud.h>
-
 #define kWeixinAppId @"wxb5fa63851976db24"
 
 @implementation KQAppDelegate
@@ -25,7 +23,7 @@
     
     [self initUmeng];
     
-    [self initAvosCloud];
+//    [self initAvosCloud];
     
     [self customizeAppearance];
     
@@ -43,14 +41,14 @@
     [UMSocialWechatHandler setWXAppId:kWeixinAppId url:@"http://www.makers.co"];
     
 }
-
-- (void)initAvosCloud{
-    
-    static NSString *AVOSApplicationId = @"ezxvldwk94k38d6fki1ks4yq55jkl2t15tttu5ezdqbk8mio";
-    static NSString *AVOSClientKey = @"mtbrztjctplgnho2qf49cs70gd4lfggiayww7u6h4mv5s60t";
-    [AVOSCloud setApplicationId:AVOSApplicationId clientKey:AVOSClientKey];
-
-}
+//
+//- (void)initAvosCloud{
+//    
+//    static NSString *AVOSApplicationId = @"ezxvldwk94k38d6fki1ks4yq55jkl2t15tttu5ezdqbk8mio";
+//    static NSString *AVOSClientKey = @"mtbrztjctplgnho2qf49cs70gd4lfggiayww7u6h4mv5s60t";
+//    [AVOSCloud setApplicationId:AVOSApplicationId clientKey:AVOSClientKey];
+//
+//}
 
 - (void)customizeAppearance{
 

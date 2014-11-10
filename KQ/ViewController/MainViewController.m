@@ -231,7 +231,11 @@
         //            NSLog(@"dict # %@",dict);
         
         Coupon *coupon = [Coupon couponWithDict:dict];
-        [self.models addObject:coupon];
+        
+        if (coupon) {
+            [self.models addObject:coupon];
+        }
+
         
     }
     

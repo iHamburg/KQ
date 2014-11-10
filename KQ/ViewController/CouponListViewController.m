@@ -9,7 +9,7 @@
 #import "CouponListViewController.h"
 #import "CouponType.h"
 #import "District.h"
-#import "AVOSEngine.h"
+
 #import "KQRootViewController.h"
 #import "CouponDetailsViewController.h"
 
