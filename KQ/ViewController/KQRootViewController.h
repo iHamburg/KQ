@@ -10,6 +10,7 @@
 
 #define kIsMainApplyEvent  YES
 
+
 @class KQTabBarViewController;
 @class Coupon;
 
@@ -25,19 +26,10 @@
 
 
 
-/**
- *	@brief	<#Description#>
- *
- *	@param 	coupon 	<#coupon description#>
- */
 - (void)toCouponDetails:(Coupon*)coupon;
 
- //从tab内，跳到tab外
-- (void)toMyCoupons;
 
-/**
- *	@brief	<#Description#>
- */
+- (void)toMyCoupons;
 - (void)didLogin;
 - (void)didLogout;
 

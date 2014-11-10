@@ -45,9 +45,13 @@
      
 //        [[LibraryManager sharedInstance] startProgress:@"queryCouponType"];
         
-        [_networkClient queryHeadCouponTypesWithBlock:^(NSArray *array, NSError *error) {
-            if (array) {
+        [_networkClient queryHeadCouponTypesWithBlock:^(NSDictionary *dict, NSError *error) {
+            if (dict) {
 //               NSLog(@"types # %@",array);
+                
+                NSArray *array = dict[@"districts"];
+             
+                NSLog(@"array # %@",array);
                 
                 NSMutableArray *types = [NSMutableArray array];
                 for (NSDictionary *dict in array) {
