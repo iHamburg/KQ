@@ -211,9 +211,9 @@
             }
             else{
                 
-                // 更新userController.cardSet?
+                //TODO: 更新userController.cardSet?
                 
-                [[UserController sharedInstance] loadUser];
+//                [[UserController sharedInstance] loadUser];
                 
                 
                 [self toAfterDownloadBank];

@@ -56,6 +56,7 @@ typedef void (^DataResultBlock)(NSData *data, NSError *error);
 typedef void (^DataStreamResultBlock)(NSInputStream *stream, NSError *error);
 typedef void (^StringResultBlock)(NSString *string, NSError *error);
 typedef void (^IdResultBlock)(id object, NSError *error);
+typedef void (^DictionaryResultBlock)(NSDictionary *dict, NSError *error);
 typedef void (^ProgressBlock)(int percentDone);
 
 

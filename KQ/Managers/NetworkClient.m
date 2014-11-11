@@ -7,7 +7,7 @@
 //
 
 #import "NetworkClient.h"
-
+#import "NSString+md5.h"
 #import "ErrorManager.h"
 
 
@@ -25,21 +25,22 @@
 
 
 //获取一级区域
-#define api_headDistricts        [RESTHOST stringByAppendingFormat:@"/headDistricts"]
+#define api_headDistricts        [RESTHOST stringByAppendingFormat:@"/district"]
 
 
-//获取快券类型
-#define api_couponType           [RESTHOST stringByAppendingFormat:@"/couponType"]
 
 //获取一级类型
-#define api_headCouponTypes       [RESTHOST stringByAppendingFormat:@"/district"]
+#define api_headCouponTypes       [RESTHOST stringByAppendingFormat:@"/shopType"]
 
 
 //用户登录
 #define api_login               [RESTHOST stringByAppendingString:@"/login"]
 
-//获取用户，用户注册
+//用户注册
 #define api_user                [RESTHOST stringByAppendingFormat:@"/user"]
+
+// 获取用户信息
+#define api_userinfo            [RESTHOST stringByAppendingFormat:@"/userInfo"]
 
 //用户绑定的银行卡
 #define api_my_card             [RESTHOST stringByAppendingFormat:@"/mycard"]
@@ -50,18 +51,16 @@
 //用户收藏的快券
 #define api_my_favoritedCoupon  [RESTHOST stringByAppendingFormat:@"/myFavoritedCoupon"]
 
-///因为delete的参数不能用delete传，只有用get，所以要分开api
-#define api_my_favoritedCoupon_delete(uid,sessionToken,couponId)  [RESTHOST stringByAppendingFormat:@"/myFavoritedCoupon/uid/%@/sessionToken/%@/couponId/%@",uid,sessionToken,couponId]
 
 //用户收藏的商户(总店)
 #define api_my_favoritedShop    [RESTHOST stringByAppendingFormat:@"/myFavoritedShop"]
 
-#define api_my_favoritedShop_delete(uid,sessionToken,shopId)  [RESTHOST stringByAppendingFormat:@"/myFavoritedShop/uid/%@/sessionToken/%@/shopId/%@",uid,sessionToken,shopId]
 
-#define api_requestCaptchaForgetPassword [RESTHOST stringByAppendingFormat:@"/requestCaptchaForgetPassword"]
+#define api_requestCaptchaForgetPassword [RESTHOST stringByAppendingFormat:@"/captchaforgetpwd"]
 
 #define api_edit_user_info       [RESTHOST stringByAppendingFormat:@"/editUserInfo"]
 
+#define api_captcha_register    [RESTHOST stringByAppendingFormat:@"/captcharegister"]
 
 @interface NetworkClient (){
     
@@ -100,12 +99,15 @@
 #pragma mark -
 - (void)registerWithDict:(NSDictionary*)info block:(IdResultBlock)block{
     
+    
+    
     [self postWithUrl:api_user parameters:info block:block];
     
 }
 
 - (void)loginWithUsername:(NSString*)username password:(NSString*)password block:(IdResultBlock)block{
 
+//    password = [password stringWithMD5];
 
     [self getWithUrl:api_login parameters:@{@"username":username,@"password":password} block:block];
   
@@ -117,6 +119,12 @@
     
     [self getWithUrl:api_user parameters:@{@"uid":uid} block:block];
     
+    
+}
+
+- (void)queryUserInfo:(NSString*)uid sessionToken:(NSString*)sessionToken block:(DictionaryResultBlock)block{
+    
+    [self getWithUrl:api_userinfo parameters:@{@"uid":uid,@"sessionToken":sessionToken} block:block];
     
 }
 
@@ -188,6 +196,11 @@
     [self getWithUrl:api_requestCaptchaForgetPassword parameters:@{@"username":username} block:block];
 }
 
+- (void)requestCaptchaRegister:(NSString*)username block:(IdResultBlock)block{
+    
+    [self getWithUrl:api_captcha_register parameters:@{@"mobile":username} block:block];
+}
+
 #pragma mark - My
 
 - (void)queryCards:(NSString*)uid block:(IdResultBlock)block{
@@ -235,7 +248,7 @@
 - (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken unfavoriteCoupon:(NSString*)couponId block:(IdResultBlock)block{
 
 
-    [self deleteWithUrl:api_my_favoritedCoupon_delete(uid,sessionToken, couponId) parameters:nil block:block];
+//    [self deleteWithUrl:api_my_favoritedCoupon_delete(uid,sessionToken, couponId) parameters:nil block:block];
     
 }
 
@@ -255,7 +268,7 @@
 - (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken unfavoriteShop:(NSString*)shopId block:(IdResultBlock)block{
 
     
-    [self deleteWithUrl:api_my_favoritedShop_delete(uid,sessionToken, shopId) parameters:nil block:block];
+//    [self deleteWithUrl:api_my_favoritedShop_delete(uid,sessionToken, shopId) parameters:nil block:block];
     
 }
 
@@ -270,23 +283,52 @@
     
     AFHTTPRequestOperation *operation = [_clientManager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
 //        NSLog(@"get url # %@,response : %@ ", url,responseObject);
+//        NSLog(@"operation code # %d, obj # %@",operation.response.statusCode,responseObject);
+        
+        
+        ///处理如果返回200，但是空值的错误
+        if (ISEMPTY(responseObject)) {
+            NSError *error = [NSError errorWithDomain:kKQErrorDomain code:ErrorClientSuccessNil userInfo:@{NSLocalizedDescriptionKey:[ErrorManager localizedDescriptionForCode: ErrorClientSuccessNil]}];
+            
+            block(nil,error);
+        }
         
         NSDictionary *dict = responseObject;
         
+        int code = [dict[@"status"] intValue];
+        
         if ([dict[@"status"] intValue] == 1) {
+        // 如果status为1，则直接返回data
             block (dict[@"data"],nil);
+        
         }
         else{
             
-            [UIAlertView showAlert:[NSString stringWithFormat:@"错误: %@",[dict[@"status"] description]] msg:dict[@"msg"]];
-            block(nil,nil);
+            // 根据status码生成error，传给block
+            
+            // 查找本地有没有错误对应的msg
+            NSString *msg = [ErrorManager localizedDescriptionForCode: ErrorClientSuccessNil];
+            
+            //如果本地没有msg，就调用服务器的msg
+            if (ISEMPTY(msg)) {
+                msg = dict[@"msg"];
+            }
+            NSError *error = [NSError errorWithDomain:kKQErrorDomain code:code userInfo:@{NSLocalizedDescriptionKey:msg}];
+            
+            block(nil,error);
         }
-        
+
+        /// 尝试直接把response传回去
+//        block(responseObject,nil);
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-     
-        NSLog(@"get url %@,response # %@, error # %@",url, operation.responseString,[error localizedDescription]);
-        [UIAlertView showAlertWithError:error];
+
+        // 如果json不能解析的话
+        // AFNetworkingErrorDomain 服务器的404或500错误
+//        NSLog(@"get url %@,response # %@, error # %@,error status code # %d, domain # %@",url, operation.responseString,error,operation.response.statusCode,[error domain]);
+      
+//        [UIAlertView showAlertWithError:error];
+        
         block(nil,error);
     }];
     
@@ -333,69 +375,69 @@
     [operation start];
     
 }
-
-- (void)putWithUrl:(NSString*)url parameters:(NSDictionary*)parameters block:(IdResultBlock)block{
-    
-   
-    
-    
-    AFHTTPRequestOperation *operation = [_clientManager PUT:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-//        NSLog(@"put url # %@, response :%@ %@ ",url, operation.responseString, responseObject);
-        
-        NSDictionary *dict = responseObject;
-        
-        if ([dict[@"status"] intValue] == 1) {
-            block (dict[@"data"],nil);
-        }
-        else{
-            
-            [UIAlertView showAlert:[NSString stringWithFormat:@"状态错误: %@",[dict[@"status"] description]] msg:dict[@"msg"]];
-            block(nil,nil);
-            
-        }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        NSLog(@"put url # %@, error: %@, %@",url, operation.responseString,[error localizedDescription]);
-        [UIAlertView showAlertWithError:error];
-        block(nil,error);
-    }];
-    
-    [operation start];
-    
-}
-
-
-- (void)deleteWithUrl:(NSString*)url parameters:(NSDictionary*)parameters block:(IdResultBlock)block{
-    
-    AFHTTPRequestOperation *operation = [_clientManager DELETE:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-//        NSLog(@"delete url # %@,param # %@,response :%@ %@ ",url,parameters, operation.responseString, responseObject);
-        
-        NSDictionary *dict = responseObject;
-        
-        if ([dict[@"status"] intValue] == 1) {
-            block (dict[@"data"],nil);
-        }
-        else{
-            
-            [UIAlertView showAlert:[NSString stringWithFormat:@"错误: %@",[dict[@"status"] description]] msg:dict[@"msg"]];
-            block(nil,nil);
-            
-        }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        NSLog(@"delete url # %@,error: %@, %@", url,operation.responseString,[error localizedDescription]);
-        [UIAlertView showAlertWithError:error];
-        block(nil,error);
-    }];
-    
-    [operation start];
-    
-}
-
+//
+//- (void)putWithUrl:(NSString*)url parameters:(NSDictionary*)parameters block:(IdResultBlock)block{
+//    
+//   
+//    
+//    
+//    AFHTTPRequestOperation *operation = [_clientManager PUT:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        
+////        NSLog(@"put url # %@, response :%@ %@ ",url, operation.responseString, responseObject);
+//        
+//        NSDictionary *dict = responseObject;
+//        
+//        if ([dict[@"status"] intValue] == 1) {
+//            block (dict[@"data"],nil);
+//        }
+//        else{
+//            
+//            [UIAlertView showAlert:[NSString stringWithFormat:@"状态错误: %@",[dict[@"status"] description]] msg:dict[@"msg"]];
+//            block(nil,nil);
+//            
+//        }
+//        
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        
+//        NSLog(@"put url # %@, error: %@, %@",url, operation.responseString,[error localizedDescription]);
+//        [UIAlertView showAlertWithError:error];
+//        block(nil,error);
+//    }];
+//    
+//    [operation start];
+//    
+//}
+//
+//
+//- (void)deleteWithUrl:(NSString*)url parameters:(NSDictionary*)parameters block:(IdResultBlock)block{
+//    
+//    AFHTTPRequestOperation *operation = [_clientManager DELETE:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        
+////        NSLog(@"delete url # %@,param # %@,response :%@ %@ ",url,parameters, operation.responseString, responseObject);
+//        
+//        NSDictionary *dict = responseObject;
+//        
+//        if ([dict[@"status"] intValue] == 1) {
+//            block (dict[@"data"],nil);
+//        }
+//        else{
+//            
+//            [UIAlertView showAlert:[NSString stringWithFormat:@"错误: %@",[dict[@"status"] description]] msg:dict[@"msg"]];
+//            block(nil,nil);
+//            
+//        }
+//        
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        
+//        NSLog(@"delete url # %@,error: %@, %@", url,operation.responseString,[error localizedDescription]);
+//        [UIAlertView showAlertWithError:error];
+//        block(nil,error);
+//    }];
+//    
+//    [operation start];
+//    
+//}
+//
 
 
 
@@ -481,6 +523,9 @@
 - (void)test{
     L();
     
+//    [self queryUserInfo:@"85" sessionToken:@"eKSBQYduWRG5AI6UHbat" block:^(id object, NSError *error) {
+////        NSLog(@"obj # %@",object);
+//    }];
     
     
 //    [self queryNewestCouponsSkip:0 limit:30 block:^(id object, NSError *error) {

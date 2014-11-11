@@ -7,7 +7,7 @@
 //
 
 #import "RegisterViewController.h"
-
+#import "ErrorManager.h"
 
 @interface RegisterViewController (){
     
@@ -35,8 +35,7 @@
     CGFloat x = 60;
     
     _userTextField = [[UITextField alloc] initWithFrame:CGRectMake(x, 0, 250, kCellHeight)];
-//    _userTextField.leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_user.png"]];
-//    _userTextField.leftViewMode = UITextFieldViewModeAlways;
+    _userTextField.keyboardType = UIKeyboardTypeNumberPad;
     _userTextField.autocorrectionType =UITextAutocorrectionTypeNo;
     _userTextField.placeholder = @"手机号(11位)";
     _userTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -44,6 +43,7 @@
     
     _verifyTextField = [[UITextField alloc] initWithFrame:CGRectMake(x, 0, 180, kCellHeight)];
     _verifyTextField.placeholder = @"手机验证码";
+    _verifyTextField.keyboardType = UIKeyboardTypeNumberPad;
     
     _passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake(x, 0, 250, kCellHeight)];
     _passwordTextField.placeholder = @"密码(至少6位)";
@@ -63,11 +63,6 @@
     _tfs = @[_userTextField,_verifyTextField,_passwordTextField,_rePasswordTextField];
     
     
-//    _usernameTextField = [[UITextField alloc] initWithFrame:CGRectMake(30, 102, 212, 40)];
-//    _usernameTextField.placeholder = @"昵称";
-    
-
-
     
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, _w, 250) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
@@ -178,7 +173,7 @@
     else{
         cell.imageView.image = [UIImage imageNamed:_tableImageNames[indexPath.row]];
 
-        [cell.contentView addSubview:_tfs[indexPath.row]];
+      
 
         if (indexPath.row == 1) {
             _identifyB = [UIButton buttonWithFrame:CGRectMake(230, 3, 90, kCellHeight - 6) title:@"获取验证码" bgImageName:nil target:self action:@selector(identifyClicked:)];
@@ -192,6 +187,11 @@
             [cell.contentView addSubview:_identifyB];
             [cell.contentView addSubview:borderV];
         }
+        
+        
+        
+          [cell.contentView addSubview:_tfs[indexPath.row]];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
     }
    
@@ -231,9 +231,29 @@
 
 - (IBAction)identifyClicked:(id)sender{
     L();
+    
+    [self requestCaptcha];
 }
 #pragma mark - Private methods
 
+- (void)requestCaptcha{
+    NSString *mobile = _userTextField.text;
+
+    NSLog(@"request mobile # %@",mobile);
+    
+    [[NetworkClient sharedInstance] requestCaptchaRegister:mobile block:^(NSDictionary* object, NSError *error) {
+        
+        if (!error) {
+            NSString *captcha = object[@"captcha"];
+//            NSLog(@"captcha # %@",captcha);
+            
+            self.captcha = captcha;
+        }
+        else{
+            [ErrorManager alertError:error];
+        }
+    }];
+}
 
 -(IBAction)signUpUserPressed:(id)sender
 {

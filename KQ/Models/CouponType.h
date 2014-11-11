@@ -12,8 +12,8 @@
 
 @property (nonatomic, strong) NSString *id;
 @property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSString *parentId;
-@property (nonatomic, strong) NSArray *subTypes;
+//@property (nonatomic, strong) NSString *parentId;
+//@property (nonatomic, strong) NSArray *subTypes;
 
 - (id)initWithDict:(NSDictionary*)dict;
 

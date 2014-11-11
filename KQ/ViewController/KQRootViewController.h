@@ -30,7 +30,7 @@
 
 
 - (void)toMyCoupons;
-- (void)didLogin;
+//- (void)didLogin;
 - (void)didLogout;
 
 

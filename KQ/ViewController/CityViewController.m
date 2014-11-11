@@ -156,7 +156,7 @@
 
 - (void)selectCity:(NSString*)city{
 
-    [[UserController sharedInstance] setCity:city];
+//    [[UserController sharedInstance] setCity:city];
     
     [self back];
     

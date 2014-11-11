@@ -8,6 +8,8 @@
 
 #import "ForgetPasswordViewController.h"
 #import "ChangePasswordViewController.h"
+#import "ErrorManager.h"
+#import "NSString+md5.h"
 
 @interface ForgetPasswordViewController ()
 
@@ -42,8 +44,7 @@
     CGFloat x = 60;
     
     _userTextField = [[UITextField alloc] initWithFrame:CGRectMake(x, 0, 250, kCellHeight)];
-    //    _userTextField.leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_user.png"]];
-    //    _userTextField.leftViewMode = UITextFieldViewModeAlways;
+    _userTextField.keyboardType = UIKeyboardTypeNumberPad;
     _userTextField.autocorrectionType =UITextAutocorrectionTypeNo;
     _userTextField.placeholder = @"请输入手机号码";
     _userTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -140,26 +141,49 @@
 
 - (IBAction)identifyClicked:(id)sender{
     L();
-    _username = _userTextField.text;
-//    _captcha = _verifyTextField.text;
-    
-    [_network requestCaptchaForgetPassword:_username block:^(id object, NSError *error) {
-        NSLog(@"object # %@",object);
-    }];
 
+    [self requestCaptcha];
+}
+
+
+- (IBAction)submit{
+    L();
+    NSString *inputedCaptcha = _verifyTextField.text;
+    
+    if ([[inputedCaptcha stringWithMD5] isEqualToString:self.captcha]) {
+        [self toChangePwd];
+    }
+    else{
+        [UIAlertView showAlert:@"验证码不正确" msg:nil cancel:@"OK"];
+
+    }
+    
+}
+
+#pragma mark - Fcn
+
+- (void)requestCaptcha{
+    
+    NSString *mobile = _userTextField.text;
+    
+    [[NetworkClient sharedInstance] requestCaptchaForgetPassword:mobile block:^(NSDictionary* object, NSError *error) {
+        if (!error) {
+            
+            NSString *captcha = object[@"captcha"];
+            self.captcha = captcha;
+        }
+        else {
+            [ErrorManager alertError:error];
+        }
+    }];
 }
 
 
 
-
-- (void)submit{
-    L();
-    
+- (void)toChangePwd{
     ChangePasswordViewController *vc = [[ChangePasswordViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
-    
+
 }
-
-
 
 @end

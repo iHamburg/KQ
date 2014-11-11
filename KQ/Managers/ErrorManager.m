@@ -15,22 +15,16 @@
     NSString *str;
     
     switch (code) {
-        case XIncompleteFormFailed:
-            str = LString(@"请填写完整表单!");
+        case ErrorEmptyParameter:
+        
+            str = @"传入的参数不完整";
             break;
-        case XNotEnoughEnergy:
-            str = LString(@"没有能量了!");
-            break;
-        case XHasUnlockedLogo:
-            str = LString(@"徽章已经收集过了！");
-            break;
-        case XColdTime:
-            str = LString(@"还在冷却时间内,等几分钟再试试吧");
-            break;
+        case ErrorClientSuccessNil:
+            str = @"服务器没有返回值";
         default:
-            str = LString(@"未知错误");
+            str = @"";
 
-            break;
+        break;
     }
     
     return str;
@@ -38,11 +32,20 @@
 
 + (void)alertError:(NSError*)error{
 
-    NSString *msg = [ErrorManager localizedDescriptionForCode:(CustomErrorCode)error.code];
-    if ([msg isEqualToString:LString(@"未知错误")]) {
-        msg = [error localizedDescription];
-    }
+//    NSString *msg = [ErrorManager localizedDescriptionForCode:(CustomErrorCode)error.code];
+//    if ([msg isEqualToString:LString(@"未知错误")]) {
+//        msg = [error localizedDescription];
+//    }
+//    
+//    [UIAlertView showAlert:LString(@"错误") msg:msg cancel:LString(@"OK")];
+
+    int code = error.code;
+    NSString *msg = error.localizedDescription;
+    //                    NSLog(@"code # %d, msg # %@",code,msg);
     
-    [UIAlertView showAlert:LString(@"错误") msg:msg cancel:LString(@"OK")];
+    // 其他的错误就显示给用户
+    [UIAlertView showAlert:[NSString stringWithFormat:@"错误: %d",code] msg:msg];
+
+
 }
 @end

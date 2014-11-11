@@ -251,10 +251,10 @@
 
 
 
-- (void)didLogin{
-//    self.selectedIndex = 3;
-    
-}
+//- (void)didLogin{
+////    self.selectedIndex = 3;
+//    
+//}
 
 - (void)didLogout{
 

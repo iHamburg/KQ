@@ -49,9 +49,9 @@
             if (dict) {
 //               NSLog(@"types # %@",array);
                 
-                NSArray *array = dict[@"districts"];
+                NSArray *array = dict[@"types"];
              
-                NSLog(@"array # %@",array);
+//                NSLog(@"array # %@",array);
                 
                 NSMutableArray *types = [NSMutableArray array];
                 for (NSDictionary *dict in array) {
@@ -67,9 +67,13 @@
         
 
 //        [[LibraryManager sharedInstance] startProgress:@"queryDistricts"];
-        [_networkClient queryHeadDistrictsWithBlock:^(NSArray *array, NSError *error) {
-            if (array) {
+        
+        [_networkClient queryHeadDistrictsWithBlock:^(NSDictionary *dict, NSError *error) {
+            if (dict) {
 //                    NSLog(@"distric # %@",array);
+                NSArray *array = dict[@"districts"];
+                
+//                 NSLog(@"array # %@",array);
                 
                 NSMutableArray *types = [NSMutableArray array];
                 for (NSDictionary *dict in array) {

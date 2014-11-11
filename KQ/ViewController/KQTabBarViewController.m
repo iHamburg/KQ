@@ -77,6 +77,8 @@
     //    L();
     
     if (![[UserController sharedInstance] isLogin]) {
+      
+        
         UIViewController *rootVC = [viewController.viewControllers firstObject];
         if ([rootVC isKindOfClass:[UserCenterViewController class]]){
             

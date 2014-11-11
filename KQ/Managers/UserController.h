@@ -22,9 +22,9 @@
 
 @property (nonatomic, strong) People *people;
 
-@property (nonatomic, strong) CLLocation *checkinLocation;
+@property (nonatomic, strong) CLLocation *checkinLocation;  //用户的当前位置
 @property (nonatomic, strong) UIImage *avatar;
-@property (nonatomic, strong) NSString *city;
+
 
 @property (nonatomic, strong) NSString *uid;
 @property (nonatomic, strong) NSString *sessionToken;
@@ -35,15 +35,29 @@
 + (id)sharedInstance;
 
 
-//- (BOOL)isLogin;
-
+/**
+ *	@brief	用户注册
+ *
+ *	@param 	userInfo 	username, password(md5)
+ *	@param 	block       Boolean
+ */
 - (void)registerWithUserInfo:(NSDictionary*)userInfo block:(BooleanResultBlock)block;
-- (void)loginWithEmail:(NSString*)email pw:(NSString*)pw block:(BooleanResultBlock)block;
+
+/**
+ *	@brief	用户登录，UserController获得people对象
+ *
+ *	@param 	username 	手机号
+ *	@param 	pw 	        md5
+ *	@param 	block       Boolean
+ */
+- (void)loginWithUsername:(NSString*)username password:(NSString*)pw boolBlock:(BooleanResultBlock)block;
+
+
 - (void)logout;
 
 - (void)requestPasswordResetForEmailInBackground:(NSString*)email block:(BooleanResultBlock)block;
 
-- (void)loadUser;
+//- (void)loadUser;
 
 - (CLLocationDistance)distanceFromLocation:(CLLocation*)location;
 

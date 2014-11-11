@@ -12,7 +12,7 @@
 
 - (NSDictionary*)dictionaryCheckNull{
 
-    if ([self isKindOfClass:[NSDictionary class]]) {
+    if (![self isKindOfClass:[NSDictionary class]]) {
         return nil;
     }
     

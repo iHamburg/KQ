@@ -11,6 +11,7 @@
 #import "AgreementViewController.h"
 #import "AfterDownloadViewController.h"
 #import "NetworkClient.h"
+#import "NSString+md5.h"
 
 @interface KQRegisterViewController ()
 
@@ -25,9 +26,8 @@
     // Do any additional setup after loading the view.
     _userTextField.placeholder = @"手机号";
 
-     _userTextField.keyboardType = UIKeyboardTypeNumberPad;
+    
 
-    _verifyTextField.userInteractionEnabled = NO;
      self.navigationController.navigationBar.translucent = NO;
 }
 
@@ -75,13 +75,10 @@
     ///  先进行validate， 通过后再注册
     [self validateWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
-//            NSDictionary *info = @{@"username":self.userTextField.text,@"password":_passwordTextField.text,@"phone":_userTextField.text,
-//                                   @"nickname":_usernameTextField.text};
-
+   
+        
             
-            // 这里
-            NSDictionary *info = @{@"username":self.userTextField.text,@"password":_passwordTextField.text,@"phone":_userTextField.text,
-                                  @"nickname":@"KQ84567033"};
+            NSDictionary *info = @{@"username":self.userTextField.text,@"password":[_passwordTextField.text stringWithMD5]};
             
             //    NSLog(@"info # %@",info);
             
@@ -94,25 +91,45 @@
 
 - (void)validateWithBlock:(BooleanResultBlock)block{
 
-      NSString *msg = @"请输入所有信息";
+    NSString *msg = @"请输入所有信息";
+    NSString *inputedCaptcha = _verifyTextField.text;
+    
     if (ISEMPTY(_userTextField.text) || ISEMPTY(_passwordTextField.text)) {
+    // 如果用户名或密码为空
+        
         [UIAlertView showAlert:msg msg:nil cancel:@"OK"];
+        
         block(NO,nil);
         
     }
+    else if(![self.captcha isEqualToString:[inputedCaptcha stringWithMD5]]){
+        
+          [UIAlertView showAlert:@"验证码不正确" msg:nil cancel:@"OK"];
+        
+        block(NO,nil);
+    }
     else{
+    
         block(YES,nil);
     }
-
     
 }
 
+// pw 已经是md5
 - (void)registerUser:(NSDictionary *)userInfo{
 
     
     [[UserController sharedInstance] registerWithUserInfo:userInfo block:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
-
+            // 如果注册成功， login 一下获得用户的咨询
+            NSString *username = userInfo[@"username"];
+            NSString *password = userInfo[@"password"];
+            
+            [[UserController sharedInstance] loginWithUsername:username password:password boolBlock:^(BOOL succeeded, NSError *error) {
+            
+            }];
+            
+            
             /// 注册成功后显示提示窗
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"注册成功" message:@"已获免费摩提快券，请前往绑定银行卡" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
             [alert show];

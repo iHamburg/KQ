@@ -11,7 +11,7 @@
 #import "UserController.h"
 #import "KQRootViewController.h"
 #import "ForgetPasswordViewController.h"
-
+#import "NSString+md5.h"
 
 @interface LoginViewController ()
 
@@ -36,6 +36,7 @@
     _userTextField.placeholder = @"手机号";
     _userTextField.delegate = self;
     _userTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    _userTextField.text = @"13166361023";
     
 //    _userTextField.backgroundColor = [UIColor colorWithWhite:1 alpha:0.5];
 //    _userTextField.leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_user.png"]];
@@ -49,6 +50,7 @@
     _passwordTextField.returnKeyType = UIReturnKeyGo;
     _passwordTextField.placeholder = @"密码";
     _passwordTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    _passwordTextField.text = @"12345678";
     
     _tfs = @[_userTextField,_passwordTextField];
     _tableImageNames = @[@"icon-user.png",@"icon-password01.png"];
@@ -155,8 +157,6 @@
     
     cell.imageView.image = [UIImage imageNamed:_tableImageNames[indexPath.row]];
     
-
-    
     return cell;
     
 }
@@ -180,13 +180,14 @@
 
 - (void)loginWithEmail:(NSString*)email password:(NSString *)password{
     
-    [[UserController sharedInstance] loginWithEmail:email pw:password block:^(BOOL succeeded, NSError *error) {
+  
+    
+    [[UserController sharedInstance] loginWithUsername:email password:[password stringWithMD5] boolBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
         
             [self back];
             
-            //TODO: 这里发一个消息更好！
-            [[KQRootViewController sharedInstance] didLogin];
+//            [[KQRootViewController sharedInstance] didLogin];
         
         }
     }];
