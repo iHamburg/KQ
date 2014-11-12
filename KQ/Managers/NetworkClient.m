@@ -62,6 +62,8 @@
 
 #define api_captcha_register    [RESTHOST stringByAppendingFormat:@"/captcharegister"]
 
+#define api_reset_password    [RESTHOST stringByAppendingFormat:@"/resetPassword"]
+
 @interface NetworkClient (){
     
 }
@@ -272,6 +274,10 @@
     
 }
 
+- (void)user:(NSString*)username resetPassword:(NSString*)password block:(IdResultBlock)block{
+    
+    [self postWithUrl:api_reset_password parameters:@{@"username":username,@"password":password} block:block];
+}
 
 
 #pragma mark - Intern Fcns
@@ -288,6 +294,7 @@
         
         ///处理如果返回200，但是空值的错误
         if (ISEMPTY(responseObject)) {
+           
             NSError *error = [NSError errorWithDomain:kKQErrorDomain code:ErrorClientSuccessNil userInfo:@{NSLocalizedDescriptionKey:[ErrorManager localizedDescriptionForCode: ErrorClientSuccessNil]}];
             
             block(nil,error);
@@ -307,7 +314,7 @@
             // 根据status码生成error，传给block
             
             // 查找本地有没有错误对应的msg
-            NSString *msg = [ErrorManager localizedDescriptionForCode: ErrorClientSuccessNil];
+            NSString *msg = [ErrorManager localizedDescriptionForCode:code];
             
             //如果本地没有msg，就调用服务器的msg
             if (ISEMPTY(msg)) {
@@ -318,8 +325,6 @@
             block(nil,error);
         }
 
-        /// 尝试直接把response传回去
-//        block(responseObject,nil);
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 
@@ -349,26 +354,47 @@
     
     AFHTTPRequestOperation *operation = [_clientManager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        NSLog(@"post url # %@, params # %@,response :%@ %@ ", url,parameters,operation.responseString, responseObject);
-        
+        ///处理如果返回200，但是空值的错误
+        if (ISEMPTY(responseObject)) {
+            NSError *error = [NSError errorWithDomain:kKQErrorDomain code:ErrorClientSuccessNil userInfo:@{NSLocalizedDescriptionKey:[ErrorManager localizedDescriptionForCode: ErrorClientSuccessNil]}];
+            
+            block(nil,error);
+        }
         
         NSDictionary *dict = responseObject;
         
+        int code = [dict[@"status"] intValue];
+        
         if ([dict[@"status"] intValue] == 1) {
+            // 如果status为1，则直接返回data
             block (dict[@"data"],nil);
+            
         }
         else{
-          
-            [UIAlertView showAlert:[NSString stringWithFormat:@"错误: %@",[dict[@"status"] description]] msg:dict[@"msg"]];
-           
-            block(nil,nil);
-
+            
+            // 根据status码生成error，传给block
+            
+            // 查找本地有没有错误对应的msg
+            NSString *msg = [ErrorManager localizedDescriptionForCode:code];
+            
+            //如果本地没有msg，就调用服务器的msg
+            if (ISEMPTY(msg)) {
+                msg = dict[@"msg"];
+            }
+            NSError *error = [NSError errorWithDomain:kKQErrorDomain code:code userInfo:@{NSLocalizedDescriptionKey:msg}];
+            
+            block(nil,error);
         }
+        
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
-        NSLog(@"post url # %@,error: %@, %@",url, operation.responseString,[error localizedDescription]);
-        [UIAlertView showAlertWithError:error];
+        // 如果json不能解析的话
+        // AFNetworkingErrorDomain 服务器的404或500错误
+        //        NSLog(@"get url %@,response # %@, error # %@,error status code # %d, domain # %@",url, operation.responseString,error,operation.response.statusCode,[error domain]);
+        
+        //        [UIAlertView showAlertWithError:error];
+        
         block(nil,error);
     }];
     

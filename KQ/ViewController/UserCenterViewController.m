@@ -19,6 +19,10 @@
 #pragma mark - Cell: UserAvatar
 @interface UserAvatarCell : PeopleCell<UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
+- (IBAction)loginPressed:(id)sender;
+- (IBAction)dCouponPressed:(id)sender;
+- (IBAction)cardPressed:(id)sender;
+
 @end
 
 @implementation UserAvatarCell
@@ -44,7 +48,7 @@
    
 }
 
-//height: 190
+//height: 150
 
 
 - (void)awakeFromNib{
@@ -61,6 +65,7 @@
     self.backgroundColor = kColorBG;
     self.separatorInset = UIEdgeInsetsMake(0, 160, 0, 160);
     
+
 
 }
 
@@ -121,7 +126,17 @@
         
     }];
 }
-
+#pragma mark - IBAction
+- (IBAction)loginPressed:(id)sender{
+    
+    [self toLogin];
+}
+- (IBAction)dCouponPressed:(id)sender{
+    
+}
+- (IBAction)cardPressed:(id)sender{
+    
+}
 
 #pragma mark - Fcns
 
@@ -135,7 +150,6 @@
         
     }];
     
-//    [RootInstance presentModalViewController:picker animated:YES];
     
 }
 
@@ -151,6 +165,18 @@
     [[KQRootViewController sharedInstance] presentViewController:picker animated:YES completion:^{
         
     }];
+    
+}
+
+- (void)toDCoupons{
+    
+}
+
+- (void)toCards{
+    
+}
+
+- (void)toLogin{
     
 }
 

@@ -8,7 +8,7 @@
 
 #import <AFNetworking/AFNetworking.h>
 #import <CoreLocation/CoreLocation.h>
-
+#import "ErrorManager.h"
 
 #ifdef DEBUG
 
@@ -132,6 +132,16 @@
 - (void)queryFavoritedShop:(NSString*)uid block:(IdResultBlock)block;
 - (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken favoriteShop:(NSString*)shopId block:(IdResultBlock)block;
 - (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken unfavoriteShop:(NSString*)shopId block:(IdResultBlock)block;
+
+
+/**
+ *	@brief	忘记密码后的重置密码
+ *
+ *	@param 	username 	<#username description#>
+ *	@param 	password 	md5密文
+ *	@param 	block
+ */
+- (void)user:(NSString*)username resetPassword:(NSString*)password block:(IdResultBlock)block;
 
 /**
  *	@brief 用户忘记密码时点击获得验证码

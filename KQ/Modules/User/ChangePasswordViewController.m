@@ -7,6 +7,8 @@
 //
 
 #import "ChangePasswordViewController.h"
+#import "UserController.h"
+
 
 @interface ChangePasswordViewController ()
 
@@ -52,12 +54,7 @@
     
     _tfs = @[_passwordTextField,_rePasswordTextField];
     
-    
-    //    _usernameTextField = [[UITextField alloc] initWithFrame:CGRectMake(30, 102, 212, 40)];
-    //    _usernameTextField.placeholder = @"昵称";
-    
-    
-    
+ 
     
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, _w, 160) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
@@ -127,19 +124,74 @@
         
         [cell.contentView addSubview:_tfs[indexPath.row]];
         
-    
-    
-    
-    
-    
-
+   
     return cell;
     
 }
 
 #pragma mark - Fcns
 
-- (void)submit{
-    L();
+- (IBAction)submitClicked:(id)sender{
+    
+    [self validateWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            self.password = _passwordTextField.text;
+            [self submit];
+        }
+        else{
+            NSString *msg = [error localizedDescription];
+            [UIAlertView showAlert:msg msg:nil cancel:@"OK"];
+        }
+    }];
+    
+    
+//    [self submit];
 }
+
+- (void)validateWithBlock:(BooleanResultBlock)block{
+    
+    int code = 0;
+    
+    if (ISEMPTY(_rePasswordTextField.text) || ISEMPTY(_passwordTextField.text)) {
+        // 如果用户名或密码为空
+        
+        code = ErrorEmptyParameter;
+    }
+    else if(![_passwordTextField.text isEqualToString:_rePasswordTextField.text]){
+
+        code = ErrorAppPasswordInConsistent;
+    }
+   
+    
+    if (code == 0) {
+        block(YES,nil);
+    }
+    else{
+
+        NSError *error = [NSError errorWithDomain:kKQErrorDomain code:code userInfo:@{NSLocalizedDescriptionKey:[ErrorManager localizedDescriptionForCode: code]}];
+
+        block(NO,error);
+    }
+  
+}
+
+
+// 发送请求
+- (void)submit{
+
+    L();
+    
+    [[NetworkClient sharedInstance] user:self.username resetPassword:self.password block:^(NSDictionary *dict, NSError *error) {
+        
+        if (!error) {
+            NSLog(@"reset successful");
+        }
+        else{
+             [ErrorManager alertError:error];
+        }
+    }];
+    
+}
+
+
 @end

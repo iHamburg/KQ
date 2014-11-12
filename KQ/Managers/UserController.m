@@ -107,8 +107,6 @@
                 }
                 else{
                     int code = error.code;
-//                    NSString *msg = error.localizedDescription;
-//                    NSLog(@"code # %d, msg # %@",code,msg);
                     
                     if (code == ErrorInvalidSession){
                     // 如果是session过期，logout

@@ -221,6 +221,7 @@
 		855AA51A19C2932E002B7099 /* KQTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 855AA51919C2932E002B7099 /* KQTabBarViewController.m */; };
 		855AA51C19C2CC5E002B7099 /* bg-landingpage@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 855AA51B19C2CC5E002B7099 /* bg-landingpage@2x.jpg */; };
 		855AA51E19C2D083002B7099 /* btn-receive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 855AA51D19C2D083002B7099 /* btn-receive@2x.png */; };
+		8563CFF01A1346660049DBA6 /* InteractiveButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8563CFEF1A1346660049DBA6 /* InteractiveButton.m */; };
 		8596C64719C13462003B3440 /* icon-index01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8596C64319C13462003B3440 /* icon-index01@2x.png */; };
 		8596C64819C13462003B3440 /* icon-nearby01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8596C64419C13462003B3440 /* icon-nearby01@2x.png */; };
 		8596C64919C13462003B3440 /* icon-search01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8596C64519C13462003B3440 /* icon-search01@2x.png */; };
@@ -605,6 +606,8 @@
 		855AA51919C2932E002B7099 /* KQTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KQTabBarViewController.m; sourceTree = "<group>"; };
 		855AA51B19C2CC5E002B7099 /* bg-landingpage@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "bg-landingpage@2x.jpg"; sourceTree = "<group>"; };
 		855AA51D19C2D083002B7099 /* btn-receive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-receive@2x.png"; sourceTree = "<group>"; };
+		8563CFEE1A1346660049DBA6 /* InteractiveButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InteractiveButton.h; sourceTree = "<group>"; };
+		8563CFEF1A1346660049DBA6 /* InteractiveButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InteractiveButton.m; sourceTree = "<group>"; };
 		85755EEFD65D18BA8065DE33 /* Pods.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.adhoc.xcconfig; path = "Pods/Target Support Files/Pods/Pods.adhoc.xcconfig"; sourceTree = "<group>"; };
 		8596C64319C13462003B3440 /* icon-index01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-index01@2x.png"; sourceTree = "<group>"; };
 		8596C64419C13462003B3440 /* icon-nearby01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-nearby01@2x.png"; sourceTree = "<group>"; };
@@ -1287,6 +1290,8 @@
 				26E3A5AB192DE042004F8C8C /* Cells */,
 				26E3A5AC192DE042004F8C8C /* Labels */,
 				26E3A5AF192DE042004F8C8C /* TextFields */,
+				8563CFEE1A1346660049DBA6 /* InteractiveButton.h */,
+				8563CFEF1A1346660049DBA6 /* InteractiveButton.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1745,6 +1750,7 @@
 				263527E51946FECB003A30DD /* AddCardViewController.m in Sources */,
 				26E3A5C7192DE042004F8C8C /* UIColor+Extras.m in Sources */,
 				26E3A5EF192E221A004F8C8C /* UserController.m in Sources */,
+				8563CFF01A1346660049DBA6 /* InteractiveButton.m in Sources */,
 				26E290F5193DB23600B7E0C9 /* Card.m in Sources */,
 				26E3A5D3192DE042004F8C8C /* RootViewController.m in Sources */,
 				26E14BC5193CC313007A7081 /* Coupon.m in Sources */,

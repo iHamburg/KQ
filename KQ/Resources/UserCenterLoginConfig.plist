@@ -21,7 +21,7 @@
 			<key>nib</key>
 			<string>UserAvatarCell</string>
 			<key>height</key>
-			<string>190</string>
+			<string>150</string>
 		</dict>
 		<dict>
 			<key>rows</key>
@@ -30,7 +30,7 @@
 					<key>key</key>
 					<string></string>
 					<key>label</key>
-					<string>我的快券</string>
+					<string>收藏的快券</string>
 					<key>class</key>
 					<string></string>
 					<key>selector</key>
@@ -42,49 +42,13 @@
 					<key>key</key>
 					<string>aboutus</string>
 					<key>label</key>
-					<string>我的银行卡</string>
+					<string>收藏的商户</string>
 					<key>class</key>
 					<string></string>
 					<key>selector</key>
 					<string>toCards</string>
 					<key>image</key>
 					<string>icon_mycards.png</string>
-				</dict>
-				<dict>
-					<key>key</key>
-					<string></string>
-					<key>label</key>
-					<string>我收藏的快券</string>
-					<key>class</key>
-					<string></string>
-					<key>selector</key>
-					<string>toFavoritedCoupons</string>
-					<key>image</key>
-					<string>icon_myfavoritedcoupons.png</string>
-				</dict>
-				<dict>
-					<key>key</key>
-					<string>aboutus</string>
-					<key>label</key>
-					<string>我收藏的商家</string>
-					<key>class</key>
-					<string></string>
-					<key>selector</key>
-					<string>toShops</string>
-					<key>image</key>
-					<string>icon_myfavoritedshops.png</string>
-				</dict>
-				<dict>
-					<key>key</key>
-					<string>aboutus</string>
-					<key>label</key>
-					<string>设置</string>
-					<key>class</key>
-					<string></string>
-					<key>selector</key>
-					<string>toSettings</string>
-					<key>image</key>
-					<string>icon_mysettings.png</string>
 				</dict>
 			</array>
 		</dict>
@@ -95,11 +59,37 @@
 					<key>key</key>
 					<string></string>
 					<key>label</key>
-					<string>退出当前账号</string>
+					<string>设置</string>
 					<key>class</key>
-					<string>ButtonCell</string>
+					<string></string>
 					<key>selector</key>
 					<string>logout</string>
+					<key>image</key>
+					<string>icon_mycoupons.png</string>
+				</dict>
+				<dict>
+					<key>key</key>
+					<string></string>
+					<key>label</key>
+					<string>站内信</string>
+					<key>class</key>
+					<string></string>
+					<key>selector</key>
+					<string>logout</string>
+					<key>image</key>
+					<string>icon_mycoupons.png</string>
+				</dict>
+				<dict>
+					<key>key</key>
+					<string></string>
+					<key>label</key>
+					<string>关于我们</string>
+					<key>class</key>
+					<string></string>
+					<key>selector</key>
+					<string>logout</string>
+					<key>image</key>
+					<string>icon_mycoupons.png</string>
 				</dict>
 			</array>
 		</dict>

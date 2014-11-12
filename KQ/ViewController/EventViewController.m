@@ -9,6 +9,7 @@
 #import "EventViewController.h"
 #import "KQRootViewController.h"
 #import "NetworkClient.h"
+#import "InteractiveButton.h"
 
 @interface EventViewController ()
 
@@ -29,7 +30,12 @@
     [self.bgV addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)]];
     
 
-    UIButton *button = [UIButton buttonWithFrame:CGRectMake(85, _h - 64, 150, 44) title:nil bgImageName:@"btn-receive.png" target:self action:@selector(eventButtonClicked:)];
+//    self.button = [InteractiveButton buttonWithFrame:CGRectMake(85, _h - 64, 150, 44) title:nil bgImageName:@"btn-receive.png" target:self action:@selector(eventButtonClicked:)];
+    self.button = [[InteractiveButton alloc] initWithFrame:CGRectMake(85, _h - 64, 150, 44)];
+    [self.button setBackgroundImage:[UIImage imageNamed:@"btn-receive.png"] forState:UIControlStateNormal];
+    [self.button addTarget:self action:@selector(eventButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+
+    
     
     self.coupon = [[Coupon alloc] init];
     self.coupon.id = kEventCouponId;
@@ -38,7 +44,7 @@
     self.coupon.usage = @"新用户注册即可0元享受，价值18元的美味摩提2个！榴莲慕思摩提、蓝莓味摩提香甜好味、松软曼妙口感！30家店通用";
     
     [self.view addSubview:self.bgV];
-    [self.view addSubview:button];
+    [self.view addSubview:self.button];
 
  
 }
@@ -60,7 +66,8 @@
 
 //    self.toEventCoupon(self.coupon);
 
-    [self toCouponDetails];
+    [self.button startLoading];
+//    [self toCouponDetails];
 }
 
 #pragma mark - Fcns

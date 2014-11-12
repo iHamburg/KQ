@@ -11,6 +11,7 @@
 
 typedef enum {
    
+    // 服务器端的错误
     ErrorEmptyParameter = 400,
     
     ErrorEmptyUsernamePwd = 401,
@@ -56,7 +57,7 @@ typedef enum {
      ErrorCardExists = 1003,// 用户已经绑定该银行卡【银行卡已被绑定过啦】
     
     
-    
+     // 银联服务器的错误
      ErrorUnionInvalidCard = 300500,// 卡号无效【无效的卡号】
     
      ErrorUnionExistCard = 300519,// 重复绑卡【请不要重复绑卡】
@@ -85,8 +86,16 @@ typedef enum {
    
     ErrorUnionNoCardBunden = 500058,
     
-    //客户端的错误
+    //客户端连接的错误
     ErrorClientSuccessNil = 2001,
+
+    
+    //内部错误
+    ErrorAppPasswordInConsistent = 2100,  //输入密码不一致
+
+    ErrorAppInvalidCaptcha = 2101,   //验证码不正确
+    
+    ErrorAppEmptyParameter = 2002,   //输入信息不完整
     
     ErrorUnknown = 999999
     

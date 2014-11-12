@@ -18,9 +18,23 @@
         case ErrorEmptyParameter:
         
             str = @"传入的参数不完整";
-            break;
+        break;
         case ErrorClientSuccessNil:
             str = @"服务器没有返回值";
+        
+            break;
+        case ErrorAppPasswordInConsistent:
+            
+            str = @"密码输入不一致";
+            break;
+        case ErrorAppInvalidCaptcha:
+            
+            str = @"验证码错误";
+            break;
+        case ErrorAppEmptyParameter:
+            
+            str = @"请完整输入所有信息";
+            break;
         default:
             str = @"";
 
@@ -31,13 +45,6 @@
 }
 
 + (void)alertError:(NSError*)error{
-
-//    NSString *msg = [ErrorManager localizedDescriptionForCode:(CustomErrorCode)error.code];
-//    if ([msg isEqualToString:LString(@"未知错误")]) {
-//        msg = [error localizedDescription];
-//    }
-//    
-//    [UIAlertView showAlert:LString(@"错误") msg:msg cancel:LString(@"OK")];
 
     int code = error.code;
     NSString *msg = error.localizedDescription;

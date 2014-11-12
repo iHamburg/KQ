@@ -8,8 +8,6 @@
 
 #import "RootViewController.h"
 
-#define kIsMainApplyEvent  YES
-
 
 @class KQTabBarViewController;
 @class Coupon;
@@ -30,7 +28,7 @@
 
 
 - (void)toMyCoupons;
-//- (void)didLogin;
+
 - (void)didLogout;
 
 

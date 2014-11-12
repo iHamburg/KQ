@@ -148,19 +148,52 @@
 
 - (IBAction)submit{
     L();
-    NSString *inputedCaptcha = _verifyTextField.text;
     
-    if ([[inputedCaptcha stringWithMD5] isEqualToString:self.captcha]) {
-        [self toChangePwd];
+    
+    [self validateWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            self.username = _userTextField.text;
+            [self toChangePwd];
+        }
+        else{
+            NSString *msg = [error localizedDescription];
+            [UIAlertView showAlert:msg msg:nil cancel:@"OK"];
+        }
+    }];
+}
+
+#pragma mark - Fcn
+
+
+- (void)validateWithBlock:(BooleanResultBlock)block{
+    
+    int code = 0;
+    
+     NSString *inputedCaptcha = _verifyTextField.text;
+    
+    if (ISEMPTY(_verifyTextField.text) || ISEMPTY(_userTextField.text)) {
+        // 如果用户名或密码为空
+        
+        code = ErrorAppEmptyParameter;
+    }
+    else if (![[inputedCaptcha stringWithMD5] isEqualToString:self.captcha]) {
+        // 验证码不一致
+        
+        code = ErrorAppInvalidCaptcha;
+    }
+    
+    if (code == 0) {
+        block(YES,nil);
     }
     else{
-        [UIAlertView showAlert:@"验证码不正确" msg:nil cancel:@"OK"];
-
+        
+        NSError *error = [NSError errorWithDomain:kKQErrorDomain code:code userInfo:@{NSLocalizedDescriptionKey:[ErrorManager localizedDescriptionForCode: code]}];
+        
+        block(NO,error);
     }
     
 }
 
-#pragma mark - Fcn
 
 - (void)requestCaptcha{
     
@@ -181,7 +214,9 @@
 
 
 - (void)toChangePwd{
+    
     ChangePasswordViewController *vc = [[ChangePasswordViewController alloc] init];
+    vc.username = self.username;
     [self.navigationController pushViewController:vc animated:YES];
 
 }

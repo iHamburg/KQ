@@ -76,18 +76,18 @@
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UINavigationController *)viewController{
     //    L();
     
-    if (![[UserController sharedInstance] isLogin]) {
-      
-        
-        UIViewController *rootVC = [viewController.viewControllers firstObject];
-        if ([rootVC isKindOfClass:[UserCenterViewController class]]){
-            
-            [[KQRootViewController sharedInstance] toLogin];
-            return NO;
-        }
-        else
-            return YES;
-    }
+//    if (![[UserController sharedInstance] isLogin]) {
+//      
+//        
+//        UIViewController *rootVC = [viewController.viewControllers firstObject];
+//        if ([rootVC isKindOfClass:[UserCenterViewController class]]){
+//            
+//            [[KQRootViewController sharedInstance] toLogin];
+//            return NO;
+//        }
+//        else
+//            return YES;
+//    }
     return YES;
 }
 

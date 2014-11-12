@@ -63,6 +63,7 @@
     
     L();
 
+    
     _tabVC = [[KQTabBarViewController alloc] init];
     
     [self.view addSubview:_tabVC.view];
@@ -93,13 +94,8 @@
     [super handleRootFirstWillAppear];
     
     
-    if (kIsMainApplyEvent) {
-        
-        [self startEvent];
-    }
+    [self startEvent];
     
-
-
 }
 
 - (void)didReceiveMemoryWarning
@@ -219,6 +215,7 @@
 }
 
 /**
+ *
  **/
 - (void)toLogin {
 
@@ -251,11 +248,6 @@
 
 
 
-//- (void)didLogin{
-////    self.selectedIndex = 3;
-//    
-//}
-
 - (void)didLogout{
 
     _tabVC.selectedIndex = 0;
@@ -274,10 +266,10 @@
 
  //    [self testNav:@"AddCardViewController"];
     
-    CGRect r = [UIScreen mainScreen].bounds;
-    NSLog(@"screen # %@",NSStringFromCGRect(r));
-    r = CGRectApplyAffineTransform(r, CGAffineTransformMakeRotation(90 * M_PI / 180.));
-        NSLog(@"screen # %@",NSStringFromCGRect(r));
+//    CGRect r = [UIScreen mainScreen].bounds;
+//    NSLog(@"screen # %@",NSStringFromCGRect(r));
+//    r = CGRectApplyAffineTransform(r, CGAffineTransformMakeRotation(90 * M_PI / 180.));
+//        NSLog(@"screen # %@",NSStringFromCGRect(r));
 
 
 }

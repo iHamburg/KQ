@@ -18,6 +18,7 @@
 
 }
 
+@property (nonatomic, strong) NSString *username;
 @property (nonatomic, strong) NSString *captcha;  // 从服务器获得的md5
 
 - (void)toChangePwd;
