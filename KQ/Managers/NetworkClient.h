@@ -78,7 +78,8 @@
 
 
 
-- (void)queryNewestCouponsSkip:(int)skip block:(IdResultBlock)block;
+
+- (void)queryHotestCouponsSkip:(int)skip block:(IdResultBlock)block;
 /**
  
  @brief   返回搜索的快券

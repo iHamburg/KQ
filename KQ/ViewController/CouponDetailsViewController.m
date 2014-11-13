@@ -7,21 +7,17 @@
 //
 
 #import "CouponDetailsViewController.h"
-#import "Coupon.h"
+
 #import "ShopBranchesCell.h"
 #import "ShopModelDescCell.h"
-#import "CouponCommentCell.h"
-#import "ShopBranchListViewController.h"
-#import "Shop.h"
+
+
 #import "CouponCell.h"
 #import "UMSocial.h"
 #import "UIImageView+WebCache.h"
-#import "ShopDetailsViewController.h"
-#import "MapViewController.h"
+
 #import "ImageButtonCell.h"
 #import "AddCardViewController.h"
-
-
 #import "ShopBranchListViewController.h"
 #import "ShopDetailsViewController.h"
 #import "MapViewController.h"
@@ -114,6 +110,7 @@
     _downloadB.layer.cornerRadius = 3;
 
     _secondLabel.textColor = kColorRed;
+//    _favoriteB.backgroundColor = kColorBlue;
     
 }
 
@@ -166,7 +163,7 @@
 
 
 
-
+#pragma mark -
 #pragma mark - Cell: CouponUsage
 
 @interface CouponUsageCell : CouponCell
@@ -215,7 +212,7 @@
 
 
 
-
+#pragma mark -
 #pragma mark - Cell: ShopDescCell
 @interface ShopDescCell : ConfigCell
 
@@ -266,9 +263,8 @@
 
 @end
 
+#pragma mark -
 #pragma mark - CouponDetailsViewController
-
-#import "ShopDetailsViewController.h"
 
 @interface CouponDetailsViewController (){
     
@@ -352,7 +348,9 @@
     self.title = @"快券详情";
     
     
-    [self test];
+    UIBarButtonItem *shareBB = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_myfavoritedshops.png"] style:UIBarButtonItemStylePlain target:self action:@selector(sharePressed:)];
+    
+    self.navigationItem.rightBarButtonItem = shareBB;
 }
 
 
@@ -536,20 +534,20 @@
 - (void)downloadCoupon:(Coupon*)coupon{
 
 //    NSLog(@"coupon # %@",coupon);
-    if (!_userController.isLogin) {
- 
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"toLogin" object:nil];
+    //TODO: if
+    if (!_userController.isLogin || YES) {
+        //如果没有登录，让用户登录
         
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationLogin object:nil];
+        
+        
+//        [_root lo]
         return;
     
     }
-    else if(!_userController.hasBankcard){
-        
-        [self toAfterDownload];
-        
+    
+ 
 
-    }
-    else{
          [_libraryManager startProgress:nil];
         
          [_networkClient user:_userController.uid downloadCoupon:coupon.id block:^(id obj, NSError *error) {
@@ -558,11 +556,20 @@
             
              if (obj) {
                 
+                 
+//                 if(!_userController.hasBankcard){
+//                     // 如果用户没有银行卡
+//                     
+//                     [self toAfterDownload];
+//                     
+//                     
+//                 }
+                 
                 [_libraryManager startHint:@"下载快券成功"];
             }
             
         }];
-    }
+    
 }
 
 - (void)toggleFavoriteCoupon:(Coupon*)coupon{

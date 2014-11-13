@@ -34,8 +34,6 @@
 
     self.title = @"附近";
     
-    
-    
     self.config = [[TableConfiguration alloc] initWithResource:@"AroundConfig"];
  
     self.isLoadMore = NO;
@@ -49,11 +47,7 @@
 }
 
 - (void)toCouponDetails:(Coupon*)coupon{
-//    CouponDetailsViewController *vc = [[CouponDetailsViewController alloc] init];
-//    vc.view.alpha = 1;
-//    vc.coupon = coupon;
-//    
-//     [_root addNavVCAboveTab:vc];
+
 
     [_root toCouponDetails:coupon];
 }

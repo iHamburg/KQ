@@ -26,10 +26,10 @@ static NSArray *keys;
         
         NSLog(@"dict # %@",dict);
      
-        
-        dict = [dict dictionaryCheckNull];
-        if (ISEMPTY(dict)) {
-            NSLog(@"People Init Error");
+        if ([dict isKindOfClass:[NSDictionary class]]) {
+            dict = [dict dictionaryCheckNull];
+        }
+        else{
             return self;
         }
         

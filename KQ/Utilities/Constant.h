@@ -4,7 +4,6 @@
 
 #define kTestJSONHost @"http://douban.fm/j/mine/playlist?type=n&h=&channel=0&from=mainsite&r=4941e23d79"
 
-#define kDefaultCityId @"5395652ee4b08cd56b62dc4e"
 
 
 #define kEventCouponId @"54059191e4b031c444ff0764"
@@ -23,6 +22,8 @@
 
 
 #pragma mark - Notification
+
+#define kNotificationLogin @"toLogin"
 
 
 #pragma mark - UI
@@ -58,6 +59,9 @@ typedef void (^StringResultBlock)(NSString *string, NSError *error);
 typedef void (^IdResultBlock)(id object, NSError *error);
 typedef void (^DictionaryResultBlock)(NSDictionary *dict, NSError *error);
 typedef void (^ProgressBlock)(int percentDone);
+
+
+
 
 
 

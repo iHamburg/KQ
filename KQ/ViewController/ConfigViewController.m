@@ -31,8 +31,9 @@
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     
-    self.view.backgroundColor = kColorBG;
+//    self.view.backgroundColor = kColorBG;
 
+    self.tableView.backgroundColor = [UIColor whiteColor];
     self.navigationController.navigationBar.translucent = NO;
     
 }

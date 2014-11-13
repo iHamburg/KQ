@@ -24,6 +24,8 @@ extern BOOL isFirstOpen;
 extern BOOL isUpdateOpen;
 extern NSString *FONTNAME;
 
+
+
 /// extern Fcns
 void saveArchived(id, NSString*);
 id loadArchived(NSString*);

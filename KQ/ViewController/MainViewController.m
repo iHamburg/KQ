@@ -187,11 +187,28 @@
   
     [self.models removeAllObjects];
     
-    [_networkClient queryNewestCouponsSkip:0 block:^(NSArray *couponDicts, NSError *error) {
+    [_networkClient queryHotestCouponsSkip:0 block:^(NSDictionary *couponDicts, NSError *error) {
         
 //         [_libraryManager dismissProgress:nil];
         
-        [self addCouponsInModel:couponDicts];
+//        [self addCouponsInModel:couponDicts];
+        
+        if (!error) {
+            NSArray *array = couponDicts[@"coupons"];
+//            NSLog(@"main array # %@",array);
+            
+            for (NSDictionary *dict in array) {
+                Coupon *coupon = [[Coupon alloc] initWithListDict:dict];
+                [self.models addObject:coupon];
+                
+            }
+            
+            [self.tableView reloadData];
+            
+        }
+        else{
+            [ErrorManager alertError:error];
+        }
         
     }];
   
@@ -209,7 +226,7 @@
     
     int count = [_models count];
     
-    [_networkClient queryNewestCouponsSkip:count block:^(NSArray *couponDicts, NSError *error) {
+    [_networkClient queryHotestCouponsSkip:count block:^(NSArray *couponDicts, NSError *error) {
         
         [self addCouponsInModel:couponDicts];
         
@@ -221,6 +238,7 @@
 
 - (void)toCouponDetails:(Coupon*)coupon{
 
+    //把tab切换出去！
     [_root toCouponDetails:coupon];
 }
 

@@ -10,27 +10,28 @@
 
 @implementation Coupon
 
-+ (id)coupon{
+static NSArray *keys;
+static NSArray *listKeys;  // 服务器列表返回的dict的key
 
-    Coupon *coup = [Coupon new];
-    
-    coup.id = @"111";
++ (void)initialize {
+    if (self == [Coupon self]) {
+        // ... do the initialization ...
+        
+        listKeys = @[@"id",@"title",@"avatarUrl",@"discountContent",@"downloadedCount",@"slogan"];
+        keys = @[@"id",@"title",@"avatarUrl",@"discountContent",@"downloadedCount",@"slogan"];
 
-    coup.title = @"[19店通用] 三人行骨头王火锅";
-    coup.discountContent = @"95折";
-    
-    return coup;
+    }
 }
-
 
 - (id)initWithDict:(NSDictionary*)dict{
     if (self= [self init]) {
         
+        // 把dict的value为null的处理掉
         if ([dict isKindOfClass:[NSDictionary class]]) {
             dict = [dict dictionaryCheckNull];
         }
         else{
-            return nil;
+            return self;
         }
         
 //        NSLog(@"couponDict # %@",dict);
@@ -60,10 +61,42 @@
     return self;
 }
 
+- (id)initWithListDict:(NSDictionary*)dict{
+    if (self = [super init]) {
+        if ([dict isKindOfClass:[NSDictionary class]]) {
+            dict = [dict dictionaryCheckNull];
+        }
+        else{
+            return self;
+        }
+
+        for (NSString *key in listKeys) {
+            [self setValue:dict[key] forKey:key];
+        }
+        
+    }
+    
+    return self;
+}
+
 + (id)couponWithDict:(NSDictionary*)dict{
 
     return [[Coupon alloc]initWithDict:dict];
 }
+
+
++ (id)coupon{
+    
+    Coupon *coup = [Coupon new];
+    
+    coup.id = @"111";
+    
+    coup.title = @"[19店通用] 三人行骨头王火锅";
+    coup.discountContent = @"95折";
+    
+    return coup;
+}
+
 
 - (void)display{
     

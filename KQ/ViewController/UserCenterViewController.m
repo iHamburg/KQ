@@ -70,9 +70,11 @@
 }
 
 - (IBAction)avatarVPressed:(id)sender{
+    
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:LString(@"取消") destructiveButtonTitle:LString(@"照相机") otherButtonTitles:LString(@"图片库"), nil];//f
     
     [sheet showInView:self];
+    
 }
 
 - (void)layoutSubviews{
@@ -181,7 +183,7 @@
 }
 
 @end
-
+#pragma mark -
 #pragma mark - UserCenterViewController
 
 @interface UserCenterViewController (){
@@ -202,7 +204,7 @@
     
     _config = [[TableConfiguration alloc] initWithResource:@"UserCenterLoginConfig"];
     
-
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{

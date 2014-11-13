@@ -23,7 +23,9 @@
 
 @interface KQRootViewController (){
 
+    
     EventViewController *_eventVC;
+    
     
 }
 
@@ -60,9 +62,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    
-    L();
-
+//    L();
     
     _tabVC = [[KQTabBarViewController alloc] init];
     
@@ -94,7 +94,7 @@
     [super handleRootFirstWillAppear];
     
     
-    [self startEvent];
+//    [self startEvent];
     
 }
 
@@ -108,8 +108,10 @@
 - (void)registerNotification{
     [super registerNotification];
     
-    [[NSNotificationCenter defaultCenter] addObserverForName:@"toLogin" object:nil queue:nil usingBlock:^(NSNotification *note) {
+    [[NSNotificationCenter defaultCenter] addObserverForName:kNotificationLogin object:nil queue:nil usingBlock:^(NSNotification *note) {
+   
         [self toLogin];
+    
     }];
     
 }
@@ -131,7 +133,9 @@
 
 
 - (void)removeVCFromTab:(UIViewController *)vc{
+   
     [vc.view removeFromSuperview];
+
 }
 
 
@@ -170,6 +174,7 @@
 
         [self.view addSubview:_eventVC.view];
         
+        
       
         
     }
@@ -177,7 +182,7 @@
 }
 
 
-//点击banner
+//从main， 附近进couponDetails
 - (void)toCouponDetails:(Coupon*)coupon{
     
     CouponDetailsViewController *vc = [[CouponDetailsViewController alloc] init];
@@ -210,12 +215,18 @@
     
     vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_back.png" target:self action:@selector(removeNavPressed:)]];
     
+    
+    
     _nav = [[UINavigationController alloc] initWithRootViewController:vc];
     [self.view addSubview:_nav.view];
+
 }
+
+//- (void)toShopDetails:
 
 /**
  *
+
  **/
 - (void)toLogin {
 
@@ -245,7 +256,14 @@
     
 }
 
+- (void)loginWithBlock:(BooleanResultBlock)block{
+    
+    
+}
 
+- (void)presentLogin{
+    
+}
 
 
 - (void)didLogout{
@@ -254,7 +272,15 @@
     
 }
 
+- (void)toTab:(int)index{
 
+    //    [self ]
+    
+}
+
+- (void)toNav:(UIViewController*)vc{
+    
+}
 
 - (void)test{
     L();

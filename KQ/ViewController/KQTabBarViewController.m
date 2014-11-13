@@ -23,10 +23,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    _mainVC = [[MainViewController alloc] init];
+    _mainVC = [[MainViewController alloc] initWithStyle:UITableViewStyleGrouped];
     _aroundVC = [[AroundViewController alloc] init];
     _searchVC = [[KQSearchViewController alloc] init];
-    _userCenterVC = [[UserCenterViewController alloc] init];
+    _userCenterVC = [[UserCenterViewController alloc] initWithStyle:UITableViewStyleGrouped];
     self.delegate = self;
     
     NSArray *vcs = @[_mainVC,_aroundVC,_searchVC,_userCenterVC];

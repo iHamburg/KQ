@@ -14,6 +14,8 @@
 //获取最新的优惠券
 #define api_newestCoupons       [RESTHOST stringByAppendingFormat:@"/newestCoupons"]
 
+#define api_hotestCoupons       [RESTHOST stringByAppendingFormat:@"/hotestCoupons"]
+
 //搜索优惠券
 #define api_searchCoupons        [RESTHOST stringByAppendingFormat:@"/searchCoupons"]
 
@@ -138,10 +140,10 @@
 }
 
 
-- (void)queryNewestCouponsSkip:(int)skip block:(IdResultBlock)block{
+- (void)queryHotestCouponsSkip:(int)skip block:(IdResultBlock)block{
 
     
-    [self getWithUrl:api_newestCoupons parameters:@{@"skip":[NSString stringWithInt:skip]} block:block];
+    [self getWithUrl:api_hotestCoupons parameters:@{@"skip":[NSString stringWithInt:skip]} block:block];
 }
 
 

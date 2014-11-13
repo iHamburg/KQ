@@ -22,6 +22,7 @@
 @property (nonatomic, copy) NSString *maxNumber;
 @property (nonatomic, copy) NSString *usage;
 @property (nonatomic, copy) NSString *downloadedCount;
+@property (nonatomic, copy) NSString *slogan;
 
 @property (nonatomic, copy) NSString *shopId; //总店
 
@@ -37,6 +38,7 @@
 + (id)couponWithDict:(NSDictionary*)dict;
 
 - (id)initWithDict:(NSDictionary*)dict;
+- (id)initWithListDict:(NSDictionary*)dict;
 
 - (void)display;
 @end
