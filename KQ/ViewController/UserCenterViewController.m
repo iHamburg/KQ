@@ -15,13 +15,28 @@
 #import "UIImageView+WebCache.h"
 #import "KQRootViewController.h"
 #import "UserFavoritedCouponsViewController.h"
+#import "EditUserViewController.h"
+#import "AboutUsViewController.h"
+#import "UserNewsViewController.h"
+
+#define headerHeight 150
 
 #pragma mark - Cell: UserAvatar
-@interface UserAvatarCell : PeopleCell<UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface UserAvatarCell : PeopleCell{
+
+}
+
+@property (nonatomic, strong) IBOutlet UIImageView *oberV;
+@property (nonatomic, copy) VoidBlock editUserBlock;
+@property (nonatomic, copy) VoidBlock dCouponBlock;
+@property (nonatomic, copy) VoidBlock cardBlock;
+@property (nonatomic, copy) VoidBlock loginBlock;
 
 - (IBAction)loginPressed:(id)sender;
 - (IBAction)dCouponPressed:(id)sender;
 - (IBAction)cardPressed:(id)sender;
+
+
 
 @end
 
@@ -50,137 +65,60 @@
 
 //height: 150
 
-
 - (void)awakeFromNib{
+    
+    L();
+    
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.avatarV.layer.cornerRadius = 60;
     self.avatarV.layer.masksToBounds = YES;
     self.avatarV.layer.borderWidth = 8;
     self.avatarV.layer.borderColor = [UIColor whiteColor].CGColor;
-    self.avatarV.userInteractionEnabled = YES;
-    [self.avatarV addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarVPressed:)]];
-    
-    
-    [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarVPressed:)]];
+
     self.backgroundColor = kColorBG;
     self.separatorInset = UIEdgeInsetsMake(0, 160, 0, 160);
     
-
-
+    self.oberV.userInteractionEnabled = YES;
+    [self.oberV addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(loginPressed:)]];
+    
+    //在nib中，imageV不能拖成另一个imageV的subview，所以只能在code中设置
+    [self.oberV addSubview:self.avatarV];
 }
 
-- (IBAction)avatarVPressed:(id)sender{
-    
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:LString(@"取消") destructiveButtonTitle:LString(@"照相机") otherButtonTitles:LString(@"图片库"), nil];//f
-    
-    [sheet showInView:self];
-    
-}
 
+
+// 需要判断用户是否登录来切换UI
 - (void)layoutSubviews{
-    
-    
-}
-#pragma mark - Actionsheet
-- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex{
-    
-//    NSLog(@"button # %d",buttonIndex);
-    
-    if (buttonIndex == 0) { // destructive: 照相机
-        [self openCamera];
-    }
-    else if(buttonIndex == 1){ //other： 图片库
-        [self openImageLibrary];
-    }
-}
-
-#pragma mark - ImagePicker
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     L();
+    [super layoutSubviews];
     
-    /// 存储所有的图片，保存入photoalbum，然后把图片加到album中，一页 3张图
-    //    UIImage *editedImage = [info objectForKey:@"UIImagePickerControllerEditedImage"];
+    // 如果是ios7
+    [self addSubview:self.oberV];
     
-	UIImage *originalImage = info[UIImagePickerControllerOriginalImage];
-    //    NSURL *url = info[UIImagePickerControllerMediaURL];
-    //    [importImages addObject:originalImage];
+//    NSLog(@"subviews # %@",self.subviews);
     
-    
-    //avatar 图片的size是200x200 （retina）
-    UIImage *img200 = [originalImage imageByScalingAndCroppingForSize:CGSizeMake(100, 100)];
-
-    
-    
-    // save image to currentuser.avatar
-  
-    [[UserController sharedInstance] setAvatar:img200];
-
-    //???: 为什么不能直接变设avatar？
-    
-    [self performSelector:@selector(imagePickerControllerDidCancel:) withObject:picker afterDelay:1];
-//    [self imagePickerControllerDidCancel:picker];
 }
 
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
-    L();
-    
-    [picker dismissViewControllerAnimated:YES completion:^{
-        
-    }];
-}
 #pragma mark - IBAction
 - (IBAction)loginPressed:(id)sender{
     
-    [self toLogin];
+    UserController *uc = [UserController sharedInstance];
+    if ([uc isLogin]) {
+        self.editUserBlock();
+    }
+    else{
+        self.loginBlock();
+    }
 }
 - (IBAction)dCouponPressed:(id)sender{
     
+    self.dCouponBlock();
 }
 - (IBAction)cardPressed:(id)sender{
-    
+
+    self.cardBlock();
 }
 
-#pragma mark - Fcns
-
-
-- (void)openImageLibrary{
-    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-    picker.delegate = self;
-    picker.sourceType =  UIImagePickerControllerSourceTypePhotoLibrary;
-    
-    [[KQRootViewController sharedInstance] presentViewController:picker animated:YES completion:^{
-        
-    }];
-    
-    
-}
-
-
-- (void)openCamera{
-    L();
-    
-    /// 显示 camera
-    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-    picker.delegate = self;
-    picker.sourceType =  UIImagePickerControllerSourceTypeCamera;
-    
-    [[KQRootViewController sharedInstance] presentViewController:picker animated:YES completion:^{
-        
-    }];
-    
-}
-
-- (void)toDCoupons{
-    
-}
-
-- (void)toCards{
-    
-}
-
-- (void)toLogin{
-    
-}
 
 @end
 #pragma mark -
@@ -202,14 +140,35 @@
     // Do any additional setup after loading the view.
     self.title = @"我的";
     
-    _config = [[TableConfiguration alloc] initWithResource:@"UserCenterLoginConfig"];
-    
-    
+   // _config = [[TableConfiguration alloc] initWithResource:@"UserCenterLoginConfig"];
+    _config = [[TableConfiguration alloc] initWithResource:@"UserCenterConfig"];
+
+//    if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
+//        
+//        [self.tableView setSeparatorInset:UIEdgeInsetsZero];
+//        
+//    }
+//    
+//    if ([self.tableView respondsToSelector:@selector(setLayoutMargins:)]) {
+//        
+//        [self.tableView setLayoutMargins:UIEdgeInsetsZero];
+//        
+//    }
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     L();
+    
+    ///如果用户登录，使用不同的UI （UserAvaterCell）, 现在可以直接刷新table来让cell更新？
+    if ([_userController isLogin]) {
+        
+    }
+    else{
+        
+    }
+
+    [self.tableView reloadData];
 
 }
 
@@ -226,63 +185,129 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)initConfigCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+//- (void)initConfigCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+//
+//    if ([cell isKindOfClass:[PeopleCell class]]) {
+//        [(PeopleCell*)cell setPeople:_userController.people];
+//    }
+//    
+//    if (indexPath.section == 1) {
+//        
+//        cell.separatorInset = UIEdgeInsetsMake(0, 0, 0,0);
+//    }
+//
+//}
 
-    if ([cell isKindOfClass:[PeopleCell class]]) {
-        [(PeopleCell*)cell setPeople:_userController.people];
-    }
-    
-    if (indexPath.section == 1) {
-        
-        cell.separatorInset = UIEdgeInsetsMake(0, 0, 0,0);
-    }
 
-}
-
-
+#pragma mark - TableView
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section !=0) {
-        return 20;
+    if (section == 0) {
+        return headerHeight;
     }
-    return 1;
+    return 20;
 }
 
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
-    L();
-    
-    [picker dismissViewControllerAnimated:YES completion:^{
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    if (section == 0) {
+        UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _w, headerHeight)];
+        v.backgroundColor = kColorBlue;
         
-    }];
-}
-
-
-#pragma mark - AlertView
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
-//    NSLog(@"button # %d",buttonIndex);
-    
-    if (buttonIndex == 1) {
-        [self willLogout];
+        return v;
     }
+    
+    return nil;
 }
+
+// 反正没太大的关系，可以多次调用
+- (void)configCell:(ConfigCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+    
+    if ([cell isKindOfClass:[PeopleCell class]]) {
+        UserAvatarCell *aCell = (UserAvatarCell*)cell;
+        [aCell setPeople:_userController.people];
+
+        aCell.editUserBlock = ^(void){
+            [self pushEditUser];
+        };
+        
+        aCell.dCouponBlock = ^(void){
+            [self toCoupons];
+        };
+        
+        aCell.cardBlock = ^(void){
+            [self toCards];
+        };
+        aCell.loginBlock = ^{
+            [self presentLogin];
+        };
+    }
+    
+}
+
 
 #pragma mark - IBAction
+- (IBAction)dCouponPressed:(id)sender{
+    if ([_userController isLogin]) {
+        [self toCoupons];
+    }
+    else{
+        [self presentLogin];
+    }
 
-- (IBAction)logout{
+}
+- (IBAction)cardPressed:(id)sender{
+    if ([_userController isLogin]) {
+        [self toCards];
+    }
+    else{
+        [self presentLogin];
+    }
+
+}
+- (IBAction)fCouponPressed:(id)sender{
+    if ([_userController isLogin]) {
+        [self toFavoritedCoupons];
+    }
+    else{
+        [self presentLogin];
+    }
+
+}
+- (IBAction)fShopPressed:(id)sender{
+    if ([_userController isLogin]) {
+        [self toShops];
+    }
+    else{
+        [self presentLogin];
+    }
+
+}
+- (IBAction)aboutUsPressed:(id)sender{
+    [self pushAboutUs];
+}
+
+- (IBAction)newsPressed:(id)sender{
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"确定要退出当前账号吗？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"退出", nil];
+    if ([_userController isLogin]) {
+        [self pushNews];
+    }
+    else{
+        [self presentLogin];
+    }
     
-    [alert show];
+}
+- (IBAction)settingPressed:(id)sender{
     
-    
+    if ([_userController isLogin]) {
+        [self toSettings];
+    }
+    else{
+        [self presentLogin];
+    }
     
 }
 
 #pragma mark - Fcns
 
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-
-}
 
 - (void)toCoupons{
 
@@ -315,23 +340,35 @@
 }
 - (void)toSettings{
 
-    UserSettingsViewController *vc = [[UserSettingsViewController alloc] init];
+    UserSettingsViewController *vc = [[UserSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     [self.navigationController pushViewController:vc animated:YES];
     
 }
 
-- (void)willLogout{
+- (void)pushEditUser{
     
-    [_userController logout];
-
+    EditUserViewController *vc = [[EditUserViewController alloc] initWithStyle:UITableViewStyleGrouped];
     
-    [[KQRootViewController sharedInstance] didLogout];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)didLogin{
-
-    //???: 什么时候调用？
-    [self.tableView reloadData];
+- (void)pushNews{
     
+    UserNewsViewController *vc = [[UserNewsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    
+    [self.navigationController pushViewController:vc animated:YES];
 }
+- (void)pushAboutUs{
+    AboutUsViewController *vc = [[AboutUsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)presentLogin{
+    
+    KQRootViewController *root = [KQRootViewController sharedInstance];
+    
+    [root presentLoginWithMode:PresentUserCenterLogin];
+}
+
 @end

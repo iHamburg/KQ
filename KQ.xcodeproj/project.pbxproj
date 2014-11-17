@@ -107,7 +107,6 @@
 		26E14BA2193C6754007A7081 /* KQLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E14BA1193C6754007A7081 /* KQLabel.m */; };
 		26E14BAB193C8199007A7081 /* ConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E14BAA193C8199007A7081 /* ConfigViewController.m */; };
 		26E14BAF193C81C3007A7081 /* NetTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E14BAE193C81C3007A7081 /* NetTableViewController.m */; };
-		26E14BB2193C82FD007A7081 /* UserCenterConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 26E14BB0193C82FD007A7081 /* UserCenterConfig.plist */; };
 		26E14BB5193CB355007A7081 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26E14BB4193CB355007A7081 /* Security.framework */; };
 		26E14BB7193CB35E007A7081 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 26E14BB6193CB35E007A7081 /* libiconv.dylib */; };
 		26E14BB9193CB37D007A7081 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 26E14BB8193CB37D007A7081 /* libsqlite3.dylib */; };
@@ -142,7 +141,7 @@
 		26E290F2193DB22D00B7E0C9 /* Bank.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E290F1193DB22D00B7E0C9 /* Bank.m */; };
 		26E290F5193DB23600B7E0C9 /* Card.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E290F4193DB23600B7E0C9 /* Card.m */; };
 		26E290F8193DB24E00B7E0C9 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E290F7193DB24E00B7E0C9 /* Comment.m */; };
-		26E290FD193DB41600B7E0C9 /* mainConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 26E290FC193DB41600B7E0C9 /* mainConfig.plist */; };
+		26E290FD193DB41600B7E0C9 /* MainConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 26E290FC193DB41600B7E0C9 /* MainConfig.plist */; };
 		26E29100193DB4E700B7E0C9 /* CouponListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E290FF193DB4E700B7E0C9 /* CouponListCell.m */; };
 		26E29104193DBC4000B7E0C9 /* CouponDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E29103193DBC4000B7E0C9 /* CouponDetailsViewController.m */; };
 		26E29108193DE11700B7E0C9 /* ShopDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E29107193DE11700B7E0C9 /* ShopDetailsViewController.m */; };
@@ -218,10 +217,21 @@
 		26FD1F871958CE9B0074A738 /* around_demo@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 26FD1F861958CE9B0074A738 /* around_demo@2x.jpg */; };
 		82746BA17C3B4D42AE8196DB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE34221828C240E6B918B199 /* libPods.a */; };
 		850A67B519C6EA6E00DCA982 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 850A67B419C6EA6E00DCA982 /* ChangePasswordViewController.m */; };
+		85134FAC1A176B1500669702 /* EditUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85134FAB1A176B1500669702 /* EditUserViewController.m */; };
+		85134FAE1A176F0B00669702 /* EditUserConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85134FAD1A176F0A00669702 /* EditUserConfig.plist */; };
 		855AA51A19C2932E002B7099 /* KQTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 855AA51919C2932E002B7099 /* KQTabBarViewController.m */; };
 		855AA51C19C2CC5E002B7099 /* bg-landingpage@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 855AA51B19C2CC5E002B7099 /* bg-landingpage@2x.jpg */; };
 		855AA51E19C2D083002B7099 /* btn-receive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 855AA51D19C2D083002B7099 /* btn-receive@2x.png */; };
 		8563CFF01A1346660049DBA6 /* InteractiveButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8563CFEF1A1346660049DBA6 /* InteractiveButton.m */; };
+		857FE56B1A188EFA0097684F /* ChangePwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 857FE56A1A188EFA0097684F /* ChangePwdViewController.m */; };
+		857FE56D1A1890CD0097684F /* ChangePwdConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 857FE56C1A1890CD0097684F /* ChangePwdConfig.plist */; };
+		857FE5701A1891850097684F /* TextfieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 857FE56F1A1891850097684F /* TextfieldCell.m */; };
+		857FE5731A18A1E50097684F /* UserNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 857FE5721A18A1E50097684F /* UserNewsViewController.m */; };
+		857FE5761A18A2180097684F /* AboutUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 857FE5751A18A2180097684F /* AboutUsViewController.m */; };
+		857FE5781A18A2EC0097684F /* AboutUsConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 857FE5771A18A2EC0097684F /* AboutUsConfig.plist */; };
+		857FE57B1A18A6520097684F /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 857FE57A1A18A6520097684F /* MessageUI.framework */; };
+		857FE57E1A18C91F0097684F /* CooperateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 857FE57D1A18C91F0097684F /* CooperateViewController.m */; };
+		857FE5801A18C9D80097684F /* CooperateConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 857FE57F1A18C9D80097684F /* CooperateConfig.plist */; };
 		8596C64719C13462003B3440 /* icon-index01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8596C64319C13462003B3440 /* icon-index01@2x.png */; };
 		8596C64819C13462003B3440 /* icon-nearby01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8596C64419C13462003B3440 /* icon-nearby01@2x.png */; };
 		8596C64919C13462003B3440 /* icon-search01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8596C64519C13462003B3440 /* icon-search01@2x.png */; };
@@ -236,6 +246,9 @@
 		8596C65C19C184CD003B3440 /* SignViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8596C65B19C184CD003B3440 /* SignViewController.m */; };
 		8596C65F19C18891003B3440 /* ForgetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8596C65E19C18891003B3440 /* ForgetPasswordViewController.m */; };
 		8596C66119C19592003B3440 /* event_banner.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8596C66019C19592003B3440 /* event_banner.jpg */; };
+		859E90281A18D4BB00899175 /* UserNewsConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 859E90271A18D4BB00899175 /* UserNewsConfig.plist */; };
+		859E902B1A18D86200899175 /* News.m in Sources */ = {isa = PBXBuildFile; fileRef = 859E902A1A18D86200899175 /* News.m */; };
+		859E902D1A18F27F00899175 /* UserCenterConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 859E902C1A18F27F00899175 /* UserCenterConfig.plist */; };
 		85C5E2E019C68E250047BAE3 /* loading-pic02.png in Resources */ = {isa = PBXBuildFile; fileRef = 85C5E2DF19C68E250047BAE3 /* loading-pic02.png */; };
 		85CAC52D19C057DD007A1F86 /* icon-agreement01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 85CAC52119C057DD007A1F86 /* icon-agreement01@2x.png */; };
 		85CAC52E19C057DD007A1F86 /* icon-agreement02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 85CAC52219C057DD007A1F86 /* icon-agreement02@2x.png */; };
@@ -408,7 +421,6 @@
 		26E14BAA193C8199007A7081 /* ConfigViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigViewController.m; sourceTree = "<group>"; };
 		26E14BAD193C81C3007A7081 /* NetTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetTableViewController.h; sourceTree = "<group>"; };
 		26E14BAE193C81C3007A7081 /* NetTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetTableViewController.m; sourceTree = "<group>"; };
-		26E14BB0193C82FD007A7081 /* UserCenterConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserCenterConfig.plist; sourceTree = "<group>"; };
 		26E14BB4193CB355007A7081 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		26E14BB6193CB35E007A7081 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		26E14BB8193CB37D007A7081 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
@@ -467,7 +479,7 @@
 		26E290F4193DB23600B7E0C9 /* Card.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Card.m; sourceTree = "<group>"; };
 		26E290F6193DB24E00B7E0C9 /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
 		26E290F7193DB24E00B7E0C9 /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
-		26E290FC193DB41600B7E0C9 /* mainConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = mainConfig.plist; sourceTree = "<group>"; };
+		26E290FC193DB41600B7E0C9 /* MainConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MainConfig.plist; sourceTree = "<group>"; };
 		26E290FE193DB4E700B7E0C9 /* CouponListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponListCell.h; sourceTree = "<group>"; };
 		26E290FF193DB4E700B7E0C9 /* CouponListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponListCell.m; sourceTree = "<group>"; };
 		26E29102193DBC4000B7E0C9 /* CouponDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponDetailsViewController.h; sourceTree = "<group>"; };
@@ -602,6 +614,9 @@
 		6426E4542FA68E50EDEB04AD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		850A67B319C6EA6E00DCA982 /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
 		850A67B419C6EA6E00DCA982 /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
+		85134FAA1A176B1500669702 /* EditUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditUserViewController.h; sourceTree = "<group>"; };
+		85134FAB1A176B1500669702 /* EditUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditUserViewController.m; sourceTree = "<group>"; };
+		85134FAD1A176F0A00669702 /* EditUserConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = EditUserConfig.plist; sourceTree = "<group>"; };
 		855AA51819C2932E002B7099 /* KQTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KQTabBarViewController.h; sourceTree = "<group>"; };
 		855AA51919C2932E002B7099 /* KQTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KQTabBarViewController.m; sourceTree = "<group>"; };
 		855AA51B19C2CC5E002B7099 /* bg-landingpage@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "bg-landingpage@2x.jpg"; sourceTree = "<group>"; };
@@ -609,6 +624,20 @@
 		8563CFEE1A1346660049DBA6 /* InteractiveButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InteractiveButton.h; sourceTree = "<group>"; };
 		8563CFEF1A1346660049DBA6 /* InteractiveButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InteractiveButton.m; sourceTree = "<group>"; };
 		85755EEFD65D18BA8065DE33 /* Pods.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.adhoc.xcconfig; path = "Pods/Target Support Files/Pods/Pods.adhoc.xcconfig"; sourceTree = "<group>"; };
+		857FE5691A188EFA0097684F /* ChangePwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePwdViewController.h; sourceTree = "<group>"; };
+		857FE56A1A188EFA0097684F /* ChangePwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePwdViewController.m; sourceTree = "<group>"; };
+		857FE56C1A1890CD0097684F /* ChangePwdConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ChangePwdConfig.plist; sourceTree = "<group>"; };
+		857FE56E1A1891850097684F /* TextfieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextfieldCell.h; sourceTree = "<group>"; };
+		857FE56F1A1891850097684F /* TextfieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextfieldCell.m; sourceTree = "<group>"; };
+		857FE5711A18A1E50097684F /* UserNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserNewsViewController.h; sourceTree = "<group>"; };
+		857FE5721A18A1E50097684F /* UserNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserNewsViewController.m; sourceTree = "<group>"; };
+		857FE5741A18A2180097684F /* AboutUsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUsViewController.h; sourceTree = "<group>"; };
+		857FE5751A18A2180097684F /* AboutUsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUsViewController.m; sourceTree = "<group>"; };
+		857FE5771A18A2EC0097684F /* AboutUsConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AboutUsConfig.plist; sourceTree = "<group>"; };
+		857FE57A1A18A6520097684F /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		857FE57C1A18C91F0097684F /* CooperateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CooperateViewController.h; sourceTree = "<group>"; };
+		857FE57D1A18C91F0097684F /* CooperateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CooperateViewController.m; sourceTree = "<group>"; };
+		857FE57F1A18C9D80097684F /* CooperateConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CooperateConfig.plist; sourceTree = "<group>"; };
 		8596C64319C13462003B3440 /* icon-index01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-index01@2x.png"; sourceTree = "<group>"; };
 		8596C64419C13462003B3440 /* icon-nearby01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-nearby01@2x.png"; sourceTree = "<group>"; };
 		8596C64519C13462003B3440 /* icon-search01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-search01@2x.png"; sourceTree = "<group>"; };
@@ -626,6 +655,10 @@
 		8596C65D19C18891003B3440 /* ForgetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgetPasswordViewController.h; sourceTree = "<group>"; };
 		8596C65E19C18891003B3440 /* ForgetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgetPasswordViewController.m; sourceTree = "<group>"; };
 		8596C66019C19592003B3440 /* event_banner.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = event_banner.jpg; sourceTree = "<group>"; };
+		859E90271A18D4BB00899175 /* UserNewsConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserNewsConfig.plist; sourceTree = "<group>"; };
+		859E90291A18D86200899175 /* News.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = News.h; sourceTree = "<group>"; };
+		859E902A1A18D86200899175 /* News.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = News.m; sourceTree = "<group>"; };
+		859E902C1A18F27F00899175 /* UserCenterConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserCenterConfig.plist; sourceTree = "<group>"; };
 		85C5E2DF19C68E250047BAE3 /* loading-pic02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loading-pic02.png"; sourceTree = "<group>"; };
 		85CAC52119C057DD007A1F86 /* icon-agreement01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-agreement01@2x.png"; sourceTree = "<group>"; };
 		85CAC52219C057DD007A1F86 /* icon-agreement02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-agreement02@2x.png"; sourceTree = "<group>"; };
@@ -651,6 +684,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				857FE57B1A18A6520097684F /* MessageUI.framework in Frameworks */,
 				26DE2D80194FE9D800F9C46E /* MapKit.framework in Frameworks */,
 				26DE2D7E194FE3C900F9C46E /* AVFoundation.framework in Frameworks */,
 				26E14BBF193CB3AF007A7081 /* libz.dylib in Frameworks */,
@@ -957,10 +991,20 @@
 				261D34BA1946C1C9009F75CF /* UserShopsViewController.m */,
 				261D34BC1946C1D4009F75CF /* UserCardsViewController.h */,
 				261D34BD1946C1D4009F75CF /* UserCardsViewController.m */,
+				85134FAA1A176B1500669702 /* EditUserViewController.h */,
+				85134FAB1A176B1500669702 /* EditUserViewController.m */,
+				857FE5691A188EFA0097684F /* ChangePwdViewController.h */,
+				857FE56A1A188EFA0097684F /* ChangePwdViewController.m */,
 				263527E31946FECB003A30DD /* AddCardViewController.h */,
 				263527E41946FECB003A30DD /* AddCardViewController.m */,
 				261D34BF1946C1ED009F75CF /* UserSettingsViewController.h */,
 				261D34C01946C1ED009F75CF /* UserSettingsViewController.m */,
+				857FE5711A18A1E50097684F /* UserNewsViewController.h */,
+				857FE5721A18A1E50097684F /* UserNewsViewController.m */,
+				857FE5741A18A2180097684F /* AboutUsViewController.h */,
+				857FE5751A18A2180097684F /* AboutUsViewController.m */,
+				857FE57C1A18C91F0097684F /* CooperateViewController.h */,
+				857FE57D1A18C91F0097684F /* CooperateViewController.m */,
 			);
 			name = UserCenter;
 			sourceTree = "<group>";
@@ -1019,6 +1063,7 @@
 		26E3A523192DE02F004F8C8C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				857FE57A1A18A6520097684F /* MessageUI.framework */,
 				26DE2D7F194FE9D800F9C46E /* MapKit.framework */,
 				26DE2D7D194FE3C900F9C46E /* AVFoundation.framework */,
 				26E14BBE193CB3AF007A7081 /* libz.dylib */,
@@ -1132,6 +1177,8 @@
 				26E290F4193DB23600B7E0C9 /* Card.m */,
 				26E290F6193DB24E00B7E0C9 /* Comment.h */,
 				26E290F7193DB24E00B7E0C9 /* Comment.m */,
+				859E90291A18D86200899175 /* News.h */,
+				859E902A1A18D86200899175 /* News.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1309,6 +1356,8 @@
 				26E14B66193C65FD007A7081 /* ImageCell.m */,
 				26919EE4195D7E3200974010 /* SwitchCell.h */,
 				26919EE5195D7E3200974010 /* SwitchCell.m */,
+				857FE56E1A1891850097684F /* TextfieldCell.h */,
+				857FE56F1A1891850097684F /* TextfieldCell.m */,
 				26E14B67193C65FD007A7081 /* LoadMoreCell.h */,
 				26E14B68193C65FD007A7081 /* LoadMoreCell.m */,
 				26E2911E193DE92D00B7E0C9 /* CouponCell.h */,
@@ -1400,9 +1449,14 @@
 		26E50C61195863FE00CBFEE8 /* TableConfig */ = {
 			isa = PBXGroup;
 			children = (
-				26E14BB0193C82FD007A7081 /* UserCenterConfig.plist */,
 				26EE1F9C1945EF76007C98AA /* UserCenterLoginConfig.plist */,
-				26E290FC193DB41600B7E0C9 /* mainConfig.plist */,
+				859E902C1A18F27F00899175 /* UserCenterConfig.plist */,
+				85134FAD1A176F0A00669702 /* EditUserConfig.plist */,
+				857FE57F1A18C9D80097684F /* CooperateConfig.plist */,
+				857FE56C1A1890CD0097684F /* ChangePwdConfig.plist */,
+				857FE5771A18A2EC0097684F /* AboutUsConfig.plist */,
+				859E90271A18D4BB00899175 /* UserNewsConfig.plist */,
+				26E290FC193DB41600B7E0C9 /* MainConfig.plist */,
 				26D4B6EF195C0F1700C1B727 /* AroundConfig.plist */,
 				26E2911C193DE41C00B7E0C9 /* CouponModelConfig.plist */,
 				26E36BD41951BA470008707A /* UserCouponsConfig.plist */,
@@ -1528,7 +1582,9 @@
 				85CAC52E19C057DD007A1F86 /* icon-agreement02@2x.png in Resources */,
 				26DE2D82195015D100F9C46E /* CityCell.xib in Resources */,
 				26E08B2219545A7B00E55A96 /* ShopBranchListConfig.plist in Resources */,
+				857FE56D1A1890CD0097684F /* ChangePwdConfig.plist in Resources */,
 				26821B5119532DB6005549D3 /* Root.storyboard in Resources */,
+				857FE5801A18C9D80097684F /* CooperateConfig.plist in Resources */,
 				26E3203519526785000A14EF /* UserCardsConfig.plist in Resources */,
 				8596C64A19C13462003B3440 /* icon-user01@2x.png in Resources */,
 				26E1661A193976780041CDD6 /* UMSnsAccountViewController.xib in Resources */,
@@ -1552,18 +1608,18 @@
 				26E0BDCC194BA86700FECD2A /* main_mingxing@2x.png in Resources */,
 				26DE6447195EECF9008835D6 /* UserShopsConfig.plist in Resources */,
 				26B26C75194D8A3B007C1DE6 /* icon_mycoupons@2x.png in Resources */,
+				859E90281A18D4BB00899175 /* UserNewsConfig.plist in Resources */,
 				26E50C651958654600CBFEE8 /* card_bg@2x.png in Resources */,
 				26DEB4BB1941942B0063AADC /* icon_menu@2x.png in Resources */,
 				8596C65419C16F09003B3440 /* register_banner.jpg in Resources */,
 				85CAC53219C057DD007A1F86 /* icon-info@2x.png in Resources */,
 				26919EE3195D7DC000974010 /* UserSettingsConfig.plist in Resources */,
-				26E290FD193DB41600B7E0C9 /* mainConfig.plist in Resources */,
+				26E290FD193DB41600B7E0C9 /* MainConfig.plist in Resources */,
 				26E3A5BC192DE042004F8C8C /* avatar.jpg in Resources */,
 				26E08B201954308000E55A96 /* ShopBranchesCell.xib in Resources */,
 				26DD2D9619C5D22B00A2CB13 /* card2.jpg in Resources */,
 				26DE643D195EBA78008835D6 /* bg_虚线@2x.png in Resources */,
 				855AA51C19C2CC5E002B7099 /* bg-landingpage@2x.jpg in Resources */,
-				26E14BB2193C82FD007A7081 /* UserCenterConfig.plist in Resources */,
 				26E16BBA194F1E1200036039 /* bg_favoriteB@2x.jpg in Resources */,
 				26E50C5A19584E7300CBFEE8 /* icon_tabuser@2x.png in Resources */,
 				85CAC53019C057DD007A1F86 /* icon-delete@2x.png in Resources */,
@@ -1595,8 +1651,10 @@
 				26E1661B193976780041CDD6 /* UMSShareListController.xib in Resources */,
 				85CAC53519C057DD007A1F86 /* icon-password02@2x.png in Resources */,
 				26E0BDC1194B9C5400FECD2A /* navibarBGPattern@2x.png in Resources */,
+				85134FAE1A176F0B00669702 /* EditUserConfig.plist in Resources */,
 				26F2380C19B7422A00D3031B /* CouponHeaderCell2.xib in Resources */,
 				26DEB4BD1941942B0063AADC /* icon_userCenter@2x.png in Resources */,
+				859E902D1A18F27F00899175 /* UserCenterConfig.plist in Resources */,
 				26D4B6F6195C189000C1B727 /* down_dark.png in Resources */,
 				26821B4C19528CC1005549D3 /* CouponHeaderCell.xib in Resources */,
 				26DD2D9519C5D22B00A2CB13 /* card1.jpg in Resources */,
@@ -1612,6 +1670,7 @@
 				26E0BDCA194BA86700FECD2A /* main_huodong@2x.png in Resources */,
 				26E3A53A192DE02F004F8C8C /* Main.storyboard in Resources */,
 				26DD9D7C1962DA5500521317 /* SVProgressHUD.bundle in Resources */,
+				857FE5781A18A2EC0097684F /* AboutUsConfig.plist in Resources */,
 				26E16619193976780041CDD6 /* UMSLoginViewController.xib in Resources */,
 				26DE73AF1963A37C008B2E52 /* bg_nav@2x.png in Resources */,
 				26E0BDBC194B993700FECD2A /* icon_search@2x.png in Resources */,
@@ -1661,13 +1720,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				26E290F2193DB22D00B7E0C9 /* Bank.m in Sources */,
+				857FE5731A18A1E50097684F /* UserNewsViewController.m in Sources */,
 				26D393E4194E8F18000ED175 /* SDImageCache.m in Sources */,
 				26E3A5CE192DE042004F8C8C /* UIWebView+Extras.m in Sources */,
+				857FE5761A18A2180097684F /* AboutUsViewController.m in Sources */,
 				26E14BCE193CC630007A7081 /* Shop.m in Sources */,
 				26E29118193DE3BA00B7E0C9 /* ShopModelDescCell.m in Sources */,
 				26E29115193DE39900B7E0C9 /* ShopBranchesCell.m in Sources */,
 				26E3A5C1192DE042004F8C8C /* NSString+Extras.m in Sources */,
 				26E14B9B193C65FD007A7081 /* SearchCell.m in Sources */,
+				857FE57E1A18C91F0097684F /* CooperateViewController.m in Sources */,
 				26E3A5B8192DE042004F8C8C /* SettingController.m in Sources */,
 				26E3A5D1192DE042004F8C8C /* InsetsLabel.m in Sources */,
 				855AA51A19C2932E002B7099 /* KQTabBarViewController.m in Sources */,
@@ -1687,6 +1749,7 @@
 				26E2911B193DE3F900B7E0C9 /* CouponCommentCell.m in Sources */,
 				26E3A5B9192DE042004F8C8C /* TableConfiguration.m in Sources */,
 				26E14B56193C64E9007A7081 /* AroundViewController.m in Sources */,
+				857FE5701A1891850097684F /* TextfieldCell.m in Sources */,
 				26DE6434195E57D1008835D6 /* DistrictsTableView.m in Sources */,
 				261D34BB1946C1C9009F75CF /* UserShopsViewController.m in Sources */,
 				26821B4819527CF3005549D3 /* LibraryManager.m in Sources */,
@@ -1722,6 +1785,7 @@
 				26E3A5D2192DE042004F8C8C /* InsetsTextField.m in Sources */,
 				26DE644D195F1821008835D6 /* CouponListViewController.m in Sources */,
 				26E14B8C193C65FD007A7081 /* ConfigCell.m in Sources */,
+				857FE56B1A188EFA0097684F /* ChangePwdViewController.m in Sources */,
 				26E3A5CF192DE042004F8C8C /* ExternVariables.m in Sources */,
 				26E14B8E193C65FD007A7081 /* LoadMoreCell.m in Sources */,
 				8596C65919C17A19003B3440 /* AgreementViewController.m in Sources */,
@@ -1759,11 +1823,13 @@
 				263527E21946FD98003A30DD /* NSDictionary+Extras.m in Sources */,
 				26E29104193DBC4000B7E0C9 /* CouponDetailsViewController.m in Sources */,
 				8596C65F19C18891003B3440 /* ForgetPasswordViewController.m in Sources */,
+				85134FAC1A176B1500669702 /* EditUserViewController.m in Sources */,
 				26E3A5CA192DE042004F8C8C /* UIImage+Extras.m in Sources */,
 				261D34C11946C1ED009F75CF /* UserSettingsViewController.m in Sources */,
 				26E14BA2193C6754007A7081 /* KQLabel.m in Sources */,
 				26E3A5BA192DE042004F8C8C /* LoginViewController.m in Sources */,
 				26E2910B193DE15C00B7E0C9 /* ShopBranchListViewController.m in Sources */,
+				859E902B1A18D86200899175 /* News.m in Sources */,
 				26E3A5C0192DE042004F8C8C /* NSMutableArray+Extras.m in Sources */,
 				26DD9D7B1962DA5500521317 /* MBProgressHUD.m in Sources */,
 				26E3A5E6192E2158004F8C8C /* KQLoginViewController.m in Sources */,
@@ -1963,7 +2029,7 @@
 					"$(PROJECT_DIR)/KQ/3rdLibraries/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
 				PRODUCT_NAME = "快券 0.3";
-				PROVISIONING_PROFILE = "85a3d14e-784e-4b58-bb91-97cae3a9dd92";
+				PROVISIONING_PROFILE = "4EB69DDD-1BBD-49D7-86FF-45FE69872990";
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
 				WARNING_CFLAGS = (
 					"-Wno-arc-performSelector-leaks\n-Wno-arc-performSelector-leaks\n-Wno-arc-performSelector-leaks",

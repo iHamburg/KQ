@@ -23,7 +23,11 @@
 - (IBAction)backPressed:(id)sender;
 - (IBAction)submitClicked:(id)sender;
 
+/**
+ *	@brief 默认的返回方式是pop回上一层
+ */
 - (void)back;
+
 - (void)submit;
 
 @end

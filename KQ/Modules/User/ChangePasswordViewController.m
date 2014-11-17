@@ -117,7 +117,6 @@
     
     //
     
-    //!!!: 可以根据Setting的不同进行不同的工作
 	UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier1];
 
         cell.imageView.image = [UIImage imageNamed:_tableImageNames[indexPath.row]];

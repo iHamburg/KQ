@@ -36,17 +36,6 @@
 + (id)sharedInstance;
 
 
-/**
- *	@brief 获取用户个人信息
- *
- */
-//- (void)queryUser:(NSString*)uid block:(IdResultBlock)block;
-
-/**
- *	@brief 获取优惠券信息
- */
-
-- (void)queryCoupon:(NSString*)couponId block:(IdResultBlock)block;
 
 
 
@@ -68,6 +57,53 @@
 
 
 - (void)queryUserInfo:(NSString*)uid sessionToken:(NSString*)sessionToken block:(DictionaryResultBlock)block;
+
+- (void)user:(NSString*)uid editInfo:(NSDictionary*)dict block:(IdResultBlock)block;
+
+/**
+ *	@brief	获取用户的银行卡
+ */
+- (void)queryCards:(NSString*)uid block:(IdResultBlock)block;
+
+- (void)user:(NSString*)uid addCard:(NSString*)cardNumber block:(IdResultBlock)block;
+
+/**
+ *	@brief	获取用户下载的优惠券
+ */
+- (void)queryDownloadedCoupon:(NSString*)uid block:(IdResultBlock)block;
+- (void)user:(NSString*)uid downloadCoupon:(NSString*)couponId block:(IdResultBlock)block;
+/**
+ *	@brief	获取用户收藏的优惠券
+ */
+- (void)queryFavoritedCoupon:(NSString*)uid block:(IdResultBlock)block;
+- (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken favoriteCoupon:(NSString*)couponId block:(IdResultBlock)block;
+- (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken unfavoriteCoupon:(NSString*)couponId block:(IdResultBlock)block;
+
+/**
+ *	@brief	获取用户收藏的商户
+ */
+- (void)queryFavoritedShop:(NSString*)uid block:(IdResultBlock)block;
+- (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken favoriteShop:(NSString*)shopId block:(IdResultBlock)block;
+- (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken unfavoriteShop:(NSString*)shopId block:(IdResultBlock)block;
+
+- (void)queryUserNews:(NSString*)uid skip:(int)skip block:(IdResultBlock)block;
+
+/**
+ *	@brief	忘记密码后的重置密码
+ *
+ *	@param 	username 	<#username description#>
+ *	@param 	password 	md5密文
+ *	@param 	block
+ */
+- (void)user:(NSString*)username resetPassword:(NSString*)password block:(IdResultBlock)block;
+
+
+#pragma mark -
+/**
+ *	@brief 获取优惠券信息
+ */
+
+- (void)queryCoupon:(NSString*)couponId block:(IdResultBlock)block;
 
 /**
  *	
@@ -108,41 +144,6 @@
  */
 - (void)queryHeadCouponTypesWithBlock:(IdResultBlock)block;
 
-/**
- *	@brief	获取用户的银行卡
- */
-- (void)queryCards:(NSString*)uid block:(IdResultBlock)block;
-
-- (void)user:(NSString*)uid addCard:(NSString*)cardNumber block:(IdResultBlock)block;
-
-/**
- *	@brief	获取用户下载的优惠券
- */
-- (void)queryDownloadedCoupon:(NSString*)uid block:(IdResultBlock)block;
-- (void)user:(NSString*)uid downloadCoupon:(NSString*)couponId block:(IdResultBlock)block;
-/**
- *	@brief	获取用户收藏的优惠券
- */
-- (void)queryFavoritedCoupon:(NSString*)uid block:(IdResultBlock)block;
-- (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken favoriteCoupon:(NSString*)couponId block:(IdResultBlock)block;
-- (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken unfavoriteCoupon:(NSString*)couponId block:(IdResultBlock)block;
-
-/**
- *	@brief	获取用户收藏的商户
- */
-- (void)queryFavoritedShop:(NSString*)uid block:(IdResultBlock)block;
-- (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken favoriteShop:(NSString*)shopId block:(IdResultBlock)block;
-- (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken unfavoriteShop:(NSString*)shopId block:(IdResultBlock)block;
-
-
-/**
- *	@brief	忘记密码后的重置密码
- *
- *	@param 	username 	<#username description#>
- *	@param 	password 	md5密文
- *	@param 	block
- */
-- (void)user:(NSString*)username resetPassword:(NSString*)password block:(IdResultBlock)block;
 
 /**
  *	@brief 用户忘记密码时点击获得验证码
@@ -151,11 +152,20 @@
 
 - (void)requestCaptchaRegister:(NSString*)username block:(IdResultBlock)block;
 
+#pragma mark -
 - (void)getWithUrl:(NSString*)url parameters:(NSDictionary*)parameters block:(IdResultBlock)block;
 - (void)postWithUrl:(NSString*)url parameters:(NSDictionary*)parameters block:(IdResultBlock)block;
 //- (void)putWithUrl:(NSString*)url parameters:(NSDictionary*)parameters block:(IdResultBlock)block;
 //- (void)deleteWithUrl:(NSString*)url parameters:(NSDictionary*)parameters block:(IdResultBlock)block;
 
+#pragma mark - Test
 - (void)test;
+
+
+/**
+ *	@brief 获取用户个人信息
+ *
+ */
+//- (void)queryUser:(NSString*)uid block:(IdResultBlock)block;
 
 @end

@@ -128,14 +128,5 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-//{
-//    if ([segue.identifier isEqualToString:@"toCouponDetails"])
-//    {
-//        //        L();
-//        [segue.destinationViewController setValue:sender forKeyPath:@"coupon"];
-//        
-//    }
-//}
 
 @end

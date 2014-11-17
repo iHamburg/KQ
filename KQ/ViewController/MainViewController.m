@@ -38,7 +38,7 @@
     self.title = @"快券";
     self.navigationController.tabBarItem.title = @"首页";
     
-    self.config = [[TableConfiguration alloc] initWithResource:@"mainConfig"];
+    self.config = [[TableConfiguration alloc] initWithResource:@"MainConfig"];
 
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 }

@@ -34,19 +34,19 @@
 					<key>class</key>
 					<string></string>
 					<key>selector</key>
-					<string>toCoupons</string>
+					<string>fCouponPressed:</string>
 					<key>image</key>
 					<string>icon_mycoupons.png</string>
 				</dict>
 				<dict>
 					<key>key</key>
-					<string>aboutus</string>
+					<string></string>
 					<key>label</key>
 					<string>收藏的商户</string>
 					<key>class</key>
 					<string></string>
 					<key>selector</key>
-					<string>toCards</string>
+					<string>fShopPressed:</string>
 					<key>image</key>
 					<string>icon_mycards.png</string>
 				</dict>
@@ -63,7 +63,7 @@
 					<key>class</key>
 					<string></string>
 					<key>selector</key>
-					<string>logout</string>
+					<string>settingPressed:</string>
 					<key>image</key>
 					<string>icon_mycoupons.png</string>
 				</dict>
@@ -75,7 +75,7 @@
 					<key>class</key>
 					<string></string>
 					<key>selector</key>
-					<string>logout</string>
+					<string>newsPressed:</string>
 					<key>image</key>
 					<string>icon_mycoupons.png</string>
 				</dict>
@@ -87,7 +87,7 @@
 					<key>class</key>
 					<string></string>
 					<key>selector</key>
-					<string>logout</string>
+					<string>aboutUsPressed:</string>
 					<key>image</key>
 					<string>icon_mycoupons.png</string>
 				</dict>

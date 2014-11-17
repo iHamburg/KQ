@@ -75,7 +75,6 @@
     
     NSString *cellClassName = [self.config cellClassnameForIndexPath:indexPath];
     
-    //!!!: 可以根据Setting的不同进行不同的工作
 	SettingCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier1];
     
     if (!cell) {

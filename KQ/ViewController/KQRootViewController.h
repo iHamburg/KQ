@@ -8,6 +8,11 @@
 
 #import "RootViewController.h"
 
+typedef enum {
+
+    PresentUserCenterLogin,
+    PresentDefault
+}PresentMode;
 
 @class KQTabBarViewController;
 @class Coupon;
@@ -20,13 +25,14 @@
     
 }
 
+@property (nonatomic, assign) PresentMode presentMode;
 
 /**
  *	@brief	present，Login页面无论如何push，最后dismiss的时候还是回到原来的页面
 比如favorite shop/coupon
- 应该由调用方确认结束？block！
+
  */
-- (void)presentLogin;
+- (void)presentLoginWithMode:(PresentMode)mode;
 
 /**
  *	@brief	present or not present, login页面push到随便逛逛，就不再回到couponDetails
@@ -39,15 +45,29 @@
 - (void)toCouponDetails:(Coupon*)coupon;
 
 
-- (void)toTab:(int)index;
-- (void)toNav:(UIViewController*)vc;
+
 
 
 - (void)toMyCoupons;
 
 - (void)didLogout;
 
+- (void)toTab:(int)index;
 
+/**
+ *	@brief	在present的时候需要告诉root，是什么原因调用的
+ *
+ *	@param 	vc 	<#vc description#>
+ */
+- (void)presentNav:(UIViewController*)vc mode:(PresentMode)mode;
+
+/**
+ *	@brief	在dismiss的时候都会调回default
+ */
+- (void)dismissNav;
+
+
+- (void)addNav:(UIViewController*)vc;
 
 
 @end

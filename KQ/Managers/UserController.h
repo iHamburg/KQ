@@ -23,12 +23,11 @@
 @property (nonatomic, strong) People *people;
 
 @property (nonatomic, strong) CLLocation *checkinLocation;  //用户的当前位置
-@property (nonatomic, strong) UIImage *avatar;
 
 
-@property (nonatomic, strong) NSString *uid;
-@property (nonatomic, strong) NSString *sessionToken;
 
+@property (nonatomic, readonly) NSString *uid;
+@property (nonatomic, readonly) NSString *sessionToken;
 @property (nonatomic, readonly) BOOL isLogin;
 @property (nonatomic, readonly) BOOL hasBankcard;
 
@@ -53,13 +52,45 @@
 - (void)loginWithUsername:(NSString*)username password:(NSString*)pw boolBlock:(BooleanResultBlock)block;
 
 
+/**
+ *	@brief	有必要中间加这个函数，这样VC就不用直接和user:editInfo: 打交道了
+ *
+ *	@param 	nickname 	<#nickname description#>
+ *	@param 	block 	<#block description#>
+ */
+- (void)changeNickname:(NSString *)nickname boolBlock:(BooleanResultBlock)block;
+
+
+/**
+ *	@brief
+ *
+ *	@param 	img 	要是小尺寸的图片
+ *	@param 	block 	<#block description#>
+ */
+- (void)changeAvatar:(UIImage*)img boolBlock:(BooleanResultBlock)block;
+
+/**
+ *	@brief	<#Description#>
+ *
+ *	@param 	oldPwd 	明文
+ *	@param 	newPwd 	明文
+ *	@param 	block 	<#block description#>
+ */
+- (void)changePwd:(NSString*)oldPwd newPwd:(NSString*)newPwd boolBlock:(BooleanResultBlock)block;
+
 - (void)logout;
 
-- (void)requestPasswordResetForEmailInBackground:(NSString*)email block:(BooleanResultBlock)block;
-
-//- (void)loadUser;
 
 - (CLLocationDistance)distanceFromLocation:(CLLocation*)location;
+
+/**
+ *	@brief	把People信息保存到NSDefautls中
+ *
+ *	@param 	people 	<#people description#>
+ */
+- (void)savePeople:(People*)people;
+
+- (People*)loadPeople;
 
 - (void)test;
 

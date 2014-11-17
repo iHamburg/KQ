@@ -44,6 +44,9 @@
 // 获取用户信息
 #define api_userinfo            [RESTHOST stringByAppendingFormat:@"/userInfo"]
 
+// 修改用户信息
+#define api_edituserInfo        [RESTHOST stringByAppendingFormat:@"/editUserInfo"]
+
 //用户绑定的银行卡
 #define api_my_card             [RESTHOST stringByAppendingFormat:@"/mycard"]
 
@@ -57,14 +60,21 @@
 //用户收藏的商户(总店)
 #define api_my_favoritedShop    [RESTHOST stringByAppendingFormat:@"/myFavoritedShop"]
 
-
-#define api_requestCaptchaForgetPassword [RESTHOST stringByAppendingFormat:@"/captchaforgetpwd"]
-
+// 用户的站内信
+#define api_my_news             [RESTHOST stringByAppendingFormat:@"/myNews"]
+// 用户编辑信息
 #define api_edit_user_info       [RESTHOST stringByAppendingFormat:@"/editUserInfo"]
 
-#define api_captcha_register    [RESTHOST stringByAppendingFormat:@"/captcharegister"]
-
+// 用户重置密码
 #define api_reset_password    [RESTHOST stringByAppendingFormat:@"/resetPassword"]
+
+
+
+// 用户忘记密码的验证码
+#define api_requestCaptchaForgetPassword [RESTHOST stringByAppendingFormat:@"/captchaforgetpwd"]
+
+// 用户注册的验证码
+#define api_captcha_register    [RESTHOST stringByAppendingFormat:@"/captcharegister"]
 
 @interface NetworkClient (){
     
@@ -117,14 +127,14 @@
   
     
 }
-
-- (void)queryUser:(NSString*)uid block:(IdResultBlock)block{
-    
-    
-    [self getWithUrl:api_user parameters:@{@"uid":uid} block:block];
-    
-    
-}
+//
+//- (void)queryUser:(NSString*)uid block:(IdResultBlock)block{
+//    
+//    
+//    [self getWithUrl:api_user parameters:@{@"uid":uid} block:block];
+//    
+//    
+//}
 
 - (void)queryUserInfo:(NSString*)uid sessionToken:(NSString*)sessionToken block:(DictionaryResultBlock)block{
     
@@ -132,80 +142,10 @@
     
 }
 
-- (void)queryCoupon:(NSString*)couponId block:(IdResultBlock)block{
-
+- (void)user:(NSString*)uid editInfo:(NSDictionary*)dict block:(IdResultBlock)block{
     
-    [self getWithUrl:api_coupon parameters:@{@"id":couponId} block:block];
-    
+    [self postWithUrl:api_edit_user_info parameters:dict block:block];
 }
-
-
-- (void)queryHotestCouponsSkip:(int)skip block:(IdResultBlock)block{
-
-    
-    [self getWithUrl:api_hotestCoupons parameters:@{@"skip":[NSString stringWithInt:skip]} block:block];
-}
-
-
-/// deprecated
-- (void)queryCouponsWithShop:(NSString*)shopId block:(IdResultBlock)block{
-//    
-//    
-//    
-//    NSString *url = [RESTHOST stringByAppendingFormat:@"/coupon"];
-//    
-//     NSDictionary *params = @{@"where":[AVOSEngine avosPointerWithField:@"shop" className:@"Shop" objectId:shopId]} ;
-//    
-//    NSLog(@"params # %@",params);
-//    
-//    [self getWithUrl:url parameters:params block:block];
-}
-
-
-
-
-- (void)queryHeadDistrictsWithBlock:(IdResultBlock)block{
-    
-   
-    [self getWithUrl:api_headDistricts parameters:nil block:block];
-
-}
-
-- (void)queryHeadCouponTypesWithBlock:(IdResultBlock)block{
-
-    [self getWithUrl:api_headCouponTypes parameters:nil block:block];
-
-}
-
-
-
-///deprecated
-- (void)queryShopBranches:(NSString*)parentId block:(IdResultBlock)block{
-
-
-    NSString *url = [RESTHOST stringByAppendingFormat:@"/shopbranches/parentId/%@",parentId];
-    
-
-       [self getWithUrl:url parameters:nil block:block];
-}
-
-
-- (void)searchCoupons:(NSDictionary*)params block:(IdResultBlock)block{
-
-    [self getWithUrl:api_searchCoupons parameters:params block:block];
-}
-
-- (void)requestCaptchaForgetPassword:(NSString*)username block:(IdResultBlock)block{
-    
-    [self getWithUrl:api_requestCaptchaForgetPassword parameters:@{@"username":username} block:block];
-}
-
-- (void)requestCaptchaRegister:(NSString*)username block:(IdResultBlock)block{
-    
-    [self getWithUrl:api_captcha_register parameters:@{@"mobile":username} block:block];
-}
-
-#pragma mark - My
 
 - (void)queryCards:(NSString*)uid block:(IdResultBlock)block{
     
@@ -280,6 +220,88 @@
     
     [self postWithUrl:api_reset_password parameters:@{@"username":username,@"password":password} block:block];
 }
+
+- (void)queryUserNews:(NSString*)uid skip:(int)skip block:(IdResultBlock)block{
+    
+    [self getWithUrl:api_my_news parameters:@{@"uid":uid,@"skip":[NSString stringWithInt:skip]} block:block];
+    
+}
+
+#pragma mark -
+
+- (void)queryCoupon:(NSString*)couponId block:(IdResultBlock)block{
+    
+    
+    [self getWithUrl:api_coupon parameters:@{@"id":couponId} block:block];
+    
+}
+
+
+- (void)queryHotestCouponsSkip:(int)skip block:(IdResultBlock)block{
+    
+    
+    [self getWithUrl:api_hotestCoupons parameters:@{@"skip":[NSString stringWithInt:skip]} block:block];
+}
+
+
+/// deprecated
+- (void)queryCouponsWithShop:(NSString*)shopId block:(IdResultBlock)block{
+    //
+    //
+    //
+    //    NSString *url = [RESTHOST stringByAppendingFormat:@"/coupon"];
+    //
+    //     NSDictionary *params = @{@"where":[AVOSEngine avosPointerWithField:@"shop" className:@"Shop" objectId:shopId]} ;
+    //
+    //    NSLog(@"params # %@",params);
+    //
+    //    [self getWithUrl:url parameters:params block:block];
+}
+
+
+
+
+- (void)queryHeadDistrictsWithBlock:(IdResultBlock)block{
+    
+    
+    [self getWithUrl:api_headDistricts parameters:nil block:block];
+    
+}
+
+- (void)queryHeadCouponTypesWithBlock:(IdResultBlock)block{
+    
+    [self getWithUrl:api_headCouponTypes parameters:nil block:block];
+    
+}
+
+
+
+///deprecated
+- (void)queryShopBranches:(NSString*)parentId block:(IdResultBlock)block{
+    
+    
+    NSString *url = [RESTHOST stringByAppendingFormat:@"/shopbranches/parentId/%@",parentId];
+    
+    
+    [self getWithUrl:url parameters:nil block:block];
+}
+
+
+- (void)searchCoupons:(NSDictionary*)params block:(IdResultBlock)block{
+    
+    [self getWithUrl:api_searchCoupons parameters:params block:block];
+}
+
+- (void)requestCaptchaForgetPassword:(NSString*)username block:(IdResultBlock)block{
+    
+    [self getWithUrl:api_requestCaptchaForgetPassword parameters:@{@"username":username} block:block];
+}
+
+- (void)requestCaptchaRegister:(NSString*)username block:(IdResultBlock)block{
+    
+    [self getWithUrl:api_captcha_register parameters:@{@"mobile":username} block:block];
+}
+
 
 
 #pragma mark - Intern Fcns

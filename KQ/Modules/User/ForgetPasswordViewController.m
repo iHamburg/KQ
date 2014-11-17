@@ -102,7 +102,6 @@
     static NSString *CellIdentifier1 = @"Cell1";
     
     
-    //!!!: 可以根据Setting的不同进行不同的工作
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier1];
     
     if (!cell) {

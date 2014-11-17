@@ -9,30 +9,27 @@
 			<array>
 				<dict>
 					<key>key</key>
-					<string>notification</string>
-					<key>label</key>
-					<string>广播</string>
-					<key>class</key>
-					<string>SwitchCell</string>
-					<key>selector</key>
 					<string></string>
+					<key>label</key>
+					<string>意见反馈</string>
+					<key>class</key>
+					<string></string>
+					<key>selector</key>
+					<string>feedbackPressed:</string>
 				</dict>
-			</array>
-		</dict>
-		<dict>
-			<key>rows</key>
-			<array>
 				<dict>
 					<key>key</key>
 					<string></string>
 					<key>label</key>
-					<string>版本更新</string>
+					<string>商户合作</string>
 					<key>class</key>
-					<string>ButtonCell</string>
+					<string></string>
 					<key>selector</key>
-					<string>versionPressed:</string>
+					<string>cooperatePressed:</string>
 				</dict>
 			</array>
+			<key>height</key>
+			<string>50</string>
 		</dict>
 	</array>
 </dict>

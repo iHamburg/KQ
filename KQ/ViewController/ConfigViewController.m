@@ -126,6 +126,8 @@
     
 //    NSLog(@"className # %@,identifier %@,cell # %@",cellClassName,identifier,cell);
     
+    cell.key = [_config keyForIndexPath:indexPath];
+    // 只要有label，就会显示在textLabel上！但如果是textfieldCell，textLabel会被盖到下面去不显示
     cell.textLabel.text = [_config labelForIndexPath:indexPath];
 
     NSString *imgName = [_config imageNameForIndexPath:indexPath];
@@ -159,13 +161,45 @@
         [self performSelector:selector withObject:nil];
     }
 
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
 }
-- (void)initConfigCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath{
-}
-- (void)configCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath{
 
+
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    
+    if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
+        [self.tableView setSeparatorInset:UIEdgeInsetsZero];
+    }
+    
+    if ([self.tableView respondsToSelector:@selector(setLayoutMargins:)]) {
+        [self.tableView setLayoutMargins:UIEdgeInsetsZero];
+    }
 }
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+
+{
+    
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+        
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+        
+    }
+    
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+        
+    }
+    
+}
+
+- (void)initConfigCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath{}
+
+- (void)configCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath{}
+
 
 
 @end

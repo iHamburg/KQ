@@ -50,7 +50,7 @@
     _passwordTextField.returnKeyType = UIReturnKeyGo;
     _passwordTextField.placeholder = @"密码";
     _passwordTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    _passwordTextField.text = @"12345678";
+    _passwordTextField.text = @"111";
     
     _tfs = @[_userTextField,_passwordTextField];
     _tableImageNames = @[@"icon-user.png",@"icon-password01.png"];
@@ -146,7 +146,7 @@
     static NSString *CellIdentifier1 = @"Cell1";
     
     
-    //!!!: 可以根据Setting的不同进行不同的工作
+    
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier1];
     
     if (!cell) {
@@ -167,15 +167,6 @@
 
 }
 
-#pragma mark - 
-- (void)back{
-    
-    L();
-    [self.navigationController dismissViewControllerAnimated:YES completion:^{
-        
-    }];
-}
-
 #pragma mark - Fcns
 
 - (void)loginWithEmail:(NSString*)email password:(NSString *)password{
@@ -185,9 +176,17 @@
     [[UserController sharedInstance] loginWithUsername:email password:[password stringWithMD5] boolBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
         
-            [self back];
+            NSLog(@"login successful");
+            PresentMode presentMode = [[KQRootViewController sharedInstance] presentMode];
             
-//            [[KQRootViewController sharedInstance] didLogin];
+            //登录成功就返回present前的页面
+            if (presentMode == PresentUserCenterLogin || presentMode == PresentDefault) {
+              
+              
+                [[KQRootViewController sharedInstance] dismissNav];
+            }
+            
+            
         
         }
     }];

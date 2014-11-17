@@ -58,12 +58,10 @@
 
 //height: 85
 
-
 - (void)load{
     
 //    L();
-    
-    
+  
     self.separatorInset = UIEdgeInsetsMake(0, 0, 0,0); // 分割线是全屏的
     
     self.imageView.frame = CGRectMake(10, 10, 108, 65);
@@ -100,7 +98,7 @@
 }
 
 - (void)layoutSubviews{
-//
+
 
 }
 

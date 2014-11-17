@@ -261,7 +261,12 @@
     
 }
 
-- (void)presentLogin{
+- (void)presentLoginWithMode:(PresentMode)mode;{
+    KQLoginViewController *vc = [[KQLoginViewController alloc] init];
+    vc.view.alpha = 1;  //提前先load LoginVC，生成back，这样之后的back的selector能覆盖默认的back
+    
+    
+    [self presentNav:vc mode:mode];
     
 }
 
@@ -278,7 +283,29 @@
     
 }
 
-- (void)toNav:(UIViewController*)vc{
+- (void)presentNav:(UIViewController*)vc mode:(PresentMode)mode{
+    
+    self.presentMode = mode;
+    
+    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_back.png" target:self action:@selector(dismissNav)]];
+    
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
+        
+    }];
+
+}
+
+
+- (void)dismissNav{
+    
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+        // 把presentMode调回default
+        self.presentMode = PresentDefault;
+    }];
+}
+
+- (void)addNav:(UIViewController*)vc{
     
 }
 

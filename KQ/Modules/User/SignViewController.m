@@ -60,7 +60,6 @@
     
     //
     
-    //!!!: 可以根据Setting的不同进行不同的工作
     
 	UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier1];
     
@@ -83,7 +82,9 @@
 }
 
 - (void)back{
+    
     [self.navigationController popViewControllerAnimated:YES];
+
 }
 
 - (void)submit{

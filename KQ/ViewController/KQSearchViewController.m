@@ -110,21 +110,21 @@
     NSArray *leftKeys = _manager.districts;
     NSMutableDictionary *dataSource = [NSMutableDictionary dictionary];
   
-    for (District *district in leftKeys) {
-      
+//    for (District *district in leftKeys) {
+    
         //TODO:  district 换成2行而不是3行的
 //        [dataSource setObject:district.subDistricts  forKey:district];
-    }
+//    }
     
     _districtDataSource = [dataSource copy];
     
     NSArray *rightKeys = _manager.couponTypes;
     [dataSource removeAllObjects];
-    for (CouponType *type in rightKeys) {
+//    for (CouponType *type in rightKeys) {
           //TODO:  CouponType 换成2行而不是3行的
 //        NSArray *arr = @[type.title,type.title,type.title];
 //        [dataSource setObject:type.subTypes forKey:type];
-    }
+//    }
     _couponTypeDataSource = [dataSource copy];
     
     __weak KQSearchViewController *vc = self;

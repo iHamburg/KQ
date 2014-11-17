@@ -42,9 +42,19 @@
     }
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//
+//    
+//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+//}
 
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+- (IBAction)versionPressed:(id)sender{
+    [self checkVersion];
 }
+
+- (void)checkVersion{
+    L();
+}
+
 @end

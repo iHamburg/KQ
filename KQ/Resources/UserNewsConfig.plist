@@ -9,30 +9,19 @@
 			<array>
 				<dict>
 					<key>key</key>
-					<string>notification</string>
+					<string></string>
 					<key>label</key>
-					<string>广播</string>
+					<string></string>
 					<key>class</key>
-					<string>SwitchCell</string>
+					<string>NewsCell</string>
 					<key>selector</key>
 					<string></string>
 				</dict>
 			</array>
-		</dict>
-		<dict>
-			<key>rows</key>
-			<array>
-				<dict>
-					<key>key</key>
-					<string></string>
-					<key>label</key>
-					<string>版本更新</string>
-					<key>class</key>
-					<string>ButtonCell</string>
-					<key>selector</key>
-					<string>versionPressed:</string>
-				</dict>
-			</array>
+			<key>dynamic</key>
+			<integer>1</integer>
+			<key>height</key>
+			<string>100</string>
 		</dict>
 	</array>
 </dict>

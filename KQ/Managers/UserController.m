@@ -12,7 +12,7 @@
 #import "Card.h"
 #import "ErrorManager.h"
 #import "LibraryManager.h"
-
+#import "NSString+md5.h"
 
 @interface UserController (){
 
@@ -26,19 +26,20 @@
 @implementation UserController
 
 
-- (void)setAvatar:(UIImage *)avatar{
-    //
-//    [[AVOSEngine sharedInstance] saveImageForUser:avatar key:@"avatar" block:^(BOOL succeeded, NSError *error) {
-//        if (succeeded) {
-//            [self loadUser];
-//        }
-//    }];
+
+- (NSString*)uid{
+    
+    return self.people.id;
+}
+
+- (NSString*)sessionToken{
+    return self.people.sessionToken;
 }
 
 - (BOOL)isLogin{
     
     
-    if (self.uid) {
+    if (self.people) {
         return YES;
     }
     else
@@ -47,7 +48,7 @@
 
 - (BOOL)hasBankcard{
     
-    if (!self.isLogin) {
+    if (!self.people) {
         return NO;
     }
     else if(ISEMPTY(self.people.cardIds)){
@@ -82,26 +83,19 @@
         _networkClient = [NetworkClient sharedInstance];
         
 
-        NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"User"];
-        People *people = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-        NSLog(@"people # %@",people.username);
+        self.people = [self loadPeople];
+        NSLog(@"people # %@",self.people);
         
-        //如果记录有uid的话就login
-        NSString *uid = [[NSUserDefaults standardUserDefaults] objectForKey:@"uid"];
-        NSString *sessionToken =[[NSUserDefaults standardUserDefaults] objectForKey:@"sessionToken"];
-
-        NSLog(@"uid # %@, token # %@",uid,sessionToken);
-    
-        
-        if (!ISEMPTY(uid) && !ISEMPTY(sessionToken)) {
-            self.uid = uid;
-            self.sessionToken = sessionToken;
+        // 如果用户已经登陆的话
+        if (!ISEMPTY(self.people)) {
             //判断session是否过期
-           
+            
+         
+            
             [_networkClient queryUserInfo:self.uid sessionToken:self.sessionToken block:^(NSDictionary* dict, NSError *error) {
                 
                 if (!error) {
-                // 如果没有出错
+                    // 如果没有出错
                     NSLog(@"dict # %@",dict);
                     
                 }
@@ -109,20 +103,21 @@
                     int code = error.code;
                     
                     if (code == ErrorInvalidSession){
-                    // 如果是session过期，logout
+                        // 如果是session过期，logout
                         
                         [self logout];
                     }
                     else{
-                    // 其他的错误就显示给用户
+                        // 其他的错误就显示给用户
                         
                         [ErrorManager alertError:error];
                     }
                 }
-     
+                
             }];
-            
+
         }
+   
         
         self.checkinLocation = [[CLLocation alloc] initWithLatitude:31.02 longitude:121.02];
         
@@ -171,45 +166,11 @@
 
 #pragma mark - Fcns
 
-//- (void)loadUser{
-
-//    self.uid = [[NSUserDefaults standardUserDefaults] objectForKey:@"uid"];
-//    self.sessionToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
- 
-
-//    [_networkClient queryUser:self.uid block:^(NSDictionary *dict, NSError *error) {
-    
-//        if (!ISEMPTY(dict)) {
-//            self.people = [People peopleWithDict:dict];
-//            
-//        }
-//        
-//        [_networkClient queryCards:self.uid block:^(NSArray *array, NSError *error) {
-//            
-////            NSLog(@"cards # %@",array);
-//            
-//            if (ISEMPTY(array)) {
-//                return ;
-//            }
-//            
-//            self.people.cardIds = [NSMutableSet set];
-//            
-//            for (NSDictionary *dict in array) {
-//                [self.people.cardIds addObject:dict[@"objectId"]];
-//                
-//            }
-////            NSLog(@"people.cardIds # %@",self.people.cardIds);
-//        }];
-        
-//    }];
-//}
-
-
 
 - (void)registerWithUserInfo:(NSDictionary*)userInfo block:(BooleanResultBlock)block{
     
     
-    [[NetworkClient sharedInstance] registerWithDict:userInfo block:^(NSDictionary *dict, NSError *error) {
+    [_networkClient registerWithDict:userInfo block:^(NSDictionary *dict, NSError *error) {
        
         if (!error) {
             // 如果注册成功
@@ -223,6 +184,7 @@
             block(NO,error);
             
         }
+        
     }];
 
     
@@ -233,31 +195,16 @@
     
 //    NSLog(@"pw # %@",pw);
   
-  
     
-    [[NetworkClient sharedInstance] loginWithUsername:email password:pw block:^(NSDictionary *dict, NSError *error) {
+    [_networkClient loginWithUsername:email password:pw block:^(NSDictionary *dict, NSError *error) {
         
         if (!error) {
-            // 如果没有出错
-        
-            self.uid = dict[@"id"];
-            self.sessionToken = dict[@"sessionToken"];
-            
-            
-            [[NSUserDefaults standardUserDefaults] setObject:self.uid forKey:@"uid"];
-            [[NSUserDefaults standardUserDefaults] setObject:self.sessionToken forKey:@"sessionToken"];
-            
-            // 载入信息到当前的user！
+            // 如果没有出错,载入信息到当前的user！
             
             self.people = [People peopleWithDict:dict];
             self.people.password = pw;
             
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-            NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.people];
-            [defaults setObject:data forKey:@"User"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            
-            
+            [self savePeople:self.people];
             
             
             block(YES,nil);
@@ -275,23 +222,112 @@
 
 }
 
-
-
-- (void)requestPasswordResetForEmailInBackground:(NSString*)email block:(BooleanResultBlock)block{
+- (void)changeNickname:(NSString *)nickname boolBlock:(BooleanResultBlock)block{
     
-//    [_engine requestPasswordResetForEmailInBackground:email block:block];
+    NSDictionary *dict = @{@"uid":self.uid,@"sessionToken":self.sessionToken,@"nickname":nickname};
+    
+    [_networkClient user:self.uid editInfo:dict block:^(NSDictionary *dict, NSError *error) {
+       
+        if (!error) {
+            
+            self.people.nickname = dict[@"nickname"];
+            
+            // 保存people
+            [self savePeople:self.people];
+            
+            block(YES,nil);
+        }
+        else{
+            [ErrorManager alertError:error];
+            
+            block(NO,error);
+        }
+    }];
+    
 }
+
+- (void)changeAvatar:(UIImage*)img boolBlock:(BooleanResultBlock)block{
+    
+    NSData *_data = UIImageJPEGRepresentation(img, .8f);
+    
+    NSString *_encodedImageStr = [_data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    
+    NSDictionary *dict = @{@"uid":self.uid,@"sessionToken":self.sessionToken,@"avatar":_encodedImageStr};
+    
+    
+    [_networkClient user:self.uid editInfo:dict block:^(NSDictionary *dict, NSError *error) {
+        if (!error) {
+            if ([dict isKindOfClass:[NSDictionary class]]) {
+                dict = [dict dictionaryCheckNull];
+            }
+            self.people.avatarUrl = dict[@"avatarUrl"];
+            [self savePeople:self.people];
+            
+            block(YES,nil);
+        }
+        else{
+            [ErrorManager alertError:error];
+            block(NO,error);
+        }
+    }];
+
+}
+
+- (void)changePwd:(NSString*)oldPwd newPwd:(NSString*)newPwd boolBlock:(BooleanResultBlock)block{
+    
+    NSDictionary *pwdDict = @{@"oldPassword":[oldPwd stringWithMD5],@"newPassword":[newPwd stringWithMD5]};
+    NSData *jsonData = [NSJSONSerialization
+                        dataWithJSONObject:pwdDict options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *jsonStr = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+     NSDictionary *dict = @{@"uid":self.uid,@"sessionToken":self.sessionToken,@"password":jsonStr};
+    
+    [_networkClient user:self.uid editInfo:dict block:^(NSDictionary *dict, NSError *error) {
+        if (!error) {
+            if ([dict isKindOfClass:[NSDictionary class]]) {
+                dict = [dict dictionaryCheckNull];
+            }
+            self.people.password = newPwd;
+            [self savePeople:self.people];
+            
+            block(YES,nil);
+        }
+        else{
+            [ErrorManager alertError:error];
+            block(NO,error);
+        }
+    }];
+
+    
+}
+
+//- (void)requestPasswordResetForEmailInBackground:(NSString*)email block:(BooleanResultBlock)block{
+//    
+////    [_engine requestPasswordResetForEmailInBackground:email block:block];
+//}
 
 - (void)logout{
     
-    self.uid = nil;
-    self.sessionToken = nil;
     
-    [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"uid"];
-    [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"token"];
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"User"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
        
+}
+
+- (void)savePeople:(People*)people{
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:people];
+    [defaults setObject:data forKey:@"User"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
+}
+
+- (People*)loadPeople{
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"User"];
+    People *people = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+
+    return people;
 }
 
 
