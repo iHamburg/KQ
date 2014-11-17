@@ -75,14 +75,16 @@
 /**
  *	@brief	获取用户收藏的优惠券
  */
-- (void)queryFavoritedCoupon:(NSString*)uid block:(IdResultBlock)block;
+- (void)queryFavoritedCoupon:(NSString*)uid skip:(int)skip block:(IdResultBlock)block;
 - (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken favoriteCoupon:(NSString*)couponId block:(IdResultBlock)block;
 - (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken unfavoriteCoupon:(NSString*)couponId block:(IdResultBlock)block;
 
 /**
  *	@brief	获取用户收藏的商户
  */
-- (void)queryFavoritedShop:(NSString*)uid block:(IdResultBlock)block;
+
+- (void)queryFavoritedShop:(NSString*)uid skip:(int)skip block:(IdResultBlock)block;
+
 - (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken favoriteShop:(NSString*)shopId block:(IdResultBlock)block;
 - (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken unfavoriteShop:(NSString*)shopId block:(IdResultBlock)block;
 

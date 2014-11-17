@@ -28,6 +28,7 @@
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
+    // 增加一个notification
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshModels) name:@"refreshFavoritedCoupons" object:nil];
 }
 
@@ -76,21 +77,33 @@
     
     [self.models removeAllObjects];
     
-    [_networkClient queryFavoritedCoupon:_userController.uid block:^(NSArray *couponDicts, NSError *error) {
+    [_networkClient queryFavoritedCoupon:_userController.uid skip:0 block:^(NSDictionary *couponDicts, NSError *error) {
         
         [_libraryManager dismissProgress:nil];
-        if (ISEMPTY(couponDicts)) {
-            [_libraryManager startHint:@"还没有收藏商户" duration:1];
+        
+        if (!error) {
+            NSArray *array = couponDicts[@"coupons"];
+
+            NSLog(@"array # %@",array);
+            [self.tableView reloadData];
         }
         else{
-//            NSLog(@"couponDicts # %@",couponDicts);
-            for (NSDictionary *dict in couponDicts) {
-                Coupon *coupon = [Coupon couponWithDict:dict];
-                [self.models addObject:coupon];
-                
-            }
+            [ErrorManager alertError:error];
         }
-        [self.tableView reloadData];
+        
+//        if (ISEMPTY(couponDicts)) {
+//            [_libraryManager startHint:@"还没有收藏商户" duration:1];
+//        }
+//        else{
+////            NSLog(@"couponDicts # %@",couponDicts);
+//            for (NSDictionary *dict in couponDicts) {
+//                Coupon *coupon = [Coupon couponWithDict:dict];
+//                [self.models addObject:coupon];
+//                
+//            }
+//        }
+        
+        
      
     }];
 
@@ -100,8 +113,11 @@
 - (void)refreshModels{
     [self.models removeAllObjects];
     
-    [_networkClient queryFavoritedCoupon:_userController.uid block:^(NSArray *couponDicts, NSError *error) {
-   
+    [_networkClient queryFavoritedCoupon:_userController.uid skip:0 block:^(NSDictionary *couponDicts, NSError *error) {
+        
+        
+        
+//   
         if (ISEMPTY(couponDicts)) {
      
         }
@@ -113,7 +129,7 @@
                 
             }
         }
-  
+//
         [self.tableView reloadData];
         
     }];

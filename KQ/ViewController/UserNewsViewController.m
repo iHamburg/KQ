@@ -26,10 +26,6 @@
 
 - (void)load{
     
-    //    L();
-    
-    
-//    self.separatorInset = UIEdgeInsetsMake(0, 0, 0,0); // 分割线是全屏的
     
     self.imageView.frame = CGRectMake(10, 10, 108, 65);
     self.imageView.layer.masksToBounds = YES;
@@ -108,7 +104,7 @@
     
     [self.models removeAllObjects];
     
-    NSLog(@"uid # %@",_userController.uid);
+//    NSLog(@"uid # %@",_userController.uid);
     
     [_networkClient queryUserNews:_userController.uid skip:0 block:^(NSDictionary *dict, NSError *error) {
         

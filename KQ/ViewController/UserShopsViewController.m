@@ -76,7 +76,7 @@
     
     [self.models removeAllObjects];
     
-    [_networkClient queryFavoritedShop:_userController.uid block:^(NSArray *couponDicts, NSError *error) {
+    [_networkClient queryFavoritedShop:_userController.uid skip:0 block:^(NSArray *couponDicts, NSError *error) {
 
         [_libraryManager dismissProgress:nil];
         if (ISEMPTY(couponDicts)) {
@@ -104,7 +104,7 @@
 - (void)refreshModels{
     [self.models removeAllObjects];
     
-    [_networkClient queryFavoritedShop:_userController.uid block:^(NSArray *couponDicts, NSError *error) {
+    [_networkClient queryFavoritedShop:_userController.uid skip:0 block:^(NSArray *couponDicts, NSError *error) {
         //
       
         NSLog(@"shops # %@",couponDicts);

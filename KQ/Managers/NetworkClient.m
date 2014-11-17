@@ -176,9 +176,9 @@
     [self postWithUrl:api_my_downloadedCoupon parameters:@{@"uid":uid,@"couponId":couponId} block:block];
 }
 
-- (void)queryFavoritedCoupon:(NSString*)uid block:(IdResultBlock)block{
+- (void)queryFavoritedCoupon:(NSString*)uid skip:(int)skip block:(IdResultBlock)block{
   
-    [self getWithUrl:api_my_favoritedCoupon parameters:@{@"uid":uid} block:block];
+    [self getWithUrl:api_my_favoritedCoupon parameters:@{@"uid":uid,@"skip":[NSString stringWithInt:skip]} block:block];
 }
 
 - (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken favoriteCoupon:(NSString*)couponId block:(IdResultBlock)block{
@@ -197,9 +197,9 @@
 }
 
 
-- (void)queryFavoritedShop:(NSString*)uid block:(IdResultBlock)block{
+- (void)queryFavoritedShop:(NSString*)uid skip:(int)skip block:(IdResultBlock)block{
   
-    [self getWithUrl:api_my_favoritedShop parameters:@{@"uid":uid} block:block];
+    [self getWithUrl:api_my_favoritedShop parameters:@{@"uid":uid,@"skip":[NSString stringWithInt:skip]} block:block];
     
 }
 

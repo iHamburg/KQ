@@ -141,19 +141,9 @@
     self.title = @"我的";
     
    // _config = [[TableConfiguration alloc] initWithResource:@"UserCenterLoginConfig"];
-    _config = [[TableConfiguration alloc] initWithResource:@"UserCenterConfig"];
+    _config = [[TableConfiguration alloc] initWithResource:@"UserCenterLoginConfig"];
 
-//    if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
-//        
-//        [self.tableView setSeparatorInset:UIEdgeInsetsZero];
-//        
-//    }
-//    
-//    if ([self.tableView respondsToSelector:@selector(setLayoutMargins:)]) {
-//        
-//        [self.tableView setLayoutMargins:UIEdgeInsetsZero];
-//        
-//    }
+
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -202,21 +192,22 @@
 #pragma mark - TableView
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section == 0) {
-        return headerHeight;
+//        return headerHeight;
+        return 1;
     }
     return 20;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    if (section == 0) {
-        UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _w, headerHeight)];
-        v.backgroundColor = kColorBlue;
-        
-        return v;
-    }
-    
-    return nil;
-}
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+//    if (section == 0) {
+//        UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _w, headerHeight)];
+//        v.backgroundColor = kColorBlue;
+//        
+//        return v;
+//    }
+//    
+//    return nil;
+//}
 
 // 反正没太大的关系，可以多次调用
 - (void)configCell:(ConfigCell *)cell atIndexPath:(NSIndexPath *)indexPath{
