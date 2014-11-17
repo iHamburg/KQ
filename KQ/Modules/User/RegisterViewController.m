@@ -8,6 +8,11 @@
 
 #import "RegisterViewController.h"
 #import "ErrorManager.h"
+#import "UserController.h"
+#import "AgreementViewController.h"
+#import "AfterDownloadViewController.h"
+#import "NetworkClient.h"
+#import "NSString+md5.h"
 
 @interface RegisterViewController (){
     
@@ -235,40 +240,171 @@
 }
 #pragma mark - Private methods
 
+//- (void)requestCaptcha{
+//
+//}
+//
+//-(IBAction)signUpUserPressed:(id)sender
+//{
+//
+//   
+//}
+//
+//
+//- (void)toAgreement{
+//    
+//}
+//
+//- (void)registerUser:(NSDictionary *)userInfo{
+//
+//}
+//
+//- (void)validateWithBlock:(BooleanResultBlock)block{
+//}
+
+
+//#pragma mark - Alert
+//- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
+//    
+//    [[NetworkClient sharedInstance] user:[[UserController sharedInstance] uid] downloadCoupon:kEventCouponId block:^(id obj, NSError *error) {
+//        
+//        if (obj) {
+//            
+//            //            [_libraryManager startHint:@"下载快券成功"];
+//            
+//            NSLog(@"下载快券成功");
+//        }
+//        
+//    }];
+//    
+//    [self toAfterDownload];
+//}
+
+#pragma mark - Fcn
+
+
+
+-(IBAction)signUpUserPressed:(id)sender
+{
+    
+    ///  先进行validate， 通过后再注册
+    [self validateWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            
+            NSDictionary *info = @{@"username":self.userTextField.text,@"password":[_passwordTextField.text stringWithMD5]};
+            
+            //    NSLog(@"info # %@",info);
+            
+            [self registerUser:info];
+        }
+        else{
+            NSString *msg = [error localizedDescription];
+            [UIAlertView showAlert:msg msg:nil cancel:@"OK"];
+        }
+    }];
+    
+    
+}
+
+- (void)validateWithBlock:(BooleanResultBlock)block{
+    
+    CustomErrorCode code = 0;
+    
+    //    NSString *msg = @"请输入所有信息";
+    NSString *inputedCaptcha = _verifyTextField.text;
+    
+    if (ISEMPTY(_userTextField.text) || ISEMPTY(_passwordTextField.text)) {
+        // 如果用户名或密码为空
+        
+        code = ErrorAppEmptyParameter;
+        
+        
+    }
+    else if(![self.captcha isEqualToString:[inputedCaptcha stringWithMD5]]){
+        
+        
+        code = ErrorAppInvalidCaptcha;
+    }
+    
+    if (code == 0) {
+        block(YES,nil);
+    }
+    else{
+        
+        NSError *error = [NSError errorWithDomain:kKQErrorDomain code:code userInfo:@{NSLocalizedDescriptionKey:[ErrorManager localizedDescriptionForCode: code]}];
+        
+        block(NO,error);
+    }
+}
+
+
 - (void)requestCaptcha{
     NSString *mobile = _userTextField.text;
-
-    NSLog(@"request mobile # %@",mobile);
     
-    [[NetworkClient sharedInstance] requestCaptchaRegister:mobile block:^(NSDictionary* object, NSError *error) {
+    //    NSLog(@"request mobile # %@",mobile);
+    
+    //在转验证码的时候,
+    [self willConnect:_identifyB];
+    
+    
+    [_network requestCaptchaRegister:mobile block:^(NSDictionary* object, NSError *error) {
+        
+        [self willDisconnect];
+        if (!self.networkFlag) {
+            return;
+        }
         
         if (!error) {
             NSString *captcha = object[@"captcha"];
-//            NSLog(@"captcha # %@",captcha);
+            //            NSLog(@"captcha # %@",captcha);
             
             self.captcha = captcha;
         }
         else{
             [ErrorManager alertError:error];
         }
+        
+        
     }];
 }
-
--(IBAction)signUpUserPressed:(id)sender
-{
-
-   
+// pw 已经是md5
+- (void)registerUser:(NSDictionary *)userInfo{
+    
+    [self willConnect:_registerB];
+    
+    [_userController registerWithUserInfo:userInfo block:^(BOOL succeeded, NSError *error) {
+        
+        [self willDisconnect];
+        
+        if (succeeded && self.networkFlag) {
+            // 如果注册成功， login 一下获得用户的咨询
+            NSString *username = userInfo[@"username"];
+            NSString *password = userInfo[@"password"];
+            
+            [[UserController sharedInstance] loginWithUsername:username password:password boolBlock:^(BOOL succeeded, NSError *error) {
+                
+            }];
+            
+            
+            /// 注册成功后显示提示窗
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"注册成功" message:@"已获免费摩提快券，请前往绑定银行卡" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            [alert show];
+        }
+        
+       
+    }];
+    
+    
 }
+
 
 
 - (void)toAgreement{
     
+    AgreementViewController *vc = [[AgreementViewController alloc]init];
+    vc.title = @"快券注册协议";
+    
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)registerUser:(NSDictionary *)userInfo{
-
-}
-
-- (void)validateWithBlock:(BooleanResultBlock)block{
-}
 @end

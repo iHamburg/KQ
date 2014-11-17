@@ -31,13 +31,21 @@
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     
-
     
     [self.view addSubview:_webView];
     
 }
 
-
+- (void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+    
+    NSString* fileName = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"quickquan_agreement.html"];
+    NSError *error = nil;
+    NSString* text = [NSString stringWithContentsOfFile:fileName encoding:NSUTF8StringEncoding error:&error];
+    [_webView loadHTMLString:text baseURL:nil];
+    
+}
 
 - (void)didReceiveMemoryWarning
 {

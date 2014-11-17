@@ -9,6 +9,7 @@
 
 #import "People.h"
 #import "NetworkClient.h"
+#import "LibraryManager.h"
 #import <CoreLocation/CoreLocation.h>
 
 @interface UserController : NSObject<CLLocationManagerDelegate>{

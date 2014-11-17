@@ -12,7 +12,7 @@
 
 @interface UserCenterViewController : ConfigViewController<UIAlertViewDelegate>{
     People *_people;
-
+    
 }
 
 - (IBAction)dCouponPressed:(id)sender;

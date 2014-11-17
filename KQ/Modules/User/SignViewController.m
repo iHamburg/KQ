@@ -30,11 +30,22 @@
     [self.view addSubview:_scrollView];
 
     _network = [NetworkClient sharedInstance];
+    _libraryMng = [LibraryManager sharedInstance];
+    _userController = [UserController sharedInstance];
     
 }
 
 
-
+- (void)viewDidDisappear:(BOOL)animated{
+    
+    [super viewDidDisappear:animated];
+    
+    
+    self.networkFlag = NO;
+    
+    [self willDisconnect];
+    
+}
 
 #pragma mark - Table view data source
 
@@ -63,7 +74,7 @@
     
 	UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier1];
     
-    cell.textLabel.text = @"abc";
+//    cell.textLabel.text = @"abc";
     
     return cell;
     
@@ -88,6 +99,26 @@
 }
 
 - (void)submit{
+    
+}
+
+- (void)willConnect:(UIView*)sender{
+    
+    
+    [_libraryMng startLoadingInView:sender];
+    self.networkFlag = YES;
+//    sender.userInteractionEnabled = NO;
+    
+//    _connectSender = sender;
+    
+}
+
+- (void)willDisconnect{
+    
+    
+    [_libraryMng stopLoading];
+//    _connectSender.userInteractionEnabled = YES;
+    
     
 }
 

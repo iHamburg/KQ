@@ -42,12 +42,6 @@
     }
 }
 
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//
-//    
-//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//}
-
 
 - (IBAction)versionPressed:(id)sender{
     [self checkVersion];

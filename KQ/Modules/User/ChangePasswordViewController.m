@@ -8,7 +8,8 @@
 
 #import "ChangePasswordViewController.h"
 #import "UserController.h"
-
+#import "NSString+md5.h"
+#import "KQRootViewController.h"
 
 @interface ChangePasswordViewController ()
 
@@ -144,7 +145,6 @@
     }];
     
     
-//    [self submit];
 }
 
 - (void)validateWithBlock:(BooleanResultBlock)block{
@@ -154,7 +154,7 @@
     if (ISEMPTY(_rePasswordTextField.text) || ISEMPTY(_passwordTextField.text)) {
         // 如果用户名或密码为空
         
-        code = ErrorEmptyParameter;
+        code = ErrorAppEmptyParameter;
     }
     else if(![_passwordTextField.text isEqualToString:_rePasswordTextField.text]){
 
@@ -180,10 +180,38 @@
 
     L();
     
-    [[NetworkClient sharedInstance] user:self.username resetPassword:self.password block:^(NSDictionary *dict, NSError *error) {
+    [self willConnect:_submitBtn];
+    
+    [_network user:self.username resetPassword:self.password block:^(NSDictionary *dict, NSError *error) {
+        [self willDisconnect];
+        
+        if (!self.networkFlag) {
+            return;
+        }
         
         if (!error) {
-            NSLog(@"reset successful");
+//            NSLog(@"reset successful");
+            // 重置成功后，login
+            
+            [_userController loginWithUsername:self.username password:[self.password stringWithMD5] boolBlock:^(BOOL succeeded, NSError *error) {
+               
+                if (succeeded && self.networkFlag) {
+                    
+                    NSLog(@"login successful");
+                    PresentMode presentMode = [[KQRootViewController sharedInstance] presentMode];
+                    
+                    //登录成功就返回present前的页面
+                    if (presentMode == PresentUserCenterLogin || presentMode == PresentDefault) {
+                        
+                        [[KQRootViewController sharedInstance] dismissNav];
+                    }
+                    
+                }
+
+                
+            }];
+            
+            
         }
         else{
              [ErrorManager alertError:error];

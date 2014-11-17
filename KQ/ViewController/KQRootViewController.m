@@ -271,15 +271,9 @@
 }
 
 
-- (void)didLogout{
-
-    _tabVC.selectedIndex = 0;
-    
-}
-
 - (void)toTab:(int)index{
 
-    //    [self ]
+    _tabVC.selectedIndex = 0;
     
 }
 
@@ -323,8 +317,11 @@
 //    NSLog(@"screen # %@",NSStringFromCGRect(r));
 //    r = CGRectApplyAffineTransform(r, CGAffineTransformMakeRotation(90 * M_PI / 180.));
 //        NSLog(@"screen # %@",NSStringFromCGRect(r));
+    
 
+//    [self testNav:@"ChangePasswordViewController"];
 
+//    [self testNav:@"KQRegisterViewController"];
 }
 
 

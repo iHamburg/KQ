@@ -34,11 +34,6 @@
 - (void)configCell:(ConfigCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     
     
-//    if (indexPath.section == 1) {
-//        
-//        cell.separatorInset = UIEdgeInsetsMake(0, 0, 0,0);
-//    }
-    
 }
 
 #pragma mark - Alert
@@ -198,12 +193,16 @@
     [_userController logout];
     
     //然后退回首页
+    [_root toTab:0];
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    
 }
 - (void)changeUserName:(NSString*)newName{
     
     [_userController changeNickname:newName boolBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
-            NSLog(@"change nickname successful");
+//            NSLog(@"change nickname successful");
             
             [_libraryManager startHint:@"用户名修改成功！"];
             

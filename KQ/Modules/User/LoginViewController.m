@@ -94,29 +94,26 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-//    [_userTextField becomeFirstResponder];
 }
 
-#pragma mark - IBAction
-
--(IBAction)loginPressed:(id)sender
-{
- 
-    [self loginWithEmail:_userTextField.text password:_passwordTextField.text];
-}
-
-
-- (IBAction)registerPressed:(id)sender{
-
-    [self toRegister];
-}
-
-- (IBAction)forgetPressed:(id)sender{
-
+- (void)viewDidAppear:(BOOL)animated{
     
-    [self toForget];
+    [super viewDidAppear:animated];
+    
+    [self test];
+    
 }
 
+- (void)viewDidDisappear:(BOOL)animated{
+    
+    [super viewDidDisappear:animated];
+  
+}
+
+//-(void)dealloc{
+////    L();
+//    NSLog(@"dealloc # %@",self);
+//}
 
 #pragma mark - Table view data source
 
@@ -135,7 +132,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+  
     return kCellHeight;
+
 }
 
 
@@ -167,14 +166,70 @@
 
 }
 
+
+#pragma mark - IBAction
+
+-(IBAction)loginPressed:(id)sender
+{
+    
+    [self validateWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            [self loginWithEmail:_userTextField.text password:_passwordTextField.text];
+        }
+        else{
+            NSString *msg = [error localizedDescription];
+            [UIAlertView showAlert:msg msg:nil cancel:@"OK"];
+        }
+    }];
+    
+    
+    //    [self loginWithEmail:_userTextField.text password:_passwordTextField.text];
+}
+
+
+- (IBAction)registerPressed:(id)sender{
+    
+    [self toRegister];
+}
+
+- (IBAction)forgetPressed:(id)sender{
+    
+    [self toForget];
+    
+}
 #pragma mark - Fcns
+
+- (void)validateWithBlock:(BooleanResultBlock)block{
+    
+    int code = 0;
+    
+    if (ISEMPTY(_userTextField.text) || ISEMPTY(_passwordTextField.text)) {
+        // 如果用户名或密码为空
+        
+        code = ErrorAppEmptyParameter;
+    }
+  
+    
+    if (code == 0) {
+        block(YES,nil);
+    }
+    else{
+        
+        NSError *error = [NSError errorWithDomain:kKQErrorDomain code:code userInfo:@{NSLocalizedDescriptionKey:[ErrorManager localizedDescriptionForCode: code]}];
+        
+        block(NO,error);
+    }
+    
+}
 
 - (void)loginWithEmail:(NSString*)email password:(NSString *)password{
     
+   
+    [self willConnect:_loginB];
   
-    
-    [[UserController sharedInstance] loginWithUsername:email password:[password stringWithMD5] boolBlock:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
+    [_userController loginWithUsername:email password:[password stringWithMD5] boolBlock:^(BOOL succeeded, NSError *error) {
+        
+        if (succeeded && self.networkFlag) {
         
             NSLog(@"login successful");
             PresentMode presentMode = [[KQRootViewController sharedInstance] presentMode];
@@ -182,13 +237,13 @@
             //登录成功就返回present前的页面
             if (presentMode == PresentUserCenterLogin || presentMode == PresentDefault) {
               
-              
                 [[KQRootViewController sharedInstance] dismissNav];
             }
-            
-            
-        
+       
         }
+     
+        [self willDisconnect];
+
     }];
 }
 
@@ -204,9 +259,25 @@
     
     ForgetPasswordViewController *vc = [[ForgetPasswordViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
+    
 }
 
 
+
+- (void)test{
+    
+//    _networkFlag = YES;
+//    [[NetworkClient sharedInstance] testWithBlock:^(BOOL succeeded, NSError *error) {
+//        if (self.networkFlag) {
+//            NSLog(@"收到了block的信息 # %@",self);
+//        }
+//
+//    }];
+//    
+//    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+//        self.networkFlag = NO;
+//    }];
+}
 
 
 @end

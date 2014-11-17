@@ -35,8 +35,6 @@
 					<string></string>
 				</dict>
 			</array>
-			<key>header</key>
-			<string>热门快券 HOT</string>
 			<key>dynamic</key>
 			<integer>1</integer>
 			<key>height</key>

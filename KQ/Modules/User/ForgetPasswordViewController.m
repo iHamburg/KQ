@@ -125,7 +125,7 @@
     }
     
     cell.imageView.image = [UIImage imageNamed:_tableImageNames[indexPath.row]];
-    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     
     
@@ -170,16 +170,17 @@
     
      NSString *inputedCaptcha = _verifyTextField.text;
     
+    //TODO: reset
     if (ISEMPTY(_verifyTextField.text) || ISEMPTY(_userTextField.text)) {
         // 如果用户名或密码为空
         
         code = ErrorAppEmptyParameter;
     }
-    else if (![[inputedCaptcha stringWithMD5] isEqualToString:self.captcha]) {
-        // 验证码不一致
-        
-        code = ErrorAppInvalidCaptcha;
-    }
+//    else if (![[inputedCaptcha stringWithMD5] isEqualToString:self.captcha]) {
+//        // 验证码不一致
+//        
+//        code = ErrorAppInvalidCaptcha;
+//    }
     
     if (code == 0) {
         block(YES,nil);
@@ -198,7 +199,15 @@
     
     NSString *mobile = _userTextField.text;
     
+    [self willConnect:_identifyB];
     [[NetworkClient sharedInstance] requestCaptchaForgetPassword:mobile block:^(NSDictionary* object, NSError *error) {
+        
+        [self willDisconnect];
+        
+        if (!self.networkFlag) {
+            return;
+        }
+        
         if (!error) {
             
             NSString *captcha = object[@"captcha"];

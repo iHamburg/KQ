@@ -54,13 +54,6 @@
     [super viewWillAppear:animated];
     
     
-//    NSString *city = _userController.city;
-//    if (ISEMPTY(city)) {
-//        city = @"选择城市";
-//    }
-//    
-//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:city style:UIBarButtonItemStylePlain target:self action:@selector(cityPressed:)];
-
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -70,45 +63,38 @@
 }
 
 
-
-//#pragma mark - IBAction
-//
-//- (IBAction)cityPressed:(id)sender{
-//    //    L();
-//}
-
 #pragma mark - TableView
-
-- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    if (section == 0) {
-        return nil;
-    }
-    else{
-        
-        UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 38)];
-        v.backgroundColor = kColorTableBG;
-        
-        CGFloat fontSize = 13;
-        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 60, 38)];
-        [label setFont:[UIFont fontWithName:kFontName size:fontSize]];
-        label.text = @"热门快券";
-        
-        UILabel *l2 = [[UILabel alloc] initWithFrame:CGRectMake(70, 0, 40, 38)];
-        l2.text = @"HOT";
-        l2.textColor = kColorYellow;
-        [label setFont:[UIFont fontWithName:kFontName size:fontSize]];
-        
-        [v addSubview:label];
-        [v addSubview:l2];
-        
-        return v;
-    }
-}
+//
+//- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+//    if (section == 0) {
+//        return nil;
+//    }
+//    else{
+//        
+//        UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 38)];
+//        v.backgroundColor = kColorTableBG;
+//        
+//        CGFloat fontSize = 13;
+//        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 60, 38)];
+//        [label setFont:[UIFont fontWithName:kFontName size:fontSize]];
+//        label.text = @"热门快券";
+//        
+//        UILabel *l2 = [[UILabel alloc] initWithFrame:CGRectMake(70, 0, 40, 38)];
+//        l2.text = @"HOT";
+//        l2.textColor = kColorYellow;
+//        [label setFont:[UIFont fontWithName:kFontName size:fontSize]];
+//        
+//        [v addSubview:label];
+//        [v addSubview:l2];
+//        
+//        return v;
+//    }
+//}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
 
     if (section == 1) {
-        return 40;
+        return 1.0;
 //        return 60;
     }
     return 1.0f;
@@ -120,7 +106,7 @@
     
     if([cell isKindOfClass:[ImageCell class]]){
         
-        [cell setValue:[UIImage imageNamed:@"event_banner.jpg"]];
+//        [cell setValue:[UIImage imageNamed:@"event_banner.jpg"]];
         
         //点击活动的banner
         [cell addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleBannerTap:)]];
@@ -138,8 +124,12 @@
           Coupon *project = _models[indexPath.row];
         
          [cell setValue:project];
-   
+        
+        
     }
+    
+    cell.backgroundColor = kColorBlue;
+
    
 }
 

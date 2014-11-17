@@ -127,14 +127,7 @@
   
     
 }
-//
-//- (void)queryUser:(NSString*)uid block:(IdResultBlock)block{
-//    
-//    
-//    [self getWithUrl:api_user parameters:@{@"uid":uid} block:block];
-//    
-//    
-//}
+
 
 - (void)queryUserInfo:(NSString*)uid sessionToken:(NSString*)sessionToken block:(DictionaryResultBlock)block{
     
@@ -597,4 +590,18 @@
     
 }
 
+- (void)testWithBlock:(BooleanResultBlock)block{
+
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        for (int i = 0; i<50000; i++) {
+            NSLog(@"innerschleife:%d",i);
+
+        }
+        
+        block(true,nil);
+        
+    });
+    
+}
 @end

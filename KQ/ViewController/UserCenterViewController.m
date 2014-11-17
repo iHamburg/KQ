@@ -37,7 +37,6 @@
 - (IBAction)cardPressed:(id)sender;
 
 
-
 @end
 
 @implementation UserAvatarCell
@@ -47,6 +46,15 @@
     L();
     [super setPeople:people];
     
+    if (!people) {
+        
+        self.oberV.image = [UIImage imageNamed:@"userAvatarUnLogin.jpg"];
+        self.avatarV.hidden = YES;
+    }
+    else{
+        self.avatarV.hidden = NO;
+    }
+    
     if (ISEMPTY(people.avatarUrl)) {
 
         self.avatarV.image = DefaultImg;
@@ -55,11 +63,7 @@
     else{
          [self.avatarV setImageWithURL:[NSURL URLWithString:people.avatarUrl] placeholderImage:DefaultImg];
     }
-//
-
     self.firstLabel.text = people.nickname;
-
-
    
 }
 
@@ -83,26 +87,33 @@
     
     //在nib中，imageV不能拖成另一个imageV的subview，所以只能在code中设置
     [self.oberV addSubview:self.avatarV];
+    
+    [self addSubview:self.oberV];
 }
 
+- (void)refresh{
+    
+  
 
+}
 
 // 需要判断用户是否登录来切换UI
-- (void)layoutSubviews{
-    L();
-    [super layoutSubviews];
-    
-    // 如果是ios7
-    [self addSubview:self.oberV];
-    
-//    NSLog(@"subviews # %@",self.subviews);
-    
-}
+//- (void)layoutSubviews{
+////    L();
+//    [super layoutSubviews];
+//
+//    // 如果是ios7
+//    [self addSubview:self.oberV];
+//    
+////    NSLog(@"subviews # %@",self.subviews);
+//    
+//}
 
 #pragma mark - IBAction
 - (IBAction)loginPressed:(id)sender{
     
     UserController *uc = [UserController sharedInstance];
+ 
     if ([uc isLogin]) {
         self.editUserBlock();
     }
@@ -126,7 +137,7 @@
 
 @interface UserCenterViewController (){
 
-
+    UserAvatarCell *_avatarCell;
 }
 
 @end
@@ -140,8 +151,8 @@
     // Do any additional setup after loading the view.
     self.title = @"我的";
     
-   // _config = [[TableConfiguration alloc] initWithResource:@"UserCenterLoginConfig"];
     _config = [[TableConfiguration alloc] initWithResource:@"UserCenterLoginConfig"];
+//    _config = [[TableConfiguration alloc] initWithResource:@"UserCenterConfig"];
 
 
 }
@@ -150,14 +161,7 @@
     [super viewWillAppear:animated];
     L();
     
-    ///如果用户登录，使用不同的UI （UserAvaterCell）, 现在可以直接刷新table来让cell更新？
-    if ([_userController isLogin]) {
-        
-    }
-    else{
-        
-    }
-
+    // 刷一次avatarCell
     [self.tableView reloadData];
 
 }
@@ -173,6 +177,7 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    
 }
 
 //- (void)initConfigCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
@@ -209,8 +214,16 @@
 //    return nil;
 //}
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+    return nil;
+}
+
+
 // 反正没太大的关系，可以多次调用
 - (void)configCell:(ConfigCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+    
+    NSLog(@"cell # %@",cell);
     
     if ([cell isKindOfClass:[PeopleCell class]]) {
         UserAvatarCell *aCell = (UserAvatarCell*)cell;

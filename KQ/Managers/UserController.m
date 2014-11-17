@@ -307,6 +307,7 @@
 
 - (void)logout{
     
+    self.people = nil;
     
     [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"User"];
     [[NSUserDefaults standardUserDefaults] synchronize];

@@ -38,6 +38,11 @@
         _root = [KQRootViewController sharedInstance];
         
         _hudCache = [NSMutableDictionary dictionary];
+        
+        _acitvityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+//        _acitvityIndicatorView.backgroundColor = kColorBlue;
+        _acitvityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+
     }
     return self;
 }
@@ -119,5 +124,22 @@
     
     [hud hide:YES afterDelay:duration];
 
+}
+
+
+- (void)startLoadingInView:(UIView*)view{
+    
+//    _acitvityIndicatorView.center = CGPointMake(view.width/2, view.height/2);
+    
+    _acitvityIndicatorView.frame = view.bounds;
+    
+    [view addSubview:_acitvityIndicatorView];
+    
+    [_acitvityIndicatorView startAnimating];
+}
+- (void)stopLoading{
+    
+    [_acitvityIndicatorView stopAnimating];
+    [_acitvityIndicatorView removeFromSuperview];
 }
 @end

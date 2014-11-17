@@ -6,10 +6,12 @@
 //
 //
 #import "NetworkClient.h"
+#import "LibraryManager.h"
+#import "UserController.h"
 
 @interface SignViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>{
     
-    NetworkClient *_network;
+    
     
     UIScrollView *_scrollView;
     UITableView *_tableView;
@@ -18,7 +20,15 @@
     
     UIButton *_submitBtn;
 
+    NetworkClient *_network;
+    LibraryManager *_libraryMng;
+    UserController *_userController;
+    BOOL _networkFlag;
+    
+//    UIView *_connectSender;
 }
+
+@property (nonatomic, assign) BOOL networkFlag;
 
 - (IBAction)backPressed:(id)sender;
 - (IBAction)submitClicked:(id)sender;
@@ -29,5 +39,9 @@
 - (void)back;
 
 - (void)submit;
+
+
+- (void)willConnect:(UIView*)sender; // 一次应该只loading一个view
+- (void)willDisconnect;
 
 @end

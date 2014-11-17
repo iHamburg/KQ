@@ -163,11 +163,6 @@
 #pragma mark - Test
 - (void)test;
 
-
-/**
- *	@brief 获取用户个人信息
- *
- */
-//- (void)queryUser:(NSString*)uid block:(IdResultBlock)block;
+- (void)testWithBlock:(BooleanResultBlock)block;
 
 @end

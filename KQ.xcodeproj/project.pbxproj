@@ -219,6 +219,9 @@
 		850A67B519C6EA6E00DCA982 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 850A67B419C6EA6E00DCA982 /* ChangePasswordViewController.m */; };
 		85134FAC1A176B1500669702 /* EditUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85134FAB1A176B1500669702 /* EditUserViewController.m */; };
 		85134FAE1A176F0B00669702 /* EditUserConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85134FAD1A176F0A00669702 /* EditUserConfig.plist */; };
+		85446E9B1A19A4FF00107099 /* bankcard_agreement.html in Resources */ = {isa = PBXBuildFile; fileRef = 85446E991A19A4FF00107099 /* bankcard_agreement.html */; };
+		85446E9C1A19A4FF00107099 /* quickquan_agreement.html in Resources */ = {isa = PBXBuildFile; fileRef = 85446E9A1A19A4FF00107099 /* quickquan_agreement.html */; };
+		85446E9E1A19CC6C00107099 /* userAvatarUnLogin.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 85446E9D1A19CC6C00107099 /* userAvatarUnLogin.jpg */; };
 		855AA51A19C2932E002B7099 /* KQTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 855AA51919C2932E002B7099 /* KQTabBarViewController.m */; };
 		855AA51C19C2CC5E002B7099 /* bg-landingpage@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 855AA51B19C2CC5E002B7099 /* bg-landingpage@2x.jpg */; };
 		855AA51E19C2D083002B7099 /* btn-receive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 855AA51D19C2D083002B7099 /* btn-receive@2x.png */; };
@@ -617,6 +620,9 @@
 		85134FAA1A176B1500669702 /* EditUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditUserViewController.h; sourceTree = "<group>"; };
 		85134FAB1A176B1500669702 /* EditUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditUserViewController.m; sourceTree = "<group>"; };
 		85134FAD1A176F0A00669702 /* EditUserConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = EditUserConfig.plist; sourceTree = "<group>"; };
+		85446E991A19A4FF00107099 /* bankcard_agreement.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = bankcard_agreement.html; path = Images/bankcard_agreement.html; sourceTree = "<group>"; };
+		85446E9A1A19A4FF00107099 /* quickquan_agreement.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = quickquan_agreement.html; path = Images/quickquan_agreement.html; sourceTree = "<group>"; };
+		85446E9D1A19CC6C00107099 /* userAvatarUnLogin.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = userAvatarUnLogin.jpg; sourceTree = "<group>"; };
 		855AA51819C2932E002B7099 /* KQTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KQTabBarViewController.h; sourceTree = "<group>"; };
 		855AA51919C2932E002B7099 /* KQTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KQTabBarViewController.m; sourceTree = "<group>"; };
 		855AA51B19C2CC5E002B7099 /* bg-landingpage@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "bg-landingpage@2x.jpg"; sourceTree = "<group>"; };
@@ -834,6 +840,7 @@
 		26E0BDBD194B9C5400FECD2A /* images */ = {
 			isa = PBXGroup;
 			children = (
+				85446E9D1A19CC6C00107099 /* userAvatarUnLogin.jpg */,
 				85C5E2DF19C68E250047BAE3 /* loading-pic02.png */,
 				26DD2D9919C5F97000A2CB13 /* search_screenshot.jpg */,
 				26DD2D9719C5D94C00A2CB13 /* addCardTfBg.jpg */,
@@ -1251,6 +1258,8 @@
 				26E3A538192DE02F004F8C8C /* Main.storyboard */,
 				26821B5019532DB6005549D3 /* Root.storyboard */,
 				26E3A579192DE042004F8C8C /* Images */,
+				85446E991A19A4FF00107099 /* bankcard_agreement.html */,
+				85446E9A1A19A4FF00107099 /* quickquan_agreement.html */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1564,6 +1573,7 @@
 				26EE1F9D1945EF76007C98AA /* UserCenterLoginConfig.plist in Resources */,
 				85CAC53719C057DD007A1F86 /* icon-tip@2x.png in Resources */,
 				85C5E2E019C68E250047BAE3 /* loading-pic02.png in Resources */,
+				85446E9B1A19A4FF00107099 /* bankcard_agreement.html in Resources */,
 				26E16BB6194F1CD500036039 /* couponHeaderBGPattern@2x.jpg in Resources */,
 				8596C65019C13681003B3440 /* icon-nearby02@2x.png in Resources */,
 				855AA51E19C2D083002B7099 /* btn-receive@2x.png in Resources */,
@@ -1633,8 +1643,10 @@
 				8596C65119C13681003B3440 /* icon-search02@2x.png in Resources */,
 				26E50C6E19588E2700CBFEE8 /* register_tf_bg@2x.jpg in Resources */,
 				262CF1431958AFB600A4FA26 /* coupon_header_bg@2x.png in Resources */,
+				85446E9C1A19A4FF00107099 /* quickquan_agreement.html in Resources */,
 				26E1661C193976780041CDD6 /* UMSocialSDKResourcesNew.bundle in Resources */,
 				262CF1451958B44800A4FA26 /* icon_telefon@2x.png in Resources */,
+				85446E9E1A19CC6C00107099 /* userAvatarUnLogin.jpg in Resources */,
 				26E50C671958687D00CBFEE8 /* card_add@2x.png in Resources */,
 				85CAC53319C057DD007A1F86 /* icon-name@2x.png in Resources */,
 				26E16616193976780041CDD6 /* UMSCommentInputControlleriPad.xib in Resources */,

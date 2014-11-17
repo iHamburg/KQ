@@ -541,7 +541,6 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationLogin object:nil];
         
         
-//        [_root lo]
         return;
     
     }

@@ -50,7 +50,7 @@ typedef enum {
 
 - (void)toMyCoupons;
 
-- (void)didLogout;
+//- (void)didLogout;
 
 - (void)toTab:(int)index;
 
