@@ -24,8 +24,7 @@
     LibraryManager *_libraryMng;
     UserController *_userController;
     BOOL _networkFlag;
-    
-//    UIView *_connectSender;
+
 }
 
 @property (nonatomic, assign) BOOL networkFlag;

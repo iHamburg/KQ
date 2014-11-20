@@ -185,7 +185,7 @@
 //从main， 附近进couponDetails
 - (void)toCouponDetails:(Coupon*)coupon{
     
-    CouponDetailsViewController *vc = [[CouponDetailsViewController alloc] init];
+    CouponDetailsViewController *vc = [[CouponDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     vc.view.alpha = 1;
     vc.coupon = coupon;
     vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_back.png" target:self action:@selector(removeNavPressed:)]];

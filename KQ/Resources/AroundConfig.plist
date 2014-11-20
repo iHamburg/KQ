@@ -13,7 +13,7 @@
 					<key>label</key>
 					<string></string>
 					<key>class</key>
-					<string>CouponListCell</string>
+					<string>ShopListCell</string>
 					<key>selector</key>
 					<string></string>
 				</dict>

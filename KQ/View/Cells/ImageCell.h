@@ -8,8 +8,13 @@
 
 #import "ConfigCell.h"
 
+
+/**
+ *	@brief	全部是张图片
+ */
 @interface ImageCell : ConfigCell{
-//    UIImageView *_bgV;
+
+
 }
 
 

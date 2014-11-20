@@ -17,8 +17,9 @@
     
     self.firstLabel.text = shop.title;
     
-    [self.avatarV setImageWithURL:[NSURL URLWithString:shop.posterUrl] placeholderImage:DefaultImg];
+    [self.avatarV setImageWithURL:[NSURL URLWithString:shop.logoUrl] placeholderImage:DefaultImg];
 
+//    self.firstLabel.backgroundColor = [UIColor redColor];
     
 }
 

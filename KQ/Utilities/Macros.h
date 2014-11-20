@@ -14,8 +14,6 @@
 
 
 
-
-
 // -----------------------------------
 
 #define LString(x) NSLocalizedString(x, nil)
@@ -38,8 +36,11 @@
 #define kVersion [[[UIDevice currentDevice] systemVersion] floatValue]
 #define kAutoResize (UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin)
 
+#define isIOS8 (kVersion >= 8.0)
 #define isIOS7 (kVersion >= 7.0)
 #define isIOS6 (kVersion >= 6.0)
+#define isIOS7Only (isIOS7 && !isIOS8)
+
 
 #define kIsPad2 (isPad?2.0:1.0)
 #define kRetinaScale [[UIScreen mainScreen]scale]

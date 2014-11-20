@@ -126,9 +126,6 @@
     picker.delegate = self;
     picker.sourceType =  UIImagePickerControllerSourceTypePhotoLibrary;
     
-//    [[KQRootViewController sharedInstance] presentViewController:picker animated:YES completion:^{
-//        
-//    }];
 
     [self presentViewController:picker animated:YES completion:^{
         
@@ -193,7 +190,7 @@
     [_userController logout];
     
     //然后退回首页
-    [_root toTab:0];
+//    [_root toTab:0];
     
     [self.navigationController popToRootViewControllerAnimated:YES];
     

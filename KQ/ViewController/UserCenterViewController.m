@@ -7,7 +7,6 @@
 //
 
 #import "UserCenterViewController.h"
-#import "PeopleCell.h"
 #import "UserCouponsViewController.h"
 #import "UserShopsViewController.h"
 #import "UserCardsViewController.h"
@@ -22,11 +21,15 @@
 #define headerHeight 150
 
 #pragma mark - Cell: UserAvatar
-@interface UserAvatarCell : PeopleCell{
+@interface UserAvatarCell : ConfigCell{
 
 }
 
 @property (nonatomic, strong) IBOutlet UIImageView *oberV;
+@property (nonatomic, strong) IBOutlet UILabel *dCouponNumLabel;
+@property (nonatomic, strong) IBOutlet UILabel *cardNumLabel;
+@property (nonatomic, strong) IBOutlet UIButton *dCouponNumBtn;
+@property (nonatomic, strong) IBOutlet UIButton *cardNumBtn;
 @property (nonatomic, copy) VoidBlock editUserBlock;
 @property (nonatomic, copy) VoidBlock dCouponBlock;
 @property (nonatomic, copy) VoidBlock cardBlock;
@@ -42,17 +45,23 @@
 @implementation UserAvatarCell
 
 
-- (void)setPeople:(People *)people{
-    L();
-    [super setPeople:people];
+- (void)setValue:(People *)people{
+//    L();
+ 
+    _value = people;
+//    [super setPeople:people];
     
     if (!people) {
         
         self.oberV.image = [UIImage imageNamed:@"userAvatarUnLogin.jpg"];
         self.avatarV.hidden = YES;
+        self.dCouponNumLabel.text = @"0";
+        self.cardNumLabel.text = @"0";
     }
     else{
         self.avatarV.hidden = NO;
+        self.dCouponNumLabel.text = [NSString stringWithFormat:@"%d",people.dCouponNum];
+        self.cardNumLabel.text = [NSString stringWithFormat:@"%d",people.cardNum];
     }
     
     if (ISEMPTY(people.avatarUrl)) {
@@ -69,18 +78,16 @@
 
 //height: 150
 
-- (void)awakeFromNib{
-    
-    L();
+
+- (void)load{
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.avatarV.layer.cornerRadius = 60;
     self.avatarV.layer.masksToBounds = YES;
     self.avatarV.layer.borderWidth = 8;
     self.avatarV.layer.borderColor = [UIColor whiteColor].CGColor;
-
-    self.backgroundColor = kColorBG;
-    self.separatorInset = UIEdgeInsetsMake(0, 160, 0, 160);
+    
+ 
     
     self.oberV.userInteractionEnabled = YES;
     [self.oberV addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(loginPressed:)]];
@@ -88,26 +95,17 @@
     //在nib中，imageV不能拖成另一个imageV的subview，所以只能在code中设置
     [self.oberV addSubview:self.avatarV];
     
-    [self addSubview:self.oberV];
-}
-
-- (void)refresh{
-    
-  
-
-}
-
-// 需要判断用户是否登录来切换UI
-//- (void)layoutSubviews{
-////    L();
-//    [super layoutSubviews];
+    // 针对ios7！
+//    if (isIOS7Only) {
+//        [self addSubview:self.oberV];
+//        [self addSubview:self.dCouponNumBtn];
+//        [self addSubview:self.cardNumBtn];
 //
-//    // 如果是ios7
-//    [self addSubview:self.oberV];
-//    
-////    NSLog(@"subviews # %@",self.subviews);
-//    
-//}
+//    }
+
+    [self.contentView removeFromSuperview];
+}
+
 
 #pragma mark - IBAction
 - (IBAction)loginPressed:(id)sender{
@@ -123,11 +121,27 @@
 }
 - (IBAction)dCouponPressed:(id)sender{
     
-    self.dCouponBlock();
+    
+    UserController *uc = [UserController sharedInstance];
+    
+    if ([uc isLogin]) {
+        self.dCouponBlock();
+    }
+    else{
+        self.loginBlock();
+    }
 }
 - (IBAction)cardPressed:(id)sender{
 
-    self.cardBlock();
+    UserController *uc = [UserController sharedInstance];
+    
+    if ([uc isLogin]) {
+        self.cardBlock();
+    }
+    else{
+        self.loginBlock();
+    }
+
 }
 
 
@@ -161,8 +175,33 @@
     [super viewWillAppear:animated];
     L();
     
-    // 刷一次avatarCell
-    [self.tableView reloadData];
+//    [_networkClient queryUserInfo:_userController.uid sessionToken:_userController.sessionToken block:^(NSDictionary* dict, NSError *error) {
+//        
+//        if (!error) {
+//            // 如果没有出错
+//            NSLog(@"dict # %@",dict);
+//            
+//        }
+//        else{
+//            int code = error.code;
+//            
+//            if (code == ErrorInvalidSession){
+//                // 如果是session过期，logout
+//            
+//                [_userController logout];
+//
+//               
+//            }
+//            else{
+//                [ErrorManager alertError:error];
+//            }
+//        }
+//        
+//    }];
+
+    
+    // 刷一次avatarCell, ConfigVC会刷的！
+//    [self.tableView reloadData];
 
 }
 
@@ -179,19 +218,6 @@
     // Dispose of any resources that can be recreated.
     
 }
-
-//- (void)initConfigCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
-//
-//    if ([cell isKindOfClass:[PeopleCell class]]) {
-//        [(PeopleCell*)cell setPeople:_userController.people];
-//    }
-//    
-//    if (indexPath.section == 1) {
-//        
-//        cell.separatorInset = UIEdgeInsetsMake(0, 0, 0,0);
-//    }
-//
-//}
 
 
 #pragma mark - TableView
@@ -214,21 +240,17 @@
 //    return nil;
 //}
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    
-    return nil;
-}
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+//    
+//    return nil;
+//}
 
 
-// 反正没太大的关系，可以多次调用
-- (void)configCell:(ConfigCell *)cell atIndexPath:(NSIndexPath *)indexPath{
-    
-    NSLog(@"cell # %@",cell);
-    
-    if ([cell isKindOfClass:[PeopleCell class]]) {
+- (void)initConfigCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+    if ([cell isKindOfClass:[UserAvatarCell class]]) {
         UserAvatarCell *aCell = (UserAvatarCell*)cell;
-        [aCell setPeople:_userController.people];
-
+     
+        
         aCell.editUserBlock = ^(void){
             [self pushEditUser];
         };
@@ -243,6 +265,39 @@
         aCell.loginBlock = ^{
             [self presentLogin];
         };
+    }
+
+    if (indexPath.section > 0) {
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+
+}
+
+// 反正没太大的关系，可以多次调用
+- (void)configCell:(ConfigCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+    
+//    NSLog(@"cell # %@",cell);
+    int section = indexPath.section;
+    int row = indexPath.row;
+    
+    if ([cell isKindOfClass:[UserAvatarCell class]]) {
+        UserAvatarCell *aCell = (UserAvatarCell*)cell;
+        
+        [aCell setValue:_userController.people];
+
+    }
+    
+    if (section == 1) {
+        if (row == 0) {
+            // fCoupon
+            int num = _userController.people.fCouponNum;
+            cell.value = [NSString stringWithInt:num];
+        }
+        else{
+            // fShop
+            int num = _userController.people.fShopNum;
+            cell.value = [NSString stringWithInt:num];
+        }
     }
     
 }
@@ -338,7 +393,7 @@
 
     
     
-    UserFavoritedCouponsViewController *vc = [[UserFavoritedCouponsViewController alloc] init];
+    UserFavoritedCouponsViewController *vc = [[UserFavoritedCouponsViewController alloc] initWithStyle:UITableViewStylePlain];
     [self.navigationController pushViewController:vc animated:YES];
     
 }

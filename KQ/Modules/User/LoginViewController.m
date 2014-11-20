@@ -228,6 +228,7 @@
     [self willConnect:_loginB];
   
     [_userController loginWithUsername:email password:[password stringWithMD5] boolBlock:^(BOOL succeeded, NSError *error) {
+           [self willDisconnect];
         
         if (succeeded && self.networkFlag) {
         
@@ -242,7 +243,7 @@
        
         }
      
-        [self willDisconnect];
+     
 
     }];
 }

@@ -6,11 +6,11 @@
 //  Copyright (c) 2014年 Xappsoft. All rights reserved.
 //
 
-#import "CouponCell.h"
+#import "ConfigCell.h"
 
 #import "Shop.h"
 
-@interface ShopBranchesCell : CouponCell<UIAlertViewDelegate>{
+@interface ShopBranchesCell : ConfigCell<UIAlertViewDelegate>{
 
     
     NSString *_phoneNumber;
@@ -18,6 +18,7 @@
 }
 
 @property (nonatomic, strong) IBOutlet UIButton *shopListB;
+@property (nonatomic, strong) IBOutlet UIButton *shopBranchBtn;
 @property (nonatomic, strong) IBOutlet UIImageView *indicatorV;
 @property (nonatomic, strong) IBOutlet UIImageView *nearestIndicatorV;
 

@@ -21,26 +21,7 @@
 			<key>nib</key>
 			<string>CouponHeaderCell2</string>
 			<key>height</key>
-			<string>245</string>
-		</dict>
-		<dict>
-			<key>rows</key>
-			<array>
-				<dict>
-					<key>key</key>
-					<string></string>
-					<key>label</key>
-					<string></string>
-					<key>class</key>
-					<string>CouponUsageCell</string>
-					<key>selector</key>
-					<string></string>
-				</dict>
-			</array>
-			<key>height</key>
-			<string>90</string>
-			<key>header</key>
-			<string>优惠券使用说明</string>
+			<string>370</string>
 		</dict>
 		<dict>
 			<key>rows</key>
@@ -57,15 +38,66 @@
 				</dict>
 			</array>
 			<key>height</key>
-			<string>123</string>
+			<string>107</string>
 			<key>header</key>
 			<string>离您最近</string>
 			<key>nib</key>
 			<string>ShopBranchesCell</string>
 		</dict>
 		<dict>
+			<key>rows</key>
+			<array>
+				<dict>
+					<key>key</key>
+					<string>message</string>
+					<key>label</key>
+					<string></string>
+					<key>class</key>
+					<string>AutoHeightCell</string>
+					<key>selector</key>
+					<string></string>
+				</dict>
+			</array>
 			<key>header</key>
-			<string>商家介绍</string>
+			<string>通知</string>
+		</dict>
+		<dict>
+			<key>rows</key>
+			<array>
+				<dict>
+					<key>key</key>
+					<string>desc</string>
+					<key>label</key>
+					<string></string>
+					<key>class</key>
+					<string>AutoHeightCell</string>
+					<key>selector</key>
+					<string></string>
+				</dict>
+			</array>
+			<key>header</key>
+			<string>快券详情</string>
+		</dict>
+		<dict>
+			<key>rows</key>
+			<array>
+				<dict>
+					<key>key</key>
+					<string>notice</string>
+					<key>label</key>
+					<string></string>
+					<key>class</key>
+					<string>AutoHeightCell</string>
+					<key>selector</key>
+					<string></string>
+				</dict>
+			</array>
+			<key>header</key>
+			<string>使用须知</string>
+		</dict>
+		<dict>
+			<key>header</key>
+			<string>此商家的其他快券</string>
 			<key>rows</key>
 			<array>
 				<dict>
@@ -74,28 +106,36 @@
 					<key>label</key>
 					<string></string>
 					<key>class</key>
-					<string>ShopDescCell</string>
+					<string>CouponShortCell</string>
 					<key>selector</key>
 					<string></string>
 				</dict>
 			</array>
 			<key>height</key>
-			<string>100</string>
+			<string>45</string>
+			<key>dynamic</key>
+			<integer>1</integer>
 		</dict>
 		<dict>
+			<key>header</key>
+			<string>其他用户还看了</string>
 			<key>rows</key>
 			<array>
 				<dict>
 					<key>key</key>
-					<string></string>
+					<string>aboutus</string>
 					<key>label</key>
-					<string>查看商铺详情</string>
-					<key>class</key>
 					<string></string>
+					<key>class</key>
+					<string>CouponShortCell</string>
 					<key>selector</key>
-					<string>toShop</string>
+					<string></string>
 				</dict>
 			</array>
+			<key>height</key>
+			<string>45</string>
+			<key>dynamic</key>
+			<integer>1</integer>
 		</dict>
 	</array>
 </dict>

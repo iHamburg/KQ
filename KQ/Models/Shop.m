@@ -11,6 +11,26 @@
 
 @implementation Shop
 
+static NSArray *favoriteKeys; // 用户收藏的门店key
+static NSArray *searchListKeys;  //附近搜索list的key
+
++ (void)initialize {
+    if (self == [Shop self]) {
+        // ... do the initialization ...
+        
+//        listKeys = @[@"id",@"title",@"avatarUrl",@"discountContent",@"downloadedCount",@"slogan"];
+//        keys = @[@"id",@"title",@"avatarUrl",@"discountContent",@"downloadedCount",@"slogan"];
+        
+        favoriteKeys = @[@"id",@"title",@"logoUrl",@"longitude",@"latitude",@"district",@"averagePreis"];
+        
+        searchListKeys = @[@"id",@"title",@"logoUrl",@"longitude",@"latitude",@"district",@"averagePreis",@"address",@"distance",@"openTime",@"phone"];
+        
+        //TODO: 需要总店id
+       
+
+    }
+}
+
 + (instancetype)shopWithDictionary:(NSDictionary*)dict{
     
     /// shop 没有储存shopBranches元素，是交给VC来储存了
@@ -35,10 +55,48 @@
     if (!ISEMPTY(locationArr)) {
         shop.coord = CLLocationCoordinate2DMake([locationArr[@"latitude"] doubleValue], [locationArr[@"longitude"] doubleValue]);
         shop.location = [[CLLocation alloc] initWithLatitude:shop.coord.latitude longitude:shop.coord.longitude];
-        shop.distance = [[UserController sharedInstance]distanceFromLocation:shop.location];
+        shop.locationDistance = [[UserController sharedInstance]distanceFromLocation:shop.location];
     }
     
     return shop;
+}
+
+- (id)initWithFavoriteDict:(NSDictionary*)dict{
+    if (self = [super init]) {
+        if ([dict isKindOfClass:[NSDictionary class]]) {
+            dict = [dict dictionaryCheckNull];
+        }
+        else{
+            return self;
+        }
+        
+        for (NSString *key in favoriteKeys) {
+            [self setValue:dict[key] forKey:key];
+        }
+        
+        self.active = [dict[@"active"] boolValue];
+    }
+    
+    return self;
+}
+
+- (id)initWithSearchDict:(NSDictionary*)dict{
+    if (self = [super init]) {
+        if ([dict isKindOfClass:[NSDictionary class]]) {
+            dict = [dict dictionaryCheckNull];
+        }
+        else{
+            return self;
+        }
+        
+        for (NSString *key in searchListKeys) {
+            [self setValue:dict[key] forKey:key];
+        }
+        
+        self.parentId = dict[@"shopId"];
+    }
+    
+    return self;
 }
 
 @end

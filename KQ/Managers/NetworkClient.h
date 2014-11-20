@@ -36,9 +36,6 @@
 + (id)sharedInstance;
 
 
-
-
-
 /**
  *	@brief	用户注册登录
  */
@@ -51,7 +48,6 @@
  *
  *	@param 	username 	用户手机号
  *	@param 	password 	md5字串
- *	@param 	block
  */
 - (void)loginWithUsername:(NSString*)username password:(NSString*)password block:(IdResultBlock)block;
 
@@ -65,12 +61,13 @@
  */
 - (void)queryCards:(NSString*)uid block:(IdResultBlock)block;
 
-- (void)user:(NSString*)uid addCard:(NSString*)cardNumber block:(IdResultBlock)block;
+- (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken addCard:(NSString*)cardNumber block:(IdResultBlock)block;
+- (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken deleteCard:(NSString*)cardNumber block:(IdResultBlock)block;
 
 /**
  *	@brief	获取用户下载的优惠券
  */
-- (void)queryDownloadedCoupon:(NSString*)uid block:(IdResultBlock)block;
+- (void)queryDownloadedCoupon:(NSString*)uid skip:(int)skip block:(IdResultBlock)block;
 - (void)user:(NSString*)uid downloadCoupon:(NSString*)couponId block:(IdResultBlock)block;
 /**
  *	@brief	获取用户收藏的优惠券
@@ -93,7 +90,7 @@
 /**
  *	@brief	忘记密码后的重置密码
  *
- *	@param 	username 	<#username description#>
+ *	@param 	username
  *	@param 	password 	md5密文
  *	@param 	block
  */
@@ -105,19 +102,24 @@
  *	@brief 获取优惠券信息
  */
 
-- (void)queryCoupon:(NSString*)couponId block:(IdResultBlock)block;
+- (void)queryCoupon:(NSString*)couponId latitude:(NSString*)latitude longitude:(NSString*)longitude block:(IdResultBlock)block;
+
+
 
 /**
- *	
- * @deprecated
- * @brief	获取用户收藏的商户,应该也不需要了
+ *	@brief	获取最热门的优惠券
  */
-- (void)queryShopBranches:(NSString*)parentId block:(IdResultBlock)block;
-
-
-
-
 - (void)queryHotestCouponsSkip:(int)skip block:(IdResultBlock)block;
+
+
+/**
+ *	@brief	附件（搜索门店）
+ *
+ *	@param 	params 	<#params description#>
+ */
+- (void)searchShopBranches:(NSDictionary*)params block:(IdResultBlock)block;
+
+
 /**
  
  @brief   返回搜索的快券

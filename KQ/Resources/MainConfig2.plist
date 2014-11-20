@@ -9,6 +9,23 @@
 			<array>
 				<dict>
 					<key>key</key>
+					<string></string>
+					<key>label</key>
+					<string></string>
+					<key>class</key>
+					<string>ImageCell</string>
+					<key>selector</key>
+					<string></string>
+				</dict>
+			</array>
+			<key>height</key>
+			<string>125</string>
+		</dict>
+		<dict>
+			<key>rows</key>
+			<array>
+				<dict>
+					<key>key</key>
 					<string>aboutus</string>
 					<key>label</key>
 					<string></string>
@@ -21,7 +38,7 @@
 			<key>dynamic</key>
 			<integer>1</integer>
 			<key>height</key>
-			<string>96</string>
+			<string>85</string>
 		</dict>
 	</array>
 </dict>

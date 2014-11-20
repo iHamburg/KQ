@@ -11,24 +11,12 @@
 #import "KQLabel.h"
 #import "CouponManager.h"
 
-@interface ShopBranchesCell (){
-
-//    UILabel *_timeL;
-    
-    
-}
-
-@end
-
 
 // 123: 85+38
 @implementation ShopBranchesCell
 
 - (void)setValue:(Shop*)shop{
     
-
-//    L();
-
     _value = shop;
     
     

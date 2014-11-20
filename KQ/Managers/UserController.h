@@ -31,6 +31,8 @@
 @property (nonatomic, readonly) NSString *sessionToken;
 @property (nonatomic, readonly) BOOL isLogin;
 @property (nonatomic, readonly) BOOL hasBankcard;
+@property (nonatomic, readonly) NSString *longitude;
+@property (nonatomic, readonly) NSString *latitude;
 
 + (id)sharedInstance;
 

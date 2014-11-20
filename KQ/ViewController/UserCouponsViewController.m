@@ -43,6 +43,7 @@
 
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+ 
     self.config = [[TableConfiguration alloc] initWithResource:@"UserCouponsConfig"];
     self.isLoadMore = NO;
 }
@@ -68,6 +69,7 @@
     return _tableHeader;
     
 }
+
 
 - (void)configCell:(CouponListCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     
@@ -132,36 +134,51 @@
 - (void)loadModels{
     
     
-    if (!ISEMPTY(_models)) {
-        return;
-    }
+//    if (!ISEMPTY(_models)) {
+//        return;
+//    }
     
-    [_libraryManager startProgress:nil];
+//    [_libraryManager startProgress:nil];
     
     [self.models removeAllObjects];
 
 
-    [_networkClient queryDownloadedCoupon:_userController.uid block:^(NSArray *couponDicts, NSError *error) {
-        [_libraryManager dismissProgress:nil];  
+    [self willConnect:self.view];
+    
+    [_networkClient queryDownloadedCoupon:_userController.uid skip:0 block:^(NSDictionary *dict, NSError *error) {
+//        [_libraryManager dismissProgress:nil];  
 
-        if (!ISEMPTY(couponDicts)) {
+        [self willDisconnect];
+        [self.refreshControl endRefreshing];
+        
+        if (!_networkFlag) {
+            return ;
+        }
+
+        if (!error) {
+            NSArray *array = dict[@"coupons"];
             
-            for (NSDictionary *dict in couponDicts) {
-                if ([dict isKindOfClass:[NSNull class]]) {
-                    continue;
-                }
-                
-                Coupon *coupon = [Coupon couponWithDict:dict];
-                [_models addObject:coupon];
-                NSLog(@"coupon # %@",coupon.id);
-                
+            //                NSLog(@"array # %@",array);
+            
+            if (ISEMPTY(array)) {
+                [_libraryManager startHint:@"还没有下载优惠券" duration:1];
             }
+            
+
+//            NSLog(@"dCoupons # %@",array);
+            for (NSDictionary *dict in array) {
+                
+                Coupon *coupon = [[Coupon alloc] initWithDownloadedDict:dict];
+                
+                [self.models addObject:coupon];
+            }
+            
+            [self.tableView reloadData];
         }
         else{
-             [_libraryManager startHint:@"还没有优惠券" duration:1];
+            [ErrorManager alertError:error];
         }
 
-        [self.tableView reloadData];
 
     }];
     

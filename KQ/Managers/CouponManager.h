@@ -20,15 +20,15 @@
 + (instancetype)sharedInstance;
 
 /**
- *	@brief	<#Description#>
- *
- *	@param 	title 	<#title description#>
  *
  *	@return	如果出错返回nil
  */
 - (CouponType*)couponTypeWithTitle:(NSString*)title;
 
 - (District*)districtWithTitle:(NSString*)title;
+
+- (NSArray*)searchCouponTypes; //id 0,1,4
+- (NSArray*)searchDistricts; //全部
 
 - (NSString*)stringFromDistance:(double)distance;
 - (NSString*)distanceStringFromLocation:(CLLocation*)location;

@@ -97,6 +97,8 @@ typedef enum {
     
     ErrorAppEmptyParameter = 2002,   //输入信息不完整
     
+    ErrorAppInvalideCard = 2003,   //无效的银联卡号
+    
     ErrorUnknown = 999999
     
 }CustomErrorCode;

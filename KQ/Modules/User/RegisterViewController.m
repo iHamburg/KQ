@@ -9,7 +9,7 @@
 #import "RegisterViewController.h"
 #import "ErrorManager.h"
 #import "UserController.h"
-#import "AgreementViewController.h"
+#import "WebViewController.h"
 #import "AfterDownloadViewController.h"
 #import "NetworkClient.h"
 #import "NSString+md5.h"
@@ -401,9 +401,9 @@
 
 - (void)toAgreement{
     
-    AgreementViewController *vc = [[AgreementViewController alloc]init];
+    WebViewController *vc = [[WebViewController alloc]init];
     vc.title = @"快券注册协议";
-    
+    vc.fileName = @"quickquan_agreement.html";
     [self.navigationController pushViewController:vc animated:YES];
 }
 

@@ -8,7 +8,7 @@
 
 #import "KQTabBarViewController.h"
 #import "KQRootViewController.h"
-
+#import "SearchViewController.h"
 
 @interface KQTabBarViewController ()
 
@@ -29,7 +29,10 @@
     _userCenterVC = [[UserCenterViewController alloc] initWithStyle:UITableViewStyleGrouped];
     self.delegate = self;
     
-    NSArray *vcs = @[_mainVC,_aroundVC,_searchVC,_userCenterVC];
+//    NSArray *vcs = @[_mainVC,_aroundVC,_searchVC,_userCenterVC];
+    
+        NSArray *vcs = @[_mainVC,_aroundVC,[[SearchViewController alloc]initWithStyle:UITableViewStylePlain],_userCenterVC];
+    
     NSMutableArray *tabVCs = [NSMutableArray array];
     for (UIViewController *vc in vcs) {
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];

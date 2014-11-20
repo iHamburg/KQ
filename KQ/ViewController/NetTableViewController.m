@@ -34,13 +34,21 @@
     
     if (_loadMoreFooterView == nil) {
         
-        LoadMoreTableFooterView *view = [[LoadMoreTableFooterView alloc] initWithFrame:CGRectMake(0.0f, self.tableView.contentSize.height, self.tableView.frame.size.width, 50)];
+        LoadMoreTableFooterView *view = [[LoadMoreTableFooterView alloc] initWithFrame:CGRectMake(0.0f, self.tableView.contentSize.height, self.tableView.frame.size.width, 30)];
         view.delegate = self;
 		[self.tableView addSubview:view];
 		_loadMoreFooterView = view;
-//        _loadMoreFooterView.backgroundColor = [UIColor redColor];
-        
+
+       
 	}
+    
+    self.refreshControl = [[UIRefreshControl alloc]init];
+    self.refreshControl.attributedTitle = [[NSAttributedString alloc]initWithString:@"下拉刷新"];
+    
+    [self.refreshControl addTarget:self action:@selector(RefreshViewControlEventValueChanged:) forControlEvents:UIControlEventValueChanged];
+    
+    // iOS8 的seperator错位问题
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -62,14 +70,17 @@
 
 #pragma mark - Table view data source
 
-
+- (void)initConfigCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+    
+    [self addSeperatorLineInCell:cell];
+    
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
     // Return the number of rows in the section.
 
-//    NSLog(@"section # %d",section);
 
     if ([_config isDynamicSection:section]) {
         return [self.models count];
@@ -79,6 +90,8 @@
     }
     
 }
+
+
 
 
 #pragma mark -
@@ -96,6 +109,7 @@
 	
 	//  model should call this when its done loading
 	_reloading = NO;
+    
 	[_loadMoreFooterView loadMoreScrollViewDataSourceDidFinishedLoading:self.tableView];
 }
 
@@ -138,6 +152,11 @@
 	return _reloading;
 }
 
+#pragma mark - IBAction
+- (IBAction)RefreshViewControlEventValueChanged:(id)sender{
+    
+    [self loadModels];
+}
 
 #pragma mark -
 
@@ -146,14 +165,13 @@
     
 }
 
-- (void)refreshModels{
-    
-}
-
 - (void)loadMore:(VoidBlock)block{
     
-//    L();
 }
 
-
+- (void)addSeperatorLineInCell:(UITableViewCell*)cell{
+    UIView *separatorV = [[UIView alloc] initWithFrame:CGRectMake(0, cell.height, cell.width, 1)];
+    separatorV.backgroundColor = [UIColor colorWithRed:231.0/255 green:231.0/255 blue:231.0/255 alpha:1];
+    [cell addSubview:separatorV];
+}
 @end

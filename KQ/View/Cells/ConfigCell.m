@@ -17,13 +17,6 @@
         // Initialization code
         [self load];
         
-//        self.firstLabel = [[KQLabel alloc] initWithFrame:CGRectZero];
-//        self.secondLabel = [[KQLabel alloc] initWithFrame:CGRectZero];
-//        self.thirdLabel = [[KQLabel alloc] initWithFrame:CGRectZero];
-//        self.avatarV = [[UIImageView alloc] initWithFrame:CGRectZero];
-//        [self addSubview:self.firstLabel];
-//
-//        NSLog(@"textlabel # %@,details label # %@",self.textLabel, self.detailTextLabel);
     }
     return self;
 }

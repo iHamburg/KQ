@@ -6,21 +6,22 @@
 //
 //
 
-#import "CouponListViewController.h"
+#import "DropDownListViewController.h"
 #import "CouponType.h"
 #import "District.h"
 
 #import "KQRootViewController.h"
 #import "CouponDetailsViewController.h"
+#import "ShopListCell.h"
 
-@interface CouponListViewController ()
+@interface DropDownListViewController ()
 
 - (void)addCouponsInModels:(NSArray *)array;
 - (void)addCurrentLocationToSearchParams:(NSMutableDictionary*)params;
 
 @end
 
-@implementation CouponListViewController
+@implementation DropDownListViewController
 
 - (void)viewDidLoad{
 
@@ -31,20 +32,22 @@
     self.orderIndex = 0;
     self.searchParams = [NSMutableDictionary dictionary];
     
-    self.couponTypes = _manager.couponTypes;
-    self.districts = _manager.districts;
+    self.couponTypes = _manager.searchCouponTypes;
+    self.districts = _manager.searchDistricts;
     self.orders = @[@"离我最近"];
+    
+//    NSLog(@"coupontypes # %@",self.couponTypes);
     
     /// init DropDownView
     NSMutableArray *typeTitles = [NSMutableArray arrayWithCapacity:self.couponTypes.count];
-    [typeTitles addObject:@"全部类型"];
+//    [typeTitles addObject:@"全部类型"];
     for (CouponType *type in self.couponTypes) {
         [typeTitles addObject:type.title];
     }
     
     
     NSMutableArray *districtTitles = [NSMutableArray arrayWithCapacity:self.districts.count];
-    [districtTitles addObject:@"全部商区"];
+//    [districtTitles addObject:@"全部商区"];
     for (District *obj in self.districts) {
         [districtTitles addObject:obj.title];
     }
@@ -56,10 +59,10 @@
                                                           self.orders
                                                           ]];
     
-    dropDownView = [[DropDownListView alloc] initWithFrame:CGRectMake(0,0, 320, 40) dataSource:self delegate:self];
+    _dropDownView = [[DropDownListView alloc] initWithFrame:CGRectMake(0,0, 320, 40) dataSource:self delegate:self];
     
     //???一定要是root的view吗？
-    dropDownView.mSuperView = [[KQRootViewController sharedInstance]view];
+    _dropDownView.mSuperView = [[KQRootViewController sharedInstance]view];
 
 }
 
@@ -88,13 +91,11 @@
         self.orderIndex = index;
     }
     
-    [self.models removeAllObjects];
-    [self.tableView reloadData];
     
     [self loadModels];
 }
 
-#pragma mark -- dropdownList DataSource
+
 -(NSInteger)numberOfSections
 {
     return [_dropDownArray count];
@@ -123,7 +124,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
-    return dropDownView;
+    return _dropDownView;
     
 }
 - (void)configCell:(CouponListCell *)cell atIndexPath:(NSIndexPath *)indexPath{
@@ -137,6 +138,14 @@
         [cell setValue:project];
         
     }
+    if ([cell isKindOfClass:[ShopListCell class]]) {
+        
+        Shop *project = _models[indexPath.row];
+        
+        [cell setValue:project];
+        
+    }
+
     
 }
 
@@ -153,7 +162,7 @@
     
     
     
-    [_libraryManager startProgress:nil];
+//    [_libraryManager startProgress:nil];
     
     [self.models removeAllObjects];
     
@@ -178,18 +187,33 @@
     
     NSLog(@"param # %@", self.searchParams);
     
-    [_networkClient searchCoupons:self.searchParams block:^(NSArray *array, NSError *error) {
-        [_libraryManager dismissProgress:nil];
-        
-        if (ISEMPTY(array)) {
-            
-            [_libraryManager startHint:@"暂时还没有结果" duration:1];
-        }else{
-            
-            [self addCouponsInModels:array];
 
-        }
+    
+    [self.models removeAllObjects];
+    
+    [self willConnect:self.view];
+    [_networkClient searchShopBranches:self.searchParams block:^(NSDictionary *dict, NSError *error) {
+        [self willDisconnect];
+        [self.refreshControl endRefreshing];
         
+        if (!_networkFlag) {
+            return ;
+        }
+
+        if (!error) {
+            NSArray *array = dict[@"shopbranches"];
+            
+            NSLog(@"around # %@",array);
+            for (NSDictionary *dict in array) {
+                Shop *shop = [[Shop alloc] initWithSearchDict:dict];
+                [self.models addObject:shop];
+            }
+            
+            [self.tableView reloadData];
+        }
+        else{
+            [ErrorManager alertError:error];
+        }
     }];
 }
 
@@ -201,20 +225,20 @@
     /// param没有改变，只是增加了skip
     [self.searchParams setValue:[NSString stringWithInt:skip] forKey:@"skip"];
     
-    [_networkClient searchCoupons:self.searchParams block:^(NSArray *array, NSError *error) {
-        [_libraryManager dismissProgress:nil];
-        
-        if (ISEMPTY(array)) {
-            
-            [_libraryManager startHint:@"暂时还没有结果" duration:1];
-        }else{
-            
-            [self addCouponsInModels:array];
-            
-            finishedBlock();
-        }
-        
-    }];
+//    [_networkClient searchCoupons:self.searchParams block:^(NSArray *array, NSError *error) {
+//        [_libraryManager dismissProgress:nil];
+//        
+//        if (ISEMPTY(array)) {
+//            
+//            [_libraryManager startHint:@"暂时还没有结果" duration:1];
+//        }else{
+//            
+//            [self addCouponsInModels:array];
+//            
+//            finishedBlock();
+//        }
+//        
+//    }];
 
 }
 

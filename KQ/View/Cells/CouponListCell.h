@@ -7,10 +7,10 @@
 //
 
 
-#import "CouponCell.h"
+#import "ConfigCell.h"
 #import "Shop.h"
 
-@interface CouponListCell : CouponCell
+@interface CouponListCell : ConfigCell
 
 @property (nonatomic, strong) Shop *shop;
 

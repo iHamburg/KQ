@@ -11,10 +11,10 @@
 #import "CouponListCell.h"
 #import "DropDownListView.h"
 
-#import "CouponListViewController.h"
 
-@interface CouponListViewController : NetTableViewController<DropDownChooseDelegate,DropDownChooseDataSource>{
-    DropDownListView *dropDownView;
+@interface DropDownListViewController : NetTableViewController<DropDownChooseDelegate,DropDownChooseDataSource>{
+
+    DropDownListView *_dropDownView;
 }
 
 

@@ -10,7 +10,7 @@
 #import "UserCardsViewController.h"
 #import "SignViewController.h"
 
-@interface AddCardViewController : UIViewController<UITextFieldDelegate>
+@interface AddCardViewController : NetTableViewController<UITextFieldDelegate>
 
 @property (nonatomic, unsafe_unretained) UserCardsViewController *parent;
 
@@ -20,4 +20,5 @@
 
 - (void)addCard:(NSString*)number;
 - (void)validateWithBlock:(BooleanResultBlock)block;
+
 @end

@@ -6,9 +6,9 @@
 //  Copyright (c) 2014年 Xappsoft. All rights reserved.
 //
 
-#import "CouponListViewController.h"
+#import "DropDownListViewController.h"
 
-@interface AroundViewController : CouponListViewController{
+@interface AroundViewController : DropDownListViewController{
   
 }
 

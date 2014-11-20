@@ -33,8 +33,8 @@ typedef enum {
     
     
     IBOutlet UISearchBar *_searchBar;
-    IBOutlet TagsView *_hotSearchView;
-    IBOutlet DistrictsTableView *_tableView;
+//    IBOutlet TagsView *_hotSearchView;
+//    IBOutlet DistrictsTableView *_tableView;
     
 
     NSArray *_districtHotKeywords, *_couponTypeHotKeywords;
@@ -45,12 +45,12 @@ typedef enum {
     
 }
 
-@property (nonatomic, assign) SearchType searchType; //
-@property (nonatomic, strong) DistrictsTableView *tableView;
+//@property (nonatomic, assign) SearchType searchType; //
+//@property (nonatomic, strong) DistrictsTableView *tableView;
 @property (nonatomic, strong) UISearchBar *searchBar;
 
-@property (nonatomic, strong) NSArray *districtHotKeywords;
-@property (nonatomic, strong) NSArray *couponTypeHotKeywords;
+//@property (nonatomic, strong) NSArray *districtHotKeywords;
+//@property (nonatomic, strong) NSArray *couponTypeHotKeywords;
 
 @property (nonatomic, strong) NSString *keyword;
 @property (nonatomic, strong) NSString *districtId;
@@ -63,6 +63,7 @@ typedef enum {
 @property (nonatomic, strong) CouponManager *manager;
 
 - (IBAction)segmentChanged:(id)sender;
+
 
 - (void)startSearch;
 

@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AgreementViewController : UIViewController{
+@interface WebViewController : UIViewController{
     UIWebView *_webView;
 }
+
+@property (nonatomic, strong) NSString *fileName;
 
 @end

@@ -19,8 +19,13 @@
 //搜索优惠券
 #define api_searchCoupons        [RESTHOST stringByAppendingFormat:@"/searchCoupons"]
 
+//搜索门店
+#define api_search_shopbranches        [RESTHOST stringByAppendingFormat:@"/aroundShopbranches"]
+
+
+
 //获取优惠券
-#define api_coupon              [RESTHOST stringByAppendingFormat:@"/coupon"]
+#define api_coupon              [RESTHOST stringByAppendingFormat:@"/couponDetails"]
 
 //获取区域
 #define api_district             [RESTHOST stringByAppendingFormat:@"/district"]
@@ -50,6 +55,8 @@
 //用户绑定的银行卡
 #define api_my_card             [RESTHOST stringByAppendingFormat:@"/mycard"]
 
+#define api_my_card_delete      [RESTHOST stringByAppendingFormat:@"/deleteMyCard"]
+
 //用户下载的快券
 #define api_my_downloadedCoupon [RESTHOST stringByAppendingFormat:@"/myDownloadedCoupon"]
 
@@ -57,8 +64,8 @@
 #define api_my_favoritedCoupon  [RESTHOST stringByAppendingFormat:@"/myFavoritedCoupon"]
 
 
-//用户收藏的商户(总店)
-#define api_my_favoritedShop    [RESTHOST stringByAppendingFormat:@"/myFavoritedShop"]
+//用户收藏的门店
+#define api_my_favoritedShop    [RESTHOST stringByAppendingFormat:@"/myFavoritedShopbranch"]
 
 // 用户的站内信
 #define api_my_news             [RESTHOST stringByAppendingFormat:@"/myNews"]
@@ -67,8 +74,6 @@
 
 // 用户重置密码
 #define api_reset_password    [RESTHOST stringByAppendingFormat:@"/resetPassword"]
-
-
 
 // 用户忘记密码的验证码
 #define api_requestCaptchaForgetPassword [RESTHOST stringByAppendingFormat:@"/captchaforgetpwd"]
@@ -128,6 +133,11 @@
     
 }
 
+- (void)user:(NSString*)username resetPassword:(NSString*)password block:(IdResultBlock)block{
+    
+    [self postWithUrl:api_reset_password parameters:@{@"username":username,@"password":password} block:block];
+}
+
 
 - (void)queryUserInfo:(NSString*)uid sessionToken:(NSString*)sessionToken block:(DictionaryResultBlock)block{
     
@@ -140,24 +150,32 @@
     [self postWithUrl:api_edit_user_info parameters:dict block:block];
 }
 
+#pragma mark - My Card
 - (void)queryCards:(NSString*)uid block:(IdResultBlock)block{
     
     [self getWithUrl:api_my_card parameters:@{@"uid":uid} block:block];
     
 }
 
-- (void)user:(NSString*)uid addCard:(NSString*)cardNumber block:(IdResultBlock)block{
+- (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken addCard:(NSString*)cardNumber block:(IdResultBlock)block{
 
-    NSDictionary *params = @{@"uid":uid,@"cardNumber":cardNumber};
+    NSDictionary *params = @{@"uid":uid,@"card":cardNumber,@"sessionToken":sessionToken};
     [self postWithUrl:api_my_card parameters:params block:block];
 }
 
-- (void)queryDownloadedCoupon:(NSString*)uid block:(IdResultBlock)block{
- 
-//    NSDictionary *params = @{@"where":[AVOSEngine avosPointerWithField:@"people" className:@"_User" objectId:uid],
-//                             @"include":@"coupon"};
+- (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken deleteCard:(NSString*)cardNumber block:(IdResultBlock)block{
 
-    NSDictionary *params = @{@"uid":uid};
+    NSDictionary *params = @{@"uid":uid,@"card":cardNumber,@"sessionToken":sessionToken};
+    [self postWithUrl:api_my_card_delete parameters:params block:block];
+    
+}
+
+#pragma mark - My DownloadedCoupons
+
+- (void)queryDownloadedCoupon:(NSString*)uid skip:(int)skip block:(IdResultBlock)block;{
+ 
+
+    NSDictionary *params = @{@"uid":uid,@"skip":[NSString stringWithInt:skip]};
     
     [self getWithUrl:api_my_downloadedCoupon parameters:params block:block];
 }
@@ -169,6 +187,7 @@
     [self postWithUrl:api_my_downloadedCoupon parameters:@{@"uid":uid,@"couponId":couponId} block:block];
 }
 
+#pragma mark - My FavoritedCoupons
 - (void)queryFavoritedCoupon:(NSString*)uid skip:(int)skip block:(IdResultBlock)block{
   
     [self getWithUrl:api_my_favoritedCoupon parameters:@{@"uid":uid,@"skip":[NSString stringWithInt:skip]} block:block];
@@ -190,12 +209,12 @@
 }
 
 
+#pragma mark - My FavoritedShops
 - (void)queryFavoritedShop:(NSString*)uid skip:(int)skip block:(IdResultBlock)block{
   
     [self getWithUrl:api_my_favoritedShop parameters:@{@"uid":uid,@"skip":[NSString stringWithInt:skip]} block:block];
     
 }
-
 
 - (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken favoriteShop:(NSString*)shopId block:(IdResultBlock)block{
     
@@ -209,11 +228,9 @@
     
 }
 
-- (void)user:(NSString*)username resetPassword:(NSString*)password block:(IdResultBlock)block{
-    
-    [self postWithUrl:api_reset_password parameters:@{@"username":username,@"password":password} block:block];
-}
 
+
+#pragma mark - My News
 - (void)queryUserNews:(NSString*)uid skip:(int)skip block:(IdResultBlock)block{
     
     [self getWithUrl:api_my_news parameters:@{@"uid":uid,@"skip":[NSString stringWithInt:skip]} block:block];
@@ -222,10 +239,18 @@
 
 #pragma mark -
 
-- (void)queryCoupon:(NSString*)couponId block:(IdResultBlock)block{
+- (void)queryCoupon:(NSString*)couponId latitude:(NSString*)latitude longitude:(NSString*)longitude block:(IdResultBlock)block{
     
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setValue:couponId forKey:@"id"];
+    if (!ISEMPTY(latitude)) {
+        [params setValue:latitude forKey:@"latitude"];
+    }
+    if (!ISEMPTY(longitude)) {
+        [params setValue:longitude forKey:@"longitude"];
+    }
     
-    [self getWithUrl:api_coupon parameters:@{@"id":couponId} block:block];
+    [self getWithUrl:api_coupon parameters:params block:block];
     
 }
 
@@ -233,7 +258,7 @@
 - (void)queryHotestCouponsSkip:(int)skip block:(IdResultBlock)block{
     
     
-    [self getWithUrl:api_hotestCoupons parameters:@{@"skip":[NSString stringWithInt:skip]} block:block];
+    [self getWithUrl:api_hotestCoupons parameters:@{@"skip":[NSString stringWithInt:skip],@"limit":@4} block:block];
 }
 
 
@@ -283,6 +308,11 @@
 - (void)searchCoupons:(NSDictionary*)params block:(IdResultBlock)block{
     
     [self getWithUrl:api_searchCoupons parameters:params block:block];
+}
+
+- (void)searchShopBranches:(NSDictionary*)params block:(IdResultBlock)block{
+
+    [self getWithUrl:api_search_shopbranches parameters:params block:block];
 }
 
 - (void)requestCaptchaForgetPassword:(NSString*)username block:(IdResultBlock)block{
@@ -514,12 +544,6 @@
     
 }
 
-
-- (void)testUserAddCard{
-    [self user:@"539560f2e4b08cd56b62cb98" addCard:@"111222333" block:^(id object, NSError *error) {
-        NSLog(@"obj # %@",object);
-    }];
-}
 
 - (void)testQueryCards{
     [self queryCards:@"539560f2e4b08cd56b62cb98" block:^(id object, NSError *error) {

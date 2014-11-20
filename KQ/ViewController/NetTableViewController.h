@@ -26,15 +26,35 @@
 @property (nonatomic, assign) BOOL isLoadMore;
 
 /**
+ *	@brief	下拉刷新
+ *
+ *	@param 	sender
+ */
+- (IBAction)RefreshViewControlEventValueChanged:(id)sender;
+
+
+/**
  *	@brief	清空原本的内容，从新载入内容
  */
 - (void)loadModels;
 
-- (void)refreshModels;
+
+/**
+ *	@brief	加载更多
+ *
+ *	@param 	finishedBlock 	当完成的时候调用
+ */
 - (void)loadMore:(VoidBlock)finishedBlock;
+
 
 - (void)reloadTableViewDataSource;
 - (void)doneLoadingTableViewData;
+
+/**
+ *	@brief	iOS8 动态cell的分割线不对，所以手动添加
+ *
+ */
+- (void)addSeperatorLineInCell:(UITableViewCell*)cell;
 
 
 @end

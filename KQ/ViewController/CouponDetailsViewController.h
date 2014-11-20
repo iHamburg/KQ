@@ -22,6 +22,7 @@
 
 - (IBAction)backPressed:(id)sender;
 
+
 - (void)downloadCoupon:(Coupon*)coupon;
 - (void)toggleFavoriteCoupon:(Coupon*)coupon;
 - (void)favoriteCoupon:(Coupon*)coupon;
@@ -30,7 +31,8 @@
 
 
 
-- (void)toMap;
+//- (void)toMap;
+- (void)pushCoupon:(Coupon*)coupon;
 - (void)toShop;
 - (void)toShopList;
 - (void)toAfterDownload;

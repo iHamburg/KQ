@@ -58,6 +58,13 @@
         return YES;
 }
 
+- (NSString*)longitude{
+    return [NSString stringWithFloat:_checkinLocation.coordinate.longitude];
+}
+
+- (NSString*)latitude{
+    return [NSString stringWithFloat:_checkinLocation.coordinate.latitude];
+}
 #pragma mark - Init
 
 + (id)sharedInstance {
@@ -89,14 +96,20 @@
         // 如果用户已经登陆的话
         if (!ISEMPTY(self.people)) {
             //判断session是否过期
-            
-         
-            
+           
             [_networkClient queryUserInfo:self.uid sessionToken:self.sessionToken block:^(NSDictionary* dict, NSError *error) {
                 
                 if (!error) {
                     // 如果没有出错
                     NSLog(@"dict # %@",dict);
+                    if ([dict isKindOfClass:[NSDictionary class]]) {
+                        dict = [dict dictionaryCheckNull];
+                    }
+                    
+                    self.people.dCouponNum = [dict[@"dCouponNum"] intValue];
+                    self.people.cardNum = [dict[@"cardNum"] intValue];
+                    self.people.fCouponNum = [dict[@"fCouponNum"] intValue];
+                    self.people.fShopNum = [dict[@"fShopNum"] intValue];
                     
                 }
                 else{
@@ -107,11 +120,7 @@
                         
                         [self logout];
                     }
-                    else{
-                        // 其他的错误就显示给用户
-                        
-                        [ErrorManager alertError:error];
-                    }
+        
                 }
                 
             }];
@@ -195,7 +204,6 @@
     
 //    NSLog(@"pw # %@",pw);
   
-    
     [_networkClient loginWithUsername:email password:pw block:^(NSDictionary *dict, NSError *error) {
         
         if (!error) {

@@ -7,7 +7,7 @@
 //
 
 #import "ConfigViewController.h"
-
+#import "NetTableViewController.h"
 
 
 @interface UserCenterViewController : ConfigViewController<UIAlertViewDelegate>{

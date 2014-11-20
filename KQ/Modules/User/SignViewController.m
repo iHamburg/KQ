@@ -42,7 +42,6 @@
     
     
     self.networkFlag = NO;
-    
     [self willDisconnect];
     
 }
@@ -107,18 +106,13 @@
     
     [_libraryMng startLoadingInView:sender];
     self.networkFlag = YES;
-//    sender.userInteractionEnabled = NO;
-    
-//    _connectSender = sender;
+
     
 }
 
 - (void)willDisconnect{
     
-    
     [_libraryMng stopLoading];
-//    _connectSender.userInteractionEnabled = YES;
-    
     
 }
 

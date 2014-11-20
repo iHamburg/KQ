@@ -54,13 +54,15 @@
 		UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 15.0f, self.frame.size.width, 20.0f)];
 		label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 		label.font = [UIFont boldSystemFontOfSize:15.0f];
-		label.textColor = TEXT_COLOR;
+//		label.textColor = TEXT_COLOR;
+        label.textColor = [UIColor blackColor];
 
         
 		label.backgroundColor = [UIColor clearColor];
 		label.textAlignment = NSTextAlignmentCenter;
 		[self addSubview:label];
 		_statusLabel=label;
+        _statusLabel.textColor = kColorGray;
 						
 		UIActivityIndicatorView *view = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
 		view.frame = CGRectMake(150.0f, 15.0f, 20.0f, 20.0f);
@@ -83,10 +85,10 @@
 - (void)setState:(LoadMoreState)aState{	
 	switch (aState) {
 		case LoadMorePulling:
-			_statusLabel.text = NSLocalizedString(@"松开载入更多。。。", @"Release to load more");
+			_statusLabel.text = NSLocalizedString(@"松开载入更多", @"Release to load more");
 			break;
 		case LoadMoreNormal:
-			_statusLabel.text = NSLocalizedString(@"载入更多", @"Load More");
+			_statusLabel.text = NSLocalizedString(@"继续加载", @"Load More");
 			_statusLabel.hidden = NO;
 			[_activityView stopAnimating];
 			break;
@@ -151,19 +153,19 @@
 		}
 		
 		[self setState:LoadMoreLoading];
-		[UIView beginAnimations:nil context:NULL];
-		[UIView setAnimationDuration:0.2];
-		scrollView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 60.0f, 0.0f);
-		[UIView commitAnimations];
+//		[UIView beginAnimations:nil context:NULL];
+//		[UIView setAnimationDuration:0.2];
+//		scrollView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 60.0f, 0.0f);
+//		[UIView commitAnimations];
 	}
 }
 
 - (void)loadMoreScrollViewDataSourceDidFinishedLoading:(UIScrollView *)scrollView {	
-
-	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:.3];
-	[scrollView setContentInset:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
-	[UIView commitAnimations];
+//
+//	[UIView beginAnimations:nil context:NULL];
+//	[UIView setAnimationDuration:.3];
+//	[scrollView setContentInset:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
+//	[UIView commitAnimations];
 	
 	[self setState:LoadMoreNormal];
 	

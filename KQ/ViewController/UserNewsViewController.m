@@ -40,7 +40,7 @@
     _secondLabel = [[KQLabel alloc] initWithFrame:CGRectMake(130, CGRectGetMaxY(self.textLabel.frame)+10, 150, 20)];
     _secondLabel.font = [UIFont fontWithName:kFontBoldName size:14];
     _secondLabel.textAlignment = NSTextAlignmentLeft;
-    _secondLabel.textColor = kColorDarkYellow;
+    _secondLabel.textColor = kColorYellow;
     
     
     //distance

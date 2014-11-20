@@ -32,7 +32,7 @@
 					<key>label</key>
 					<string>收藏的快券</string>
 					<key>class</key>
-					<string></string>
+					<string>AccessoryLabelCell</string>
 					<key>selector</key>
 					<string>fCouponPressed:</string>
 					<key>image</key>
@@ -44,7 +44,7 @@
 					<key>label</key>
 					<string>收藏的商户</string>
 					<key>class</key>
-					<string></string>
+					<string>AccessoryLabelCell</string>
 					<key>selector</key>
 					<string>fShopPressed:</string>
 					<key>image</key>

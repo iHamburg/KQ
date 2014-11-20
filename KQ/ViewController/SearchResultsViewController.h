@@ -6,8 +6,8 @@
 //  Copyright (c) 2014年 Xappsoft. All rights reserved.
 //
 
-#import "CouponListViewController.h"
+#import "DropDownListViewController.h"
 
-@interface SearchResultsViewController : CouponListViewController
+@interface SearchResultsViewController : DropDownListViewController
 
 @end

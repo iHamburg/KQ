@@ -27,9 +27,8 @@
     
      self.config = [[TableConfiguration alloc] initWithResource:@"UserShopsConfig"];
 
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshModels) name:@"refreshFavoritedShops" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshModels) name:@"refreshFavoritedShops" object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -39,7 +38,7 @@
 }
 
 - (void)dealloc{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Tableview
@@ -72,60 +71,77 @@
 
 - (void)loadModels{
     
-    [_libraryManager startProgress:nil];
+//    [_libraryManager startProgress:nil];
     
     [self.models removeAllObjects];
     
-    [_networkClient queryFavoritedShop:_userController.uid skip:0 block:^(NSArray *couponDicts, NSError *error) {
+    [self willConnect:self.view];
+    
+    [_networkClient queryFavoritedShop:_userController.uid skip:0 block:^(NSDictionary *dict, NSError *error) {
 
-        [_libraryManager dismissProgress:nil];
-        if (ISEMPTY(couponDicts)) {
-             [_libraryManager startHint:@"还没有收藏商户" duration:1];
-        }
-        else{
-            for (NSDictionary *dict in couponDicts) {
-                
-//                NSLog(@"dict # %@",dict);
-                
-                Shop *obj = [Shop shopWithDictionary:dict];
-                [self.models addObject:obj];
-                
-            }
-            
+//        [_libraryManager dismissProgress:nil];
+        
+        [self willDisconnect];
+        [self.refreshControl endRefreshing];
+        
+        if (!_networkFlag) {
+            return ;
         }
         
-        [self.tableView reloadData];
+        if (!error) {
+            NSArray *array = dict[@"shopbranches"];
+            
+//                NSLog(@"array # %@",array);
+         
+            if (ISEMPTY(array)) {
+                [_libraryManager startHint:@"还没有收藏商户" duration:1];
+            }
+
+            
+            for (NSDictionary *dict in array) {
+               
+                Shop *shop = [[Shop alloc] initWithFavoriteDict:dict];
+                
+                [self.models addObject:shop];
+            }
+            
+            [self.tableView reloadData];
+        }
+        else{
+            [ErrorManager alertError:error];
+        }
+
      
     }];
     
     
 }
 
-- (void)refreshModels{
-    [self.models removeAllObjects];
-    
-    [_networkClient queryFavoritedShop:_userController.uid skip:0 block:^(NSArray *couponDicts, NSError *error) {
-        //
-      
-        NSLog(@"shops # %@",couponDicts);
-        if (ISEMPTY(couponDicts)) {
-
-        }
-        else{
-            for (NSDictionary *dict in couponDicts) {
-                
-                Shop *obj = [Shop shopWithDictionary:dict];
-                [self.models addObject:obj];
-                
-            }
-            
-        }
-        
-        [self.tableView reloadData];
-        
-    }];
-
-}
+//- (void)refreshModels{
+//    [self.models removeAllObjects];
+//    
+//    [_networkClient queryFavoritedShop:_userController.uid skip:0 block:^(NSArray *couponDicts, NSError *error) {
+//        //
+//      
+//        NSLog(@"shops # %@",couponDicts);
+//        if (ISEMPTY(couponDicts)) {
+//
+//        }
+//        else{
+//            for (NSDictionary *dict in couponDicts) {
+//                
+//                Shop *obj = [Shop shopWithDictionary:dict];
+//                [self.models addObject:obj];
+//                
+//            }
+//            
+//        }
+//        
+//        [self.tableView reloadData];
+//        
+//    }];
+//
+//}
 
 - (void)toShopDetails:(Shop*)shop{
 //    [self performSegueWithIdentifier:@"toShopDetails" sender:shop];
@@ -133,54 +149,54 @@
     ShopDetailsViewController *vc = [[ShopDetailsViewController alloc] init];
     vc.view.alpha = 1;
     vc.shop = shop;
-    [_networkClient queryShopBranches:shop.id block:^(NSArray *shopbranches, NSError *error) {
-        
-        if (!ISEMPTY(shopbranches)) {
-            NSMutableArray *shops = [NSMutableArray arrayWithCapacity:shopbranches.count];
-            for (NSDictionary *dict in shopbranches) {
-                
-                Shop *shop = [Shop shopWithDictionary:dict];
-                [shops addObject:shop];
-            }
-            
-            shops = [[shops sortedArrayUsingFunction:nearestShopSort context:nil] mutableCopy];
-//            [segue.destinationViewController setValue:shops forKeyPath:@"shopBranches"];
-            vc.shopBranches = shops;
-        }
-    }];
+//    [_networkClient queryShopBranches:shop.id block:^(NSArray *shopbranches, NSError *error) {
+//        
+//        if (!ISEMPTY(shopbranches)) {
+//            NSMutableArray *shops = [NSMutableArray arrayWithCapacity:shopbranches.count];
+//            for (NSDictionary *dict in shopbranches) {
+//                
+//                Shop *shop = [Shop shopWithDictionary:dict];
+//                [shops addObject:shop];
+//            }
+//            
+//            shops = [[shops sortedArrayUsingFunction:nearestShopSort context:nil] mutableCopy];
+//
+//            vc.shopBranches = shops;
+//        }
+//    }];
 
 
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(Shop*)sender
-{
-    if ([segue.identifier isEqualToString:@"toShopDetails"])
-    {
-        
-        [_networkClient queryShopBranches:sender.id block:^(NSArray *shopbranches, NSError *error) {
-            
-            if (!ISEMPTY(shopbranches)) {
-                NSMutableArray *shops = [NSMutableArray arrayWithCapacity:shopbranches.count];
-                for (NSDictionary *dict in shopbranches) {
-
-                    Shop *shop = [Shop shopWithDictionary:dict];
-                    [shops addObject:shop];
-                }
-                
-                shops = [[shops sortedArrayUsingFunction:nearestShopSort context:nil] mutableCopy];
-                 [segue.destinationViewController setValue:shops forKeyPath:@"shopBranches"];
-            }
-        }];
-        
-        [segue.destinationViewController setValue:sender forKeyPath:@"shop"];
-       
-    }
-}
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(Shop*)sender
+//{
+//    if ([segue.identifier isEqualToString:@"toShopDetails"])
+//    {
+//        
+//        [_networkClient queryShopBranches:sender.id block:^(NSArray *shopbranches, NSError *error) {
+//            
+//            if (!ISEMPTY(shopbranches)) {
+//                NSMutableArray *shops = [NSMutableArray arrayWithCapacity:shopbranches.count];
+//                for (NSDictionary *dict in shopbranches) {
+//
+//                    Shop *shop = [Shop shopWithDictionary:dict];
+//                    [shops addObject:shop];
+//                }
+//                
+//                shops = [[shops sortedArrayUsingFunction:nearestShopSort context:nil] mutableCopy];
+//                 [segue.destinationViewController setValue:shops forKeyPath:@"shopBranches"];
+//            }
+//        }];
+//        
+//        [segue.destinationViewController setValue:sender forKeyPath:@"shop"];
+//       
+//    }
+//}
 
 NSInteger nearestShopSort(Shop* obj1, Shop* obj2, void *context ) {
     // returns random number -1 0 1
-    return obj1.distance - obj2.distance;
+    return obj1.locationDistance - obj2.locationDistance;
 }
 
 

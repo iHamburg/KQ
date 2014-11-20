@@ -31,6 +31,7 @@
 
     for (ConfigCell* cell in self.tableView.visibleCells) {
 //        NSLog(@"key # %@,value # %@",cell.key,cell.value);
+        
         if ([cell.key isEqualToString:@"oldPwd"]) {
             self.oldPwd = cell.value;
         }

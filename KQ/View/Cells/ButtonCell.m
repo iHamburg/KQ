@@ -19,6 +19,7 @@
 - (void)layoutSubviews{
     
     self.textLabel.frame = self.bounds;
+
 }
 
 

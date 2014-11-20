@@ -27,7 +27,7 @@
     _value = shop;
 //    NSLog(@"shop.poster # %@",shop.posterUrl);
     
-    [self.avatarV setImageWithURL:[NSURL URLWithString:shop.posterUrl] placeholderImage:DefaultImg];
+    [self.avatarV setImageWithURL:[NSURL URLWithString:shop.logoUrl] placeholderImage:DefaultImg];
     [self.avatarV setContentMode:UIViewContentModeScaleAspectFit];
     self.avatarV.layer.masksToBounds = YES;
     
@@ -318,6 +318,7 @@
              [_libraryManager startHint:@"取消收藏"];
             self.shopFavorited = NO;
             [_userController.people.favoritedShopIds removeObject:shop.id];
+            
             [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshFavoritedShops" object:nil];
         }
         

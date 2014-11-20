@@ -35,6 +35,10 @@
             
             str = @"请完整输入所有信息";
             break;
+        case ErrorAppInvalideCard:
+            
+            str = @"请输入以62开头的13到19位银行卡号";
+            break;
         default:
             str = @"";
 

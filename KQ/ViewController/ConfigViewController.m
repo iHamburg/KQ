@@ -31,9 +31,10 @@
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     
-//    self.view.backgroundColor = kColorBG;
+    self.view.backgroundColor = kColorBG;
 
-    self.tableView.backgroundColor = [UIColor whiteColor];
+//    self.tableView.backgroundColor = [UIColor whiteColor];
+    
     self.navigationController.navigationBar.translucent = NO;
     
 }
@@ -58,8 +59,14 @@
 
 //    NSLog(@"table.contentSize # %f",self.tableView.contentSize.height);
     
+}
 
-
+- (void)viewDidDisappear:(BOOL)animated{
+    
+    [super viewDidDisappear:animated];
+    
+    _networkFlag = NO;
+    [self willDisconnect];
 }
 
 #pragma mark - Table view data source
@@ -77,6 +84,22 @@
     return [_config headerInSection:section];
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    NSString *text = [_config headerInSection:section];
+    if (ISEMPTY(text)) {
+        return nil;
+    }
+
+    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _w, 38)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, _w, 38)];
+    label.text = text;
+    label.textColor = kColorBlack;
+    label.font = [UIFont fontWithName:kFontBoldName size:15];
+    [v addSubview:label];
+    
+    return v;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
@@ -88,6 +111,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+  
     CGFloat height = [_config heightForRowInSection:indexPath.section];
 
     if (height>0) {
@@ -121,12 +145,12 @@
 
     }
     
-    
     ConfigCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
     
 //    NSLog(@"className # %@,identifier %@,cell # %@",cellClassName,identifier,cell);
     
     cell.key = [_config keyForIndexPath:indexPath];
+  
     // 只要有label，就会显示在textLabel上！但如果是textfieldCell，textLabel会被盖到下面去不显示
     cell.textLabel.text = [_config labelForIndexPath:indexPath];
 
@@ -166,6 +190,7 @@
 }
 
 
+//确保分割线左边顶头
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
     
@@ -200,6 +225,19 @@
 
 - (void)configCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath{}
 
+- (void)willConnect:(UIView*)sender{
+    
+    
+    [_libraryManager startLoadingInView:sender];
+    self.networkFlag = YES;
+    
+    
+}
 
+- (void)willDisconnect{
+    
+    [_libraryManager stopLoading];
+    
+}
 
 @end

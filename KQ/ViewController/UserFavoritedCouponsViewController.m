@@ -26,10 +26,8 @@
     
     self.title = @"我收藏的快券";
     
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     
-    // 增加一个notification
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshModels) name:@"refreshFavoritedCoupons" object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -40,13 +38,20 @@
 
 - (void)dealloc{
     L();
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 #pragma mark - Tableview
+
+
+- (void)initConfigCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+    
+    [self addSeperatorLineInCell:cell];
+    
+}
+
 - (void)configCell:(CouponListCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     
-    
-    
+  
     if ([cell isKindOfClass:[CouponListCell class]]) {
         
         Coupon *project = _models[indexPath.row];
@@ -67,74 +72,71 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+
 #pragma mark - Fcns
 
 ///还是要调用的，因为people不会include favoritedCoupon的信息
 - (void)loadModels{
     L();
     
-    [_libraryManager startProgress:nil];
+//    [_libraryManager startProgress:nil];
     
     [self.models removeAllObjects];
     
+    [self willConnect:self.view];
+    
     [_networkClient queryFavoritedCoupon:_userController.uid skip:0 block:^(NSDictionary *couponDicts, NSError *error) {
         
-        [_libraryManager dismissProgress:nil];
+        [self willDisconnect];
+        [self.refreshControl endRefreshing];
+        
+        if (!_networkFlag) {
+            return ;
+        }
         
         if (!error) {
             NSArray *array = couponDicts[@"coupons"];
 
-            NSLog(@"array # %@",array);
+//            NSLog(@"array # %@",array);
+            
+            for (NSDictionary *dict in array) {
+                Coupon *coupon = [[Coupon alloc] initWithFavoriteDict:dict];
+                [self.models addObject:coupon];
+            }
+            
             [self.tableView reloadData];
         }
         else{
             [ErrorManager alertError:error];
         }
-        
-//        if (ISEMPTY(couponDicts)) {
-//            [_libraryManager startHint:@"还没有收藏商户" duration:1];
-//        }
-//        else{
-////            NSLog(@"couponDicts # %@",couponDicts);
-//            for (NSDictionary *dict in couponDicts) {
-//                Coupon *coupon = [Coupon couponWithDict:dict];
-//                [self.models addObject:coupon];
-//                
-//            }
-//        }
-        
-        
      
     }];
 
 }
 
 ///当用户refresh了收藏信息
-- (void)refreshModels{
-    [self.models removeAllObjects];
-    
-    [_networkClient queryFavoritedCoupon:_userController.uid skip:0 block:^(NSDictionary *couponDicts, NSError *error) {
-        
-        
-        
-//   
-        if (ISEMPTY(couponDicts)) {
-     
-        }
-        else{
-            
-            for (NSDictionary *dict in couponDicts) {
-                Coupon *coupon = [Coupon couponWithDict:dict];
-                [self.models addObject:coupon];
-                
-            }
-        }
+//- (void)refreshModels{
+//    [self.models removeAllObjects];
+//    
+//    [_networkClient queryFavoritedCoupon:_userController.uid skip:0 block:^(NSDictionary *couponDicts, NSError *error) {
+//  
+//        if (ISEMPTY(couponDicts)) {
+//     
+//        }
+//        else{
+//            
+//            for (NSDictionary *dict in couponDicts) {
+//                Coupon *coupon = [Coupon couponWithDict:dict];
+//                [self.models addObject:coupon];
+//                
+//            }
+//        }
+////
+//        [self.tableView reloadData];
+//        
+//    }];
 //
-        [self.tableView reloadData];
-        
-    }];
-
-}
+//}
 
 - (void)toCouponDetails:(Coupon*)coupon{
     

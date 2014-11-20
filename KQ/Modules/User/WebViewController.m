@@ -6,13 +6,13 @@
 //  Copyright (c) 2014年 Xappsoft. All rights reserved.
 //
 
-#import "AgreementViewController.h"
+#import "WebViewController.h"
 
-@interface AgreementViewController ()
+@interface WebViewController ()
 
 @end
 
-@implementation AgreementViewController
+@implementation WebViewController
 
 
 - (void)viewDidLoad
@@ -31,7 +31,6 @@
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     
-    
     [self.view addSubview:_webView];
     
 }
@@ -40,18 +39,16 @@
     
     [super viewWillAppear:animated];
     
-    NSString* fileName = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"quickquan_agreement.html"];
+//    NSString* fileName = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"quickquan_agreement.html"];
+    
+    NSString* filePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:_fileName];
+    
     NSError *error = nil;
-    NSString* text = [NSString stringWithContentsOfFile:fileName encoding:NSUTF8StringEncoding error:&error];
+    NSString* text = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&error];
     [_webView loadHTMLString:text baseURL:nil];
     
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 #pragma mark - IBAction
 - (IBAction)backPressed:(id)sender{
