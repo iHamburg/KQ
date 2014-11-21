@@ -258,7 +258,7 @@
 - (void)queryHotestCouponsSkip:(int)skip block:(IdResultBlock)block{
     
     
-    [self getWithUrl:api_hotestCoupons parameters:@{@"skip":[NSString stringWithInt:skip],@"limit":@4} block:block];
+    [self getWithUrl:api_hotestCoupons parameters:@{@"skip":[NSString stringWithInt:skip]} block:block];
 }
 
 

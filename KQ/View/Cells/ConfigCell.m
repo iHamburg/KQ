@@ -33,11 +33,13 @@
     
     self.textLabel.textColor = kColorBlack;
     self.detailTextLabel.textColor = kColorBlack;
+    
 
 }
 
 + (CGFloat)cellHeightWithValue:(id)value{
     return 45;
 }
+
 
 @end

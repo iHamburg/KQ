@@ -8,10 +8,12 @@
 
 
 #import "ConfigCell.h"
-#import "Shop.h"
 
-@interface CouponListCell : ConfigCell
 
-@property (nonatomic, strong) Shop *shop;
+@interface CouponListCell : ConfigCell{
+    UILabel *_downloadedL;
+}
+
+
 
 @end

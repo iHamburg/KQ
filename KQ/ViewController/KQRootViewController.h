@@ -15,6 +15,7 @@ typedef enum {
 }PresentMode;
 
 @class KQTabBarViewController;
+@class InstructionViewController;
 @class Coupon;
 
 @interface KQRootViewController : RootViewController<UITabBarControllerDelegate>{
@@ -26,6 +27,10 @@ typedef enum {
 }
 
 @property (nonatomic, assign) PresentMode presentMode;
+@property (nonatomic, strong) InstructionViewController *instructionVC;
+@property (nonatomic, readonly) UITabBar *tabBar;
+
+- (void)showInstruction;
 
 /**
  *	@brief	present，Login页面无论如何push，最后dismiss的时候还是回到原来的页面
@@ -40,7 +45,6 @@ typedef enum {
 - (void)toLogin;
 
 - (void)loginWithBlock:(BooleanResultBlock)block;
-
 
 - (void)toCouponDetails:(Coupon*)coupon;
 

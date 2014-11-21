@@ -38,10 +38,6 @@
     _userTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     _userTextField.text = @"13166361023";
     
-//    _userTextField.backgroundColor = [UIColor colorWithWhite:1 alpha:0.5];
-//    _userTextField.leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_user.png"]];
-//    _userTextField.leftViewMode = UITextFieldViewModeAlways;
-    
     
     _passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake(60, 0, 250, kCellHeight)];//f
 
@@ -183,7 +179,6 @@
     }];
     
     
-    //    [self loginWithEmail:_userTextField.text password:_passwordTextField.text];
 }
 
 

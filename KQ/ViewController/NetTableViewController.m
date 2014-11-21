@@ -16,7 +16,10 @@
     _isLoadMore = isLoadMore;
     if (isLoadMore == NO) {
         [_loadMoreFooterView removeFromSuperview];
-        _loadMoreFooterView = nil;
+//        _loadMoreFooterView = nil;
+    }
+    else{
+        [self.tableView addSubview:_loadMoreFooterView];
     }
 }
 
@@ -36,11 +39,13 @@
         
         LoadMoreTableFooterView *view = [[LoadMoreTableFooterView alloc] initWithFrame:CGRectMake(0.0f, self.tableView.contentSize.height, self.tableView.frame.size.width, 30)];
         view.delegate = self;
-		[self.tableView addSubview:view];
+//		[self.tableView addSubview:view];
 		_loadMoreFooterView = view;
 
        
 	}
+    
+    self.isLoadMore = YES;
     
     self.refreshControl = [[UIRefreshControl alloc]init];
     self.refreshControl.attributedTitle = [[NSAttributedString alloc]initWithString:@"下拉刷新"];
@@ -72,7 +77,7 @@
 
 - (void)initConfigCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     
-    [self addSeperatorLineInCell:cell];
+    [self addSeparatorLineInCell:cell];
     
 }
 
@@ -169,7 +174,7 @@
     
 }
 
-- (void)addSeperatorLineInCell:(UITableViewCell*)cell{
+- (void)addSeparatorLineInCell:(UITableViewCell*)cell{
     UIView *separatorV = [[UIView alloc] initWithFrame:CGRectMake(0, cell.height, cell.width, 1)];
     separatorV.backgroundColor = [UIColor colorWithRed:231.0/255 green:231.0/255 blue:231.0/255 alpha:1];
     [cell addSubview:separatorV];

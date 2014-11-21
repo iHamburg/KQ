@@ -39,11 +39,16 @@
     
     self.title = @"快券";
     self.navigationController.tabBarItem.title = @"首页";
+    self.navigationItem.leftBarButtonItem = nil;
     
     self.config = [[TableConfiguration alloc] initWithResource:@"MainConfig"];
 //    self.config = [[TableConfiguration alloc] initWithResource:@"MainConfig2"];
     
-    self.tableView.backgroundColor = kColorBG;
+    // navibar上的icon
+    UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 46, 26)];
+    imgV.contentMode = UIViewContentModeCenter;
+    imgV.image = [UIImage imageNamed:@"titlebar_index_center_title.png"];
+    self.navigationItem.titleView = imgV;
     
 }
 
@@ -73,7 +78,7 @@
         UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _w, headerHeight)];
 
     
-    UIButton *btn = [UIButton buttonWithFrame:CGRectMake(0, 0, _w, 122) title:nil bgImageName:@"event_banner.jpg" target:self action:@selector(handleBannerTap:)];
+    UIButton *btn = [UIButton buttonWithFrame:CGRectMake(0, 0, _w, 122) title:nil bgImageName:@"home_header_image.jpg" target:self action:@selector(handleBannerTap:)];
     
         CGFloat fontSize = 12;
     float y = 122;
@@ -158,7 +163,6 @@
 
     L();
 
-  
     [self.models removeAllObjects];
     
     [self willConnect:self.view];
@@ -168,9 +172,9 @@
         [self willDisconnect];
         [self.refreshControl endRefreshing];
         
-        if (!_networkFlag) {
-            return ;
-        }
+//        if (!_networkFlag) {
+//            return ;
+//        }
         
         if (!error) {
             NSArray *array = couponDicts[@"coupons"];
@@ -187,11 +191,11 @@
     
 }
 
-- (void)refreshModels{
-    [_models removeAllObjects];
-    
-    [self loadModels];
-}
+//- (void)refreshModels{
+//    [_models removeAllObjects];
+//    
+//    [self loadModels];
+//}
 
 - (void)loadMore:(VoidBlock)finishedBlock{
     
@@ -201,6 +205,7 @@
 //    NSLog(@"networkflag # %d",_networkFlag);
     
     _networkFlag = YES;
+   
     //从现有的之后进行载入
     [_networkClient queryHotestCouponsSkip:count block:^(NSDictionary *couponDicts, NSError *error) {
         
@@ -215,7 +220,9 @@
             
             [self addCouponsInModel:array];
          
-            
+            if (self.models.count<kLimit) {
+                self.isLoadMore = NO;
+            }
         }
         else{
             [ErrorManager alertError:error];

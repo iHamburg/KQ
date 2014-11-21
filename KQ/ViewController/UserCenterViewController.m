@@ -26,8 +26,11 @@
 }
 
 @property (nonatomic, strong) IBOutlet UIImageView *oberV;
-@property (nonatomic, strong) IBOutlet UILabel *dCouponNumLabel;
-@property (nonatomic, strong) IBOutlet UILabel *cardNumLabel;
+@property (nonatomic, strong) IBOutlet UIImageView *goV;
+@property (nonatomic, strong) IBOutlet UILabel *dCouponNumLabel, *dCouponTitleL;
+@property (nonatomic, strong) IBOutlet UILabel *cardNumLabel, *cardTitleL;
+@property (nonatomic, strong) IBOutlet UILabel *usernameLabel;
+@property (nonatomic, strong) IBOutlet UILabel *nicknameLabel;
 @property (nonatomic, strong) IBOutlet UIButton *dCouponNumBtn;
 @property (nonatomic, strong) IBOutlet UIButton *cardNumBtn;
 @property (nonatomic, copy) VoidBlock editUserBlock;
@@ -49,28 +52,36 @@
 //    L();
  
     _value = people;
-//    [super setPeople:people];
+
     
     if (!people) {
         
         self.oberV.image = [UIImage imageNamed:@"userAvatarUnLogin.jpg"];
         self.avatarV.hidden = YES;
+        self.goV.hidden = YES;
         self.dCouponNumLabel.text = @"0";
         self.cardNumLabel.text = @"0";
+        self.usernameLabel.text = @"";
+        self.nicknameLabel.text = @"";
     }
     else{
+        self.oberV.image = [UIImage imageNamed:@"my_header_image.jpg"];
         self.avatarV.hidden = NO;
-        self.dCouponNumLabel.text = [NSString stringWithFormat:@"%d",people.dCouponNum];
-        self.cardNumLabel.text = [NSString stringWithFormat:@"%d",people.cardNum];
+        self.goV.hidden = NO;
+        
+        self.dCouponNumLabel.text = [NSString stringWithFormat:@"%d 张",people.dCouponNum];
+        self.cardNumLabel.text = [NSString stringWithFormat:@"%d 张",people.cardNum];
+        self.usernameLabel.text = people.username;
+        self.nicknameLabel.text = people.nickname;
     }
     
     if (ISEMPTY(people.avatarUrl)) {
 
-        self.avatarV.image = DefaultImg;
+        self.avatarV.image =  [UIImage imageNamed:@"main_my_avatar.png"];
     }
 
     else{
-         [self.avatarV setImageWithURL:[NSURL URLWithString:people.avatarUrl] placeholderImage:DefaultImg];
+         [self.avatarV setImageWithURL:[NSURL URLWithString:people.avatarUrl] placeholderImage: [UIImage imageNamed:@"main_my_avatar.png"]];
     }
     self.firstLabel.text = people.nickname;
    
@@ -81,10 +92,11 @@
 
 - (void)load{
     
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.avatarV.layer.cornerRadius = 60;
+    [self.contentView removeFromSuperview];
+
+    self.avatarV.layer.cornerRadius = 30;
     self.avatarV.layer.masksToBounds = YES;
-    self.avatarV.layer.borderWidth = 8;
+    self.avatarV.layer.borderWidth = 2;
     self.avatarV.layer.borderColor = [UIColor whiteColor].CGColor;
     
  
@@ -95,15 +107,26 @@
     //在nib中，imageV不能拖成另一个imageV的subview，所以只能在code中设置
     [self.oberV addSubview:self.avatarV];
     
-    // 针对ios7！
-//    if (isIOS7Only) {
-//        [self addSubview:self.oberV];
-//        [self addSubview:self.dCouponNumBtn];
-//        [self addSubview:self.cardNumBtn];
-//
-//    }
 
-    [self.contentView removeFromSuperview];
+    _usernameLabel.font = bFont(15);
+    _nicknameLabel.font = bFont(12);
+    
+    _dCouponNumLabel.font = bFont(12);
+    _cardNumLabel.font = bFont(12);
+    _cardNumLabel.textColor = kColorGray;
+    _dCouponNumLabel.textColor = kColorGray;
+    _dCouponTitleL.font = bFont(15);
+    _cardTitleL.font = bFont(15);
+    _cardTitleL.textColor = kColorBlack;
+    _dCouponTitleL.textColor = kColorBlack;
+
+    
+    // 垂直分割线
+    UIView *v = [[UIView alloc]initWithFrame:CGRectMake(160, 88, 1, 62)];
+    v.backgroundColor = kColorLightGray;
+    [self addSubview:v];
+    
+   
 }
 
 
@@ -151,7 +174,7 @@
 
 @interface UserCenterViewController (){
 
-    UserAvatarCell *_avatarCell;
+   
 }
 
 @end
@@ -168,40 +191,45 @@
     _config = [[TableConfiguration alloc] initWithResource:@"UserCenterLoginConfig"];
 //    _config = [[TableConfiguration alloc] initWithResource:@"UserCenterConfig"];
 
-
+    self.navigationItem.leftBarButtonItem = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     L();
-    
-//    [_networkClient queryUserInfo:_userController.uid sessionToken:_userController.sessionToken block:^(NSDictionary* dict, NSError *error) {
-//        
-//        if (!error) {
-//            // 如果没有出错
-//            NSLog(@"dict # %@",dict);
-//            
-//        }
-//        else{
-//            int code = error.code;
-//            
-//            if (code == ErrorInvalidSession){
-//                // 如果是session过期，logout
-//            
-//                [_userController logout];
-//
-//               
-//            }
-//            else{
-//                [ErrorManager alertError:error];
-//            }
-//        }
-//        
-//    }];
-
-    
-    // 刷一次avatarCell, ConfigVC会刷的！
-//    [self.tableView reloadData];
+    if (_userController.isLogin) {
+        [_networkClient queryUserInfo:_userController.uid sessionToken:_userController.sessionToken block:^(NSDictionary* dict, NSError *error) {
+            
+            if (!error) {
+                // 如果没有出错
+                //            NSLog(@"dict # %@",dict);
+                
+                if ([dict isKindOfClass:[NSDictionary class]]) {
+                    dict = [dict dictionaryCheckNull];
+                }
+                
+                [_userController updateUserInfo:dict];
+                
+                [self.tableView reloadData];
+            }
+            else{
+                int code = error.code;
+                
+                if (code == ErrorInvalidSession){
+                    // 如果是session过期，logout
+                    
+                    [_userController logout];
+                    
+                    
+                }
+                else{
+                    [ErrorManager alertError:error];
+                }
+            }
+            
+        }];
+    }
+  
 
 }
 
@@ -229,25 +257,9 @@
     return 20;
 }
 
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-//    if (section == 0) {
-//        UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _w, headerHeight)];
-//        v.backgroundColor = kColorBlue;
-//        
-//        return v;
-//    }
-//    
-//    return nil;
-//}
-
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-//    
-//    return nil;
-//}
-
-
 - (void)initConfigCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     if ([cell isKindOfClass:[UserAvatarCell class]]) {
+       
         UserAvatarCell *aCell = (UserAvatarCell*)cell;
      
         
@@ -270,6 +282,9 @@
     if (indexPath.section > 0) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
+    
+    cell.textLabel.textColor = kColorBlack;
+    cell.textLabel.font = bFont(15);
 
 }
 
@@ -281,23 +296,24 @@
     int row = indexPath.row;
     
     if ([cell isKindOfClass:[UserAvatarCell class]]) {
-        UserAvatarCell *aCell = (UserAvatarCell*)cell;
+
         
-        [aCell setValue:_userController.people];
+        [cell setValue:_userController.people];
 
     }
     
     if (section == 1) {
+       //AccessoryLabelCell
+        
         if (row == 0) {
             // fCoupon
             int num = _userController.people.fCouponNum;
-            cell.value = [NSString stringWithInt:num];
+            cell.value = [NSString stringWithFormat:@"%d 张",num];
         }
         else{
             // fShop
             int num = _userController.people.fShopNum;
-            cell.value = [NSString stringWithInt:num];
-        }
+            cell.value = [NSString stringWithFormat:@"%d 个",num];        }
     }
     
 }

@@ -10,6 +10,43 @@
 #import "CouponListCell.h"
 #import "CouponDetailsViewController.h"
 
+
+
+@interface CouponListFavoritedCell : CouponListCell
+
+@end
+
+@implementation CouponListFavoritedCell
+
+- (void)setValue:(Coupon*)value{
+    [super setValue:value];
+    
+     _secondLabel.text = value.endDate;
+    _thirdLabel.text = value.discountContent;
+    
+}
+
+
+- (void)load{
+    
+    [super load];
+    
+    self.imageView.frame = CGRectMake(10, 10, 85, 65);
+    CGFloat x = CGRectGetMaxX(self.imageView.frame) + 10;
+    CGFloat width = _w - x- 10;
+    self.textLabel.frame = CGRectMake(x, 10, width, 30);
+    self.thirdLabel.frame = CGRectMake(x, CGRectGetMaxY(self.textLabel.frame) - 5, width, 20);
+    self.secondLabel.frame = CGRectMake(x, CGRectGetMaxY(self.thirdLabel.frame), width, 20);
+  
+    _downloadedL.hidden = YES;
+}
+
+@end
+
+
+#pragma mark -
+#pragma mark - UserFavoritedCouponsViewController
+
 @interface UserFavoritedCouponsViewController ()
 
 @end
@@ -26,7 +63,6 @@
     
     self.title = @"我收藏的快券";
     
-//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     
 }
 
@@ -42,11 +78,8 @@
 }
 #pragma mark - Tableview
 
-
-- (void)initConfigCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
-    
-    [self addSeperatorLineInCell:cell];
-    
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 1;
 }
 
 - (void)configCell:(CouponListCell *)cell atIndexPath:(NSIndexPath *)indexPath{
@@ -59,7 +92,6 @@
         [cell setValue:project];
         
     }
-    
     
 }
 
@@ -79,8 +111,6 @@
 - (void)loadModels{
     L();
     
-//    [_libraryManager startProgress:nil];
-    
     [self.models removeAllObjects];
     
     [self willConnect:self.view];
@@ -90,9 +120,9 @@
         [self willDisconnect];
         [self.refreshControl endRefreshing];
         
-        if (!_networkFlag) {
-            return ;
-        }
+//        if (!_networkFlag) {
+//            return ;
+//        }
         
         if (!error) {
             NSArray *array = couponDicts[@"coupons"];
@@ -102,6 +132,10 @@
             for (NSDictionary *dict in array) {
                 Coupon *coupon = [[Coupon alloc] initWithFavoriteDict:dict];
                 [self.models addObject:coupon];
+            }
+            
+            if (self.models.count <kLimit) {
+                self.isLoadMore = NO;
             }
             
             [self.tableView reloadData];
@@ -114,29 +148,43 @@
 
 }
 
-///当用户refresh了收藏信息
-//- (void)refreshModels{
-//    [self.models removeAllObjects];
-//    
-//    [_networkClient queryFavoritedCoupon:_userController.uid skip:0 block:^(NSDictionary *couponDicts, NSError *error) {
-//  
-//        if (ISEMPTY(couponDicts)) {
-//     
+- (void)loadMore:(VoidBlock)finishedBlock{
+    int count = [_models count];
+    
+    //    NSLog(@"networkflag # %d",_networkFlag);
+    
+    _networkFlag = YES;
+    
+    //从现有的之后进行载入
+    [_networkClient queryFavoritedCoupon:_userController.uid skip:count block:^(NSDictionary *couponDicts, NSError *error) {
+        
+        finishedBlock();
+        
+//        if (!_networkFlag) {
+//            return ;
 //        }
-//        else{
-//            
-//            for (NSDictionary *dict in couponDicts) {
-//                Coupon *coupon = [Coupon couponWithDict:dict];
-//                [self.models addObject:coupon];
-//                
-//            }
-//        }
-////
-//        [self.tableView reloadData];
-//        
-//    }];
-//
-//}
+        
+        if (!error) {
+            NSArray *array = couponDicts[@"coupons"];
+            
+//            [self addCouponsInModel:array];
+            for (NSDictionary *dict in array) {
+                Coupon *coupon = [[Coupon alloc] initWithFavoriteDict:dict];
+                [self.models addObject:coupon];
+            }
+            
+            [self.tableView reloadData];
+
+            
+        }
+        else{
+            [ErrorManager alertError:error];
+        }
+        
+        
+    }];
+
+}
 
 - (void)toCouponDetails:(Coupon*)coupon{
     

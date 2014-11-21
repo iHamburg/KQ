@@ -377,14 +377,6 @@
         [self willDisconnect];
         
         if (succeeded && self.networkFlag) {
-            // 如果注册成功， login 一下获得用户的咨询
-            NSString *username = userInfo[@"username"];
-            NSString *password = userInfo[@"password"];
-            
-            [[UserController sharedInstance] loginWithUsername:username password:password boolBlock:^(BOOL succeeded, NSError *error) {
-                
-            }];
-            
             
             /// 注册成功后显示提示窗
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"注册成功" message:@"已获免费摩提快券，请前往绑定银行卡" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];

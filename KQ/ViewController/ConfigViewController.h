@@ -32,8 +32,9 @@
 
 @property (nonatomic, assign) BOOL networkFlag;
 @property (nonatomic, strong) TableConfiguration *config;
-//@property (nonatomic, strong) UserController *userController;
 
+
+- (IBAction)backPressed:(id)sender;
 
 /**
  *	@brief	只调用一次的cell配置, 调用完之后会吧cell的isInited参数修改成true，这样以后的reloadData，该cell就不会再调用initConfig函数了

@@ -9,6 +9,8 @@
 #import "ConfigCell.h"
 #import "Shop.h"
 
-@interface ShopListCell : ConfigCell
+@interface ShopListCell : ConfigCell{
+    UILabel *_downloadedL;
+}
 
 @end

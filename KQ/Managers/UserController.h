@@ -81,6 +81,15 @@
  */
 - (void)changePwd:(NSString*)oldPwd newPwd:(NSString*)newPwd boolBlock:(BooleanResultBlock)block;
 
+
+/**
+ *	@brief	从queryUserInfo接口更新user的app info
+ *
+ *	@param 	dict 	<#dict description#>
+ */
+- (BOOL)updateUserInfo:(NSDictionary*)dict;
+
+
 - (void)logout;
 
 

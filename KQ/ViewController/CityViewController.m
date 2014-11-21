@@ -64,7 +64,7 @@
     
     UIBarButtonItem *backBB = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(backPressed:)];
     self.navigationItem.leftBarButtonItem = backBB;
-//    NSLog(@"citys # %@",_citys);
+
 }
 
 - (void)didReceiveMemoryWarning

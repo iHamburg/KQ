@@ -16,16 +16,19 @@
     return _tf.text;
 }
 
+- (UITextField*)subView{
+    return _tf;
+}
+
 - (void)load{
     
     [super load];
     
-    _tf = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 300, 30)];
-    _tf.backgroundColor = kColorBlue;
-//    _switch.selected = YES;
+    _tf = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 280, 30)];
     self.accessoryView = _tf;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
 }
+
 
 @end

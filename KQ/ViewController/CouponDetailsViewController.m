@@ -54,6 +54,8 @@
     
     __weak id cell = self;
     
+//    NSLog(@"avatar # %@",coupon.avatarUrl);
+    
     [self.avatarV setImageWithURL:[NSURL URLWithString:coupon.avatarUrl] placeholderImage:[UIImage imageNamed:@"loading-pic02.png"] success:^(UIImage *image, BOOL cached) {
         
         Coupon *aCoupon = [(CouponHeaderCell*)cell value];
@@ -95,16 +97,34 @@
 - (void)load{
     [super load];
 
-    self.selectionStyle = UITableViewCellSeparatorStyleNone;
+//    self.selectionStyle = UITableViewCellSeparatorStyleNone;
     [self.contentView removeFromSuperview];
 
     
+   
+
+    _firstLabel.textColor = kColorRed;
+    _firstLabel.font = [UIFont fontWithName:kFontName size:16];
+    
+    _secondLabel.textColor = kColorBlack;
+    _secondLabel.font = [UIFont fontWithName:kFontName size:16];
+    _thirdLabel.textColor = kColorBlack;
+    _thirdLabel.font = [UIFont fontWithName:kFontName size:11];
+    
+    _downloadNumL.textColor = kColorBlack;
+    _downloadNumL.font = [UIFont fontWithName:kFontName size:11];
+    
     _downloadB.backgroundColor = kColorRed;
     _downloadB.layer.cornerRadius = 3;
-
-    _firstLabel.textColor = kColorBlack;
-    _secondLabel.textColor = kColorBlack;
-    _thirdLabel.textColor = kColorBlack;
+    
+    //分割线
+    UIView *v = [[UIView alloc]initWithFrame:CGRectMake(0, 246, _w, 1)];
+    v.backgroundColor = kColorLightGray;
+    [self addSubview:v];
+    
+    UIImageView *separatorV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 336, _w, 1)];
+    separatorV.image = [UIImage imageNamed:@"bg_虚线.png"];
+    [self addSubview:separatorV];
     
 }
 
@@ -230,6 +250,8 @@
 //        NSLog(@"othercoupons # %@",_coupon.otherCoupons);
 
         [self.tableView reloadData];
+   
+    
     }];
     
 }
@@ -335,9 +357,9 @@
     }
     else if([cell isKindOfClass:[CouponHeaderCell class]]){
         
-        [(CouponHeaderCell*)cell setValue:self.coupon];
-
-        [(CouponHeaderCell*)cell setHasFavoritedCoupon:self.isFavoritedCoupon];
+//        [(CouponHeaderCell*)cell setValue:self.coupon];
+//
+//        [(CouponHeaderCell*)cell setHasFavoritedCoupon:self.isFavoritedCoupon];
         CouponHeaderCell *aCell = (CouponHeaderCell*)cell;
         
         aCell.downloadBlock = ^{
@@ -365,7 +387,6 @@
     int section = indexPath.section;
     int row = indexPath.row;
     
-     __weak CouponDetailsViewController *vc = self;
     
     if([cell isKindOfClass:[ShopBranchesCell class]]){
         
@@ -378,37 +399,12 @@
     }
     else if([cell isKindOfClass:[CouponHeaderCell class]]){
         
-    
-        [(CouponHeaderCell*)cell setHasFavoritedCoupon:self.isFavoritedCoupon];
-      
-    }
-    else if([cell isKindOfClass:[CouponHeaderCell class]]){
-        
         [(CouponHeaderCell*)cell setValue:self.coupon];
         
         [(CouponHeaderCell*)cell setHasFavoritedCoupon:self.isFavoritedCoupon];
-        CouponHeaderCell *aCell = (CouponHeaderCell*)cell;
-        
-        aCell.downloadBlock = ^{
-            
-            L();
-            [vc downloadCoupon:self.coupon];
-            
-        };
-        
-        aCell.toggleFavoriteBlock = ^{
-            
-            [vc toggleFavoriteCoupon:self.coupon];
-            
-        };
-        
-        
-        [self addObserver:cell forKeyPath:@"isFavoritedCoupon" options:NSKeyValueObservingOptionNew context:nil];
-        
-        
-        
+      
     }
-    else if([cell isKindOfClass:[AutoHeightCell class]]){
+     else if([cell isKindOfClass:[AutoHeightCell class]]){
         NSString *key = cell.key;
         [cell setValue:[self.coupon valueForKey:key]];
     }
@@ -447,13 +443,13 @@
 
 
 ///toCouponDetails, 按back之后没有实现
-- (IBAction)backPressed:(id)sender{
-    L();
-    
-    [self dismissViewControllerAnimated:YES completion:^{
-        
-    }];
-}
+//- (IBAction)backPressed:(id)sender{
+//    L();
+//    
+//    [self dismissViewControllerAnimated:YES completion:^{
+//        
+//    }];
+//}
 
 - (IBAction)sharePressed:(id)sender{
     

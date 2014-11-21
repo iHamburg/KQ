@@ -30,10 +30,6 @@
 @end
 
 
-/**
- 
- 
- */
 @implementation AddCardViewController
 
 
@@ -121,7 +117,7 @@
     [self.view addSubview:_button];
     [self.view addSubview:unionImgV];
     [self.view addSubview:unionL];
-//    NSLog(@"label # %@",label);
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -253,7 +249,7 @@
 
 - (void)toAgreement{
     
-    L();
+//    L();
     WebViewController *vc = [[WebViewController alloc] init];
     vc.fileName = @"bankcard_agreement.html";
     vc.title = @"银联钱包技术使用协议";

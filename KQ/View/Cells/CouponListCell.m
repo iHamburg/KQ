@@ -13,7 +13,7 @@
 #import "Coupon.h"
 
 @interface CouponListCell (){
-    UILabel *_downloadedL;
+    
 }
 
 @end
@@ -41,20 +41,17 @@
     
 }
 
-- (void)setShop:(Shop *)shop{
-    _shop = shop;
-    
-
-    
-}
+//- (void)setShop:(Shop *)shop{
+//    _shop = shop;
+//    
+//
+//    
+//}
 
 //height: 85
 
 - (void)load{
     
-//    L();
-  
-//    self.separatorInset = UIEdgeInsetsMake(0, 0, 0,0); // 分割线是全屏的
     
     self.imageView.frame = CGRectMake(10, 10, 108, 76);
     self.imageView.layer.masksToBounds = YES;
@@ -63,6 +60,7 @@
     
     CGFloat x = CGRectGetMaxX(self.imageView.frame) + 10;
     CGFloat width = _w - x- 10;
+  
     // title
     self.textLabel.frame = CGRectMake(x, 10, width, 38);
     self.textLabel.font = [UIFont fontWithName:kFontBoldName size:16];

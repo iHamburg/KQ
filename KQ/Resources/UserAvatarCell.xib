@@ -12,40 +12,40 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O8K-rl-kl2">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="75"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="我的银行卡" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gp5-E8-EHj">
-                    <rect key="frame" x="200" y="94" width="100" height="21"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="main_my_coupon_icon_pressed.png" translatesAutoresizingMaskIntoConstraints="NO" id="mlL-Dl-dLL">
+                    <rect key="frame" x="12" y="100" width="38" height="38"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="main_my_bankcards_icon_pressed.png" translatesAutoresizingMaskIntoConstraints="NO" id="kz9-hA-M0H">
+                    <rect key="frame" x="172" y="100" width="38" height="38"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="我的快券" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="edj-DF-0gN">
+                    <rect key="frame" x="62" y="100" width="100" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="avatar.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="mlL-Dl-dLL">
-                    <rect key="frame" x="18" y="95" width="40" height="40"/>
-                </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="avatar.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="kz9-hA-M0H">
-                    <rect key="frame" x="158" y="98" width="40" height="40"/>
-                </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="我的快券" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="edj-DF-0gN">
-                    <rect key="frame" x="66" y="94" width="100" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="我的银行卡" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gp5-E8-EHj">
+                    <rect key="frame" x="222" y="100" width="100" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GeW-hU-8u5">
-                    <rect key="frame" x="66" y="117" width="42" height="21"/>
+                    <rect key="frame" x="62" y="120" width="80" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YvL-bU-K69">
-                    <rect key="frame" x="206" y="121" width="42" height="21"/>
+                    <rect key="frame" x="222" y="120" width="80" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AbN-LH-Q0t">
-                    <rect key="frame" x="135" y="21" width="50" height="50"/>
+                    <rect key="frame" x="15" y="15" width="60" height="60"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ctr-Yo-UoY">
                     <rect key="frame" x="0.0" y="94" width="150" height="56"/>
@@ -65,6 +65,21 @@
                         <action selector="cardPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="Wfq-Sg-BTG"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nickname" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IhO-9F-A07">
+                    <rect key="frame" x="90" y="47" width="202" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JeX-Eg-NdK">
+                    <rect key="frame" x="90" y="18" width="202" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon_white_go.png" translatesAutoresizingMaskIntoConstraints="NO" id="TWL-8E-4l6">
+                    <rect key="frame" x="290" y="30" width="15" height="27"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -72,14 +87,20 @@
                 <outlet property="avatarV" destination="AbN-LH-Q0t" id="vfj-Jd-44K"/>
                 <outlet property="cardNumBtn" destination="zR4-eM-UYu" id="cML-WN-vs4"/>
                 <outlet property="cardNumLabel" destination="YvL-bU-K69" id="hj2-t0-Wt1"/>
+                <outlet property="cardTitleL" destination="Gp5-E8-EHj" id="TGd-PE-zgd"/>
                 <outlet property="dCouponNumBtn" destination="ctr-Yo-UoY" id="diu-3v-HqO"/>
                 <outlet property="dCouponNumLabel" destination="GeW-hU-8u5" id="f42-VX-BEe"/>
+                <outlet property="dCouponTitleL" destination="edj-DF-0gN" id="qUO-2R-Iic"/>
+                <outlet property="nicknameLabel" destination="IhO-9F-A07" id="Sf6-08-NUH"/>
                 <outlet property="oberV" destination="O8K-rl-kl2" id="XE5-GX-vrn"/>
+                <outlet property="usernameLabel" destination="JeX-Eg-NdK" id="r54-y3-4YO"/>
             </connections>
         </view>
     </objects>
     <resources>
-        <image name="avatar.jpg" width="300" height="300"/>
+        <image name="icon_white_go.png" width="30" height="54"/>
+        <image name="main_my_bankcards_icon_pressed.png" width="144" height="144"/>
+        <image name="main_my_coupon_icon_pressed.png" width="144" height="144"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

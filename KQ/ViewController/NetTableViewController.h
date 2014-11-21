@@ -54,7 +54,7 @@
  *	@brief	iOS8 动态cell的分割线不对，所以手动添加
  *
  */
-- (void)addSeperatorLineInCell:(UITableViewCell*)cell;
+- (void)addSeparatorLineInCell:(UITableViewCell*)cell;
 
 
 @end

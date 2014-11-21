@@ -20,6 +20,7 @@
 #import "KQLoginViewController.h"
 #import "UserCouponsViewController.h"
 #import "NSString+md5.h"
+#import "InstructionViewController.h"
 
 @interface KQRootViewController (){
 
@@ -42,6 +43,11 @@
 
 @implementation KQRootViewController
 
+
+- (UITabBar*)tabBar{
+    return _tabVC.tabBar;
+}
+
 + (id)sharedInstance{
    
     static id sharedInstance = nil;
@@ -62,7 +68,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-//    L();
     
     _tabVC = [[KQTabBarViewController alloc] init];
     
@@ -87,11 +92,16 @@
     
 }
 
+
+- (void)handleAppFirstTimeOpen{
+    L();
+    [self showInstruction];
+}
+
 - (void)handleRootFirstWillAppear{
     
     L();
     
-    [super handleRootFirstWillAppear];
     
     
 //    [self startEvent];
@@ -158,6 +168,12 @@
 
 #pragma mark - Fcns
 
+- (void)showInstruction{
+    self.instructionVC = [[InstructionViewController alloc] init];
+    
+    [self.view addSubview:self.instructionVC.view];
+}
+
 - (void)startEvent{
     
     //判断是否登录
@@ -173,10 +189,7 @@
         _eventVC = [[EventViewController alloc] init];
 
         [self.view addSubview:_eventVC.view];
-        
-        
-      
-        
+       
     }
     
 }
@@ -222,8 +235,6 @@
 
 }
 
-//- (void)toShopDetails:
-
 /**
  *
 
@@ -239,20 +250,7 @@
         
     }];
 
-//    _nav = [[UINavigationController alloc] initWithRootViewController:vc];
-//    
-//    [_nav.view setOrigin:CGPointMake(_w, 0)];
-//    [self.view addSubview:_nav.view];
-//    
-//    [UIView animateWithDuration:.4 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-//        
-//        [_nav.view setOrigin:CGPointMake(0, 0)];
-//        
-//    } completion:^(BOOL finished) {
-//        
-//    }];
 
-   
     
 }
 
@@ -311,6 +309,7 @@
     [[NetworkClient sharedInstance] test];
     [[UserController sharedInstance] test];
 
+//    [self showInstruction];
  //    [self testNav:@"AddCardViewController"];
     
 //    CGRect r = [UIScreen mainScreen].bounds;

@@ -41,23 +41,6 @@
 			<key>height</key>
 			<string>50</string>
 		</dict>
-		<dict>
-			<key>rows</key>
-			<array>
-				<dict>
-					<key>key</key>
-					<string></string>
-					<key>label</key>
-					<string>提交</string>
-					<key>class</key>
-					<string>ButtonCell</string>
-					<key>selector</key>
-					<string>submitPressed:</string>
-				</dict>
-			</array>
-			<key>height</key>
-			<string>50</string>
-		</dict>
 	</array>
 </dict>
 </plist>

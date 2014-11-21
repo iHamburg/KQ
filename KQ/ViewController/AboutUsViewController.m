@@ -44,14 +44,18 @@
 - (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _w, headerHeight)];
-//    v.backgroundColor = [UIColor redColor];
+
     
     UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake(_w/2 - 42, 44, 85, 85)];
-    imgV.image = [UIImage imageNamed:@"avatar.jpg"];
+    imgV.image = [UIImage imageNamed:@"quickquan_launcher.png"];
+    imgV.layer.cornerRadius = 5;
+    imgV.layer.masksToBounds = YES;
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(imgV.frame)+10, _w, 30)];
     label.textAlignment = NSTextAlignmentCenter;
-    label.text = @"快券 v1.0";
+    label.text = @"快券 1.0";
+    label.font = nFont(15);
+    label.textColor = kColorGray;
     
     [v addSubview:imgV];
     [v addSubview:label];
@@ -65,7 +69,9 @@
 #pragma mark - Mail
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error{
     [controller dismissViewControllerAnimated:YES completion:^{
-        
+        self.globalMailComposer = nil;
+        self.globalMailComposer =  [[MFMailComposeViewController alloc] init];
+
     }];
 }
 
@@ -81,8 +87,8 @@
     MFMailComposeViewController* mailPicker = self.globalMailComposer;
     mailPicker.mailComposeDelegate = self;
     
-    [mailPicker setMessageBody:@"haha" isHTML:YES];
-    [mailPicker setSubject:@"subject"];
+//    [mailPicker setMessageBody:@"haha" isHTML:YES];
+    [mailPicker setSubject:@"意见反馈"];
     [mailPicker setToRecipients:@[@"app@quickquan.com"]];
 
     

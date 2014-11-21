@@ -4,9 +4,7 @@
 
 #define kTestJSONHost @"http://douban.fm/j/mine/playlist?type=n&h=&channel=0&from=mainsite&r=4941e23d79"
 
-
-
-#define kEventCouponId @"54059191e4b031c444ff0764"
+#define kLimit 30
 
 #pragma mark - file
 
@@ -33,7 +31,7 @@
 #define kColorYellow      [UIColor colorWithRed:253.0/255 green:130.0/255 blue:37.0/255 alpha:1]
 #define kColorLightYellow  [UIColor colorWithRed:255.0/255 green:164.0/255 blue:0.0/255 alpha:1]
 
-#define kColorBlack     [UIColor colorWithRed:35.0/255 green:24.0/255 blue:21.0/255 alpha:1]
+#define kColorBlack     [UIColor colorWithRed:24.0/255 green:24.0/255 blue:24.0/255 alpha:1]
 #define kColorDardGray  [UIColor colorWithRed:62.0/255 green:58.0/255 blue:57.0/255 alpha:1]
 #define kColorGray      [UIColor colorWithRed:113.0/255 green:113.0/255 blue:113.0/255 alpha:1]
 #define kColorLightGray  [UIColor colorWithRed:213.0/255 green:213.0/255 blue:213.0/255 alpha:1]

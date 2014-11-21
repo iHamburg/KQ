@@ -49,9 +49,6 @@
     self.textLabel.textColor = kColorBlack;
     self.textLabel.font = [UIFont fontWithName:kFontBoldName size:16];
     
-    
-//    self.detailTextLabel.textColor = kColorGray;
-//    self.detailTextLabel.font = [UIFont fontWithName:kFontName size:15];
 
     _firstLabel = [[UILabel alloc] initWithFrame:CGRectMake(89, 24, _w-89, 60)];
     _firstLabel.textColor = kColorGray;
@@ -148,10 +145,6 @@
     return headerHeight;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return footerHeight;
-}
-
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if(section == 0){
         UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _w, headerHeight)];
@@ -167,9 +160,13 @@
     return nil;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return footerHeight;
+}
+
 - (UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _w, footerHeight)];
-  
+    
     UIButton *btn = [UIButton buttonWithFrame:CGRectMake(10, 33, _w-20, 34) title:@"+ 添加银行卡" bgImageName:nil target:self action:@selector(addCard)];
     btn.backgroundColor = kColorGreen;
     btn.layer.cornerRadius = 3;
@@ -182,10 +179,13 @@
     label.textAlignment = NSTextAlignmentCenter;
     [v addSubview:btn];
     [v addSubview:label];
-//    v.backgroundColor = kColorLightYellow;
+    
     return v;
-
+    
 }
+
+
+
 
 - (void)configCell:(ConfigCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     

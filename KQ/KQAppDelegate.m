@@ -67,8 +67,9 @@
     
     // Title文字
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],
-                                                           NSFontAttributeName:[UIFont fontWithName:kFontBoldName size:22]}];
+                                                           NSFontAttributeName:[UIFont fontWithName:kFontBoldName size:18]}];
     
+    // --- Segement
     
     [[UISegmentedControl appearance] setTitleTextAttributes:@{
                                                               NSForegroundColorAttributeName : kColorDardGray,
@@ -78,7 +79,8 @@
                                                               NSForegroundColorAttributeName : [UIColor whiteColor],
                                                             NSFontAttributeName:[UIFont fontWithName:kFontBoldName size:13]
                                                               } forState:UIControlStateHighlighted];
-    // Title文件颜色
+
+    // SegmentTitle文件颜色
     [[UISegmentedControl appearance] setTintColor:kColorLightYellow];
     
 

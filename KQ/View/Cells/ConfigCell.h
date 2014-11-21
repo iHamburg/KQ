@@ -31,7 +31,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *secondLabel;
 @property (nonatomic, strong) IBOutlet UILabel *thirdLabel;
 @property (nonatomic, strong) IBOutlet UIImageView *avatarV;
-
+@property (nonatomic, strong) UIView *subView;
 
 /**
  *	@brief 判断cell是否初始化完成，

@@ -27,6 +27,50 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+#pragma mark - TableView
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 50;
+}
+
+- (UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _w, 100)];
+    
+    UIButton *btn = [UIButton buttonWithFrame:CGRectMake(10, 33, _w-20, 34) title:@"提交" bgImageName:nil target:self action:@selector(submitPressed:)];
+    btn.backgroundColor = kColorYellow;
+    btn.layer.cornerRadius = 3;
+    btn.titleLabel.font = [UIFont fontWithName:kFontBoldName size:15];
+    
+ 
+    [v addSubview:btn];
+ 
+    
+    return v;
+    
+}
+
+
+- (void)initConfigCell:(ConfigCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+    UITextField *tf = (UITextField*)cell.subView;
+    if ([cell.key isEqualToString:@"oldPwd"]) {
+        tf.placeholder = @"当前密码";
+    }
+    else if ([cell.key isEqualToString:@"newPwd"]) {
+        tf.placeholder = @"新密码(6-23位)";
+    }
+    else if ([cell.key isEqualToString:@"newPwd2"]) {
+        tf.placeholder = @"重复输入新密码";
+    }
+    else {
+        cell.backgroundColor = [UIColor clearColor];
+    }
+    
+}
+
+#pragma mark - IBAction
+
 - (IBAction)submitPressed:(id)sender{
 
     for (ConfigCell* cell in self.tableView.visibleCells) {
@@ -46,6 +90,7 @@
     
     [self validateWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
+            [self willConnect:sender];
             [self changePwd:self.oldPwd newPwd:self.nPwd];
         }
         else{
@@ -54,6 +99,8 @@
     }];
 
 }
+
+#pragma mark - Fcns
 
 - (void)validateWithBlock:(BooleanResultBlock)block{
     
@@ -76,11 +123,16 @@
     }
 }
 - (void)changePwd:(NSString*)oldPwd newPwd:(NSString*)newPwd{
-    
+
     [_userController changePwd:oldPwd newPwd:newPwd boolBlock:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
+        
+        [self willDisconnect];
+        
+        if (succeeded && _networkFlag) {
             [_libraryManager startHint:@"密码修改成功"];
         }
+     
+        
     }];
 }
 

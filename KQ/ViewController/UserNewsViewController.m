@@ -8,6 +8,7 @@
 
 #import "UserNewsViewController.h"
 #import "News.h"
+#import "AutoHeightCell.h"
 
 @interface NewsCell : ConfigCell
 
@@ -19,33 +20,42 @@
     
     _value = value;
     
-    _secondLabel.text = value.title;
-    _thirdLabel.text = value.text;
+    self.textLabel.text = value.title;
+    _secondLabel.text = value.text;
+    _thirdLabel.text = value.createdAt;
+
+    CGSize constraint = CGSizeMake(300, 10000);
+
+    CGRect textRect = [value.text boundingRectWithSize:constraint options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName:nFont(14)} context:nil];
+    float height = textRect.size.height;
+    _secondLabel.frame = CGRectMake(10, 25, 300, height);
+    
+    _thirdLabel.frame = CGRectMake(10, CGRectGetMaxY(_secondLabel.frame)+5, 300, 25);
+    
 }
 
 
 - (void)load{
     
     
-    self.imageView.frame = CGRectMake(10, 10, 108, 65);
-    self.imageView.layer.masksToBounds = YES;
-    self.imageView.layer.cornerRadius = 3;
-    self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     
     // title
-    self.textLabel.frame = CGRectMake(130, 10, 150, 20);
-    self.textLabel.font = [UIFont fontWithName:kFontBoldName size:14];
+    self.textLabel.frame = CGRectMake(10, 0, 300, 25);
+    self.textLabel.font = bFont(16);
     self.textLabel.textAlignment = NSTextAlignmentLeft;
     
+   
+    
     _secondLabel = [[KQLabel alloc] initWithFrame:CGRectMake(130, CGRectGetMaxY(self.textLabel.frame)+10, 150, 20)];
-    _secondLabel.font = [UIFont fontWithName:kFontBoldName size:14];
-    _secondLabel.textAlignment = NSTextAlignmentLeft;
-    _secondLabel.textColor = kColorYellow;
+    _secondLabel.font = nFont(14);
+    _secondLabel.numberOfLines = 0;
+//    _secondLabel.textAlignment = NSTextAlignmentLeft;
+    _secondLabel.textColor = kColorGray;
     
     
     //distance
     _thirdLabel = [[KQLabel alloc] initWithFrame:CGRectMake(250, 20, 60, 30)];
-    _thirdLabel.font = [UIFont fontWithName:kFontName size:12];
+    _thirdLabel.font = nFont(14);
     
     [self addSubview:_secondLabel];
     [self addSubview:_thirdLabel];
@@ -54,6 +64,22 @@
     self.backgroundColor = [UIColor whiteColor];
     
 }
+
++ (CGFloat)cellHeightWithValue:(News*)news{
+    
+    //    NSLog(@"shop # %@",self.va)
+    
+    
+    CGSize constraint = CGSizeMake(300, 10000);
+    
+    
+    CGRect textRect = [news.text boundingRectWithSize:constraint options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName:nFont(14)} context:nil];
+    
+    
+    return textRect.size.height + 60;
+}
+
+- (void)layoutSubviews{}
 
 @end
 
@@ -82,6 +108,20 @@
 
 
 #pragma mark - TableView
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 1.0;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+ 
+    News *news = _models[indexPath.row];
+    
+    CGFloat height = [NewsCell cellHeightWithValue:news];
+    
+    return height;
+}
+
 - (void)configCell:(ConfigCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     
     if ([cell isKindOfClass:[NewsCell class]]) {
@@ -100,16 +140,17 @@
 - (void)loadModels{
     L();
     
-    [_libraryManager startProgress:nil];
     
     [self.models removeAllObjects];
     
 //    NSLog(@"uid # %@",_userController.uid);
     
+    [self willConnect:self.view];
+    
     [_networkClient queryUserNews:_userController.uid skip:0 block:^(NSDictionary *dict, NSError *error) {
         
-        [_libraryManager dismissProgress:nil];
-      
+        [self willDisconnect];
+        
         if (!error) {
             if (ISEMPTY(dict)) {
                 [_libraryManager startHint:@"还没有收藏商户" duration:1];
@@ -124,6 +165,9 @@
                     [self.models addObject:news];
                 }
                 
+                if (self.models.count< kLimit) {
+                    self.isLoadMore = NO;
+                }
                 [self.tableView reloadData];
             }
 

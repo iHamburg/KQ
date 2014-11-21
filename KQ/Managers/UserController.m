@@ -101,16 +101,13 @@
                 
                 if (!error) {
                     // 如果没有出错
-                    NSLog(@"dict # %@",dict);
+//                    NSLog(@"dict # %@",dict);
                     if ([dict isKindOfClass:[NSDictionary class]]) {
                         dict = [dict dictionaryCheckNull];
                     }
                     
-                    self.people.dCouponNum = [dict[@"dCouponNum"] intValue];
-                    self.people.cardNum = [dict[@"cardNum"] intValue];
-                    self.people.fCouponNum = [dict[@"fCouponNum"] intValue];
-                    self.people.fShopNum = [dict[@"fShopNum"] intValue];
-                    
+
+                    [self updateUserInfo:dict];
                 }
                 else{
                     int code = error.code;
@@ -182,7 +179,16 @@
     [_networkClient registerWithDict:userInfo block:^(NSDictionary *dict, NSError *error) {
        
         if (!error) {
-            // 如果注册成功
+            // 如果注册成功, 自动login获得信息
+            
+            // 如果注册成功， 后台login 一下获得用户的咨询
+            NSString *username = userInfo[@"username"];
+            NSString *password = userInfo[@"password"];
+            
+            [self loginWithUsername:username password:password boolBlock:^(BOOL succeeded, NSError *error) {
+                
+            }];
+            
             
             block(YES,nil);
         }
@@ -308,10 +314,20 @@
     
 }
 
-//- (void)requestPasswordResetForEmailInBackground:(NSString*)email block:(BooleanResultBlock)block{
-//    
-////    [_engine requestPasswordResetForEmailInBackground:email block:block];
-//}
+- (BOOL)updateUserInfo:(NSDictionary*)dict{
+    
+    if (!self.people) {
+        return NO;
+    }
+    
+    self.people.dCouponNum = [dict[@"dCouponNum"] intValue];
+    self.people.cardNum = [dict[@"cardNum"] intValue];
+    self.people.fCouponNum = [dict[@"fCouponNum"] intValue];
+    self.people.fShopNum = [dict[@"fShopNum"] intValue];
+
+    return YES;
+    
+}
 
 - (void)logout{
     

@@ -33,10 +33,13 @@
     
     self.view.backgroundColor = kColorBG;
 
-//    self.tableView.backgroundColor = [UIColor whiteColor];
     
     self.navigationController.navigationBar.translucent = NO;
-    
+
+   
+    UIBarButtonItem *backBB = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_white_back.png"] style:UIBarButtonItemStylePlain target:self action:@selector(backPressed:)];
+    self.navigationItem.leftBarButtonItem = backBB;
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -83,6 +86,10 @@
     
     return [_config headerInSection:section];
 }
+
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+//    return 38;
+//}
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     NSString *text = [_config headerInSection:section];
@@ -224,6 +231,13 @@
 - (void)initConfigCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath{}
 
 - (void)configCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath{}
+
+#pragma mark - IBAction
+
+- (IBAction)backPressed:(id)sender{
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 - (void)willConnect:(UIView*)sender{
     

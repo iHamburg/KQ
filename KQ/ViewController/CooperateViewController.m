@@ -28,7 +28,14 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 38;
+}
 
+
+- (void)initConfigCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+}
 - (IBAction)callPressed:(id)sender{
     
     [self call];
@@ -38,9 +45,7 @@
 //    L();
     
     NSString *telUrl = [NSString stringWithFormat:@"telprompt:%@",@"021-65218745"];
-    
-    
-    
+   
     NSURL *url = [[NSURL alloc] initWithString:telUrl];
     
     

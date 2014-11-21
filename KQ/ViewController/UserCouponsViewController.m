@@ -134,31 +134,22 @@
 - (void)loadModels{
     
     
-//    if (!ISEMPTY(_models)) {
-//        return;
-//    }
-    
-//    [_libraryManager startProgress:nil];
-    
     [self.models removeAllObjects];
 
 
     [self willConnect:self.view];
     
     [_networkClient queryDownloadedCoupon:_userController.uid skip:0 block:^(NSDictionary *dict, NSError *error) {
-//        [_libraryManager dismissProgress:nil];  
+
 
         [self willDisconnect];
         [self.refreshControl endRefreshing];
         
-        if (!_networkFlag) {
-            return ;
-        }
 
         if (!error) {
             NSArray *array = dict[@"coupons"];
             
-            //                NSLog(@"array # %@",array);
+             NSLog(@"array # %@",array);
             
             if (ISEMPTY(array)) {
                 [_libraryManager startHint:@"还没有下载优惠券" duration:1];

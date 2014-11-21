@@ -17,7 +17,7 @@
 					<key>selector</key>
 					<string>callPressed:</string>
 					<key>image</key>
-					<string>icon_mycoupons.png</string>
+					<string>phone_icon.png</string>
 				</dict>
 			</array>
 			<key>height</key>

@@ -75,6 +75,9 @@ static NSArray *searchListKeys;  //附近搜索list的key
         }
         
         self.active = [dict[@"active"] boolValue];
+        self.coord = CLLocationCoordinate2DMake([dict[@"latitude"] doubleValue], [dict[@"longitude"] doubleValue]);
+        self.location = [[CLLocation alloc] initWithLatitude:self.coord.latitude longitude:self.coord.longitude];
+        self.locationDistance = [[UserController sharedInstance] distanceFromLocation:self.location];
     }
     
     return self;

@@ -23,6 +23,8 @@
     
     _firstLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 0, 90, 50)];
     _firstLabel.textAlignment = NSTextAlignmentRight;
+    _firstLabel.textColor = kColorGray;
+    _firstLabel.font = bFont(12);
     
     [self addSubview:_firstLabel];
 }

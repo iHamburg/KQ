@@ -51,8 +51,6 @@
 #define degreesToRadians(x) ((x)/180.0f*M_PI)
 #define TRANSFORM(degree) CGAffineTransformMakeRotation(M_PI*(degree)/180.0);
 
-
-
 #pragma mark - Debug & Release
 
 

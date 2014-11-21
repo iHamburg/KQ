@@ -9,11 +9,11 @@
 			<array>
 				<dict>
 					<key>key</key>
-					<string>aboutus</string>
+					<string></string>
 					<key>label</key>
 					<string></string>
 					<key>class</key>
-					<string>CouponListCell</string>
+					<string>CouponListFavoritedCell</string>
 					<key>selector</key>
 					<string></string>
 				</dict>

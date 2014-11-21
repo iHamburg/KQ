@@ -38,7 +38,7 @@
     
     
     self.coupon = [[Coupon alloc] init];
-    self.coupon.id = kEventCouponId;
+    self.coupon.id = @"38";
     self.coupon.avatarUrl = @"http://www.quickquan.com/images/moti_coupon.jpg";
     self.coupon.discountContent = @"0元享18元套餐";
     self.coupon.usage = @"新用户注册即可0元享受，价值18元的美味摩提2个！榴莲慕思摩提、蓝莓味摩提香甜好味、松软曼妙口感！30家店通用";

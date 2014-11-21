@@ -79,6 +79,12 @@ void report_memory() {
 	
 }
 
+UIFont* nFont(int x){
+    return  [UIFont fontWithName:kFontName size:x];
+}
+UIFont* bFont(int x){
+    return  [UIFont fontWithName:kFontBoldName size:x];
+}
 
 //BOOL isPaid(void){
 //	
