@@ -9,11 +9,11 @@
 			<array>
 				<dict>
 					<key>key</key>
-					<string>aboutus</string>
+					<string></string>
 					<key>label</key>
 					<string></string>
 					<key>class</key>
-					<string>ShopBranchesCell</string>
+					<string>CouponListCell</string>
 					<key>selector</key>
 					<string></string>
 				</dict>
@@ -21,11 +21,7 @@
 			<key>dynamic</key>
 			<integer>1</integer>
 			<key>height</key>
-			<string>123</string>
-			<key>header</key>
-			<string>所有门店</string>
-			<key>nib</key>
-			<string>ShopBranchesCell</string>
+			<string>96</string>
 		</dict>
 	</array>
 </dict>

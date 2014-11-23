@@ -13,24 +13,7 @@
 					<key>label</key>
 					<string></string>
 					<key>class</key>
-					<string>ImageCell</string>
-					<key>selector</key>
-					<string></string>
-				</dict>
-			</array>
-			<key>height</key>
-			<string>125</string>
-		</dict>
-		<dict>
-			<key>rows</key>
-			<array>
-				<dict>
-					<key>key</key>
-					<string>aboutus</string>
-					<key>label</key>
-					<string></string>
-					<key>class</key>
-					<string>CouponListCell</string>
+					<string>CouponSearchListCell</string>
 					<key>selector</key>
 					<string></string>
 				</dict>
@@ -38,7 +21,7 @@
 			<key>dynamic</key>
 			<integer>1</integer>
 			<key>height</key>
-			<string>85</string>
+			<string>96</string>
 		</dict>
 	</array>
 </dict>

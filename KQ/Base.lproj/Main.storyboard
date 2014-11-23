@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="0Q6-KU-vag">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <scenes>
@@ -337,7 +336,7 @@
         <!--Root View Controller-->
         <scene sceneID="NQQ-e9-Wgp">
             <objects>
-                <tableViewController id="Czc-x9-ddf" customClass="AroundViewController" sceneMemberID="viewController">
+                <tableViewController id="Czc-x9-ddf" customClass="DropDownShopListViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="aT6-AN-4Xb">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -635,10 +634,10 @@
             </objects>
             <point key="canvasLocation" x="1211" y="1736"/>
         </scene>
-        <!--Search Results View Controller-->
+        <!--Drop Down Coupon List View Controller-->
         <scene sceneID="nQO-B1-qZg">
             <objects>
-                <tableViewController id="TKc-tF-ZTU" customClass="SearchResultsViewController" sceneMemberID="viewController">
+                <tableViewController id="TKc-tF-ZTU" customClass="DropDownCouponListViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Nit-0i-YEn">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

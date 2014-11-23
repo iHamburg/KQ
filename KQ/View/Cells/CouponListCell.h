@@ -8,12 +8,12 @@
 
 
 #import "ConfigCell.h"
-
+#import "Coupon.h"
 
 @interface CouponListCell : ConfigCell{
     UILabel *_downloadedL;
 }
 
-
+@property (nonatomic, strong) NSString *text;
 
 @end

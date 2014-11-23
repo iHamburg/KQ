@@ -11,9 +11,6 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="370"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4mC-46-ZiS" userLabel="BG" customClass="UIImageView">
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xUS-2f-NAh" userLabel="Avatar">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="196"/>
                 </imageView>
@@ -50,21 +47,21 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MeK-DC-3t4">
-                    <rect key="frame" x="15" y="326" width="116" height="22"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <rect key="frame" x="15" y="340" width="116" height="22"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="下载" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rzq-6d-OZE">
-                    <rect key="frame" x="74" y="327" width="34" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="已下载" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rzq-6d-OZE">
+                    <rect key="frame" x="74" y="340" width="46" height="20"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" red="0.7450980544090271" green="0.69411766529083252" blue="0.08235294371843338" alpha="1" colorSpace="deviceRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QW3-p6-yhX">
-                    <rect key="frame" x="257" y="302" width="43" height="46"/>
+                    <rect key="frame" x="270" y="336" width="30" height="30"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                    <state key="normal" title="收藏快券" backgroundImage="bg_favoriteB.jpg">
+                    <state key="normal">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -77,8 +74,8 @@
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="_bgV" destination="4mC-46-ZiS" id="EG6-Ig-0py"/>
                 <outlet property="_downloadB" destination="hi8-hv-xhK" id="dgh-cq-F3h"/>
+                <outlet property="_favoriteB" destination="QW3-p6-yhX" id="48o-IZ-bF6"/>
                 <outlet property="avatarV" destination="xUS-2f-NAh" id="r7k-LS-qew"/>
                 <outlet property="downloadNumL" destination="MeK-DC-3t4" id="8su-Cj-r4L"/>
                 <outlet property="firstLabel" destination="SM5-rz-d5e" id="FR5-Lr-VoY"/>
@@ -88,9 +85,6 @@
             <point key="canvasLocation" x="414" y="277"/>
         </view>
     </objects>
-    <resources>
-        <image name="bg_favoriteB.jpg" width="160" height="44"/>
-    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

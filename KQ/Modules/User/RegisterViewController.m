@@ -180,7 +180,7 @@
       
 
         if (indexPath.row == 1) {
-            _identifyB = [UIButton buttonWithFrame:CGRectMake(230, 3, 90, kCellHeight - 6) title:@"获取验证码" bgImageName:nil target:self action:@selector(identifyClicked:)];
+            _identifyB = (CaptchaButton*)[CaptchaButton buttonWithFrame:CGRectMake(230, 3, 90, kCellHeight - 6) title:@"获取验证码" bgImageName:nil target:self action:@selector(identifyClicked:)];
             
             [_identifyB setTitleColor:kColorYellow forState:UIControlStateNormal];
             [_identifyB.titleLabel setFont:[UIFont fontWithName:kFontName size:14]];
@@ -207,9 +207,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    
-    
+   
     
 }
 
@@ -235,7 +233,7 @@
 
 - (IBAction)identifyClicked:(id)sender{
     L();
-    
+    [_identifyB startTimer];
     [self requestCaptcha];
 }
 #pragma mark - Private methods
@@ -263,9 +261,9 @@
 //}
 
 
-//#pragma mark - Alert
-//- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
-//    
+#pragma mark - Alert
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
+    
 //    [[NetworkClient sharedInstance] user:[[UserController sharedInstance] uid] downloadCoupon:kEventCouponId block:^(id obj, NSError *error) {
 //        
 //        if (obj) {
@@ -276,9 +274,13 @@
 //        }
 //        
 //    }];
-//    
-//    [self toAfterDownload];
-//}
+    
+    self.successBlock(YES,nil);
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+    
+}
 
 #pragma mark - Fcn
 
@@ -344,15 +346,15 @@
     //    NSLog(@"request mobile # %@",mobile);
     
     //在转验证码的时候,
-    [self willConnect:_identifyB];
+//    [self willConnect:_identifyB];
     
     
     [_network requestCaptchaRegister:mobile block:^(NSDictionary* object, NSError *error) {
         
-        [self willDisconnect];
-        if (!self.networkFlag) {
-            return;
-        }
+//        [self willDisconnect];
+//        if (!self.networkFlag) {
+//            return;
+//        }
         
         if (!error) {
             NSString *captcha = object[@"captcha"];
@@ -362,6 +364,8 @@
         }
         else{
             [ErrorManager alertError:error];
+            
+            [_identifyB stopTimer];
         }
         
         

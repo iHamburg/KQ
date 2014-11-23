@@ -24,6 +24,7 @@
 @property (nonatomic, copy) NSString *latitude;
 @property (nonatomic, copy) NSString *district;
 @property (nonatomic, copy) NSString *distance;
+@property (nonatomic, copy) NSString *shopCount;
 @property (nonatomic, assign) BOOL active;
 
 
@@ -33,13 +34,22 @@
 
 
 @property (nonatomic, copy) NSString *districtId;
-@property (nonatomic, copy) NSArray *coupons;
-@property (nonatomic, copy) NSArray *comments;
+
+
 @property (nonatomic, copy) UIImage *image;
+@property (nonatomic, readonly) NSArray *coupons;
 
+//+ (instancetype)shopWithDictionary:(NSDictionary*)dict;
 
-+ (instancetype)shopWithDictionary:(NSDictionary*)dict;
+/**
+ *	@brief	包括： 收藏的门店，搜索的门店，门户列表
+ *
+ *
+ */
+- (id)initWithListDict:(NSDictionary*)dict;
 
-- (id)initWithFavoriteDict:(NSDictionary*)dict;
-- (id)initWithSearchDict:(NSDictionary*)dict;
+//- (id)initWithSearchDict:(NSDictionary*)dict;
+- (id)initWithCouponDetailsDict:(NSDictionary*)dict; //从CouponDetails传过来的dict
+- (id)initWithShopDetailsDict:(NSDictionary*)dict;
+
 @end

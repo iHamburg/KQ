@@ -8,6 +8,7 @@
 #import "NetworkClient.h"
 #import "LibraryManager.h"
 #import "UserController.h"
+#import "KQRootViewController.h"
 
 @interface SignViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>{
     
@@ -23,11 +24,14 @@
     NetworkClient *_network;
     LibraryManager *_libraryMng;
     UserController *_userController;
+    KQRootViewController *_root;
+    
     BOOL _networkFlag;
-
+    BooleanResultBlock _successBlock;
 }
 
 @property (nonatomic, assign) BOOL networkFlag;
+@property (nonatomic, copy) BooleanResultBlock successBlock;
 
 - (IBAction)backPressed:(id)sender;
 - (IBAction)submitClicked:(id)sender;

@@ -10,7 +10,7 @@
 #import "UIImageView+WebCache.h"
 #import "NetworkClient.h"
 #import "CouponManager.h"
-#import "Coupon.h"
+
 
 @interface CouponListCell (){
     
@@ -33,20 +33,18 @@
 
     _thirdLabel.text = value.discountContent;
     
-    _downloadedL.text = [NSString stringWithFormat:@"%@下载",value.downloadedCount];
+//    _downloadedL.text = [NSString stringWithFormat:@"%@下载",value.downloadedCount];
 
     
-    [self.imageView setImageWithURL:[NSURL URLWithString:value.avatarUrl] placeholderImage:[UIImage imageNamed:@"quickquan300.jpg"]];
-    
+    [self.imageView setImageWithURL:[NSURL URLWithString:value.avatarUrl] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     
 }
 
-//- (void)setShop:(Shop *)shop{
-//    _shop = shop;
-//    
-//
-//    
-//}
+- (void)setText:(NSString *)text{
+    _text = text;
+    
+    _downloadedL.text = text;
+}
 
 //height: 85
 
@@ -85,10 +83,10 @@
     _downloadedL.textAlignment  = NSTextAlignmentRight;
     
     
-    [self addSubview:_downloadedL];
+   
     [self addSubview:_secondLabel];
     [self addSubview:_thirdLabel];
-    
+    [self addSubview:_downloadedL];
     
     self.backgroundColor = [UIColor whiteColor];
     

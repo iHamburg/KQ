@@ -9,6 +9,8 @@
 #import "KQTabBarViewController.h"
 #import "KQRootViewController.h"
 #import "SearchViewController.h"
+#import "DropDownCouponListViewController.h"
+#import "CouponSearchViewController.h"
 
 @interface KQTabBarViewController ()
 
@@ -24,14 +26,14 @@
     // Do any additional setup after loading the view.
     
     _mainVC = [[MainViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    _aroundVC = [[AroundViewController alloc] init];
-    _searchVC = [[KQSearchViewController alloc] init];
+    _aroundVC = [[DropDownShopListViewController alloc] initWithStyle:UITableViewStyleGrouped];
+//    _searchVC = [[KQSearchViewController alloc] init];
     _userCenterVC = [[UserCenterViewController alloc] initWithStyle:UITableViewStyleGrouped];
     self.delegate = self;
     
 //    NSArray *vcs = @[_mainVC,_aroundVC,_searchVC,_userCenterVC];
     
-        NSArray *vcs = @[_mainVC,_aroundVC,[[SearchViewController alloc]initWithStyle:UITableViewStylePlain],_userCenterVC];
+        NSArray *vcs = @[_mainVC,_aroundVC,[[CouponSearchViewController alloc]init],_userCenterVC];
     
     NSMutableArray *tabVCs = [NSMutableArray array];
     for (UIViewController *vc in vcs) {

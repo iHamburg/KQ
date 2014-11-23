@@ -11,41 +11,41 @@
 #import "CouponDetailsViewController.h"
 
 
+//
+//@interface CouponListFavoritedCell : CouponListCell
+//
+//@end
+//
+//@implementation CouponListFavoritedCell
+//
+//- (void)setValue:(Coupon*)value{
+//    [super setValue:value];
+//    
+//     _secondLabel.text = value.endDate;
+//    _thirdLabel.text = value.discountContent;
+//    
+//}
+//
+//
+//- (void)load{
+//    
+//    [super load];
+//    
+//    self.imageView.frame = CGRectMake(10, 10, 85, 65);
+//    CGFloat x = CGRectGetMaxX(self.imageView.frame) + 10;
+//    CGFloat width = _w - x- 10;
+//    self.textLabel.frame = CGRectMake(x, 10, width, 30);
+//    self.thirdLabel.frame = CGRectMake(x, CGRectGetMaxY(self.textLabel.frame) - 5, width, 20);
+//    self.secondLabel.frame = CGRectMake(x, CGRectGetMaxY(self.thirdLabel.frame), width, 20);
+//  
+//    _downloadedL.hidden = YES;
+//}
+//
+//@end
 
-@interface CouponListFavoritedCell : CouponListCell
-
-@end
-
-@implementation CouponListFavoritedCell
-
-- (void)setValue:(Coupon*)value{
-    [super setValue:value];
-    
-     _secondLabel.text = value.endDate;
-    _thirdLabel.text = value.discountContent;
-    
-}
-
-
-- (void)load{
-    
-    [super load];
-    
-    self.imageView.frame = CGRectMake(10, 10, 85, 65);
-    CGFloat x = CGRectGetMaxX(self.imageView.frame) + 10;
-    CGFloat width = _w - x- 10;
-    self.textLabel.frame = CGRectMake(x, 10, width, 30);
-    self.thirdLabel.frame = CGRectMake(x, CGRectGetMaxY(self.textLabel.frame) - 5, width, 20);
-    self.secondLabel.frame = CGRectMake(x, CGRectGetMaxY(self.thirdLabel.frame), width, 20);
-  
-    _downloadedL.hidden = YES;
-}
-
-@end
-
-
-#pragma mark -
-#pragma mark - UserFavoritedCouponsViewController
+//
+//#pragma mark -
+//#pragma mark - UserFavoritedCouponsViewController
 
 @interface UserFavoritedCouponsViewController ()
 
@@ -59,7 +59,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-     self.config = [[TableConfiguration alloc] initWithResource:@"UserCouponsConfig"];
+     self.config = [[TableConfiguration alloc] initWithResource:@"CouponMyListConfig"];
     
     self.title = @"我收藏的快券";
     
@@ -160,16 +160,13 @@
         
         finishedBlock();
         
-//        if (!_networkFlag) {
-//            return ;
-//        }
         
         if (!error) {
             NSArray *array = couponDicts[@"coupons"];
             
 //            [self addCouponsInModel:array];
             for (NSDictionary *dict in array) {
-                Coupon *coupon = [[Coupon alloc] initWithFavoriteDict:dict];
+                Coupon *coupon = [[Coupon alloc] initWithListDict:dict];
                 [self.models addObject:coupon];
             }
             

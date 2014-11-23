@@ -26,7 +26,6 @@
     // Do any additional setup after loading the view.
     _userTextField.placeholder = @"手机号";
 
-    
 
      self.navigationController.navigationBar.translucent = NO;
 }
@@ -168,11 +167,11 @@
 //    
 //}
 
-- (void)toAfterDownload{
-    
-    AfterDownloadViewController *vc = [[AfterDownloadViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
-}
+//- (void)toAfterDownload{
+//    
+//    AfterDownloadViewController *vc = [[AfterDownloadViewController alloc] init];
+//    [self.navigationController pushViewController:vc animated:YES];
+//}
 
 
 

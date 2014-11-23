@@ -41,14 +41,17 @@
     self.navigationController.tabBarItem.title = @"首页";
     self.navigationItem.leftBarButtonItem = nil;
     
-    self.config = [[TableConfiguration alloc] initWithResource:@"MainConfig"];
-//    self.config = [[TableConfiguration alloc] initWithResource:@"MainConfig2"];
+    self.config = [[TableConfiguration alloc] initWithResource:@"CouponListConfig"];
     
     // navibar上的icon
     UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 46, 26)];
     imgV.contentMode = UIViewContentModeCenter;
     imgV.image = [UIImage imageNamed:@"titlebar_index_center_title.png"];
     self.navigationItem.titleView = imgV;
+    
+    
+//    NSLog(@"main");
+    
     
 }
 
@@ -120,7 +123,7 @@
           Coupon *project = _models[indexPath.row];
         
          [cell setValue:project];
-        
+        [cell setText:[NSString stringWithFormat:@"%@下载",project.downloadedCount]];
     }
     
    
@@ -172,9 +175,6 @@
         [self willDisconnect];
         [self.refreshControl endRefreshing];
         
-//        if (!_networkFlag) {
-//            return ;
-//        }
         
         if (!error) {
             NSArray *array = couponDicts[@"coupons"];
@@ -191,11 +191,6 @@
     
 }
 
-//- (void)refreshModels{
-//    [_models removeAllObjects];
-//    
-//    [self loadModels];
-//}
 
 - (void)loadMore:(VoidBlock)finishedBlock{
     
@@ -210,10 +205,6 @@
     [_networkClient queryHotestCouponsSkip:count block:^(NSDictionary *couponDicts, NSError *error) {
         
         finishedBlock();
-      
-        if (!_networkFlag) {
-            return ;
-        }
         
         if (!error) {
             NSArray *array = couponDicts[@"coupons"];

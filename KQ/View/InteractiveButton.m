@@ -22,8 +22,7 @@
 }
 
 - (void)startLoading{
-//    self.text = self.titleLabel.text;
-//    self.titleLabel.alpha = 0;
+
     
     [_activityV startAnimating];
     

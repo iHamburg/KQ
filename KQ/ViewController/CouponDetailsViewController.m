@@ -9,7 +9,7 @@
 #import "CouponDetailsViewController.h"
 
 #import "ShopBranchesCell.h"
-#import "ShopModelDescCell.h"
+
 #import "AutoHeightCell.h"
 
 #import "UMSocial.h"
@@ -26,13 +26,15 @@
 @interface CouponHeaderCell : ConfigCell{
 
     IBOutlet UIButton *_downloadB, *_favoriteB;
-    IBOutlet UIImageView *_bgV;
+//    IBOutlet UIImageView *_bgV;
     IBOutlet UILabel *_downloadNumL;
   
 }
 
+@property (nonatomic, strong) UIButton *favoriteB;
 @property (nonatomic, assign) BOOL hasFavoritedCoupon;
 @property (nonatomic, copy) VoidBlock downloadBlock;
+@property (nonatomic, copy) void (^downloadBlock2)(UIView*);
 @property (nonatomic, copy) VoidBlock toggleFavoriteBlock;
 
 - (IBAction)downloadPressed:(id)sender;
@@ -54,54 +56,52 @@
     
     __weak id cell = self;
     
-//    NSLog(@"avatar # %@",coupon.avatarUrl);
     
-    [self.avatarV setImageWithURL:[NSURL URLWithString:coupon.avatarUrl] placeholderImage:[UIImage imageNamed:@"loading-pic02.png"] success:^(UIImage *image, BOOL cached) {
-        
+//    NSLog(@"coupon # %@,avatar # %@",coupon,coupon.avatarUrl);
+    
+    [self.avatarV setImageWithURL:[NSURL URLWithString:coupon.avatarUrl] placeholderImage:[UIImage imageNamed:@"placeholder.png"] success:^(UIImage *image, BOOL cached) {
+    
         Coupon *aCoupon = [(CouponHeaderCell*)cell value];
         [aCoupon setAvatar:image];
         
     } failure:^(NSError *error) {}];
-    
+
     self.firstLabel.text = coupon.discountContent;
+    
     self.secondLabel.text = coupon.title;
     self.thirdLabel.text = coupon.slogan;
-    _downloadNumL.text = [NSString stringWithFormat:@"%@人",coupon.downloadedCount];
+   
     
-//    NSString *downloaded = coupon.downloadedCount;
-//    if (ISEMPTY(downloaded)) {
-//        downloaded = @"0";
-//    }
+    
+    NSString *downloaded = coupon.downloadedCount;
+    if (ISEMPTY(downloaded)) {
+        downloaded = @"0";
+    }
+    _downloadNumL.text = [NSString stringWithFormat:@"%@人",downloaded];
 
-//     = [NSString stringWithFormat:@"%@人购买",downloaded];
 
 }
 
-- (void)setHasFavoritedCoupon:(BOOL)hasFavoritedCoupon{
-
-    _hasFavoritedCoupon = hasFavoritedCoupon;
-    
-    if (_hasFavoritedCoupon) {
-        [_favoriteB setTitle:@"取消收藏" forState:UIControlStateNormal];
-        [_favoriteB setBackgroundImage:[UIImage imageNamed:@"bg_unfavoriteB.jpg"] forState:UIControlStateNormal];
-    }
-    else{
-        [_favoriteB setTitle:@"收藏快券" forState:UIControlStateNormal];
-        [_favoriteB setBackgroundImage:[UIImage imageNamed:@"bg_favoriteB.jpg"] forState:UIControlStateNormal];
-
-    }
-//    L();
-}
 
 
 - (void)load{
-    [super load];
+//    [super load];
 
-//    self.selectionStyle = UITableViewCellSeparatorStyleNone;
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"refreshFavoritedCoupons" object:nil queue:nil usingBlock:^(NSNotification *note) {
+        BOOL isFavorited = [note.object boolValue];
+        
+        __weak CouponHeaderCell *cell = self;
+        
+        if (isFavorited) {
+           [cell.favoriteB setBackgroundImage:[UIImage imageNamed:@"coupon_favorited.png"] forState:UIControlStateNormal];
+        }
+        else{
+            [cell.favoriteB setBackgroundImage:[UIImage imageNamed:@"coupon_unfavorited.png"] forState:UIControlStateNormal];
+        }
+    }];
+
+
     [self.contentView removeFromSuperview];
-
-    
-   
 
     _firstLabel.textColor = kColorRed;
     _firstLabel.font = [UIFont fontWithName:kFontName size:16];
@@ -109,7 +109,7 @@
     _secondLabel.textColor = kColorBlack;
     _secondLabel.font = [UIFont fontWithName:kFontName size:16];
     _thirdLabel.textColor = kColorBlack;
-    _thirdLabel.font = [UIFont fontWithName:kFontName size:11];
+    _thirdLabel.font = bFont(11);
     
     _downloadNumL.textColor = kColorBlack;
     _downloadNumL.font = [UIFont fontWithName:kFontName size:11];
@@ -117,20 +117,32 @@
     _downloadB.backgroundColor = kColorRed;
     _downloadB.layer.cornerRadius = 3;
     
+    [_favoriteB setBackgroundImage:[UIImage imageNamed:@"coupon_unfavorited.png"] forState:UIControlStateNormal];
+ 
     //分割线
     UIView *v = [[UIView alloc]initWithFrame:CGRectMake(0, 246, _w, 1)];
     v.backgroundColor = kColorLightGray;
     [self addSubview:v];
     
+    // 虚线分割线
     UIImageView *separatorV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 336, _w, 1)];
     separatorV.image = [UIImage imageNamed:@"bg_虚线.png"];
     [self addSubview:separatorV];
     
+    //垂直分割线
+    UIView *v2 = [[UIView alloc] initWithFrame:CGRectMake(250, 342, 1, 22)];
+    v2.backgroundColor = kColorLightGray;
+    [self addSubview:v2];
+    
+//    self.favoriteB.backgroundColor = kColorBlack;
 }
+
+
 
 - (IBAction)downloadPressed:(id)sender{
     
-    self.downloadBlock();
+//    self.downloadBlock();
+    self.downloadBlock2(_downloadB);
 }
 
 - (IBAction)favoriteToggled:(id)sender{
@@ -139,22 +151,9 @@
 
 }
 
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
-	
-//    L();
-//	NSLog(@"cell # %@",self);
-	id newObject = [change objectForKey:NSKeyValueChangeNewKey];
-	
-	if ([NSNull null] == (NSNull*)newObject)
-		newObject = nil;
-    
-	if ([keyPath isEqualToString:@"isFavoritedCoupon"]) {
-        BOOL flag = [newObject boolValue];
-      
-        self.hasFavoritedCoupon = flag;
-    }
-	
+- (void)dealloc{
+    L();
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
@@ -172,19 +171,28 @@
     _value = coupon;
     
     self.textLabel.text = coupon.title;
+
+//        self.textLabel.text = @"意义意义意义意义意义意义意义意义意义意义意义意义意义意义意义意义意义";
     self.firstLabel.text = coupon.discountContent;
 }
 
 - (void)load{
     
     self.textLabel.frame = CGRectMake(10, 0, 125, 45);
+    self.textLabel.font = bFont(15);
+    self.textLabel.textColor = kColorYellow;
     
     self.firstLabel = [[UILabel alloc] initWithFrame:CGRectMake(135, 0, 165, 45)];
+    _firstLabel.font = bFont(15);
+    _firstLabel.textColor  = kColorBlack;
     
-
     [self addSubview:self.firstLabel];
 
     self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
+}
+
+- (void)layoutSubviews{
     
 }
 @end
@@ -208,32 +216,15 @@
 //    NSParameterAssert(coupon);
     
     _coupon = coupon;
-    
-    //如果用户已经登录, 查看coupon是否已经收藏
-    if ([[UserController sharedInstance] isLogin]) {
-        ///判断coupon是否已经收藏
-    
-        for (NSString *couponId in [[UserController sharedInstance]people].favoritedCouponIds) {
-            
-            //        NSLog(@"couponId # %@",couponId);
-            if ([couponId isEqualToString:coupon.id]) {
-                
-                self.isFavoritedCoupon = YES;
-                break;
-            }
-        }
-    }
-    
-    
-  
+   
     /// 从CouponList过来，需要coupon的details
-    self.networkFlag = YES;
+//    self.networkFlag = YES;
     
     [_networkClient queryCoupon:coupon.id latitude:_userController.latitude longitude:_userController.longitude block:^(NSDictionary *dict, NSError *error) {
    
-        if (!_networkFlag) {
-            return ;
-        }
+//        if (!_networkFlag) {
+//            return ;
+//        }
         
         if (error) {
             [ErrorManager alertError:error];
@@ -254,6 +245,27 @@
     
     }];
     
+    //如果用户已经登录, 查看coupon是否已经收藏
+    if ([_userController isLogin]) {
+        ///判断coupon是否已经收藏
+        
+        [_networkClient queryIfFavoritedCouupon:_userController.uid couponId:coupon.id block:^(NSDictionary *dict, NSError *error) {
+            
+            if (error) {
+                return ;
+            }
+            
+            self.isFavoritedCoupon = [dict[@"result"] boolValue];
+        }];
+    }
+
+}
+
+- (void)setIsFavoritedCoupon:(BOOL)isFavoritedCoupon{
+    _isFavoritedCoupon = isFavoritedCoupon;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshFavoritedCoupons" object:[NSString stringWithInt:isFavoritedCoupon]];
+
 }
 
 #pragma mark - Init
@@ -265,12 +277,12 @@
     
     self.navigationController.navigationBar.translucent = NO;
     
-    self.config = [[TableConfiguration alloc] initWithResource:@"CouponModelConfig"];
+    self.config = [[TableConfiguration alloc] initWithResource:@"CouponDetailsConfig"];
 
     self.title = @"快券详情";
     
     
-    UIBarButtonItem *shareBB = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_myfavoritedshops.png"] style:UIBarButtonItemStylePlain target:self action:@selector(sharePressed:)];
+    UIBarButtonItem *shareBB = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"titlebar_share_btn.png"] style:UIBarButtonItemStylePlain target:self action:@selector(sharePressed:)];
     
     self.navigationItem.rightBarButtonItem = shareBB;
 }
@@ -285,13 +297,24 @@
 
 - (void)dealloc{
     L();
-    
+//    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - TableView
 
+//- (int)numberOfSectionsInTableView:(UITableView *)tableView{
+//    if (_coupon.shopCoupons.count>0) {
+//        return 6;
+//    }
+//    else{
+//        return 5;
+//    }
+//}
+
 - (int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     int num = [super tableView:tableView numberOfRowsInSection:section];
+    
+    
     
     if (section == 5) {
         num = [self.coupon.shopCoupons count];
@@ -345,9 +368,9 @@
         
         ShopBranchesCell *aCell = (ShopBranchesCell*)cell;
         
-        aCell.toMapBlock = ^(Shop* shop){
-            
-            [vc toMap];
+        
+        aCell.toShopBlock = ^{
+            [vc toShop];
         };
         
         aCell.toShopListBlock = ^{
@@ -357,25 +380,30 @@
     }
     else if([cell isKindOfClass:[CouponHeaderCell class]]){
         
-//        [(CouponHeaderCell*)cell setValue:self.coupon];
-//
-//        [(CouponHeaderCell*)cell setHasFavoritedCoupon:self.isFavoritedCoupon];
         CouponHeaderCell *aCell = (CouponHeaderCell*)cell;
         
-        aCell.downloadBlock = ^{
-            
-            [vc downloadCoupon:self.coupon];
+
         
+        aCell.downloadBlock2 = ^(UIView* sender){
+            
+            if(![[UserController sharedInstance] isLogin]){
+            
+            }
+            else{
+                [vc downloadCoupon:vc.coupon sender:sender];
+            }
         };
         
         aCell.toggleFavoriteBlock = ^{
         
-            [vc toggleFavoriteCoupon:self.coupon];
+            [vc toggleFavoriteCoupon:vc.coupon];
         
         };
         
+        //
+//        [self addObserver:cell forKeyPath:@"isFavoritedCoupon" options:NSKeyValueObservingOptionNew context:nil];
         
-        [self addObserver:cell forKeyPath:@"isFavoritedCoupon" options:NSKeyValueObservingOptionNew context:nil];
+
        
     }
    
@@ -384,46 +412,42 @@
 
 - (void)configCell:(ConfigCell *)cell atIndexPath:(NSIndexPath *)indexPath{
 
-    int section = indexPath.section;
     int row = indexPath.row;
     
-    
-    if([cell isKindOfClass:[ShopBranchesCell class]]){
-        
-      
-        [(ShopBranchesCell*)cell setValue:[self.shopBranches firstObject]];
-        
-        [(ShopBranchesCell*)cell setShopBranchesNum:[self.shopBranches count]];
- 
-        
-    }
-    else if([cell isKindOfClass:[CouponHeaderCell class]]){
+    if([cell isKindOfClass:[CouponHeaderCell class]]){
         
         [(CouponHeaderCell*)cell setValue:self.coupon];
         
         [(CouponHeaderCell*)cell setHasFavoritedCoupon:self.isFavoritedCoupon];
-      
+        
     }
-     else if([cell isKindOfClass:[AutoHeightCell class]]){
+    else if([cell isKindOfClass:[ShopBranchesCell class]]){
+        
+      
+        [(ShopBranchesCell*)cell setValue:self.coupon.nearestShopBranch];
+        
+        [(ShopBranchesCell*)cell setShopBranchesNum:[_coupon.shopCount intValue]];
+ 
+        
+    }
+    else if([cell isKindOfClass:[AutoHeightCell class]]){
         NSString *key = cell.key;
         [cell setValue:[self.coupon valueForKey:key]];
     }
 
-    if (indexPath.section == 5) {
-    // 商户快券
+
+    if ([cell.key isEqualToString:@"shopCoupons"]) {
         if (ISEMPTY(self.coupon.shopCoupons)) {
             return;
         }
         Coupon *coupon = self.coupon.shopCoupons[row];
         [cell setValue:coupon];
+
     }
-    else if(section == 6){
-    // 其他快券
-        
+    else if([cell.key isEqualToString:@"otherCoupons"]){
         Coupon *coupon = self.coupon.otherCoupons[row];
         [cell setValue:coupon];
     }
-
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -461,50 +485,65 @@
 
 #pragma mark - Fcns
 
-- (void)downloadCoupon:(Coupon*)coupon{
-
-//    NSLog(@"coupon # %@",coupon);
-    //TODO: if
-    if (!_userController.isLogin || YES) {
+- (void)willDownloadCoupon:(Coupon*)coupon sender:(id)sender{
+    __weak CouponDetailsViewController *vc = self;
+    
+    if (!_userController.isLogin) {
         //如果没有登录，让用户登录
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationLogin object:nil];
-        
+        [_root presentLoginWithBlock:^(BOOL succeeded, NSError *error) {
+            
+            if (succeeded) {
+                NSLog(@"good");
+                
+                //如果成功就先下载快券，下载成功后到afterdownload去, 注册肯定没有卡， 登录和忘记密码有可能有卡
+
+                [vc downloadCoupon:coupon sender:sender];
+            }
+        }];
         
         return;
-    
-    }
-    
- 
-
-         [_libraryManager startProgress:nil];
         
-         [_networkClient user:_userController.uid downloadCoupon:coupon.id block:^(id obj, NSError *error) {
+    }
+}
 
-            [_libraryManager dismissProgress:nil];
-            
-             if (obj) {
-                
-                 
-//                 if(!_userController.hasBankcard){
-//                     // 如果用户没有银行卡
-//                     
-//                     [self toAfterDownload];
-//                     
-//                     
-//                 }
-                 
-                [_libraryManager startHint:@"下载快券成功"];
-            }
-            
-        }];
+- (void)downloadCoupon:(Coupon*)coupon sender:(id)sender{
+    
+//    [self toAfterDownload];
+//    return;
+    
+    //    NSLog(@"coupon # %@",coupon);
+    __weak CouponDetailsViewController *vc = self;
+
+    
+    [self willConnect:sender];
+    
+    [_networkClient user:_userController.uid sessionToken:_userController.sessionToken downloadCoupon:coupon.id block:^(id obj, NSError *error) {
+        
+        [vc willDisconnect];
+        
+        if (!vc.networkFlag) {
+            return ;
+        }
+        if (error) {
+            [ErrorManager alertError:error];
+            return;
+        }
+ 
+       
+        [vc toAfterDownload];
+    }];
     
 }
+
 
 - (void)toggleFavoriteCoupon:(Coupon*)coupon{
 
     if (!_userController.isLogin) {
-        [_libraryManager startHint:@"请先登录快券"];
+       
+        [_root presentLoginWithBlock:^(BOOL succeeded, NSError *error) {
+            
+        }];
         return;
     }
 
@@ -518,39 +557,39 @@
 }
 - (void)favoriteCoupon:(Coupon*)coupon{
 
-    [_libraryManager startProgress:nil];
-    
+//    __weak CouponDetailsViewController *vc = self;
+
     [_networkClient user:_userController.uid sessionToken:_userController.sessionToken favoriteCoupon:coupon.id block:^(id obj, NSError *error) {
 
-            [_libraryManager dismissProgress:nil];
+//            [_libraryManager dismissProgress:nil];
         
-        if (obj) {
-            [_libraryManager startHint:@"收藏成功"];
 
-            self.isFavoritedCoupon = YES;
-            
-            [_userController.people.favoritedCouponIds addObject:coupon.id];
-            
-//            [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshFavoritedCoupons" object:nil];
+        if (error) {
+            [ErrorManager alertError:error];
+            return ;
         }
+        
+        [_libraryManager startHint:@"收藏成功"];
+
+        self.isFavoritedCoupon = YES;
+       
+        
     }];
     
 }
 - (void)unfavoriteCoupon:(Coupon*)coupon{
     
-    [_libraryManager startProgress:nil];
     [_networkClient user:_userController.uid sessionToken:_userController.sessionToken unfavoriteCoupon:coupon.id block:^(id obj, NSError *error) {
         
-        [_libraryManager dismissProgress:nil];
-
-//        NSLog(@"did unfavorite");
-        if (obj) {
-            [_libraryManager startHint:@"取消收藏"];
-
-            self.isFavoritedCoupon = NO;
-            [_userController.people.favoritedCouponIds removeObject:coupon.id];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshFavoritedCoupons" object:nil];
+        if (error) {
+            [ErrorManager alertError:error];
+            return ;
         }
+
+        [_libraryManager startHint:@"取消收藏"];
+        
+        self.isFavoritedCoupon = NO;
+        
 
     }];
 }
@@ -576,10 +615,10 @@
 
 - (void)toShop{
 
-    ShopDetailsViewController *vc = [[ShopDetailsViewController alloc] init];
+    ShopDetailsViewController *vc = [[ShopDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     vc.view.alpha = 1.0;
-    vc.shop = self.shop;
-    vc.shopBranches = self.shopBranches;
+    vc.shop = self.coupon.nearestShopBranch;
+
     
     
     [self.navigationController pushViewController:vc animated:YES];
@@ -589,24 +628,16 @@
 
 - (void)toShopList{
 
-    ShopBranchListViewController *vc = [[ShopBranchListViewController alloc] init];
+    ShopBranchListViewController *vc = [[ShopBranchListViewController alloc] initWithStyle:UITableViewStyleGrouped];
     vc.view.alpha = 1;
-    vc.models = [self.shopBranches mutableCopy];
+    vc.headerShopId = _coupon.shopId; // 把总店的id传过去
+
     
     [self.navigationController pushViewController:vc animated:YES];
     
 
 }
 
-- (void)toMap{
-
-    MapViewController *vc = [[MapViewController alloc] init];
-    vc.view.alpha = 1;
-    vc.shop = self.nearestShopBranch;
-    [self.navigationController pushViewController:vc animated:YES];
-    
-
-}
 
 - (void)toAfterDownload{
     

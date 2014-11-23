@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+@class Shop;
 
 @interface Coupon : NSObject
 
@@ -30,7 +31,8 @@
 @property (nonatomic, copy) NSString *short_desc; //
 @property (nonatomic, copy) NSString *desc; //
 @property (nonatomic, copy) NSString *shopCount; //门店数量
-
+@property (nonatomic, copy) NSString *distance;
+@property (nonatomic, copy) NSString *shopbranchTitle;
 
 @property (nonatomic, assign) BOOL active;
 @property (nonatomic, assign) BOOL sellOut;
@@ -41,17 +43,38 @@
 
 @property (nonatomic, readonly) NSArray *shopCoupons;
 @property (nonatomic, readonly) NSArray *otherCoupons;
-@property (nonatomic, readonly) NSString *notice;
+@property (nonatomic, readonly) Shop *nearestShopBranch;
+@property (nonatomic, readonly) NSString *notice; //使用时间 + 使用规则
 
-+ (id)coupon;
-+ (id)couponWithDict:(NSDictionary*)dict;
++ (id)eventCoupon;
 
 - (id)initWithDict:(NSDictionary*)dict;
+/**
+ *	@brief	首页的快券列表
+ */
 - (id)initWithListDict:(NSDictionary*)dict;
+/**
+ *	@brief	收藏的快券列表
+ */
 - (id)initWithFavoriteDict:(NSDictionary*)dict;
+/**
+ *	@brief	下载的快券列表
+ */
 - (id)initWithDownloadedDict:(NSDictionary*)dict;
+/**
+ *	@brief	快券详情
+ */
 - (id)initWithDetailsDict:(NSDictionary *)dict;
+/**
+ *	@brief	快券详情中的其他的快券
+ */
 - (id)initWithShortDict:(NSDictionary *)dict;
+/**
+ *	@brief	收藏的快券列表
+ */
+- (id)initWithShopDetailsDict:(NSDictionary*)dict;
+
+- (id)initWithSearchDict:(NSDictionary*)dict;
 
 - (void)display;
 @end

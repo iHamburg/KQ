@@ -182,10 +182,11 @@
     
     [self willConnect:_submitBtn];
     
-    [_network user:self.username resetPassword:self.password block:^(NSDictionary *dict, NSError *error) {
-        [self willDisconnect];
+    __weak ChangePasswordViewController *vc = self;
+    [_network user:self.username resetPassword:[self.password stringWithMD5] block:^(NSDictionary *dict, NSError *error) {
+        [vc willDisconnect];
         
-        if (!self.networkFlag) {
+        if (!vc.networkFlag) {
             return;
         }
         
@@ -193,18 +194,23 @@
 //            NSLog(@"reset successful");
             // 重置成功后，login
             
-            [_userController loginWithUsername:self.username password:[self.password stringWithMD5] boolBlock:^(BOOL succeeded, NSError *error) {
+            [_userController loginWithUsername:vc.username password:[vc.password stringWithMD5] boolBlock:^(BOOL succeeded, NSError *error) {
                
-                if (succeeded && self.networkFlag) {
+                if (succeeded && vc.networkFlag) {
                     
                     NSLog(@"login successful");
-                    PresentMode presentMode = [[KQRootViewController sharedInstance] presentMode];
+//                    PresentMode presentMode = [[KQRootViewController sharedInstance] presentMode];
+//                    
+//                    //登录成功就返回present前的页面
+//                    if (presentMode == PresentUserCenterLogin || presentMode == PresentDefault) {
+//                        
+//                        [[KQRootViewController sharedInstance] dismissNav];
+//                    }
                     
-                    //登录成功就返回present前的页面
-                    if (presentMode == PresentUserCenterLogin || presentMode == PresentDefault) {
+                    vc.successBlock(YES,nil);
+                    [vc dismissViewControllerAnimated:YES completion:^{
                         
-                        [[KQRootViewController sharedInstance] dismissNav];
-                    }
+                    }];
                     
                 }
 

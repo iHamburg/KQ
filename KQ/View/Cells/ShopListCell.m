@@ -18,12 +18,12 @@
     
     self.textLabel.text = shop.title;
     
-    [self.imageView setImageWithURL:[NSURL URLWithString:shop.logoUrl] placeholderImage:DefaultImg];
+    [self.imageView setImageWithURL:[NSURL URLWithString:shop.logoUrl] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     
     self.secondLabel.text = shop.district;
     self.thirdLabel.text = [NSString stringWithFormat:@"%@/人",shop.averagePreis];
 //    _downloadedL.text = shop.distance;
-        _downloadedL.text = [NSString stringWithFormat:@"%fkm",shop.locationDistance];
+        _downloadedL.text = [NSString stringWithFormat:@"%.2fkm",shop.locationDistance];
     
 }
 

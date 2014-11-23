@@ -102,7 +102,7 @@
 			<array>
 				<dict>
 					<key>key</key>
-					<string>aboutus</string>
+					<string>shopCoupons</string>
 					<key>label</key>
 					<string></string>
 					<key>class</key>
@@ -123,7 +123,7 @@
 			<array>
 				<dict>
 					<key>key</key>
-					<string>aboutus</string>
+					<string>otherCoupons</string>
 					<key>label</key>
 					<string></string>
 					<key>class</key>

@@ -12,6 +12,7 @@
 #import "KQRootViewController.h"
 #import "ForgetPasswordViewController.h"
 #import "NSString+md5.h"
+#import "KQRegisterViewController.h"
 
 @interface LoginViewController ()
 
@@ -106,16 +107,15 @@
   
 }
 
-//-(void)dealloc{
-////    L();
-//    NSLog(@"dealloc # %@",self);
-//}
+-(void)dealloc{
+//    L();
+    NSLog(@"dealloc # %@",self);
+}
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    
     return 1;
     
 }
@@ -222,19 +222,29 @@
    
     [self willConnect:_loginB];
   
+    __weak LoginViewController *vc = self;
+  
     [_userController loginWithUsername:email password:[password stringWithMD5] boolBlock:^(BOOL succeeded, NSError *error) {
-           [self willDisconnect];
+    
+        [vc willDisconnect];
         
         if (succeeded && self.networkFlag) {
         
             NSLog(@"login successful");
-            PresentMode presentMode = [[KQRootViewController sharedInstance] presentMode];
             
-            //登录成功就返回present前的页面
-            if (presentMode == PresentUserCenterLogin || presentMode == PresentDefault) {
-              
-                [[KQRootViewController sharedInstance] dismissNav];
-            }
+            vc.successBlock(YES,nil);
+
+            [vc dismissViewControllerAnimated:YES completion:^{
+                
+            }];
+            
+//            PresentMode presentMode = [[KQRootViewController sharedInstance] presentMode];
+//            
+//            //登录成功就返回present前的页面
+//            if (presentMode == PresentUserCenterLogin || presentMode == PresentDefault) {
+//              
+//                [[KQRootViewController sharedInstance] dismissNav];
+//            }
        
         }
      
@@ -247,13 +257,18 @@
 
 
 - (void)toRegister{
-    
+    KQRegisterViewController *vc = [[KQRegisterViewController alloc] init];
+    vc.view.alpha = 1;
+    vc.successBlock = self.successBlock;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)toForget{
     L();
     
     ForgetPasswordViewController *vc = [[ForgetPasswordViewController alloc] init];
+    vc.view.alpha = 1;
+    vc.successBlock = self.successBlock;
     [self.navigationController pushViewController:vc animated:YES];
     
 }

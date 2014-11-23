@@ -38,7 +38,7 @@
 }
 
 - (void)dealloc{
-//    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
 }
 
 #pragma mark - Tableview
@@ -73,9 +73,7 @@
 #pragma mark - Fcns
 
 - (void)loadModels{
-    
-
-    
+   
     [self.models removeAllObjects];
     
     [self willConnect:self.view];
@@ -84,10 +82,7 @@
 
         [self willDisconnect];
         [self.refreshControl endRefreshing];
-        
-//        if (!_networkFlag) {
-//            return ;
-//        }
+   
         
         if (!error) {
             NSArray *array = dict[@"shopbranches"];
@@ -101,7 +96,7 @@
             
             for (NSDictionary *dict in array) {
                
-                Shop *shop = [[Shop alloc] initWithFavoriteDict:dict];
+                Shop *shop = [[Shop alloc] initWithListDict:dict];
                 
                 [self.models addObject:shop];
             }
@@ -126,18 +121,12 @@
 - (void)loadMore:(VoidBlock)finishedBlock{
     int count = [_models count];
     
-    //    NSLog(@"networkflag # %d",_networkFlag);
-    
-//    _networkFlag = YES;
     
     //从现有的之后进行载入
     [_networkClient queryFavoritedCoupon:_userController.uid skip:count block:^(NSDictionary *couponDicts, NSError *error) {
         
         finishedBlock();
         
-        //        if (!_networkFlag) {
-        //            return ;
-        //        }
         
         if (!error) {
             NSArray *array = couponDicts[@"shopbranches"];
@@ -146,7 +135,7 @@
             
             for (NSDictionary *dict in array) {
                 
-                Shop *shop = [[Shop alloc] initWithFavoriteDict:dict];
+                Shop *shop = [[Shop alloc] initWithListDict:dict];
                 
                 [self.models addObject:shop];
             }

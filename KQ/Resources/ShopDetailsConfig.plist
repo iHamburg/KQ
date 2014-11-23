@@ -9,46 +9,51 @@
 			<array>
 				<dict>
 					<key>key</key>
-					<string></string>
+					<string>address</string>
 					<key>label</key>
-					<string></string>
+					<string>地址</string>
 					<key>class</key>
-					<string>ShopHeaderCell</string>
+					<string></string>
 					<key>selector</key>
 					<string></string>
 				</dict>
-			</array>
-			<key>nib</key>
-			<string>ShopHeaderCell</string>
-			<key>height</key>
-			<string>290</string>
-		</dict>
-		<dict>
-			<key>rows</key>
-			<array>
 				<dict>
 					<key>key</key>
-					<string></string>
+					<string>phone</string>
 					<key>label</key>
-					<string></string>
+					<string>电话</string>
 					<key>class</key>
-					<string>ShopBranchesCell</string>
+					<string></string>
+					<key>selector</key>
+					<string></string>
+				</dict>
+				<dict>
+					<key>key</key>
+					<string>openTime</string>
+					<key>label</key>
+					<string>时间</string>
+					<key>class</key>
+					<string></string>
+					<key>selector</key>
+					<string></string>
+				</dict>
+				<dict>
+					<key>key</key>
+					<string>shoplist</string>
+					<key>label</key>
+					<string>所有店铺</string>
+					<key>class</key>
+					<string></string>
 					<key>selector</key>
 					<string></string>
 				</dict>
 			</array>
 			<key>height</key>
-			<string>123</string>
-			<key>header</key>
-			<string>离您最近</string>
-			<key>nib</key>
-			<string>ShopBranchesCell</string>
+			<string>34</string>
 		</dict>
 		<dict>
-			<key>header</key>
-			<string>商户的快券列表</string>
 			<key>height</key>
-			<string>80</string>
+			<string>96</string>
 			<key>dynamic</key>
 			<string>1</string>
 			<key>rows</key>
@@ -60,6 +65,21 @@
 					<string></string>
 					<key>class</key>
 					<string>CouponListCell</string>
+					<key>selector</key>
+					<string></string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>rows</key>
+			<array>
+				<dict>
+					<key>key</key>
+					<string></string>
+					<key>label</key>
+					<string></string>
+					<key>class</key>
+					<string>ShopDescCell</string>
 					<key>selector</key>
 					<string></string>
 				</dict>

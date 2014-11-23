@@ -59,10 +59,6 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-//    if (section == 0) {
-//        return 1;
-//    }
-    
         return 1;
 }
 
@@ -156,9 +152,10 @@
 #pragma mark - Fcn
 - (void)toAddCard{
     L();
-    AddCardViewController *vc = [[AddCardViewController alloc] init];
-    
-    [self.navigationController pushViewController:vc animated:YES];
+    AddCardViewController *vc = [[AddCardViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    vc.view.alpha = 1;
+    [_root presentNav:vc];
+
 }
 
 

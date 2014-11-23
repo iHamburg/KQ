@@ -24,24 +24,18 @@
     self.bgV = [[UIImageView alloc] initWithFrame:self.view.bounds];
     
     
-    self.bgV.image = [UIImage imageNamed:@"bg-landingpage.jpg"];
+    self.bgV.image = [UIImage imageNamed:@"event_bg.jpg"];
     self.bgV.contentMode = UIViewContentModeTop;
     self.bgV.userInteractionEnabled = YES;
     [self.bgV addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)]];
     
-
-//    self.button = [InteractiveButton buttonWithFrame:CGRectMake(85, _h - 64, 150, 44) title:nil bgImageName:@"btn-receive.png" target:self action:@selector(eventButtonClicked:)];
-    self.button = [[InteractiveButton alloc] initWithFrame:CGRectMake(85, _h - 64, 150, 44)];
-    [self.button setBackgroundImage:[UIImage imageNamed:@"btn-receive.png"] forState:UIControlStateNormal];
+//    float y = _h - 120;
+    float y = _h*.8;
+    self.button = [[UIButton alloc] initWithFrame:CGRectMake(94, y, 132, 38)];
+    [self.button setBackgroundImage:[UIImage imageNamed:@"eventBtn.png"] forState:UIControlStateNormal];
     [self.button addTarget:self action:@selector(eventButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
 
-    
-    
-    self.coupon = [[Coupon alloc] init];
-    self.coupon.id = @"38";
-    self.coupon.avatarUrl = @"http://www.quickquan.com/images/moti_coupon.jpg";
-    self.coupon.discountContent = @"0元享18元套餐";
-    self.coupon.usage = @"新用户注册即可0元享受，价值18元的美味摩提2个！榴莲慕思摩提、蓝莓味摩提香甜好味、松软曼妙口感！30家店通用";
+    _coupon = [Coupon eventCoupon];
     
     [self.view addSubview:self.bgV];
     [self.view addSubview:self.button];
@@ -65,16 +59,16 @@
 
 - (IBAction)eventButtonClicked:(id)sender{
 
-//    self.toEventCoupon(self.coupon);
-
-    [self.button startLoading];
-//    [self toCouponDetails];
+//    L();
+    [self toCouponDetails];
 }
 
 #pragma mark - Fcns
 
+    // 进首页
 - (void)back{
     L();
+
     [self.view removeFromSuperview];
 }
 

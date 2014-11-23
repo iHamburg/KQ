@@ -7,27 +7,46 @@
 //
 
 #import "Coupon.h"
+#import "Shop.h"
 
 @implementation Coupon
 
-static NSArray *keys;
-static NSArray *listKeys;  // 服务器列表返回的dict的key
+static NSArray *keys;      // 显示用
+static NSArray *listKeys;  // Main列表返回的dict的key
 static NSArray *favoriteKeys; // 用户收藏的快券key
 static NSArray *downloadedKeys; // 用户下载的快券key
-static NSArray *detailsKeys; // 用户下载的快券key
+static NSArray *detailsKeys; // 快券详情的快券key
 static NSArray *shortKeys;   // 快券详情其他快券的key
+static NSArray *shopDetaisKeys;   // 商户详情中快券的key
+static NSArray *searchKeys;
 
 + (void)initialize {
     if (self == [Coupon self]) {
         // ... do the initialization ...
+       
+         keys = @[@"id",@"title",@"avatarUrl",@"discountContent",@"downloadedCount",@"slogan"];
         
         listKeys = @[@"id",@"title",@"avatarUrl",@"discountContent",@"downloadedCount",@"slogan"];
-        keys = @[@"id",@"title",@"avatarUrl",@"discountContent",@"downloadedCount",@"slogan"];
+       
         favoriteKeys = @[@"title",@"avatarUrl",@"discountContent",@"endDate"];
         downloadedKeys = @[@"title",@"avatarUrl",@"discountContent",@"endDate",@"number"];
-        detailsKeys = @[@"id",@"title",@"avatarUrl",@"discountContent",@"endDate",@"downloadedCount",@"message",@"shopCount",@"shopId",@"short_desc",@"startDate",@"usage"];
+        detailsKeys = @[@"id",@"title",@"avatarUrl",@"discountContent",@"endDate",@"downloadedCount",@"message",@"shopCount",@"shopId",@"short_desc",@"startDate",@"usage",@"slogan"];
         shortKeys = @[@"id",@"title",@"discountContent"];
+        
+        /*
+         avatarUrl = "http://www.quickquan.com/images/coupons/coupon_id_39_new.jpg";
+         discountContent = "\U7279\U4ef71\U5143";
+         downloadedCount = 14;
+         id = 39;
+         isEvent = 1;
+         isSellOut = 0;
+         slogan = "\U301018\U5e97\U901a\U7528\U301118\U5143\U7f8e\U5473\U6469\U63d0\U5957\U9910";
+         title = "\U6469\U63d0\U5de5\U623f";
+         
+         */
+        shopDetaisKeys = @[@"id",@"title",@"avatarUrl",@"discountContent",@"downloadedCount",@"slogan"];
 
+        searchKeys = @[@"id",@"shopbranchTitle",@"avatarUrl",@"discountContent",@"downloadedCount",@"distance"];
     }
 }
 
@@ -41,6 +60,12 @@ static NSArray *shortKeys;   // 快券详情其他快券的key
     return notice;
     
     
+}
+
++ (id)eventCoupon{
+    Coupon *coupon = [[Coupon alloc] init];
+    coupon.id = @"39";
+    return coupon;
 }
 
 - (id)initWithDict:(NSDictionary*)dict{
@@ -178,38 +203,11 @@ static NSArray *shortKeys;   // 快券详情其他快券的key
          title = "\U745e\U4e4b\U5802\U5973\U6027\U5065\U5eb7\U8c03\U7406(\U767e\U8054\U897f\U90ca\U4e2d\U5fc3\U5e97)";
          };
          
-         otherCoupons =     (
-         {
-         avatarUrl = "http://www.quickquan.com/images/coupons/bsk_5.jpg";
-         discountContent = "5\U5143\U62b5\U7528\U5238";
-         id = 36;
-         title = "\U5df4\U65af\U514b";
-         },
-         {
-         avatarUrl = "http://www.quickquan.com/images/coupons/bsk_2.jpg";
-         discountContent = "1\U5143\U4eab18\U5143\U6469\U5361";
-         id = 37;
-         title = "\U5df4\U65af\U514b";
-         },
-         {
-         avatarUrl = "http://www.quickquan.com/images/coupons/bsk_3.jpg";
-         discountContent = "\U5168\U573a75\U6298";
-         id = 38;
-         title = "\U5df4\U65af\U514b";
-         }
-         );
-         
-         shopCoupons =     (
-         {
-         avatarUrl = "http://www.quickquan.com/images/coupons/coupon_id_43.jpg";
-         discountContent = "\U7acb\U51cf500\U5143";
-         id = 43;
-         title = "\U745e\U4e4b\U5802";
-         }
-         );
-
-         
+              
          */
+        
+        _nearestShopBranch = [[Shop alloc] initWithCouponDetailsDict:dict[@"nearestShop"]];
+        
         NSArray *shopCoupons = dict[@"shopCoupons"];
         NSMutableArray *array = [NSMutableArray array];
         for (NSDictionary *dict in shopCoupons) {
@@ -225,6 +223,8 @@ static NSArray *shortKeys;   // 快券详情其他快券的key
             [array addObject:coupon];
         }
         _otherCoupons = [array copy];
+        
+        
     }
     
     return self;
@@ -249,25 +249,41 @@ static NSArray *shortKeys;   // 快券详情其他快券的key
     return self;
 }
 
-+ (id)couponWithDict:(NSDictionary*)dict{
-
-    return [[Coupon alloc]initWithDict:dict];
+- (id)initWithShopDetailsDict:(NSDictionary*)dict{
+    if (self = [super init]) {
+        if ([dict isKindOfClass:[NSDictionary class]]) {
+            dict = [dict dictionaryCheckNull];
+        }
+        else{
+            return self;
+        }
+        
+        for (NSString *key in shopDetaisKeys) {
+            [self setValue:dict[key] forKey:key];
+        }
+        
+    }
+    
+    return self;
 }
 
-
-+ (id)coupon{
+- (id)initWithSearchDict:(NSDictionary*)dict{
+    if (self = [super init]) {
+        if ([dict isKindOfClass:[NSDictionary class]]) {
+            dict = [dict dictionaryCheckNull];
+        }
+        else{
+            return self;
+        }
+        
+        for (NSString *key in searchKeys) {
+            [self setValue:dict[key] forKey:key];
+        }
+        
+    }
     
-    Coupon *coup = [Coupon new];
-    
-    coup.id = @"111";
-    
-    coup.title = @"[19店通用] 三人行骨头王火锅";
-    coup.discountContent = @"95折";
-    
-    return coup;
+    return self;
 }
-
-
 - (void)display{
     
     NSArray *keys = @[@"id",@"shopId",@"title",@"avatarUrl",@"validate",@"discountContent",@"usage",@"maxNumber",@"downloadedCount"];

@@ -40,7 +40,7 @@
         _hudCache = [NSMutableDictionary dictionary];
         
         _acitvityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
-//        _acitvityIndicatorView.backgroundColor = kColorBlue;
+
         _acitvityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
 
     }
@@ -118,7 +118,6 @@
         [hud show:YES];
     }
     
-//    _hud = [MBProgressHUD showHUDAddedTo:_root.view animated:YES];
     hud.labelText = text;
     hud.mode = MBProgressHUDModeText;
     

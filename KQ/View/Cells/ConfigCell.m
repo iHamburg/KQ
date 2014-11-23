@@ -27,14 +27,19 @@
 
 - (void)load{
 
-    
-    self.textLabel.font = [UIFont fontWithName:kFontName size:16];
-    self.detailTextLabel.font = [UIFont fontWithName:kFontName size:16];
-    
-    self.textLabel.textColor = kColorBlack;
-    self.detailTextLabel.textColor = kColorBlack;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     
 
+    _firstLabel = [[KQLabel alloc] initWithFrame:CGRectZero];
+    _secondLabel = [[KQLabel alloc] initWithFrame:CGRectZero];
+    _thirdLabel = [[KQLabel alloc] initWithFrame:CGRectZero];
+    _fourthLabel = [[KQLabel alloc] initWithFrame:CGRectZero];
+    
+        [self addSubview:_firstLabel];
+        [self addSubview:_secondLabel];
+        [self addSubview:_thirdLabel];
+        [self addSubview:_fourthLabel];
+    
 }
 
 + (CGFloat)cellHeightWithValue:(id)value{

@@ -59,4 +59,8 @@
  */
 - (void)rotate;
 - (void)rotateWithCount:(int)count;
+
+//
+- (void)addBottomLine:(UIColor*)color;
+- (void)addBottomDottedLine;
 @end

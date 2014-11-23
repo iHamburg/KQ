@@ -10,7 +10,46 @@
 #import "CouponListCell.h"
 #import "CouponDetailsViewController.h"
 
-#pragma mark - UserCouponsVC
+//
+//
+//@interface CouponListDownloadedCell : CouponListCell
+//
+//@end
+//
+//@implementation CouponListDownloadedCell
+//
+//- (void)setValue:(Coupon*)value{
+//    [super setValue:value];
+//    
+//    _secondLabel.text = value.endDate;
+//    _thirdLabel.text = value.discountContent;
+// 
+//    _downloadedL.text = [NSString stringWithFormat:@"%@张",value.number];
+//    
+////    _downloadedL.backgroundColor = kColorGreen;
+//    
+//    
+//}
+//
+//
+//- (void)load{
+//    
+//    [super load];
+//    
+//   
+//    self.imageView.frame = CGRectMake(10, 10, 85, 65);
+//    CGFloat x = CGRectGetMaxX(self.imageView.frame) + 10;
+//    CGFloat width = _w - x- 10;
+//    self.textLabel.frame = CGRectMake(x, 10, width, 30);
+//    self.thirdLabel.frame = CGRectMake(x, CGRectGetMaxY(self.textLabel.frame) - 5, width, 20);
+//    self.secondLabel.frame = CGRectMake(x, CGRectGetMaxY(self.thirdLabel.frame), 200, 20);
+//    _downloadedL.frame = CGRectMake(250, self.secondLabel.frame.origin.y, 50, 20);
+//    
+//}
+//
+//@end
+//
+//#pragma mark - UserCouponsVC
 
 @interface UserCouponsViewController (){
     UIView *_tableHeader;
@@ -33,7 +72,7 @@
 
     _tableHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
     _tableHeader.backgroundColor = kColorBG;
-    
+    //
     UISegmentedControl *seg = [[UISegmentedControl alloc] initWithItems:@[@"未使用",@"已使用",@"已过期"]];
     seg.selectedSegmentIndex = 0;
     seg.frame = CGRectMake(0, 0, 260, 30);
@@ -42,10 +81,10 @@
     [_tableHeader addSubview:seg];
 
     
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
  
-    self.config = [[TableConfiguration alloc] initWithResource:@"UserCouponsConfig"];
-    self.isLoadMore = NO;
+    self.config = [[TableConfiguration alloc] initWithResource:@"CouponMyListConfig"];
+//    self.isLoadMore = NO;
 }
 
 - (void)didReceiveMemoryWarning
@@ -80,9 +119,11 @@
         Coupon *project = _models[indexPath.row];
         
         [cell setValue:project];
+        [cell setText:[NSString stringWithFormat:@"%@张",project.number]];
         
     }
  
+     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
 }
 
@@ -99,37 +140,15 @@
 - (IBAction)segmentedControlChanged:(UISegmentedControl*)sender{
     int index = (int)sender.selectedSegmentIndex;
     NSLog(@"index # %d",index);
+    self.couponStatus = index;
 
-    [self queryCoupons:index];
+    //重新刷新
+    [self loadModels];
+//    [self queryCoupons:index];
 }
 
 #pragma mark - Fcns;
 
-- (void)queryCoupons:(CouponStatus)status{
-
-    switch (status) {
-        case CouponStatusUnused:
-            [self loadModels];
-            break;
-        case CouponStatusUsed:
-        case CouponStatusExpired:
-            
-            //应该显示不同的优惠券
-            [self demoEmptyTable];
-        default:
-            break;
-    }
-    
-}
-
-- (void)demoEmptyTable{
-    [self.models removeAllObjects];
-    [self.tableView reloadData];
-
-    [_libraryManager startHint:@"没有优惠券" duration:1];
-    
-    
-}
 
 - (void)loadModels{
     
@@ -139,7 +158,19 @@
 
     [self willConnect:self.view];
     
-    [_networkClient queryDownloadedCoupon:_userController.uid skip:0 block:^(NSDictionary *dict, NSError *error) {
+    
+    NSString *mode;
+    if (_couponStatus == CouponStatusUnused) {
+        mode = @"unused";
+    }
+    else if(_couponStatus == CouponStatusUsed){
+        mode = @"used";
+    }
+    else if(_couponStatus == CouponStatusExpired){
+        mode = @"expired";
+    }
+    
+    [_networkClient queryDownloadedCoupon:_userController.uid mode:mode skip:0 block:^(NSDictionary *dict, NSError *error) {
 
 
         [self willDisconnect];
@@ -147,12 +178,26 @@
         
 
         if (!error) {
+            
+//            NSLog(@"user coupons # %@",dict);
+            
             NSArray *array = dict[@"coupons"];
             
-             NSLog(@"array # %@",array);
+//             NSLog(@"array # %@",array);
             
             if (ISEMPTY(array)) {
-                [_libraryManager startHint:@"还没有下载优惠券" duration:1];
+                NSString *msg;
+                if (_couponStatus == CouponStatusUnused) {
+                    msg = @"没有未使用的快券";
+                }
+                else if(_couponStatus == CouponStatusUsed){
+                    msg = @"没有已经使用的快券";
+                }
+                else if(_couponStatus == CouponStatusExpired){
+                    msg = @"没有过期的快券";
+                }
+
+                [_libraryManager startHint:msg duration:1];
             }
             
 

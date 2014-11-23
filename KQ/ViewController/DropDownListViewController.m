@@ -151,7 +151,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    [self toCouponDetails:self.models[indexPath.row]];
+//    [self toCouponDetails:self.models[indexPath.row]];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -161,8 +161,6 @@
 - (void)loadModels{
     
     
-    
-//    [_libraryManager startProgress:nil];
     
     [self.models removeAllObjects];
     
@@ -205,8 +203,8 @@
             
             NSLog(@"around # %@",array);
             for (NSDictionary *dict in array) {
-                Shop *shop = [[Shop alloc] initWithSearchDict:dict];
-                [self.models addObject:shop];
+//                Shop *shop = [[Shop alloc] initWithSearchDict:dict];
+//                [self.models addObject:shop];
             }
             
             [self.tableView reloadData];
@@ -245,14 +243,14 @@
 
 
 
-- (void)toCouponDetails:(Coupon*)coupon{
-    CouponDetailsViewController *vc = [[CouponDetailsViewController alloc] init];
-    vc.view.alpha = 1;
-    vc.coupon = coupon;
-    
-    [self.navigationController pushViewController:vc animated:YES];
-
-}
+//- (void)toCouponDetails:(Coupon*)coupon{
+//    CouponDetailsViewController *vc = [[CouponDetailsViewController alloc] init];
+//    vc.view.alpha = 1;
+//    vc.coupon = coupon;
+//    
+//    [self.navigationController pushViewController:vc animated:YES];
+//
+//}
 
 
 - (void)addCurrentLocationToSearchParams:(NSMutableDictionary*)params{
@@ -279,18 +277,18 @@
                 continue;
             }
             
-            Coupon *coupon = [Coupon couponWithDict:dict];
-            coupon.nearestDistance = [_userController distanceFromLocation:coupon.nearestLocation];
-            
-            [self.models addObject:coupon];
+//            Coupon *coupon = [Coupon couponWithDict:dict];
+//            coupon.nearestDistance = [_userController distanceFromLocation:coupon.nearestLocation];
+//            
+//            [self.models addObject:coupon];
         }
     }
     
     [self.tableView reloadData];
 }
 
-int nearestSort(Coupon* obj1, Coupon* obj2, void *context ) {
-    // returns random number -1 0 1
-    return obj1.nearestDistance - obj2.nearestDistance;
-}
+//int nearestSort(Coupon* obj1, Coupon* obj2, void *context ) {
+//    // returns random number -1 0 1
+//    return obj1.nearestDistance - obj2.nearestDistance;
+//}
 @end

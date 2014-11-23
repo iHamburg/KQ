@@ -8,6 +8,11 @@
 
 #import "DropDownListViewController.h"
 
-@interface SearchResultsViewController : DropDownListViewController
+@interface DropDownCouponListViewController : DropDownListViewController<UISearchBarDelegate>{
+
+    UISearchBar *_searchBar;
+}
+
+
 
 @end

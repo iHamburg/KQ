@@ -67,12 +67,13 @@
 /**
  *	@brief	获取用户下载的优惠券
  */
-- (void)queryDownloadedCoupon:(NSString*)uid skip:(int)skip block:(IdResultBlock)block;
-- (void)user:(NSString*)uid downloadCoupon:(NSString*)couponId block:(IdResultBlock)block;
+- (void)queryDownloadedCoupon:(NSString*)uid mode:(NSString*)mode skip:(int)skip block:(IdResultBlock)block;
+- (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken downloadCoupon:(NSString*)couponId  block:(IdResultBlock)block;
 /**
  *	@brief	获取用户收藏的优惠券
  */
 - (void)queryFavoritedCoupon:(NSString*)uid skip:(int)skip block:(IdResultBlock)block;
+- (void)queryIfFavoritedCouupon:(NSString*)uid couponId:(NSString*)couponId block:(IdResultBlock)block;
 - (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken favoriteCoupon:(NSString*)couponId block:(IdResultBlock)block;
 - (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken unfavoriteCoupon:(NSString*)couponId block:(IdResultBlock)block;
 
@@ -81,9 +82,9 @@
  */
 
 - (void)queryFavoritedShop:(NSString*)uid skip:(int)skip block:(IdResultBlock)block;
-
-- (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken favoriteShop:(NSString*)shopId block:(IdResultBlock)block;
-- (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken unfavoriteShop:(NSString*)shopId block:(IdResultBlock)block;
+- (void)queryIfFavoritedShop:(NSString*)uid shopId:(NSString*)shopId block:(IdResultBlock)block;  //门店id
+- (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken favoriteShop:(NSString*)shopId block:(IdResultBlock)block; //门店id
+- (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken unfavoriteShop:(NSString*)shopId block:(IdResultBlock)block;   //门店id
 
 - (void)queryUserNews:(NSString*)uid skip:(int)skip block:(IdResultBlock)block;
 
@@ -104,7 +105,17 @@
 
 - (void)queryCoupon:(NSString*)couponId latitude:(NSString*)latitude longitude:(NSString*)longitude block:(IdResultBlock)block;
 
+/**
+ *	@brief 获取门店信息
+ */
+- (void)queryShopBranch:(NSString*)shopId block:(IdResultBlock)block;
 
+/**
+ *	@brief	获取所有门店的列表
+ *
+ *	@param 	headerShopId 	总店ID
+ */
+- (void)queryAllShopBranches:(NSString*)headerShopId block:(IdResultBlock)block;
 
 /**
  *	@brief	获取最热门的优惠券
@@ -113,7 +124,7 @@
 
 
 /**
- *	@brief	附件（搜索门店）
+ *	@brief	附近（搜索门店）
  *
  *	@param 	params 	<#params description#>
  */
@@ -127,11 +138,6 @@
  
  */
 - (void)searchCoupons:(NSDictionary*)params block:(IdResultBlock)block;
-
-/**
- deprecated , shop可以直接include coupons来获得
- */
-- (void)queryCouponsWithShop:(NSString*)shopId block:(IdResultBlock)block;
 
 
 

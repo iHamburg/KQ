@@ -441,9 +441,10 @@
 
 - (void)presentLogin{
     
-    KQRootViewController *root = [KQRootViewController sharedInstance];
     
-    [root presentLoginWithMode:PresentUserCenterLogin];
+    [_root presentLoginWithBlock:^(BOOL succeeded, NSError *error) {
+
+    }];
 }
 
 @end

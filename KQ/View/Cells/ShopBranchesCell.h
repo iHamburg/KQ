@@ -7,13 +7,10 @@
 //
 
 #import "ConfigCell.h"
-
 #import "Shop.h"
 
-@interface ShopBranchesCell : ConfigCell<UIAlertViewDelegate>{
-
-    
-    NSString *_phoneNumber;
+// 在CouponDetails中
+@interface ShopBranchesCell : ConfigCell{
 
 }
 
@@ -22,15 +19,13 @@
 @property (nonatomic, strong) IBOutlet UIImageView *indicatorV;
 @property (nonatomic, strong) IBOutlet UIImageView *nearestIndicatorV;
 
-@property (nonatomic, copy) void(^toMapBlock)(Shop*) ;
 @property (nonatomic, copy) VoidBlock toShopListBlock;
-
+@property (nonatomic, copy) VoidBlock toShopBlock;
 @property (nonatomic, assign) int shopBranchesNum;
 
-- (IBAction)dialPhone:(id)sender;
-- (IBAction)toMap:(id)sender;
 - (IBAction)toShopList:(id)sender;
+- (IBAction)toShop:(id)sender;
 
-- (void)didDialPhone;
+
 @end
  

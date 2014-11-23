@@ -11,6 +11,7 @@
 typedef enum {
 
     PresentUserCenterLogin,
+    PresentUserCenterDownload,
     PresentDefault
 }PresentMode;
 
@@ -31,37 +32,31 @@ typedef enum {
 @property (nonatomic, readonly) UITabBar *tabBar;
 
 - (void)showInstruction;
+- (void)showEvent;
 
 /**
  *	@brief	present，Login页面无论如何push，最后dismiss的时候还是回到原来的页面
 比如favorite shop/coupon
 
  */
-- (void)presentLoginWithMode:(PresentMode)mode;
+//- (void)presentLoginWithMode:(PresentMode)mode;
 
-/**
- *	@brief	present or not present, login页面push到随便逛逛，就不再回到couponDetails
- */
-- (void)toLogin;
+- (void)presentLoginWithBlock:(BooleanResultBlock)block;
 
-- (void)loginWithBlock:(BooleanResultBlock)block;
 
 - (void)toCouponDetails:(Coupon*)coupon;
 
 
 
-
-
 - (void)toMyCoupons;
 
-//- (void)didLogout;
 
 - (void)toTab:(int)index;
 
+- (void)presentNav:(UIViewController*)vc;
 /**
- *	@brief	在present的时候需要告诉root，是什么原因调用的
+ *	@brief	在present的时候需要告诉root，是什么原因调用的,
  *
- *	@param 	vc 	<#vc description#>
  */
 - (void)presentNav:(UIViewController*)vc mode:(PresentMode)mode;
 
@@ -71,7 +66,9 @@ typedef enum {
 - (void)dismissNav;
 
 
-- (void)addNav:(UIViewController*)vc;
+
+- (void)addNavVCAboveTab:(UIViewController*)vc;
+- (void)removeNavVCAboveTab;
 
 
 @end

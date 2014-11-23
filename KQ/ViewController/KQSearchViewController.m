@@ -118,7 +118,7 @@
     
 //    _districtDataSource = [dataSource copy];
     
-    NSArray *rightKeys = _manager.couponTypes;
+//    NSArray *rightKeys = _manager.couponTypes;
 //    [dataSource removeAllObjects];
 //    for (CouponType *type in rightKeys) {
           //TODO:  CouponType 换成2行而不是3行的
@@ -214,10 +214,10 @@
                         continue;
                     }
                     
-                    Coupon *coupon = [Coupon couponWithDict:dict];
-                    coupon.nearestDistance = [_userController distanceFromLocation:coupon.nearestLocation];
-
-                    [self.searchResults addObject:coupon];
+//                    Coupon *coupon = [Coupon couponWithDict:dict];
+//                    coupon.nearestDistance = [_userController distanceFromLocation:coupon.nearestLocation];
+//
+//                    [self.searchResults addObject:coupon];
                 }
             }
 

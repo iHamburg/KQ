@@ -32,12 +32,6 @@
 
 @property (nonatomic, strong) IBOutlet EventViewController *eventVC;
 
-- (void)addVCAboveTab:(UIViewController*)vc;
-- (void)removeVCFromTab:(UIViewController *)vc;
-
-- (void)addNavVCAboveTab:(UIViewController*)vc;
-- (void)removeNavVCAboveTab;
-
 
 @end
 
@@ -102,10 +96,7 @@
     
     L();
     
-    
-    
-//    [self startEvent];
-    
+   [self showEvent];
 }
 
 - (void)didReceiveMemoryWarning
@@ -118,11 +109,11 @@
 - (void)registerNotification{
     [super registerNotification];
     
-    [[NSNotificationCenter defaultCenter] addObserverForName:kNotificationLogin object:nil queue:nil usingBlock:^(NSNotification *note) {
-   
-        [self toLogin];
-    
-    }];
+//    [[NSNotificationCenter defaultCenter] addObserverForName:kNotificationLogin object:nil queue:nil usingBlock:^(NSNotification *note) {
+//   
+//        [self toLogin];
+//    
+//    }];
     
 }
 
@@ -132,39 +123,7 @@
     [self removeNavVCAboveTab];
 }
 
-#pragma mark - Private Fcns
 
-
-- (void)addVCAboveTab:(UIViewController*)vc{
-
-    [_tabVC.view addSubview:vc.view];
-
-}
-
-
-- (void)removeVCFromTab:(UIViewController *)vc{
-   
-    [vc.view removeFromSuperview];
-
-}
-
-
-///??? 如果有多个vc叠加的话会怎么样？
-- (void)addNavVCAboveTab:(UIViewController*)vc{
- 
-    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_back.png" target:self action:@selector(removeNavPressed:)]];
-    _nav = [[UINavigationController alloc] initWithRootViewController:vc];
-  
-    [self.view addSubview:_nav.view];
-    
-    
-    
-}
-- (void)removeNavVCAboveTab{
-    
-    [_nav.view removeFromSuperview];
-    
-}
 
 #pragma mark - Fcns
 
@@ -174,11 +133,11 @@
     [self.view addSubview:self.instructionVC.view];
 }
 
-- (void)startEvent{
+- (void)showEvent{
     
     //判断是否登录
     
-    if ([[UserController sharedInstance] isLogin]) {
+    if ([[UserController sharedInstance] isLogin] && NO) {
         NSLog(@"user has login, go to mainPage");
         
        
@@ -188,7 +147,8 @@
         
         _eventVC = [[EventViewController alloc] init];
 
-        [self.view addSubview:_eventVC.view];
+        [self.view insertSubview:_eventVC.view aboveSubview:_tabVC.view];
+
        
     }
     
@@ -201,21 +161,8 @@
     CouponDetailsViewController *vc = [[CouponDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     vc.view.alpha = 1;
     vc.coupon = coupon;
-    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_back.png" target:self action:@selector(removeNavPressed:)]];
    
-    _nav = [[UINavigationController alloc] initWithRootViewController:vc];
-
-    [_nav.view setOrigin:CGPointMake(_w, 0)];
-    [self.view addSubview:_nav.view];
-  
-    [UIView animateWithDuration:.4 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        
-        [_nav.view setOrigin:CGPointMake(0, 0)];
-        
-    } completion:^(BOOL finished) {
-        
-    }];
-    
+    [self addNavVCAboveTab:vc];
 
 }
 
@@ -226,7 +173,7 @@
     UserCouponsViewController *vc = [[UserCouponsViewController alloc] init];
     vc.view.alpha = 1;
     
-    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_back.png" target:self action:@selector(removeNavPressed:)]];
+    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_white_back.png" target:self action:@selector(removeNavPressed:)]];
     
     
     
@@ -235,39 +182,26 @@
 
 }
 
-/**
- *
 
- **/
-- (void)toLogin {
+//- (void)presentLoginWithMode:(PresentMode)mode;{
+//  
+//    KQLoginViewController *vc = [[KQLoginViewController alloc] init];
+//    
+//    vc.view.alpha = 1;  //提前先load LoginVC，生成back，这样之后的back的selector能覆盖默认的back
+//    
+//    
+//    [self presentNav:vc mode:mode];
+//    
+//}
 
+- (void)presentLoginWithBlock:(BooleanResultBlock)block{
     KQLoginViewController *vc = [[KQLoginViewController alloc] init];
-    vc.view.alpha = 1;
-//    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_back.png" target:self action:@selector(removeNavPressed:)]];
     
-    
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
-        
-    }];
-
-
-    
-}
-
-- (void)loginWithBlock:(BooleanResultBlock)block{
-    
-    
-}
-
-- (void)presentLoginWithMode:(PresentMode)mode;{
-    KQLoginViewController *vc = [[KQLoginViewController alloc] init];
     vc.view.alpha = 1;  //提前先load LoginVC，生成back，这样之后的back的selector能覆盖默认的back
+    vc.successBlock = block;
     
-    
-    [self presentNav:vc mode:mode];
-    
+    [self presentNav:vc];
 }
-
 
 - (void)toTab:(int)index{
 
@@ -275,11 +209,8 @@
     
 }
 
-- (void)presentNav:(UIViewController*)vc mode:(PresentMode)mode{
-    
-    self.presentMode = mode;
-    
-    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_back.png" target:self action:@selector(dismissNav)]];
+- (void)presentNav:(UIViewController*)vc{
+    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_white_back.png" target:self action:@selector(dismissNav)]];
     
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
         
@@ -287,6 +218,44 @@
 
 }
 
+- (void)presentNav:(UIViewController*)vc mode:(PresentMode)mode{
+    
+    self.presentMode = mode;
+    
+    [self presentNav:vc];
+}
+
+- (void)addNavVCAboveTab:(UIViewController *)vc{
+    
+    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_white_back.png" target:self action:@selector(removeNavPressed:)]];
+    
+    _nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    
+    [_nav.view setOrigin:CGPointMake(_w, 0)];
+    [self.view addSubview:_nav.view];
+    
+    [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        
+        [_nav.view setOrigin:CGPointMake(0, 0)];
+        
+    } completion:^(BOOL finished) {
+        
+    }];
+
+}
+
+- (void)removeNavVCAboveTab{
+    
+  
+    [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        
+        [_nav.view setOrigin:CGPointMake(_w, 0)];
+        
+    } completion:^(BOOL finished) {
+          [_nav.view removeFromSuperview];
+    }];
+
+}
 
 - (void)dismissNav{
     
@@ -297,9 +266,9 @@
     }];
 }
 
-- (void)addNav:(UIViewController*)vc{
-    
-}
+//- (void)addNav:(UIViewController*)vc{
+//    
+//}
 
 - (void)test{
     L();
@@ -309,6 +278,8 @@
     [[NetworkClient sharedInstance] test];
     [[UserController sharedInstance] test];
 
+    
+//    [self showEvent];
 //    [self showInstruction];
  //    [self testNav:@"AddCardViewController"];
     

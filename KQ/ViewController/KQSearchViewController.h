@@ -14,7 +14,7 @@
 #import "ConfigCell.h"
 #import "CouponManager.h"
 #import "DistrictsTableView.h"
-#import "TagsView.h"
+
 #import "District.h"
 #import "CouponType.h"
 

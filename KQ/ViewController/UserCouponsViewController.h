@@ -18,9 +18,11 @@ typedef enum {
 
 }
 
+@property (nonatomic, assign) CouponStatus couponStatus;
+
 - (IBAction)segmentedControlChanged:(id)sender;
 
-- (void)queryCoupons:(CouponStatus)status;
+
 
 - (void)toCouponDetails:(id)coupon;
 

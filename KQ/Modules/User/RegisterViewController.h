@@ -9,12 +9,12 @@
 #import <UIKit/UIKit.h>
 
 #import "SignViewController.h"
-
+#import "CaptchaButton.h"
 @interface RegisterViewController : SignViewController<UIAlertViewDelegate>{
 
 
     IBOutlet UIButton *_registerB;
-    IBOutlet UIButton  *_identifyB;
+    IBOutlet CaptchaButton  *_identifyB;
 
     IBOutlet UITextField *_userTextField,*_passwordTextField, *_verifyTextField, *_rePasswordTextField;
     

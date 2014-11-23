@@ -48,13 +48,13 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)toRegister{
-    L();
-    KQRegisterViewController *vc = [[KQRegisterViewController alloc] init];
-    
-    [self.navigationController pushViewController:vc animated:YES];
-
-}
+//- (void)toRegister{
+//    L();
+//    KQRegisterViewController *vc = [[KQRegisterViewController alloc] init];
+//    
+//    [self.navigationController pushViewController:vc animated:YES];
+//
+//}
 
 
 @end

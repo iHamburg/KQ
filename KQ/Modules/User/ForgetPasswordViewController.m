@@ -111,7 +111,7 @@
     }
     
     if (indexPath.row == 1) {
-        _identifyB = [UIButton buttonWithFrame:CGRectMake(230, 3, 90, kCellHeight - 6) title:@"获取验证码" bgImageName:nil target:self action:@selector(identifyClicked:)];
+        _identifyB = (CaptchaButton*)[CaptchaButton buttonWithFrame:CGRectMake(230, 3, 90, kCellHeight - 6) title:@"获取验证码" bgImageName:nil target:self action:@selector(identifyClicked:)];
         
         [_identifyB setTitleColor:kColorYellow forState:UIControlStateNormal];
         [_identifyB.titleLabel setFont:[UIFont fontWithName:kFontName size:14]];
@@ -140,8 +140,12 @@
 
 - (IBAction)identifyClicked:(id)sender{
     L();
+    
 
+    
     [self requestCaptcha];
+    
+    [_identifyB startTimer];
 }
 
 
@@ -199,14 +203,10 @@
     
     NSString *mobile = _userTextField.text;
     
-    [self willConnect:_identifyB];
+
+  
     [[NetworkClient sharedInstance] requestCaptchaForgetPassword:mobile block:^(NSDictionary* object, NSError *error) {
-        
-        [self willDisconnect];
-        
-        if (!self.networkFlag) {
-            return;
-        }
+      
         
         if (!error) {
             
@@ -215,6 +215,7 @@
         }
         else {
             [ErrorManager alertError:error];
+            [_identifyB stopTimer];
         }
     }];
 }
@@ -224,7 +225,9 @@
 - (void)toChangePwd{
     
     ChangePasswordViewController *vc = [[ChangePasswordViewController alloc] init];
+    vc.view.alpha = 1;
     vc.username = self.username;
+    vc.successBlock = self.successBlock;
     [self.navigationController pushViewController:vc animated:YES];
 
 }

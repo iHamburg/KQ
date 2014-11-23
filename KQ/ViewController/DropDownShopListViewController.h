@@ -7,12 +7,13 @@
 //
 
 #import "DropDownListViewController.h"
-
-@interface AroundViewController : DropDownListViewController{
+#import "Shop.h"
+@interface DropDownShopListViewController : DropDownListViewController{
   
 }
 
-
+// root 覆盖
+- (void)toShopDetails:(Shop*)shop;
 
 
 @end

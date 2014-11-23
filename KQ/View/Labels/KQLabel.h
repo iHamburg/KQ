@@ -10,4 +10,7 @@
 
 @interface KQLabel : InsetsLabel
 
+
+- (void)turnSmall;
+
 @end

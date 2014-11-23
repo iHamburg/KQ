@@ -15,6 +15,7 @@
 @interface DropDownListViewController : NetTableViewController<DropDownChooseDelegate,DropDownChooseDataSource>{
 
     DropDownListView *_dropDownView;
+    NSMutableDictionary *_searchParams;
 }
 
 
@@ -28,7 +29,5 @@
 @property (nonatomic, assign) int districtIndex;
 @property (nonatomic, assign) NSInteger orderIndex;
 @property (nonatomic, strong) NSMutableDictionary *searchParams;
-
-- (void)toCouponDetails:(Coupon*)coupon;
 
 @end

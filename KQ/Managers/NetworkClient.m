@@ -19,13 +19,19 @@
 //搜索优惠券
 #define api_searchCoupons        [RESTHOST stringByAppendingFormat:@"/searchCoupons"]
 
-//搜索门店
+//附件门店
 #define api_search_shopbranches        [RESTHOST stringByAppendingFormat:@"/aroundShopbranches"]
 
 
 
 //获取优惠券
 #define api_coupon              [RESTHOST stringByAppendingFormat:@"/couponDetails"]
+
+//获取门店详情
+#define api_shopBranch              [RESTHOST stringByAppendingFormat:@"/shopbranchDetails"]
+
+//获取所有门店列表
+#define api_all_shopBranches    [RESTHOST stringByAppendingFormat:@"/allShopbranches"]
 
 //获取区域
 #define api_district             [RESTHOST stringByAppendingFormat:@"/district"]
@@ -34,10 +40,9 @@
 //获取一级区域
 #define api_headDistricts        [RESTHOST stringByAppendingFormat:@"/district"]
 
-
-
 //获取一级类型
 #define api_headCouponTypes       [RESTHOST stringByAppendingFormat:@"/shopType"]
+
 
 
 //用户登录
@@ -60,12 +65,20 @@
 //用户下载的快券
 #define api_my_downloadedCoupon [RESTHOST stringByAppendingFormat:@"/myDownloadedCoupon"]
 
+
 //用户收藏的快券
 #define api_my_favoritedCoupon  [RESTHOST stringByAppendingFormat:@"/myFavoritedCoupon"]
 
+#define api_my_unfavoriteCoupon     [RESTHOST stringByAppendingFormat:@"/deleteMyFavoritedCoupon"]
+
+#define api_if_favoritedCoupon   [RESTHOST stringByAppendingFormat:@"/isFavoritedCoupon"]
 
 //用户收藏的门店
 #define api_my_favoritedShop    [RESTHOST stringByAppendingFormat:@"/myFavoritedShopbranch"]
+
+#define api_my_unfavoriteShop      [RESTHOST stringByAppendingFormat:@"/deleteMyFavoritedShopbranch"]
+
+#define api_if_favoritedShop     [RESTHOST stringByAppendingFormat:@"/isFavoritedShopbranch"]
 
 // 用户的站内信
 #define api_my_news             [RESTHOST stringByAppendingFormat:@"/myNews"]
@@ -172,25 +185,29 @@
 
 #pragma mark - My DownloadedCoupons
 
-- (void)queryDownloadedCoupon:(NSString*)uid skip:(int)skip block:(IdResultBlock)block;{
+- (void)queryDownloadedCoupon:(NSString*)uid mode:(NSString*)mode skip:(int)skip block:(IdResultBlock)block;{
  
 
-    NSDictionary *params = @{@"uid":uid,@"skip":[NSString stringWithInt:skip]};
+    NSDictionary *params = @{@"uid":uid,@"skip":[NSString stringWithInt:skip],@"mode":mode};
     
     [self getWithUrl:api_my_downloadedCoupon parameters:params block:block];
 }
 
 
-- (void)user:(NSString*)uid downloadCoupon:(NSString*)couponId block:(IdResultBlock)block{
+- (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken downloadCoupon:(NSString*)couponId  block:(IdResultBlock)block{
     
     
-    [self postWithUrl:api_my_downloadedCoupon parameters:@{@"uid":uid,@"couponId":couponId} block:block];
+    [self postWithUrl:api_my_downloadedCoupon parameters:@{@"uid":uid,@"couponId":couponId,@"sessionToken":sessionToken} block:block];
 }
 
 #pragma mark - My FavoritedCoupons
 - (void)queryFavoritedCoupon:(NSString*)uid skip:(int)skip block:(IdResultBlock)block{
   
     [self getWithUrl:api_my_favoritedCoupon parameters:@{@"uid":uid,@"skip":[NSString stringWithInt:skip]} block:block];
+}
+
+- (void)queryIfFavoritedCouupon:(NSString*)uid couponId:(NSString*)couponId block:(IdResultBlock)block{
+    [self getWithUrl:api_if_favoritedCoupon parameters:@{@"uid":uid,@"couponId":couponId} block:block];
 }
 
 - (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken favoriteCoupon:(NSString*)couponId block:(IdResultBlock)block{
@@ -204,6 +221,8 @@
 - (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken unfavoriteCoupon:(NSString*)couponId block:(IdResultBlock)block{
 
 
+    [self postWithUrl:api_my_unfavoriteCoupon parameters:@{@"uid":uid,@"couponId":couponId,@"sessionToken":sessionToken} block:block];
+    
 //    [self deleteWithUrl:api_my_favoritedCoupon_delete(uid,sessionToken, couponId) parameters:nil block:block];
     
 }
@@ -216,13 +235,20 @@
     
 }
 
+- (void)queryIfFavoritedShop:(NSString*)uid shopId:(NSString*)shopId block:(IdResultBlock)block{
+
+    [self getWithUrl:api_if_favoritedShop parameters:@{@"uid":uid,@"shopbranchId":shopId} block:block];
+}
+
 - (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken favoriteShop:(NSString*)shopId block:(IdResultBlock)block{
     
-    [self postWithUrl:api_my_favoritedShop parameters:@{@"uid":uid,@"shopId":shopId,@"sessionToken":sessionToken} block:block];
+    [self postWithUrl:api_my_favoritedShop parameters:@{@"uid":uid,@"shopbranchId":shopId,@"sessionToken":sessionToken} block:block];
     
 }
 - (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken unfavoriteShop:(NSString*)shopId block:(IdResultBlock)block{
 
+    
+    [self postWithUrl:api_my_unfavoriteShop parameters:@{@"uid":uid,@"shopbranchId":shopId,@"sessionToken":sessionToken} block:block];
     
 //    [self deleteWithUrl:api_my_favoritedShop_delete(uid,sessionToken, shopId) parameters:nil block:block];
     
@@ -254,7 +280,16 @@
     
 }
 
+- (void)queryShopBranch:(NSString*)shopId block:(IdResultBlock)block{
+    
+    
+    [self getWithUrl:api_shopBranch parameters:@{@"id":shopId} block:block];
+}
 
+- (void)queryAllShopBranches:(NSString*)headerShopId block:(IdResultBlock)block{
+
+    [self getWithUrl:api_all_shopBranches parameters:@{@"id":headerShopId} block:block];
+}
 - (void)queryHotestCouponsSkip:(int)skip block:(IdResultBlock)block{
     
     
@@ -294,15 +329,15 @@
 
 
 
-///deprecated
-- (void)queryShopBranches:(NSString*)parentId block:(IdResultBlock)block{
-    
-    
-    NSString *url = [RESTHOST stringByAppendingFormat:@"/shopbranches/parentId/%@",parentId];
-    
-    
-    [self getWithUrl:url parameters:nil block:block];
-}
+/////deprecated
+//- (void)queryShopBranches:(NSString*)parentId block:(IdResultBlock)block{
+//    
+//    
+//    NSString *url = [RESTHOST stringByAppendingFormat:@"/shopbranches/parentId/%@",parentId];
+//    
+//    
+//    [self getWithUrl:url parameters:nil block:block];
+//}
 
 
 - (void)searchCoupons:(NSDictionary*)params block:(IdResultBlock)block{
