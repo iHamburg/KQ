@@ -96,7 +96,10 @@
     
     L();
     
-   [self showEvent];
+    if (![[UserController sharedInstance] isLogin]) {
+        [self showEvent];
+    }
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -108,13 +111,7 @@
 
 - (void)registerNotification{
     [super registerNotification];
-    
-//    [[NSNotificationCenter defaultCenter] addObserverForName:kNotificationLogin object:nil queue:nil usingBlock:^(NSNotification *note) {
-//   
-//        [self toLogin];
-//    
-//    }];
-    
+  
 }
 
 
@@ -135,22 +132,25 @@
 
 - (void)showEvent{
     
-    //判断是否登录
+//    //判断是否登录
+//    
+//    if ([[UserController sharedInstance] isLogin]) {
+//        NSLog(@"user has login, go to mainPage");
+//        
+//       
+//    }
+//    else{
+//        NSLog(@"no user, show event Page");
+//        
+//        _eventVC = [[EventViewController alloc] init];
+//
+//        [self.view insertSubview:_eventVC.view aboveSubview:_tabVC.view];
+//
+//       
+//    }
+    _eventVC = [[EventViewController alloc] init];
     
-    if ([[UserController sharedInstance] isLogin] && NO) {
-        NSLog(@"user has login, go to mainPage");
-        
-       
-    }
-    else{
-        NSLog(@"no user, show event Page");
-        
-        _eventVC = [[EventViewController alloc] init];
-
-        [self.view insertSubview:_eventVC.view aboveSubview:_tabVC.view];
-
-       
-    }
+    [self.view insertSubview:_eventVC.view aboveSubview:_tabVC.view];
     
 }
 
@@ -166,38 +166,12 @@
 
 }
 
-- (void)toMyCoupons{
-    // 如果在toCouponDetails，先退出来
-    [_nav.view removeFromSuperview];
-    
-    UserCouponsViewController *vc = [[UserCouponsViewController alloc] init];
-    vc.view.alpha = 1;
-    
-    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_white_back.png" target:self action:@selector(removeNavPressed:)]];
-    
-    
-    
-    _nav = [[UINavigationController alloc] initWithRootViewController:vc];
-    [self.view addSubview:_nav.view];
-
-}
-
-
-//- (void)presentLoginWithMode:(PresentMode)mode;{
-//  
-//    KQLoginViewController *vc = [[KQLoginViewController alloc] init];
-//    
-//    vc.view.alpha = 1;  //提前先load LoginVC，生成back，这样之后的back的selector能覆盖默认的back
-//    
-//    
-//    [self presentNav:vc mode:mode];
-//    
-//}
 
 - (void)presentLoginWithBlock:(BooleanResultBlock)block{
     KQLoginViewController *vc = [[KQLoginViewController alloc] init];
     
     vc.view.alpha = 1;  //提前先load LoginVC，生成back，这样之后的back的selector能覆盖默认的back
+    // 这里的block可以放在root，让root有一个bool值的block
     vc.successBlock = block;
     
     [self presentNav:vc];
@@ -218,12 +192,23 @@
 
 }
 
-- (void)presentNav:(UIViewController*)vc mode:(PresentMode)mode{
+- (void)presentNav:(UIViewController *)vc block:(BooleanResultBlock)block{
     
-    self.presentMode = mode;
+    self.presentBlock = block;
+    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_white_back.png" target:self action:@selector(dismissNav)]];
     
-    [self presentNav:vc];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
+        
+    }];
+
 }
+
+//- (void)presentNav:(UIViewController*)vc mode:(PresentMode)mode{
+//    
+//    self.presentMode = mode;
+//    
+//    [self presentNav:vc];
+//}
 
 - (void)addNavVCAboveTab:(UIViewController *)vc{
     
@@ -262,7 +247,7 @@
     [self dismissViewControllerAnimated:YES completion:^{
         
         // 把presentMode调回default
-        self.presentMode = PresentDefault;
+//        self.presentMode = PresentDefault;
     }];
 }
 

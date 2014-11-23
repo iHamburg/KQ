@@ -34,7 +34,6 @@
     
     self.view.backgroundColor = kColorBG;
     
-    
     _tableImageNames = @[@"icon-password01.png",@"icon-password02.png"];
     
     CGFloat x = 60;
@@ -175,7 +174,7 @@
 }
 
 
-// 发送请求
+// 发送请求，重置成功也是login的
 - (void)submit{
 
     L();
@@ -199,24 +198,16 @@
                 if (succeeded && vc.networkFlag) {
                     
                     NSLog(@"login successful");
-//                    PresentMode presentMode = [[KQRootViewController sharedInstance] presentMode];
-//                    
-//                    //登录成功就返回present前的页面
-//                    if (presentMode == PresentUserCenterLogin || presentMode == PresentDefault) {
-//                        
-//                        [[KQRootViewController sharedInstance] dismissNav];
-//                    }
                     
                     vc.successBlock(YES,nil);
                     [vc dismissViewControllerAnimated:YES completion:^{
                         
                     }];
-                    
+                
                 }
 
                 
             }];
-            
             
         }
         else{

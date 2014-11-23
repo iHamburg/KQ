@@ -1,13 +1,18 @@
 //
-//  AfterDownloadViewController.m
+//  AfterDownload2ViewController.m
 //  KQ
 //
-//  Created by AppDevelopper on 14-9-14.
+//  Created by Forest on 14-11-23.
 //  Copyright (c) 2014年 Xappsoft. All rights reserved.
 //
 
 #import "AfterDownloadViewController.h"
+#import "CardCell.h"
 #import "AddCardViewController.h"
+#import "UserCouponsViewController.h"
+
+
+#define headerHeight 100
 
 @interface AfterDownloadViewController ()
 
@@ -15,159 +20,197 @@
 
 @implementation AfterDownloadViewController
 
-
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     self.title = @"放入我的快券";
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, _w, 300) style:UITableViewStylePlain];
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
-    _tableView.scrollEnabled = NO;
+    _config = [[TableConfiguration alloc] initWithResource:@"UserCardsConfig"];
     
+    self.isLoadMore = NO;
 
-    [_scrollView addSubview:_tableView];
-    _tableView.backgroundColor = [UIColor clearColor];
-    self.view.backgroundColor = [UIColor colorWithRed:242.0/255 green:242.0/255 blue:242.0/255 alpha:1];
+//    self.tableView.backgroundColor = kColorRed;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (void)viewDidAppear:(BOOL)animated{
-    
-    [super viewDidAppear:animated];
-    
-    
+
+#pragma mark - TableView
+
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return headerHeight;
 }
 
-
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _w, headerHeight)];
     
-        return 1;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake(55, 11, 32, 32)];
+    imgV.image = [UIImage imageNamed:@"icon-tip.png"];
     
-    if (indexPath.section == 0) {
-        return 55;
-    }
-    else
-        return 55;
-}
-
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    int section  = (int)indexPath.section;
+    UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, _w, 55)];
     
     
-    static NSString *CellIdentifier1 = @"Cell1";
+    l.text = @"已成功放入\"我的快券\"";
+    l.textColor = kColorYellow;
+    l.textAlignment = NSTextAlignmentCenter;
+    l.font = bFont(15);
+    l.backgroundColor = [UIColor whiteColor];
     
     
-	UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier1];
+
     
-    if (section == 0) {
-       UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake(75, 11, 32, 32)];
-        imgV.image = [UIImage imageNamed:@"icon-tip.png"];
-
-        UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(110, 0, 200, 55)];
-
-        
-        l.text = @"已成功放入\"我的快券\"";
-        l.textColor = kColorYellow;
-        l.textAlignment = NSTextAlignmentLeft;
-        l.font = [UIFont fontWithName:kFontName size:14];
-        
-        [cell addSubview:imgV];
-        [cell addSubview:l];
-    }
-    else{
-
-        
+    [v addSubview:l];
+    [v addSubview:imgV];
+    
+    ///如果用户有卡,显示
+    if (!ISEMPTY(_models)) {
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 60, _w, 40)];
+        label.text = @"凭以下银行卡可享受快券优惠";
+        label.textColor = kColorGray;
+        label.font = [UIFont fontWithName:kFontBoldName size:15];
+        [v addSubview:label];
     }
   
-    return cell;
-    
+        
+    return v;
+   
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+   
     return 200;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+- (UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _w, 200)];
     
-    UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, _w, 30)];
-    l.text = @"你没有支持快券使用的银行卡";
-    l.textAlignment = NSTextAlignmentCenter;
-    l.font = [UIFont fontWithName:kFontBoldName size:16];
-    l.textColor = kColorRed;
+    if (ISEMPTY(_models)) {
+        UIButton *btn = [UIButton buttonWithFrame:CGRectMake(10, 43, _w-20, 34) title:@"+ 添加银行卡" bgImageName:nil target:self action:@selector(addCard)];
+        btn.backgroundColor = kColorGreen;
+        btn.layer.cornerRadius = 3;
+        btn.titleLabel.font = bFont(15);
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(btn.frame)+10, _w, 30)];
+        label.text = @"中国银联将保障您的账户信息安全";
+        label.textColor = kColorGray;
+        label.font = [UIFont fontWithName:kFontBoldName size:12];
+        label.textAlignment = NSTextAlignmentCenter;
+        [v addSubview:btn];
+        [v addSubview:label];
+
+    }
+    else{
+        UIButton *userCouponBtn = [UIButton buttonWithFrame:CGRectMake(10, 40, 140, 34) title:@"查看快券" bgImageName:nil target:self action:@selector(pushUserCoupons)];
+        userCouponBtn.backgroundColor = kColorRed;
+        userCouponBtn.layer.cornerRadius = 3;
+        userCouponBtn.titleLabel.font = bFont(15);
+        
+        UIButton *mainBtn = [UIButton buttonWithFrame:CGRectMake(170, 40, 140, 34) title:@"继续逛逛" bgImageName:nil target:self action:@selector(toMain)];
+        mainBtn.backgroundColor = kColorRed;
+        mainBtn.layer.cornerRadius = 3;
+        mainBtn.titleLabel.font = bFont(15);
+        
+        [v addSubview:userCouponBtn];
+        [v addSubview:mainBtn];
+    }
     
-    UILabel *l2 = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(l.frame)+10, _w - 20, 60)];
-    l2.textColor = kColorDardGray;
-    l2.text = @"您只需添加一张银行卡到\"我的银行卡\"开通 服务。即可现场刷卡，使用已下载的快券啦！";
-    l2.font = [UIFont fontWithName:kFontBoldName size:12];
-    l2.numberOfLines = 0;
-    
-    UIButton *b = [UIButton buttonWithFrame:CGRectMake(10, CGRectGetMaxY(l2.frame)+10, _w - 20, 35) title:@"+添加银行卡" bgImageName:nil target:self action:@selector(addButtonClicked:)];
-    b.backgroundColor = [UIColor colorWithRed:30.0/255 green:175.0/255 blue:65.0/255 alpha:1];
-    b.titleLabel.font = [UIFont fontWithName:kFontBoldName size:14];
-    b.layer.cornerRadius = 3;
-    
-    UILabel *l3 = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(b.frame)+10, _w-20, 30)];
-    l3.text = @"(限卡号62开头的银行卡)";
-    l3.textColor = kColorGray;
-    l3.font = [UIFont fontWithName:kFontName size:12];
-    
-    [v addSubview:l];
-    [v addSubview:l2];
-    [v addSubview:b];
-    [v addSubview:l3];
+//    v.backgroundColor = kColorGreen;
+//    NSLog(@"foot # %@",v);
     return v;
+    
+}
+
+
+
+
+- (void)configCell:(ConfigCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+    
+    //    NSLog(@"cell # %@",cell);
+    if ([cell isKindOfClass:[CardCell class]]) {
+        cell.value = _models[indexPath.row];
+    }
+    
+}
+
+
+
+#pragma mark - Fcns
+
+
+- (void)loadModels{
+    
+    L();
+    
+    
+    [self.models removeAllObjects];
+    [self willConnect:self.view];
+    
+    
+    [_networkClient queryCards:_userController.uid block:^(NSDictionary *dict, NSError *error) {
+        
+        
+        [self willDisconnect];
+        [self.refreshControl endRefreshing];
+        
+        if (!error) {
+            NSArray *array = dict[@"cards"];
+            
+            NSLog(@"cards # %@",array);
+            
+            for (NSDictionary *dict in array) {
+                
+                Card *card = [[Card alloc] initWithDict:dict];
+                [self.models addObject:card];
+            }
+            
+            [self.tableView reloadData];
+        }
+        else {
+            [ErrorManager alertError:error];
+        }
+        
+        
+    }];
 }
 
 #pragma mark - IBAction
 
 - (IBAction)addButtonClicked:(id)sender{
-    [self toAddCard];
+    [self presentAddCard];
 }
 
 #pragma mark - Fcn
-- (void)toAddCard{
+- (void)presentAddCard{
     L();
     AddCardViewController *vc = [[AddCardViewController alloc] initWithStyle:UITableViewStyleGrouped];
     vc.view.alpha = 1;
-    [_root presentNav:vc];
-
-}
-
-
-- (void)back{
-    
-    if (self.source == 0) {
-        [self.navigationController dismissViewControllerAnimated:YES completion:^{
+    vc.presentBlock = ^(BOOL successed, NSError *error){
+        if (successed) {
+            //成功绑卡
             
-        }];
-    }
-    else{
-        [self.navigationController popViewControllerAnimated:YES];
-    }
+            [self.tableView reloadData];
+        }
+    };
+    
+    [_root presentNav:vc];
+    
 }
+
+- (void)pushUserCoupons{
+    
+    
+    UserCouponsViewController *vc = [[UserCouponsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    
+    [self.navigationController pushViewController:vc animated:YES];
+}
+- (void)toMain{
+    [_root removeNavVCAboveTab];
+}
+
 @end

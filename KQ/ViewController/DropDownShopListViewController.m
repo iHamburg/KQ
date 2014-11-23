@@ -7,7 +7,7 @@
 //
 
 #import "DropDownShopListViewController.h"
-
+#import "ShopDetailsViewController.h"
 #import "CouponDetailsViewController.h"
 
 #import <CoreLocation/CoreLocation.h>
@@ -30,6 +30,7 @@
     self.config = [[TableConfiguration alloc] initWithResource:@"ShopListConfig"];
  
 //    self.isLoadMore = NO;
+    self.navigationItem.leftBarButtonItem = nil;
 }
 
 
@@ -149,6 +150,10 @@
 
 
 - (void)toShopDetails:(Shop*)shop{
+    ShopDetailsViewController *vc = [[ShopDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    vc.view.alpha = 1;
+    vc.shop = shop;
+    [self.navigationController pushViewController:vc animated:YES];
     
 }
 @end

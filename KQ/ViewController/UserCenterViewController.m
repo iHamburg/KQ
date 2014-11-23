@@ -197,37 +197,46 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     L();
+    // 刷新页面
     if (_userController.isLogin) {
-        [_networkClient queryUserInfo:_userController.uid sessionToken:_userController.sessionToken block:^(NSDictionary* dict, NSError *error) {
-            
-            if (!error) {
-                // 如果没有出错
-                //            NSLog(@"dict # %@",dict);
-                
-                if ([dict isKindOfClass:[NSDictionary class]]) {
-                    dict = [dict dictionaryCheckNull];
-                }
-                
-                [_userController updateUserInfo:dict];
-                
-                [self.tableView reloadData];
-            }
-            else{
-                int code = error.code;
-                
-                if (code == ErrorInvalidSession){
-                    // 如果是session过期，logout
-                    
-                    [_userController logout];
-                    
-                    
-                }
-                else{
-                    [ErrorManager alertError:error];
-                }
-            }
-            
+        
+        [_userController updateUserInfoWithBlock:^(BOOL succeeded, NSError *error) {
+           
+            [self.tableView reloadData];
         }];
+        
+//        [_networkClient queryUserInfo:_userController.uid sessionToken:_userController.sessionToken block:^(NSDictionary* dict, NSError *error) {
+//            
+//            if (!error) {
+//                // 如果没有出错
+//                //            NSLog(@"dict # %@",dict);
+//                
+//                if ([dict isKindOfClass:[NSDictionary class]]) {
+//                    dict = [dict dictionaryCheckNull];
+//                }
+//                
+//                [_userController updateUserInfo:dict];
+//                
+//                [self.tableView reloadData];
+//            }
+//            else{
+//                int code = error.code;
+//                
+//                if (code == ErrorInvalidSession){
+//                    // 如果是session过期，logout
+//                    
+//                    [_userController logout];
+//                    
+//                    
+//                }
+//                else{
+//                    [ErrorManager alertError:error];
+//                }
+//            }
+//            
+//        }];
+
+        
     }
   
 
@@ -387,7 +396,7 @@
 - (void)toCoupons{
 
     
-    UserCouponsViewController *vc = [[UserCouponsViewController alloc] init];
+    UserCouponsViewController *vc = [[UserCouponsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     
     [self.navigationController pushViewController:vc animated:YES];
     
@@ -395,13 +404,13 @@
 - (void)toShops{
 
     
-    UserShopsViewController *vc = [[UserShopsViewController alloc] init];
+    UserShopsViewController *vc = [[UserShopsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     [self.navigationController pushViewController:vc animated:YES];
     
 }
 - (void)toCards{
 
-    UserCardsViewController *vc = [[UserCardsViewController alloc] init];
+    UserCardsViewController *vc = [[UserCardsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     [self.navigationController pushViewController:vc animated:YES];
     
 }
@@ -409,7 +418,7 @@
 
     
     
-    UserFavoritedCouponsViewController *vc = [[UserFavoritedCouponsViewController alloc] initWithStyle:UITableViewStylePlain];
+    UserFavoritedCouponsViewController *vc = [[UserFavoritedCouponsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     [self.navigationController pushViewController:vc animated:YES];
     
 }

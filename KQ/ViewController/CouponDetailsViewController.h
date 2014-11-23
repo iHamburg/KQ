@@ -15,12 +15,7 @@
 @property (nonatomic, strong) Coupon *coupon;
 
 
-//@property (nonatomic, strong) Shop *nearestShopBranch;
-//@property (nonatomic, strong) Shop *shop;
 @property (nonatomic, assign) BOOL isFavoritedCoupon;  ///被headerCell observe
-
-
-
 
 
 //- (void)downloadCoupon:(Coupon*)coupon;
@@ -32,7 +27,7 @@
 
 
 
-
+- (void)presentAddCard;
 - (void)pushCoupon:(Coupon*)coupon;
 - (void)toShop;
 - (void)toShopList;

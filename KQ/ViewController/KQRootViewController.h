@@ -27,38 +27,27 @@ typedef enum {
     
 }
 
-@property (nonatomic, assign) PresentMode presentMode;
+//@property (nonatomic, assign) PresentMode presentMode;
 @property (nonatomic, strong) InstructionViewController *instructionVC;
 @property (nonatomic, readonly) UITabBar *tabBar;
+@property (nonatomic, copy) BooleanResultBlock presentBlock;
 
 - (void)showInstruction;
 - (void)showEvent;
 
-/**
- *	@brief	present，Login页面无论如何push，最后dismiss的时候还是回到原来的页面
-比如favorite shop/coupon
 
- */
-//- (void)presentLoginWithMode:(PresentMode)mode;
 
-- (void)presentLoginWithBlock:(BooleanResultBlock)block;
 
 
 - (void)toCouponDetails:(Coupon*)coupon;
 
 
 
-- (void)toMyCoupons;
-
-
 - (void)toTab:(int)index;
 
 - (void)presentNav:(UIViewController*)vc;
-/**
- *	@brief	在present的时候需要告诉root，是什么原因调用的,
- *
- */
-- (void)presentNav:(UIViewController*)vc mode:(PresentMode)mode;
+- (void)presentNav:(UIViewController *)vc block:(BooleanResultBlock)block;
+- (void)presentLoginWithBlock:(BooleanResultBlock)block;
 
 /**
  *	@brief	在dismiss的时候都会调回default

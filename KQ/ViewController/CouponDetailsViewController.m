@@ -15,12 +15,12 @@
 #import "UMSocial.h"
 #import "UIImageView+WebCache.h"
 
-#import "ImageButtonCell.h"
 #import "AddCardViewController.h"
 #import "ShopBranchListViewController.h"
 #import "ShopDetailsViewController.h"
 #import "MapViewController.h"
 #import "AfterDownloadViewController.h"
+#import "DownloadAddCardViewController.h"
 
 #pragma mark - Cell: CouponHeader
 @interface CouponHeaderCell : ConfigCell{
@@ -222,9 +222,6 @@
     
     [_networkClient queryCoupon:coupon.id latitude:_userController.latitude longitude:_userController.longitude block:^(NSDictionary *dict, NSError *error) {
    
-//        if (!_networkFlag) {
-//            return ;
-//        }
         
         if (error) {
             [ErrorManager alertError:error];
@@ -387,7 +384,7 @@
         aCell.downloadBlock2 = ^(UIView* sender){
             
             if(![[UserController sharedInstance] isLogin]){
-            
+                [vc willDownloadCoupon:vc.coupon sender:sender];
             }
             else{
                 [vc downloadCoupon:vc.coupon sender:sender];
@@ -485,6 +482,7 @@
 
 #pragma mark - Fcns
 
+//没有登录的用户会先到这里
 - (void)willDownloadCoupon:(Coupon*)coupon sender:(id)sender{
     __weak CouponDetailsViewController *vc = self;
     
@@ -494,23 +492,22 @@
         [_root presentLoginWithBlock:^(BOOL succeeded, NSError *error) {
             
             if (succeeded) {
-                NSLog(@"good");
+                NSLog(@"login successful, to download");
                 
-                //如果成功就先下载快券，下载成功后到afterdownload去, 注册肯定没有卡， 登录和忘记密码有可能有卡
+                //如果成功就先更新用户信息
+          
+                [_userController updateUserInfoWithBlock:^(BOOL succeeded, NSError *error) {
+                    [vc downloadCoupon:coupon sender:sender];
+                }];
 
-                [vc downloadCoupon:coupon sender:sender];
             }
         }];
-        
-        return;
         
     }
 }
 
 - (void)downloadCoupon:(Coupon*)coupon sender:(id)sender{
     
-//    [self toAfterDownload];
-//    return;
     
     //    NSLog(@"coupon # %@",coupon);
     __weak CouponDetailsViewController *vc = self;
@@ -525,12 +522,25 @@
         if (!vc.networkFlag) {
             return ;
         }
+
+        //如果出错
         if (error) {
-            [ErrorManager alertError:error];
+            
+            if (error.code == ErrorUnionNoCardBunden) {
+            // 如果是没有绑卡的错误, present DownloadAddCard
+            
+                [self presentAddCard];
+                
+            }
+            else{
+                [ErrorManager alertError:error];
+            
+            }
+            
             return;
         }
  
-       
+//       下载成功后到afterdownload去, 注册肯定没有卡， 登录和忘记密码有可能有卡
         [vc toAfterDownload];
     }];
     
@@ -640,11 +650,25 @@
 
 
 - (void)toAfterDownload{
-    
-    AfterDownloadViewController *vc = [[AfterDownloadViewController alloc] init];
+    NSLog(@"用户的card # %d",_userController.people.cardNum);
+
+    AfterDownloadViewController *vc = [[AfterDownloadViewController alloc] initWithStyle:UITableViewStyleGrouped];
     vc.view.alpha = 1;
-    vc.source = 1;
+    
     [self.navigationController pushViewController:vc animated:YES];
+
+}
+
+- (void)presentAddCard{
+    
+    DownloadAddCardViewController *vc = [[DownloadAddCardViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    vc.view.alpha = 1;
+    vc.presentBlock = ^(BOOL succeeded, NSError *error){
+        L();
+        [self downloadCoupon:_coupon sender:nil];
+    };
+    
+    [_root presentNav:vc ];
     
 }
 

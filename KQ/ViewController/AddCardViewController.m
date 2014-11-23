@@ -12,7 +12,6 @@
 #import "KQRootViewController.h"
 #import "LibraryManager.h"
 #import "InsetsTextField.h"
-#import "AfterDownloadBankViewController.h"
 #import "WebViewController.h"
 
 @interface AddCardViewController (){
@@ -70,7 +69,6 @@
     tf.placeholder = @"银行卡卡号";
     tf.delegate = self;
     tf.clearButtonMode = UITextFieldViewModeWhileEditing;
-
     _tf = tf;
     
     
@@ -130,6 +128,14 @@
 
     [super viewWillAppear:animated];
     
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    
+    [super viewDidAppear:animated];
+    
+//    [_libraryManager startHint:@"还需一步，即可下载成功！"];
+
 }
 
 #pragma mark - IBAction
@@ -208,7 +214,6 @@
 
 - (void)addCard:(NSString*)number{
 
-//    [[LibraryManager sharedInstance] startProgress:nil];
     
     [self willConnect:_button];
     
@@ -217,28 +222,24 @@
     
     [[NetworkClient sharedInstance] user:uid sessionToken:sessionToken addCard:number block:^(id object, NSError *error) {
        [self willDisconnect];
-//        [[LibraryManager sharedInstance] dismissProgress:nil];
      
         if (!_networkFlag) {
             return ;
         }
         
         if (!error) {
-            if (_parent) {
-                ///如果是从usercardVC过来的
-                
-                [self.navigationController popViewControllerAnimated:YES];
-                
-                //!!!: 如果是从活动流程过来
-//                [_parent didAddCard];
+            [_libraryManager startHint:@"银行卡绑定成功"];
+            
+            // 从present过来的有presentBlock
+            if (self.presentBlock) {
+                self.presentBlock(YES,nil);
+                [self dismissViewControllerAnimated:YES completion:^{
+                    
+                }];
             }
             else{
-                
-                //TODO: 更新userController.cardSet?
-                
-                [self toAfterDownloadBank];
+                 [self.navigationController popViewControllerAnimated:YES];
             }
-
         }
         else{
             [ErrorManager alertError:error];
@@ -254,12 +255,13 @@
     vc.fileName = @"bankcard_agreement.html";
     vc.title = @"银联钱包技术使用协议";
     [self.navigationController pushViewController:vc animated:YES];
-}
-
-- (void)toAfterDownloadBank{
-    
-    AfterDownloadBankViewController *vc = [[AfterDownloadBankViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
 
 }
+
+//- (void)toAfterDownloadBank{
+//    
+//    AfterDownloadBankViewController *vc = [[AfterDownloadBankViewController alloc] init];
+//    [self.navigationController pushViewController:vc animated:YES];
+//
+//}
 @end

@@ -13,10 +13,10 @@
 @interface AddCardViewController : NetTableViewController<UITextFieldDelegate>
 
 @property (nonatomic, unsafe_unretained) UserCardsViewController *parent;
-
+@property (nonatomic, copy) BooleanResultBlock presentBlock;
 
 - (void)toAgreement; //显示银联协议
-- (void)toAfterDownloadBank;
+
 
 - (void)addCard:(NSString*)number;
 - (void)validateWithBlock:(BooleanResultBlock)block;

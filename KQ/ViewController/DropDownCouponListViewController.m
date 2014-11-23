@@ -8,13 +8,19 @@
 
 #import "DropDownCouponListViewController.h"
 #import "CouponSearchListCell.h"
+#import "CouponDetailsViewController.h"
+
 @interface DropDownCouponListViewController ()
 
 @end
 
 @implementation DropDownCouponListViewController
 
-
+- (void)setKeyword:(NSString *)keyword{
+    _keyword = keyword;
+    
+    
+}
 
 - (void)viewDidLoad
 {
@@ -36,6 +42,7 @@
     theSearchBar.delegate = self;
     
      self.tableView.tableHeaderView = theSearchBar;
+    
     _searchBar = theSearchBar;
 }
 
@@ -46,9 +53,33 @@
 }
 
 #pragma mark - SearchBar
-- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
-    L();
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
+    searchBar.showsCancelButton = YES;
 }
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+    L();
+    _keyword = searchBar.text;
+    
+    [self loadModels];
+   
+    [searchBar resignFirstResponder];
+    searchBar.showsCancelButton = NO;
+}
+
+//cancel按钮点击时调用
+
+- (void) searchBarCancelButtonClicked:(UISearchBar *)searchBar
+
+{
+    
+    L();
+    searchBar.showsCancelButton = NO;
+    [searchBar resignFirstResponder];
+    
+}
+
 
 #pragma mark - TableView
 - (void)configCell:(CouponListCell *)cell atIndexPath:(NSIndexPath *)indexPath{
@@ -63,6 +94,13 @@
     }
     
     
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    [self pushCouponDetails:_models[indexPath.row]];
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - Fcns
@@ -86,7 +124,10 @@
         [self.searchParams setObject:obj.id forKey:@"districtId"];
     }
     
+    [_searchParams setObject:_keyword forKey:@"keyword"];
+    
     //    [self addCurrentLocationToSearchParams:self.searchParams];
+    
     CLLocationCoordinate2D coord = _userController.checkinLocation.coordinate;
     [_searchParams setObject:[NSString stringWithFormat:@"%f",coord.latitude] forKey:@"latitude"];
     [_searchParams setObject:[NSString stringWithFormat:@"%f",coord.longitude] forKey:@"longitude"];
@@ -104,7 +145,7 @@
         if (!error) {
             NSArray *array = dict[@"coupons"];
      
-            NSLog(@"searchcoupons # %@",array);
+//            NSLog(@"searchcoupons # %@",array);
             for (NSDictionary *dict in array) {
                 Coupon *coupon = [[Coupon alloc] initWithSearchDict:dict];
                 [self.models addObject:coupon];
@@ -132,7 +173,7 @@
         finishedBlock();
         
         if (!error) {
-            NSArray *array = dict[@"shopbranches"];
+            NSArray *array = dict[@"coupons"];
             
             //            NSLog(@"around # %@",array);
             for (NSDictionary *dict in array) {
@@ -149,4 +190,14 @@
     }];
     
 }
+
+- (void)pushCouponDetails:(Coupon*)coupon{
+    CouponDetailsViewController *vc = [[CouponDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    vc.view.alpha = 1;
+    vc.coupon = coupon;
+    
+    [self.navigationController pushViewController:vc animated:YES];
+
+}
+
 @end

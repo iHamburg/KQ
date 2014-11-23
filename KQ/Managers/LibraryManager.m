@@ -79,7 +79,8 @@
     MBProgressHUD *hud = _hudCache[key];
 
     if (!hud) {
-        hud = [MBProgressHUD showHUDAddedTo:_root.view animated:YES];
+        UIView *view = [[[UIApplication sharedApplication] windows] firstObject];
+        hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
         [_hudCache setObject:hud forKey:key];
     }
     else{
@@ -111,7 +112,9 @@
     MBProgressHUD *hud = _hudCache[@"DefaultHint"];
     
     if (!hud) {
-        hud = [MBProgressHUD showHUDAddedTo:_root.view animated:YES];
+        UIView *view = [[[UIApplication sharedApplication] windows] firstObject];
+         hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
+//        hud = [MBProgressHUD showHUDAddedTo:_root.view animated:YES];
         [_hudCache setObject:hud forKey:@"DefaultHint"];
     }
     else{

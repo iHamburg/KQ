@@ -52,11 +52,11 @@
 
     int code = error.code;
     NSString *msg = error.localizedDescription;
-    //                    NSLog(@"code # %d, msg # %@",code,msg);
     
     // 其他的错误就显示给用户
-    [UIAlertView showAlert:[NSString stringWithFormat:@"错误: %d",code] msg:msg];
+//    [UIAlertView showAlert:[NSString stringWithFormat:@"错误: %d",code] msg:msg];
 
+      [UIAlertView showAlert:@"" msg:[NSString stringWithFormat:@"%@ (code: %d)",msg,code]];
 
 }
 @end

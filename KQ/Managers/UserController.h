@@ -89,11 +89,14 @@
  */
 - (BOOL)updateUserInfo:(NSDictionary*)dict;
 
+//获得用户信息，判断session是否过期
+- (void)updateUserInfoWithBlock:(BooleanResultBlock)block;
 
 - (void)logout;
 
 
 - (CLLocationDistance)distanceFromLocation:(CLLocation*)location;
+
 
 /**
  *	@brief	把People信息保存到NSDefautls中
@@ -103,6 +106,7 @@
 - (void)savePeople:(People*)people;
 
 - (People*)loadPeople;
+
 
 - (void)test;
 

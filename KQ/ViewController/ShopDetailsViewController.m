@@ -60,6 +60,9 @@
         }
     }];
     
+    // 针对没有注册的用户
+    [self.favoritedBtn setBackgroundImage:[UIImage imageNamed:@"coupon_unfavorited.png"] forState:UIControlStateNormal];
+    
     _firstLabel.frame = CGRectMake(10, 0, 250, 45);
     UIView *v = [[UIView alloc]initWithFrame:CGRectMake(0, 45, _w, 1)];
     v.backgroundColor = kColorLightGray;
@@ -443,7 +446,7 @@
     }
 }
 - (void)favoriteShop:(Shop*)shop{
-//    [_libraryManager startProgress:nil];
+
     
     [_networkClient user:_userController.uid sessionToken:_userController.sessionToken favoriteShop:shop.id block:^(id obj, NSError *error) {
         

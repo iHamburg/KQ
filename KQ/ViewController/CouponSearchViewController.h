@@ -27,6 +27,7 @@
     UISearchBar *_searchBar;
     
     UITableView *_leftV, *_rightV;
+    NSArray *_leftImgNames;
     
     NSMutableArray *_models;
     BOOL _networkFlag;
@@ -39,6 +40,7 @@
 @property (nonatomic, strong) NSString *keyword;
 @property (nonatomic, strong) NSArray *searchTypes;
 @property (nonatomic ,strong) NSMutableDictionary *searchParams;
+@property (nonatomic, assign) int selectedIndex;
 
 /**
  *	@brief	清空原本的内容，从新载入内容
@@ -54,5 +56,7 @@
 - (void)loadMore:(VoidBlock)finishedBlock;
 
 - (void)toCouponDetails:(Coupon*)coupon;
+
+- (void)toSearchResult:(NSString*)keyword;
 
 @end

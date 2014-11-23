@@ -31,6 +31,7 @@
 }
 
 @property (nonatomic, assign) BOOL networkFlag;
+@property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, copy) BooleanResultBlock successBlock;
 
 - (IBAction)backPressed:(id)sender;

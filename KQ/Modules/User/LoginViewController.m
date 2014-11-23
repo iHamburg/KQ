@@ -237,14 +237,7 @@
             [vc dismissViewControllerAnimated:YES completion:^{
                 
             }];
-            
-//            PresentMode presentMode = [[KQRootViewController sharedInstance] presentMode];
-//            
-//            //登录成功就返回present前的页面
-//            if (presentMode == PresentUserCenterLogin || presentMode == PresentDefault) {
-//              
-//                [[KQRootViewController sharedInstance] dismissNav];
-//            }
+
        
         }
      

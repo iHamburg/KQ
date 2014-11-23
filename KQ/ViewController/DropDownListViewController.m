@@ -158,87 +158,87 @@
 
 #pragma mark - Fcns
 
-- (void)loadModels{
-    
-    
-    
-    [self.models removeAllObjects];
-    
-    [self.searchParams removeAllObjects];
-    
-
-    
-    if (self.couponTypeIndex>0) {
-        CouponType *obj = self.couponTypes[self.couponTypeIndex-1];
-        
-        [self.searchParams setObject:obj.id forKey:@"couponTypeId"];
-    }
-    
-    if (self.districtIndex > 0) {
-        District *obj = self.districts[self.districtIndex-1];
-
-        [self.searchParams setObject:obj.id forKey:@"districtId"];
-    }
-    
-    [self addCurrentLocationToSearchParams:self.searchParams];
-    
-    
-    NSLog(@"param # %@", self.searchParams);
-    
-
-    
-    [self.models removeAllObjects];
-    
-    [self willConnect:self.view];
-    [_networkClient searchShopBranches:self.searchParams block:^(NSDictionary *dict, NSError *error) {
-        [self willDisconnect];
-        [self.refreshControl endRefreshing];
-        
-        if (!_networkFlag) {
-            return ;
-        }
-
-        if (!error) {
-            NSArray *array = dict[@"shopbranches"];
-            
-            NSLog(@"around # %@",array);
-            for (NSDictionary *dict in array) {
-//                Shop *shop = [[Shop alloc] initWithSearchDict:dict];
-//                [self.models addObject:shop];
-            }
-            
-            [self.tableView reloadData];
-        }
-        else{
-            [ErrorManager alertError:error];
-        }
-    }];
-}
-
-
-- (void)loadMore:(VoidBlock)finishedBlock{
-
-    int skip = [_models count];
-
-    /// param没有改变，只是增加了skip
-    [self.searchParams setValue:[NSString stringWithInt:skip] forKey:@"skip"];
-    
-//    [_networkClient searchCoupons:self.searchParams block:^(NSArray *array, NSError *error) {
-//        [_libraryManager dismissProgress:nil];
+//- (void)loadModels{
+//    
+//    
+//    
+//    [self.models removeAllObjects];
+//    
+//    [self.searchParams removeAllObjects];
+//    
+//
+//    
+//    if (self.couponTypeIndex>0) {
+//        CouponType *obj = self.couponTypes[self.couponTypeIndex-1];
 //        
-//        if (ISEMPTY(array)) {
-//            
-//            [_libraryManager startHint:@"暂时还没有结果" duration:1];
-//        }else{
-//            
-//            [self addCouponsInModels:array];
-//            
-//            finishedBlock();
+//        [self.searchParams setObject:obj.id forKey:@"couponTypeId"];
+//    }
+//    
+//    if (self.districtIndex > 0) {
+//        District *obj = self.districts[self.districtIndex-1];
+//
+//        [self.searchParams setObject:obj.id forKey:@"districtId"];
+//    }
+//    
+//    [self addCurrentLocationToSearchParams:self.searchParams];
+//    
+//    
+//    NSLog(@"param # %@", self.searchParams);
+//    
+//
+//    
+//    [self.models removeAllObjects];
+//    
+//    [self willConnect:self.view];
+//    [_networkClient searchShopBranches:self.searchParams block:^(NSDictionary *dict, NSError *error) {
+//        [self willDisconnect];
+//        [self.refreshControl endRefreshing];
+//        
+//        if (!_networkFlag) {
+//            return ;
 //        }
-//        
+//
+//        if (!error) {
+//            NSArray *array = dict[@"shopbranches"];
+//            
+//            NSLog(@"around # %@",array);
+//            for (NSDictionary *dict in array) {
+////                Shop *shop = [[Shop alloc] initWithSearchDict:dict];
+////                [self.models addObject:shop];
+//            }
+//            
+//            [self.tableView reloadData];
+//        }
+//        else{
+//            [ErrorManager alertError:error];
+//        }
 //    }];
-
-}
+//}
+//
+//
+//- (void)loadMore:(VoidBlock)finishedBlock{
+//
+//    int skip = [_models count];
+//
+//    /// param没有改变，只是增加了skip
+//    [self.searchParams setValue:[NSString stringWithInt:skip] forKey:@"skip"];
+//    
+////    [_networkClient searchCoupons:self.searchParams block:^(NSArray *array, NSError *error) {
+////        [_libraryManager dismissProgress:nil];
+////        
+////        if (ISEMPTY(array)) {
+////            
+////            [_libraryManager startHint:@"暂时还没有结果" duration:1];
+////        }else{
+////            
+////            [self addCouponsInModels:array];
+////            
+////            finishedBlock();
+////        }
+////        
+////    }];
+//
+//}
 
 
 
@@ -260,32 +260,32 @@
     [params setObject:[NSString stringWithFormat:@"%f",coord.longitude] forKey:@"longitude"];
 }
 
-- (void)addCouponsInModels:(NSArray *)array {
-    //            NSLog(@"search results # %@",array);
-    
-    for (NSDictionary *dict in array) {
-        if (!ISEMPTY(dict)) {
-            ///如果coupon已经在models,就不加这个coupon
-            BOOL flag = YES;
-            for (Coupon *coupon in self.models) {
-                if ([coupon.id isEqualToString:dict[@"objectId"]]) {
-                    flag = NO;
-                    break;
-                }
-            }
-            if (flag == NO) {
-                continue;
-            }
-            
-//            Coupon *coupon = [Coupon couponWithDict:dict];
-//            coupon.nearestDistance = [_userController distanceFromLocation:coupon.nearestLocation];
+//- (void)addCouponsInModels:(NSArray *)array {
+//    //            NSLog(@"search results # %@",array);
+//    
+//    for (NSDictionary *dict in array) {
+//        if (!ISEMPTY(dict)) {
+//            ///如果coupon已经在models,就不加这个coupon
+//            BOOL flag = YES;
+//            for (Coupon *coupon in self.models) {
+//                if ([coupon.id isEqualToString:dict[@"objectId"]]) {
+//                    flag = NO;
+//                    break;
+//                }
+//            }
+//            if (flag == NO) {
+//                continue;
+//            }
 //            
-//            [self.models addObject:coupon];
-        }
-    }
-    
-    [self.tableView reloadData];
-}
+////            Coupon *coupon = [Coupon couponWithDict:dict];
+////            coupon.nearestDistance = [_userController distanceFromLocation:coupon.nearestLocation];
+////            
+////            [self.models addObject:coupon];
+//        }
+//    }
+//    
+//    [self.tableView reloadData];
+//}
 
 //int nearestSort(Coupon* obj1, Coupon* obj2, void *context ) {
 //    // returns random number -1 0 1

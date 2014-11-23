@@ -9,12 +9,25 @@
 #import "CouponSearchViewController.h"
 #import "CouponType.h"
 #import "CouponSearchShortListCell.h"
+#import "DropDownCouponListViewController.h"
 
 @interface CouponSearchViewController ()
 
 @end
 
 @implementation CouponSearchViewController
+
+
+- (void)setSelectedIndex:(int)selectedIndex{
+    _selectedIndex = selectedIndex;
+    
+    _couponType = _searchTypes[selectedIndex];
+    
+    
+    [_leftV reloadData];
+    [self loadModels];
+    
+}
 
 - (NSMutableArray*)models{
     if (!_models) {
@@ -42,6 +55,8 @@
     
     self.view.backgroundColor = kColorBG;
     
+    self.navigationController.navigationBar.translucent = NO;
+    
     self.searchTypes = _manager.searchCouponTypes;
     
     self.searchParams = [NSMutableDictionary dictionary];
@@ -68,13 +83,16 @@
     _leftV = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, 70, self.view.height - 50) style:UITableViewStyleGrouped];
     _leftV.delegate = self;
     _leftV.dataSource = self;
+     _leftV.separatorStyle = UITableViewCellSeparatorStyleNone;
     
+    _leftImgNames = @[@"main_search_all.png",@"main_search_eating.png",@"main_search_beauty.png"];
     
     _rightV = [[UITableView alloc] initWithFrame:CGRectMake(70, 40, 250, self.view.height - 50) style:UITableViewStyleGrouped];
     _rightV.delegate = self;
     _rightV.dataSource = self;
     _rightV.separatorStyle = UITableViewCellSeparatorStyleNone;
     
+    self.view.backgroundColor = kColorBG;
     
     [self.view addSubview:_searchBar];
     [self.view addSubview:_leftV];
@@ -103,8 +121,10 @@
     L();
     _keyword = searchBar.text;
     
-    [self loadModels];
+//    [self loadModels];
+    [self toSearchResult:_keyword];
     
+    searchBar.showsCancelButton = NO;
     [searchBar resignFirstResponder];
 }
 
@@ -125,7 +145,12 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 1;
+    if (tableView == _leftV) {
+        return 20;
+
+    }
+    else
+        return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -159,14 +184,43 @@
         [tableView registerClass:[ConfigCell class] forCellReuseIdentifier:identifier];
         cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
         
-//        cell.textLabel.text = @"123";
-        
-//        NSString *imgName = [_config imageNameForIndexPath:indexPath];
+        //70x96
         
         CouponType *type = self.searchTypes[row];
+        NSString *title = type.title;
+        if (type.id == 0) {
+            title = @"全部";
+        }
         
-        cell.textLabel.text = type.title;
-       
+        UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake(19, 10, 32, 32)];
+        imgV.image = [UIImage imageNamed:_leftImgNames[row]];
+
+        KQLabel *label = [[KQLabel alloc]initWithFrame:CGRectMake(10, 52, 50, 30)];
+        label.text = type.title;
+        label.textAlignment = NSTextAlignmentCenter;
+        label.font = bFont(12);
+        
+        UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 2, cell.height)];
+        v.backgroundColor = kColorYellow;
+        v.tag = 1;
+        
+        [cell addSubview:imgV];
+        [cell addSubview:label];
+//        [cell addSubview:v];
+        
+        if (row == _selectedIndex) {
+            [cell setBackgroundColor:[UIColor whiteColor]];
+            UIView *v = [cell viewWithTag:1];
+            v.alpha = 1.0;
+        }
+        else{
+            [cell setBackgroundColor:[UIColor clearColor]];
+            UIView *v = [cell viewWithTag:1];
+            v.alpha = 0.0;
+
+        }
+        
+        
     }
     else{
         NSString *identifier =@"right";
@@ -176,9 +230,6 @@
         [tableView registerClass:[CouponSearchShortListCell class] forCellReuseIdentifier:identifier];
         cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
         
-        // 只要有label，就会显示在textLabel上！但如果是textfieldCell，textLabel会被盖到下面去不显示
-//        cell.textLabel.text = @"1234";
-
         cell.value = _models[row];
     }
    
@@ -191,7 +242,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    [self toCouponDetails:_models[indexPath.row]];
+    if (tableView == _leftV) {
+        self.selectedIndex = indexPath.row;
+    }
+    else
+        [self toCouponDetails:_models[indexPath.row]];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -205,10 +260,11 @@
     
     [self.searchParams removeAllObjects];
     
-    [self.searchParams setObject:_couponType.id forKey:@"couponTypeId"];
+    [self.searchParams setObject:_couponType.id forKey:@"shopTypeId"];
 
-    [self.searchParams setObject:_keyword forKey:@"keyword"];
-       
+//        [self.searchParams setObject:@"2" forKey:@"limit"];
+//    [self.searchParams setObject:_keyword forKey:@"keyword"];
+    
     //    [self addCurrentLocationToSearchParams:self.searchParams];
     CLLocationCoordinate2D coord = _userController.checkinLocation.coordinate;
     [_searchParams setObject:[NSString stringWithFormat:@"%f",coord.latitude] forKey:@"latitude"];
@@ -229,6 +285,8 @@
             NSArray *array = dict[@"coupons"];
             
             NSLog(@"searchcoupons # %@",array);
+
+            
             for (NSDictionary *dict in array) {
                 Coupon *coupon = [[Coupon alloc] initWithSearchDict:dict];
                 [self.models addObject:coupon];
@@ -276,5 +334,14 @@
 
 - (void)toCouponDetails:(Coupon*)coupon{
     [_root toCouponDetails:coupon];
+}
+
+- (void)toSearchResult:(NSString*)keyword{
+    
+    DropDownCouponListViewController *vc = [[DropDownCouponListViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    vc.view.alpha = 1;
+    vc.keyword = keyword;
+    
+    [_root addNavVCAboveTab:vc];
 }
 @end

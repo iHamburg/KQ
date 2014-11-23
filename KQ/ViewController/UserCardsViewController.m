@@ -7,99 +7,12 @@
 //
 
 #import "UserCardsViewController.h"
-#import "ConfigCell.h"
-#import "Card.h"
+
+
 #import "AddCardViewController.h"
-#import "ImageButtonCell.h"
+
 #import "UIImageView+WebCache.h"
-
-@interface CardCell : ConfigCell{
-
-}
-
-@end
-
-@implementation CardCell
-
-
-- (void)setValue:(Card*)card{
-    
-    _value = card;
-    
-//    NSLog(@"card.title # %@",card.title);
-    
-    
-    self.textLabel.text = card.bankTitle;
-    self.firstLabel.text = [self cardTitleWithSecurity:card.title];
-
-//    self.detailTextLabel.text = @"bbbb";
-    
-    NSString *logoUrl = card.logoUrl;
-    [self.imageView setImageWithURL:[NSURL URLWithString:logoUrl]];
-
-
-// NSLog(@"details # %@",self.detailTextLabel);
-}
-
-
-//100
-
-- (void)load{
-    
-    self.textLabel.textColor = kColorBlack;
-    self.textLabel.font = [UIFont fontWithName:kFontBoldName size:16];
-    
-
-    _firstLabel = [[UILabel alloc] initWithFrame:CGRectMake(89, 24, _w-89, 60)];
-    _firstLabel.textColor = kColorGray;
-    _firstLabel.font = [UIFont fontWithName:kFontName size:15];
-    
-    [self addSubview:_firstLabel];
-    
-    
-    self.imageView.frame = CGRectMake(10, 10, 64, 64);
-    float x =CGRectGetMaxX(self.imageView.frame)+15;
-    self.textLabel.frame = CGRectMake(x, 0 , 250, 60);
-
-}
-
-
-- (void)layoutSubviews{
-    
-//    [super layoutSubviews];
-    
-// 
-//    self.imageView.frame = CGRectMake(10, 10, 64, 64);
-//    float x =CGRectGetMaxX(self.imageView.frame)+15;
-//    self.textLabel.frame = CGRectMake(x, 0 , 250, 60);
-//    self.detailTextLabel.frame = CGRectMake(x, 24, 250, 60);
-    
-}
-
-/// 621111111111 => 6211 xxxx 1111
-- (NSString*)cardTitleWithSecurity:(NSString*)title{
-    
-    NSString *newTitle;
-    
-    NSString *first = [title substringWithRange:NSRangeFromString(@"(0,4")];
-    
-    NSRange lastRange = NSMakeRange(title.length-4, 4);
-    NSString *last = [title substringWithRange:lastRange];
-    
-    NSMutableArray *array = [NSMutableArray array];
-    for (int i = 0; i<title.length-8; i++) {
-//        NSLog(@"i # %d, title.length # %d",i,title.length);
-        [array addObject:@"*"];
-    }
-    
-    NSString *middle = [array componentsJoinedByString:@""];
-    
-    newTitle = [NSString stringWithFormat:@"%@ %@ %@",first,middle,last];
-    
-    
-    return newTitle;
-}
-@end
+#import "CardCell.h"
 
 @interface UserCardsViewController ()
 
@@ -123,7 +36,7 @@
 
  
     self.isLoadMore = NO;
-    self.view.backgroundColor = kColorBG;
+//    self.view.backgroundColor = kColorBG;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -167,7 +80,7 @@
 - (UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _w, footerHeight)];
     
-    UIButton *btn = [UIButton buttonWithFrame:CGRectMake(10, 33, _w-20, 34) title:@"+ 添加银行卡" bgImageName:nil target:self action:@selector(addCard)];
+    UIButton *btn = [UIButton buttonWithFrame:CGRectMake(10, 43, _w-20, 34) title:@"+ 添加银行卡" bgImageName:nil target:self action:@selector(addCard)];
     btn.backgroundColor = kColorGreen;
     btn.layer.cornerRadius = 3;
     btn.titleLabel.font = [UIFont fontWithName:kFontBoldName size:15];
@@ -193,12 +106,7 @@
     if ([cell isKindOfClass:[CardCell class]]) {
         cell.value = _models[indexPath.row];
     }
-    else if([cell isKindOfClass:[ImageButtonCell class]]){
-    
-        UIImageView *bgV = [(ImageButtonCell*)cell bgV];
 
-        bgV.image = [UIImage imageNamed:@"card_add.png"];
-    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -208,9 +116,6 @@
 - (void)tableView:(UITableView *)_tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        
-//        [korb deleteProductAtIndex:indexPath.row];
-  
         
         [self deleteCardAtIndexPath:indexPath];
         
@@ -229,7 +134,6 @@
 
     L();
   
-//    [_libraryManager startProgress:nil];
 
     [self.models removeAllObjects];
     [self willConnect:self.view];
@@ -240,11 +144,7 @@
          
          [self willDisconnect];
          [self.refreshControl endRefreshing];
-         
-         if (!_networkFlag) {
-             return ;
-         }
-
+  
          if (!error) {
              NSArray *array = dict[@"cards"];
              
@@ -272,11 +172,6 @@
     }];
 }
 
-//- (void)refreshModels{
-//    [_models removeAllObjects];
-//    
-//    [self loadModels];
-//}
 
 - (IBAction)addCard{
     L();
@@ -319,15 +214,6 @@
     
     
 }
-
-//- (void)didAddCard{
-//    L();
-//    
-//    /// 在viewwillappear中会重新load
-//    
-//    [_models removeAllObjects];
-//    
-//}
 
 
 

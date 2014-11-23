@@ -13,6 +13,8 @@
     UISearchBar *_searchBar;
 }
 
+@property (nonatomic, strong) NSString *keyword;
 
+- (void)pushCouponDetails:(Coupon*)coupon;
 
 @end

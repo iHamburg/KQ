@@ -95,33 +95,12 @@
         
         // 如果用户已经登陆的话
         if (!ISEMPTY(self.people)) {
-            //判断session是否过期
+            //获得用户信息，判断session是否过期
            
-            [_networkClient queryUserInfo:self.uid sessionToken:self.sessionToken block:^(NSDictionary* dict, NSError *error) {
-                
-                if (!error) {
-                    // 如果没有出错
-//                    NSLog(@"dict # %@",dict);
-                    if ([dict isKindOfClass:[NSDictionary class]]) {
-                        dict = [dict dictionaryCheckNull];
-                    }
-                    
-
-                    [self updateUserInfo:dict];
-                }
-                else{
-                    int code = error.code;
-                    
-                    if (code == ErrorInvalidSession){
-                        // 如果是session过期，logout
-                        
-                        [self logout];
-                    }
-        
-                }
+            [self updateUserInfoWithBlock:^(BOOL succeeded, NSError *error) {
                 
             }];
-
+            
         }
    
         
@@ -172,7 +151,7 @@
 
 #pragma mark - Fcns
 
-
+// 注册成功也是login
 - (void)registerWithUserInfo:(NSDictionary*)userInfo block:(BooleanResultBlock)block{
     
     
@@ -186,11 +165,9 @@
             NSString *password = userInfo[@"password"];
             
             [self loginWithUsername:username password:password boolBlock:^(BOOL succeeded, NSError *error) {
-                
+                  block(YES,nil);
             }];
-            
-            
-            block(YES,nil);
+        
         }
         else{
             // 注册失败
@@ -220,8 +197,11 @@
             
             [self savePeople:self.people];
             
-            
-            block(YES,nil);
+            // 如果登录成功就更新信息
+            [self updateUserInfoWithBlock:^(BOOL succeeded, NSError *error) {
+                    block(YES,nil);
+            }];
+   
         }
         else{
 
@@ -314,6 +294,41 @@
     
 }
 
+- (void)updateUserInfoWithBlock:(BooleanResultBlock)block{
+    
+    [_networkClient queryUserInfo:self.uid sessionToken:self.sessionToken block:^(NSDictionary* dict, NSError *error) {
+        
+        if (!error) {
+            // 如果没有出错
+            //                    NSLog(@"dict # %@",dict);
+            if ([dict isKindOfClass:[NSDictionary class]]) {
+                dict = [dict dictionaryCheckNull];
+            }
+            
+            
+            self.people.dCouponNum = [dict[@"dCouponNum"] intValue];
+            self.people.cardNum = [dict[@"cardNum"] intValue];
+            self.people.fCouponNum = [dict[@"fCouponNum"] intValue];
+            self.people.fShopNum = [dict[@"fShopNum"] intValue];
+            
+            block(YES,nil);
+        }
+        else{
+            int code = error.code;
+            
+            if (code == ErrorInvalidSession){
+                // 如果是session过期，logout
+                
+                [self logout];
+            }
+            block(NO,error);
+            
+        }
+        
+    }];
+
+    
+}
 - (BOOL)updateUserInfo:(NSDictionary*)dict{
     
     if (!self.people) {

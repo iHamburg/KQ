@@ -12,6 +12,8 @@
 
 @interface NewsCell : ConfigCell
 
+@property (nonatomic, strong) UIView *seperatorV;
+
 @end
 
 @implementation NewsCell
@@ -28,9 +30,12 @@
 
     CGRect textRect = [value.text boundingRectWithSize:constraint options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName:nFont(14)} context:nil];
     float height = textRect.size.height;
+   
     _secondLabel.frame = CGRectMake(10, 25, 300, height);
     
     _thirdLabel.frame = CGRectMake(10, CGRectGetMaxY(_secondLabel.frame)+5, 300, 25);
+    
+    _seperatorV.frame = CGRectMake(0, height + 54, _w, 1);
     
 }
 
@@ -57,9 +62,12 @@
     _thirdLabel = [[KQLabel alloc] initWithFrame:CGRectMake(250, 20, 60, 30)];
     _thirdLabel.font = nFont(14);
     
+    _seperatorV = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _w, 1)];
+    _seperatorV.backgroundColor = kColorLightGray;
+    
     [self addSubview:_secondLabel];
     [self addSubview:_thirdLabel];
-    
+    [self addSubview:_seperatorV];
     
     self.backgroundColor = [UIColor whiteColor];
     
@@ -98,6 +106,8 @@
     self.title = @"站内信";
     self.config =  [[TableConfiguration alloc] initWithResource:@"UserNewsConfig"];
     
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
     
 }
 
@@ -120,6 +130,10 @@
     CGFloat height = [NewsCell cellHeightWithValue:news];
     
     return height;
+}
+
+- (void)initConfigCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+    
 }
 
 - (void)configCell:(ConfigCell *)cell atIndexPath:(NSIndexPath *)indexPath{
@@ -150,6 +164,7 @@
     [_networkClient queryUserNews:_userController.uid skip:0 block:^(NSDictionary *dict, NSError *error) {
         
         [self willDisconnect];
+         [self.refreshControl endRefreshing];
         
         if (!error) {
             if (ISEMPTY(dict)) {
