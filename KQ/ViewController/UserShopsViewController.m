@@ -38,7 +38,7 @@
 }
 
 - (void)dealloc{
-
+    L();
 }
 
 #pragma mark - Tableview

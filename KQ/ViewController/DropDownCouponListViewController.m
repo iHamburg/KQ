@@ -52,6 +52,13 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillDisappear:(BOOL)animated{
+    
+    [super viewWillDisappear:animated];
+    
+    [_searchBar resignFirstResponder];
+}
+
 #pragma mark - SearchBar
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{

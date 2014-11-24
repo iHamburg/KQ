@@ -29,7 +29,6 @@
     
     self.config = [[TableConfiguration alloc] initWithResource:@"ShopListConfig"];
  
-//    self.isLoadMore = NO;
     self.navigationItem.leftBarButtonItem = nil;
 }
 
@@ -73,14 +72,17 @@
     
     [self.searchParams removeAllObjects];
     
+    
+    
     if (self.couponTypeIndex>0) {
-        CouponType *obj = self.couponTypes[self.couponTypeIndex-1];
+      
+        CouponType *obj = self.couponTypes[self.couponTypeIndex];
         
-        [self.searchParams setObject:obj.id forKey:@"couponTypeId"];
+        [self.searchParams setObject:obj.id forKey:@"shopTypeId"];
     }
     
     if (self.districtIndex > 0) {
-        District *obj = self.districts[self.districtIndex-1];
+        District *obj = self.districts[self.districtIndex];
         
         [self.searchParams setObject:obj.id forKey:@"districtId"];
     }
@@ -95,7 +97,9 @@
     
     
     [self willConnect:self.view];
+    
     [_networkClient searchShopBranches:self.searchParams block:^(NSDictionary *dict, NSError *error) {
+     
         [self willDisconnect];
         [self.refreshControl endRefreshing];
         

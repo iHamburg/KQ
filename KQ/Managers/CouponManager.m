@@ -82,9 +82,15 @@
 
 - (NSString*)distanceStringFromLocation:(CLLocation*)location{
 
+    // 米
     CLLocationDistance distance = [location distanceFromLocation:[[UserController sharedInstance] checkinLocation]];
     
-    return [_formatter stringFromDistance:distance];
+    
+    NSString *distanceStr = [_formatter stringFromDistance:distance];
+    
+//    NSLog(@"distance # %f, str # %@",distance,distanceStr);
+    
+    return distanceStr;
 }
 
 

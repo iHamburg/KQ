@@ -37,8 +37,8 @@
     
 //    _secondLabel.frame = CGRectMake(10, 10, 250, 20);
 
-    float distance = [shop.distance floatValue];
-    self.thirdLabel.text = [NSString stringWithFormat:@"%.0fkm",distance];
+//    float distance = [shop.distance floatValue];
+    self.thirdLabel.text = [[CouponManager sharedInstance] distanceStringFromLocation:shop.location];
 }
 
 - (void)setShopBranchesNum:(int)shopBranchesNum{

@@ -35,10 +35,10 @@
     _thirdLabel = [[KQLabel alloc] initWithFrame:CGRectZero];
     _fourthLabel = [[KQLabel alloc] initWithFrame:CGRectZero];
     
-        [self addSubview:_firstLabel];
-        [self addSubview:_secondLabel];
-        [self addSubview:_thirdLabel];
-        [self addSubview:_fourthLabel];
+    [self addSubview:_firstLabel];
+    [self addSubview:_secondLabel];
+    [self addSubview:_thirdLabel];
+    [self addSubview:_fourthLabel];
     
 }
 

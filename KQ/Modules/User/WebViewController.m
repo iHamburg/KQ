@@ -21,6 +21,7 @@
     // Do any additional setup after loading the view.
     
     _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+    _webView.autoresizingMask = kAutoResize;
     
     UIBarButtonItem *bb = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_white_back.png" target:self action:@selector(backPressed:)]];
     
@@ -33,6 +34,7 @@
     
     [self.view addSubview:_webView];
     
+//    NSLog(@"self # %@,web # %@",self.view,_webView);
 }
 
 - (void)viewWillAppear:(BOOL)animated{

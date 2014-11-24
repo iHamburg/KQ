@@ -10,46 +10,6 @@
 #import "CouponListCell.h"
 #import "CouponDetailsViewController.h"
 
-//
-//
-//@interface CouponListDownloadedCell : CouponListCell
-//
-//@end
-//
-//@implementation CouponListDownloadedCell
-//
-//- (void)setValue:(Coupon*)value{
-//    [super setValue:value];
-//    
-//    _secondLabel.text = value.endDate;
-//    _thirdLabel.text = value.discountContent;
-// 
-//    _downloadedL.text = [NSString stringWithFormat:@"%@张",value.number];
-//    
-////    _downloadedL.backgroundColor = kColorGreen;
-//    
-//    
-//}
-//
-//
-//- (void)load{
-//    
-//    [super load];
-//    
-//   
-//    self.imageView.frame = CGRectMake(10, 10, 85, 65);
-//    CGFloat x = CGRectGetMaxX(self.imageView.frame) + 10;
-//    CGFloat width = _w - x- 10;
-//    self.textLabel.frame = CGRectMake(x, 10, width, 30);
-//    self.thirdLabel.frame = CGRectMake(x, CGRectGetMaxY(self.textLabel.frame) - 5, width, 20);
-//    self.secondLabel.frame = CGRectMake(x, CGRectGetMaxY(self.thirdLabel.frame), 200, 20);
-//    _downloadedL.frame = CGRectMake(250, self.secondLabel.frame.origin.y, 50, 20);
-//    
-//}
-//
-//@end
-//
-//#pragma mark - UserCouponsVC
 
 @interface UserCouponsViewController (){
     UIView *_tableHeader;
@@ -81,10 +41,9 @@
     [_tableHeader addSubview:seg];
 
     
-//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
  
     self.config = [[TableConfiguration alloc] initWithResource:@"CouponMyListConfig"];
-//    self.isLoadMore = NO;
+    self.isLoadMore = NO;
 }
 
 - (void)didReceiveMemoryWarning

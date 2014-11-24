@@ -22,10 +22,6 @@ static NSArray *shopDetailsKeys;
         // ... do the initialization ...
      
         favoriteKeys = @[@"id",@"title",@"logoUrl",@"longitude",@"latitude",@"district",@"averagePreis"];
-        
-//        searchListKeys = @[@"id",@"title",@"logoUrl",@"longitude",@"latitude",@"district",@"averagePreis",@"address",@"distance",@"openTime",@"phone"];
-        
-       
        
          couponDetailsKeys = @[@"address",@"distance",@"id",@"title",@"logoUrl",@"longitude",@"latitude",@"averagePreis",@"openTime",@"phone"];
         
@@ -53,30 +49,11 @@ static NSArray *shopDetailsKeys;
         self.coord = CLLocationCoordinate2DMake([dict[@"latitude"] doubleValue], [dict[@"longitude"] doubleValue]);
         self.location = [[CLLocation alloc] initWithLatitude:self.coord.latitude longitude:self.coord.longitude];
       
-        self.locationDistance = [[UserController sharedInstance] distanceFromLocation:self.location];
+//        self.locationDistance = [[UserController sharedInstance] distanceFromLocation:self.location];
     }
     
     return self;
 }
-
-//- (id)initWithSearchDict:(NSDictionary*)dict{
-//    if (self = [super init]) {
-//        if ([dict isKindOfClass:[NSDictionary class]]) {
-//            dict = [dict dictionaryCheckNull];
-//        }
-//        else{
-//            return self;
-//        }
-//        
-//        for (NSString *key in searchListKeys) {
-//            [self setValue:dict[key] forKey:key];
-//        }
-//        
-//        self.parentId = dict[@"shopId"];
-//    }
-//    
-//    return self;
-//}
 
 - (id)initWithCouponDetailsDict:(NSDictionary*)dict{
     if (self = [super init]) {
@@ -93,6 +70,8 @@ static NSArray *shopDetailsKeys;
         
         self.parentId = dict[@"shopId"];
         self.active = [dict[@"active"] boolValue];
+        self.coord = CLLocationCoordinate2DMake([dict[@"latitude"] doubleValue], [dict[@"longitude"] doubleValue]);
+        self.location = [[CLLocation alloc] initWithLatitude:self.coord.latitude longitude:self.coord.longitude];
     }
     
     return self;
@@ -114,6 +93,8 @@ static NSArray *shopDetailsKeys;
         self.parentId = dict[@"shopId"];
         self.active = [dict[@"active"] boolValue];
         self.desc = dict[@"description"];
+        
+         self.location = [[CLLocation alloc]initWithLatitude:[dict[@"latitude"] floatValue] longitude:[dict[@"longitude"] floatValue]];
         /*
          shopCoupons =     (
          {

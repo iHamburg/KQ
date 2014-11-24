@@ -26,7 +26,6 @@
 @interface CouponHeaderCell : ConfigCell{
 
     IBOutlet UIButton *_downloadB, *_favoriteB;
-//    IBOutlet UIImageView *_bgV;
     IBOutlet UILabel *_downloadNumL;
   
 }
@@ -77,8 +76,19 @@
     if (ISEMPTY(downloaded)) {
         downloaded = @"0";
     }
-    _downloadNumL.text = [NSString stringWithFormat:@"%@人",downloaded];
+    _downloadNumL.text = [NSString stringWithFormat:@"%@人已下载",downloaded];
 
+    ///如果sellout
+    if (coupon.sellOut) {
+        _downloadB.backgroundColor = kColorGray;
+        _downloadB.userInteractionEnabled = NO;
+        [_downloadB setTitle:@"已抢光" forState:UIControlStateNormal];
+    }
+    else{
+        _downloadB.backgroundColor = kColorRed;
+        _downloadB.userInteractionEnabled = YES;
+        [_downloadB setTitle:@"下载快券" forState:UIControlStateNormal];
+    }
 
 }
 
@@ -86,6 +96,8 @@
 
 - (void)load{
 //    [super load];
+    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 
     [[NSNotificationCenter defaultCenter] addObserverForName:@"refreshFavoritedCoupons" object:nil queue:nil usingBlock:^(NSNotification *note) {
         BOOL isFavorited = [note.object boolValue];
@@ -104,7 +116,7 @@
     [self.contentView removeFromSuperview];
 
     _firstLabel.textColor = kColorRed;
-    _firstLabel.font = [UIFont fontWithName:kFontName size:16];
+    _firstLabel.font = bFont(16);
     
     _secondLabel.textColor = kColorBlack;
     _secondLabel.font = [UIFont fontWithName:kFontName size:16];
@@ -299,15 +311,6 @@
 
 #pragma mark - TableView
 
-//- (int)numberOfSectionsInTableView:(UITableView *)tableView{
-//    if (_coupon.shopCoupons.count>0) {
-//        return 6;
-//    }
-//    else{
-//        return 5;
-//    }
-//}
-
 - (int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     int num = [super tableView:tableView numberOfRowsInSection:section];
     
@@ -342,9 +345,6 @@
         
     }
 
-    
-
-    
     return height;
 }
 
@@ -356,6 +356,20 @@
     return 40;
 }
 
+- (float)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 1;
+}
+//- (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+//    NSString *header = [super tableView:tableView titleForHeaderInSection:section];
+//    
+//    NSLog(@"header # %@",header);
+//    
+//    if (section == 5 && ISEMPTY(_coupon.shopCoupons) ) {
+//        header = nil;
+//    }
+//    
+//    return @"ddd";
+//}
 
 - (void)initConfigCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     __weak CouponDetailsViewController *vc = self;
@@ -379,8 +393,6 @@
         
         CouponHeaderCell *aCell = (CouponHeaderCell*)cell;
         
-
-        
         aCell.downloadBlock2 = ^(UIView* sender){
             
             if(![[UserController sharedInstance] isLogin]){
@@ -396,11 +408,6 @@
             [vc toggleFavoriteCoupon:vc.coupon];
         
         };
-        
-        //
-//        [self addObserver:cell forKeyPath:@"isFavoritedCoupon" options:NSKeyValueObservingOptionNew context:nil];
-        
-
        
     }
    
@@ -629,7 +636,6 @@
     vc.view.alpha = 1.0;
     vc.shop = self.coupon.nearestShopBranch;
 
-    
     
     [self.navigationController pushViewController:vc animated:YES];
     

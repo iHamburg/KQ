@@ -61,15 +61,17 @@
     }];
     
     // 针对没有注册的用户
-    [self.favoritedBtn setBackgroundImage:[UIImage imageNamed:@"coupon_unfavorited.png"] forState:UIControlStateNormal];
     
     _firstLabel.frame = CGRectMake(10, 0, 250, 45);
+    _firstLabel.numberOfLines = 0;
+    
     UIView *v = [[UIView alloc]initWithFrame:CGRectMake(0, 45, _w, 1)];
     v.backgroundColor = kColorLightGray;
+    
 
     [self addSubview:v];
 
-    UIView *v2 = [[UIView alloc]initWithFrame:CGRectMake(250, 5, 1, 35)];
+    UIView *v2 = [[UIView alloc]initWithFrame:CGRectMake(260, 5, 1, 35)];
     v2.backgroundColor = kColorLightGray;
     
     [self addSubview:v2];
@@ -79,9 +81,11 @@
     _secondLabel.font = nFont(12);
     _secondLabel.textColor = kColorGray;
     
-    UIButton *b = [UIButton buttonWithFrame:CGRectMake(270, 7, 30, 30) title:nil imageName:nil target:self action:@selector(toggleFavorite:)];
-//    b.backgroundColor = kColorGreen;
+    UIButton *b = [UIButton buttonWithFrame:CGRectMake(280, 7, 30, 30) title:nil imageName:nil target:self action:@selector(toggleFavorite:)];
+
     _favoritedBtn = b;
+    [_favoritedBtn setBackgroundImage:[UIImage imageNamed:@"coupon_unfavorited.png"] forState:UIControlStateNormal];
+
     [self addSubview:b];
 }
 
@@ -232,7 +236,7 @@
 
 - (float)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
 
-    float height = 20;
+    float height = 1;
     if (section == 0) {
         height = 243;
     }
@@ -240,7 +244,9 @@
     return height;
 }
 
-
+- (float)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 20;
+}
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
@@ -253,15 +259,19 @@
         
         
         
-        UILabel *titleL = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(imgV.frame), 260, 45)];
+        UILabel *titleL = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(imgV.frame), 250, 45)];
+        titleL.numberOfLines = 0;
         titleL.text = _shop.title;
         titleL.font = bFont(15);
         titleL.textColor = kColorBlack;
         
         UILabel *distanceL = [[UILabel alloc] initWithFrame:CGRectMake(260, CGRectGetMaxY(imgV.frame), 50, 45)];
         distanceL.textColor = kColorYellow;
-        distanceL.font = bFont(15);
-        distanceL.text = @"444km";
+        distanceL.font = bFont(12);
+//        distanceL.text = @"444km";
+        NSString *distance = [_manager distanceStringFromLocation:_shop.location];
+        distanceL.text = distance;
+        
         distanceL.textAlignment = NSTextAlignmentRight;
         
    
@@ -426,9 +436,6 @@
 - (void)toggleFavoriteShop:(Shop*)shop{
     
     if (!_userController.isLogin) {
-//        [_libraryManager startHint:@"请先登录快券"];
-        //
-//        [_root presentLoginWithMode:PresentUserCenterLogin];
        
         [_root presentLoginWithBlock:^(BOOL succeeded, NSError *error) {
             

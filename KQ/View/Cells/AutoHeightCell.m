@@ -17,8 +17,8 @@
     float height = [AutoHeightCell cellHeightWithString:value font:[UIFont fontWithName:kFontName size:12]];
     self.textLabel.frame = CGRectMake(10, 0, _w-20, height);
     self.textLabel.numberOfLines = 0;
-    self.textLabel.font = [UIFont fontWithName:kFontName size:12];
-    
+    self.textLabel.font = nFont(12);
+    self.textLabel.textColor = kColorGray;
 }
 
 

@@ -42,6 +42,8 @@
         _acitvityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
 
         _acitvityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+        
+//        _acitvityIndicatorView.backgroundColor = kColorRed;
 
     }
     return self;
@@ -130,8 +132,6 @@
 
 
 - (void)startLoadingInView:(UIView*)view{
-    
-//    _acitvityIndicatorView.center = CGPointMake(view.width/2, view.height/2);
     
     _acitvityIndicatorView.frame = view.bounds;
     

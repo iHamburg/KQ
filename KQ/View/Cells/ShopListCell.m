@@ -8,6 +8,7 @@
 
 #import "ShopListCell.h"
 #import "UIImageView+WebCache.h"
+#import "CouponManager.h"
 
 @implementation ShopListCell
 
@@ -22,9 +23,8 @@
     
     self.secondLabel.text = shop.district;
     self.thirdLabel.text = [NSString stringWithFormat:@"%@/人",shop.averagePreis];
-//    _downloadedL.text = shop.distance;
-        _downloadedL.text = [NSString stringWithFormat:@"%.2fkm",shop.locationDistance];
-    
+
+    _downloadedL.text = [[CouponManager sharedInstance]distanceStringFromLocation:shop.location];
 }
 
 - (void)load{
