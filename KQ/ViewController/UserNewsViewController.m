@@ -163,7 +163,7 @@
     
     [_networkClient queryUserNews:_userController.uid skip:0 limit:0 lastNewsId:_userController.people.lastNewsId  block:^(NSDictionary *dict, NSError *error) {
         
-        [self willDisconnect];
+        [self willDisconnectInView:self.view];
          [self.refreshControl endRefreshing];
         
         if (!error) {

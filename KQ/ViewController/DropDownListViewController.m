@@ -16,7 +16,7 @@
 
 @interface DropDownListViewController ()
 
-//- (void)addCouponsInModels:(NSArray *)array;
+
 - (void)addCurrentLocationToSearchParams:(NSMutableDictionary*)params;
 
 @end
@@ -64,6 +64,8 @@
     
     //???一定要是root的view吗？
     _dropDownView.mSuperView = [[KQRootViewController sharedInstance]view];
+    
+    self.refreshControl = nil;
 
 }
 

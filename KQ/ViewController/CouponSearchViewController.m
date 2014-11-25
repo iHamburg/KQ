@@ -18,13 +18,32 @@
 @implementation CouponSearchViewController
 
 
+- (void)setIsLoadMore:(BOOL)isLoadMore{
+    
+    _isLoadMore = isLoadMore;
+    if (isLoadMore == NO) {
+        [_loadMoreFooterView removeFromSuperview];
+    }
+    else{
+        
+    
+        [_rightV addSubview:_loadMoreFooterView];
+    }
+    
+//    NSLog(@"loadFoot # %@",_loadMoreFooterView);
+}
 - (void)setSelectedIndex:(int)selectedIndex{
+    
     _selectedIndex = selectedIndex;
     
     _couponType = _searchTypes[selectedIndex];
     
     
     [_leftV reloadData];
+ 
+    [_models removeAllObjects];
+    [_rightV reloadData];
+    
     [self loadModels];
     
 }
@@ -65,9 +84,9 @@
     
     _keyword = @"";
     
-    UISearchBar * theSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 40)];
     
-//    theSearchBar.showsCancelButton = YES;
+    
+    UISearchBar * theSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 40)];
     
     theSearchBar.placeholder = @"输入搜索内容";
     
@@ -80,17 +99,34 @@
     _searchBar = theSearchBar;
 
     
-    _leftV = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, 70, self.view.height - 50) style:UITableViewStyleGrouped];
+    
+    _leftV = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, 70, self.view.height - 44) style:UITableViewStyleGrouped];
     _leftV.delegate = self;
     _leftV.dataSource = self;
-     _leftV.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _leftV.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _leftV.scrollEnabled = NO;
     
     _leftImgNames = @[@"main_search_all.png",@"main_search_eating.png",@"main_search_beauty.png"];
     
-    _rightV = [[UITableView alloc] initWithFrame:CGRectMake(70, 40, 250, self.view.height - 50) style:UITableViewStyleGrouped];
+    _rightV = [[UITableView alloc] initWithFrame:CGRectMake(70, 40, 250, self.view.height - 44) style:UITableViewStyleGrouped];
     _rightV.delegate = self;
     _rightV.dataSource = self;
     _rightV.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    _rightV.autoresizingMask = kAutoResize;
+    _rightV.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    
+    if (_loadMoreFooterView == nil) {
+        
+        LoadMoreTableFooterView *view = [[LoadMoreTableFooterView alloc] initWithFrame:CGRectMake(70.0f, _rightV.contentSize.height - 30, _rightV.frame.size.width, 30)];
+        view.delegate = self;
+        //		[self.tableView addSubview:view];
+        _loadMoreFooterView = view;
+//        _loadMoreFooterView.backgroundColor = kColorRed;
+        
+        
+    }
+    self.isLoadMore = YES;
+    
     
     self.view.backgroundColor = kColorBG;
     
@@ -128,7 +164,6 @@
     L();
     _keyword = searchBar.text;
     
-//    [self loadModels];
     [self toSearchResult:_keyword];
     
     searchBar.showsCancelButton = NO;
@@ -158,11 +193,6 @@
     }
     else
         return 1;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    
-    return 120;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -256,13 +286,83 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (tableView == _leftV) {
+      
+
+        
         self.selectedIndex = indexPath.row;
+        
+//            [_rightV scrollsToTop];
+        
+  
     }
     else
         [self toCouponDetails:_models[indexPath.row]];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
+
+
+
+
+#pragma mark -
+#pragma mark Data Source Loading / Reloading Methods
+
+- (void)reloadTableViewDataSource{
+    
+    //  should be calling your tableviews data source model to reload
+    //  put here just for demo
+    _reloading = YES;
+    
+}
+
+- (void)doneLoadingTableViewData{
+    
+    //  model should call this when its done loading
+    _reloading = NO;
+    
+    [_loadMoreFooterView loadMoreScrollViewDataSourceDidFinishedLoading:_rightV];
+}
+
+
+#pragma mark -
+#pragma mark UIScrollViewDelegate Methods
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    //    NSLog(@"didi scroll # %@",_loadMoreFooterView);
+    
+    [_loadMoreFooterView loadMoreScrollViewDidScroll:scrollView];
+    
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    
+    //        NSLog(@"did end trigger");
+    
+    [_loadMoreFooterView loadMoreScrollViewDidEndDragging:scrollView];
+    
+}
+
+
+#pragma mark -
+#pragma mark LoadMoreTableFooterDelegate Methods
+
+- (void)loadMoreTableFooterDidTriggerRefresh:(LoadMoreTableFooterView *)view {
+    
+    //    NSLog(@"Did Trigger");
+    
+    [self reloadTableViewDataSource];
+    
+    [self loadMore:^{
+        [self doneLoadingTableViewData];
+    } ];
+}
+
+- (BOOL)loadMoreTableFooterDataSourceIsLoading:(LoadMoreTableFooterView *)view {
+    return _reloading;
+}
+
 
 #pragma mark - Fcns
 
@@ -273,7 +373,12 @@
     
     [self.searchParams removeAllObjects];
     
-    [self.searchParams setObject:_couponType.id forKey:@"shopTypeId"];
+    ///很奇怪，不能把shopTypeId设为0？
+    if ([_couponType.id intValue] != 0) {
+           [self.searchParams setObject:_couponType.id forKey:@"shopTypeId"];
+    }
+    
+
 
     
     //    [self addCurrentLocationToSearchParams:self.searchParams];
@@ -281,21 +386,24 @@
     [_searchParams setObject:[NSString stringWithFormat:@"%f",coord.latitude] forKey:@"latitude"];
     [_searchParams setObject:[NSString stringWithFormat:@"%f",coord.longitude] forKey:@"longitude"];
     
+    [_searchParams setObject:@"distance" forKey:@"order"];
+    
     NSLog(@"param # %@", self.searchParams);
     
     
-   [_libraryManager startLoadingInView:self.view];
+//   [_libraryManager startLoadingInView:self.view];
+    
+    [_libraryManager startProgress];
     
     [_networkClient searchCoupons:self.searchParams block:^(NSDictionary *dict, NSError *error) {
-      [_libraryManager stopLoading];
-       
-//        [self.refreshControl endRefreshing];
+//      [_libraryManager stopLoading];
         
+        [_libraryManager dismissProgress];
         
         if (!error) {
             NSArray *array = dict[@"coupons"];
             
-            NSLog(@"searchcoupons # %@",array);
+//            NSLog(@"searchcoupons # %@",array);
 
             
             for (NSDictionary *dict in array) {
@@ -320,20 +428,35 @@
     /// param没有改变，只是增加了skip
     [self.searchParams setValue:[NSString stringWithInt:skip] forKey:@"skip"];
     
+    NSLog(@"params # %@",self.searchParams);
     
-    [_networkClient searchShopBranches:self.searchParams block:^(NSDictionary *dict, NSError *error) {
+    [_networkClient searchCoupons:self.searchParams block:^(NSDictionary *dict, NSError *error) {
+       
+        
+        
         finishedBlock();
         
         if (!error) {
-            NSArray *array = dict[@"shopbranches"];
+            NSArray *array = dict[@"coupons"];
             
             //            NSLog(@"around # %@",array);
+         
             for (NSDictionary *dict in array) {
+            
+//                NSLog(@"dict # %@",dict);
+                
                 Coupon *coupon = [[Coupon alloc] initWithSearchDict:dict];
+                
+                [coupon display];
+                
                 [self.models addObject:coupon];
+            
             }
             
             [_rightV reloadData];
+            // 跳到头部
+//            [_rightV scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+
         }
         else{
             [ErrorManager alertError:error];
@@ -349,7 +472,7 @@
 
 - (void)toSearchResult:(NSString*)keyword{
     
-    DropDownCouponListViewController *vc = [[DropDownCouponListViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    DropDownCouponListViewController *vc = [[DropDownCouponListViewController alloc] initWithStyle:UITableViewStylePlain];
     vc.view.alpha = 1;
     vc.keyword = keyword;
     

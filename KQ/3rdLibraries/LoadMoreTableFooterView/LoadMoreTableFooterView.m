@@ -48,16 +48,15 @@
     if (self = [super initWithFrame:frame]) {
 		
 		self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-//		self.backgroundColor = [UIColor colorWithRed:226.0/255.0 green:231.0/255.0 blue:237.0/255.0 alpha:1.0];
+
 		self.backgroundColor = [UIColor clearColor];
         
 		UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 15.0f, self.frame.size.width, 20.0f)];
 		label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-		label.font = [UIFont boldSystemFontOfSize:15.0f];
+//		label.font = [UIFont boldSystemFontOfSize:15.0f];
+        label.font = nFont(15);
 //		label.textColor = TEXT_COLOR;
-        label.textColor = [UIColor blackColor];
-
-        
+     
 		label.backgroundColor = [UIColor clearColor];
 		label.textAlignment = NSTextAlignmentCenter;
 		[self addSubview:label];
@@ -120,7 +119,8 @@
 		if (_state == LoadMoreNormal && scrollView.contentOffset.y < (scrollView.contentSize.height - 360) && scrollView.contentOffset.y > (scrollView.contentSize.height - 420) && !_loading) {
 		
             self.frame = CGRectMake(0, scrollView.contentSize.height - 30, self.frame.size.width, self.frame.size.height);
-			self.hidden = NO;
+
+            self.hidden = NO;
 		
         } else if (_state == LoadMoreNormal && scrollView.contentOffset.y > (scrollView.contentSize.height - 360) && !_loading) {
 		

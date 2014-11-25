@@ -220,13 +220,13 @@
 - (void)addCard:(NSString*)number{
 
     
-    [self willConnect:_button];
+    [self willLoad:_button];
     
     NSString *uid = [[UserController sharedInstance] uid];
     NSString *sessionToken = [[UserController sharedInstance] sessionToken];
     
     [[NetworkClient sharedInstance] user:uid sessionToken:sessionToken addCard:number block:^(id object, NSError *error) {
-       [self willDisconnect];
+       [self willStopLoad];
      
         if (!_networkFlag) {
             return ;

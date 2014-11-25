@@ -8,6 +8,7 @@
 
 #import "UserSettingsViewController.h"
 #import "ButtonCell.h"
+#import "SwitchCell.h"
 
 @interface UserSettingsViewController ()
 
@@ -24,6 +25,8 @@
     
     _config = [[TableConfiguration alloc] initWithResource:@"UserSettingsConfig"];
     
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -34,12 +37,39 @@
 
 #pragma mark - TableView
 
-- (void)configCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
-
-    if ([cell isKindOfClass:[ButtonCell class]]) {
+- (void)initConfigCell:(ConfigCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+    
+    if ([cell isKindOfClass:[SwitchCell class]]) {
+        
+        UISwitch *aSwitch = cell.value;
+        [aSwitch addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
+        
+        aSwitch.on = _userController.people.isNotification;
+        
+    }
+    else if ([cell isKindOfClass:[ButtonCell class]]) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.selectionStyle  = UITableViewCellSelectionStyleNone;
+        cell.textLabel.textAlignment = NSTextAlignmentLeft;
+        
     }
+    
+}
+
+- (void)configCell:(ConfigCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+//
+//    if ([cell isKindOfClass:[SwitchCell class]]) {
+//
+//        UISwitch *aSwitch = cell.value;
+//        [aSwitch addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
+//        
+//        aSwitch.on = _userController.people.isNotification;
+//        
+//    }
+//    else if ([cell isKindOfClass:[ButtonCell class]]) {
+//        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//        cell.selectionStyle  = UITableViewCellSelectionStyleNone;
+//    }
 }
 
 
@@ -47,8 +77,21 @@
     [self checkVersion];
 }
 
+- (IBAction)switchChanged:(id)sender{
+    
+    UISwitch *aSwitch = sender;
+    _userController.people.isNotification = aSwitch.isOn;
+    [_userController savePeople:_userController.people];
+}
+
 - (void)checkVersion{
     L();
+//    NSString *appId = @"942472995";
+    NSString * appstoreUrlString = @"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?mt=8&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&type=Purple+Software&id=942472995";
+    
+    NSURL * url = [NSURL URLWithString:appstoreUrlString];
+    
+    [[UIApplication sharedApplication] openURL:url];
 }
 
 @end

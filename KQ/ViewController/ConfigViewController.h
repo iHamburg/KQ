@@ -50,6 +50,8 @@
 
 
 - (void)willConnect:(UIView*)sender; // 一次应该只loading一个view
-- (void)willDisconnect;
+- (void)willDisconnectInView:(UIView*)view;
 
+- (void)willLoad:(UIView*)send;
+- (void)willStopLoad;
 @end

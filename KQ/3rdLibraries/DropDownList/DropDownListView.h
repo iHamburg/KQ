@@ -28,6 +28,6 @@
 - (BOOL)isShow;
 - (void)hideExtendedChooseView;
 
-- (void)reloadData;
+//- (void)reloadData;
 
 @end

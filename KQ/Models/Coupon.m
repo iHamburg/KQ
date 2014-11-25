@@ -289,7 +289,11 @@ static NSArray *searchKeys;
         }
         
         for (NSString *key in searchKeys) {
+       
+            
             [self setValue:dict[key] forKey:key];
+        
+        
         }
         
          self.nearestLocation = [[CLLocation alloc]initWithLatitude:[dict[@"latitude"] floatValue] longitude:[dict[@"longitude"] floatValue]];

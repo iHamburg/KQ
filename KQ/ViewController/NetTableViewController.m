@@ -16,7 +16,6 @@
     _isLoadMore = isLoadMore;
     if (isLoadMore == NO) {
         [_loadMoreFooterView removeFromSuperview];
-//        _loadMoreFooterView = nil;
     }
     else{
         [self.tableView addSubview:_loadMoreFooterView];
@@ -49,8 +48,6 @@
     
     self.refreshControl = [[UIRefreshControl alloc]init];
     self.refreshControl.attributedTitle = [[NSAttributedString alloc]initWithString:@"下拉刷新"];
-//    self.refreshControl.tintColor =[UIColor whiteColor];
-    
     [self.refreshControl addTarget:self action:@selector(RefreshViewControlEventValueChanged:) forControlEvents:UIControlEventValueChanged];
     
     // iOS8 的seperator错位问题

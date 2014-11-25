@@ -29,6 +29,8 @@
     _config = [[TableConfiguration alloc] initWithResource:@"UserCardsConfig"];
     
     self.isLoadMore = NO;
+    
+    self.refreshControl = nil;
 
 }
 
@@ -159,7 +161,7 @@
     [_networkClient queryCards:_userController.uid block:^(NSDictionary *dict, NSError *error) {
         
         
-        [self willDisconnect];
+        [self willDisconnectInView:self.view];
         [self.refreshControl endRefreshing];
         
         if (!error) {
@@ -197,7 +199,6 @@
     vc.presentBlock = ^(BOOL successed, NSError *error){
         if (successed) {
             //成功绑卡
-            
             [self.tableView reloadData];
         }
     };

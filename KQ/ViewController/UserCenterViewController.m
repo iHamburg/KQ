@@ -391,20 +391,34 @@
     
     UserCouponsViewController *vc = [[UserCouponsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     
-    [self.navigationController pushViewController:vc animated:YES];
+//    [self.navigationController pushViewController:vc animated:YES];
+    vc.view.alpha = 1;
+    
+    
+    [_root addNavVCAboveTab:vc];
     
 }
 - (void)toShops{
 
     
     UserShopsViewController *vc = [[UserShopsViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    [self.navigationController pushViewController:vc animated:YES];
+//    [self.navigationController pushViewController:vc animated:YES];
+    
+    vc.view.alpha = 1;
+    
+    
+    [_root addNavVCAboveTab:vc];
     
 }
 - (void)toCards{
 
     UserCardsViewController *vc = [[UserCardsViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    [self.navigationController pushViewController:vc animated:YES];
+//    [self.navigationController pushViewController:vc animated:YES];
+    
+    vc.view.alpha = 1;
+    
+    
+    [_root addNavVCAboveTab:vc];
     
 }
 - (void)toFavoritedCoupons{
@@ -412,8 +426,12 @@
     
     
     UserFavoritedCouponsViewController *vc = [[UserFavoritedCouponsViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    [self.navigationController pushViewController:vc animated:YES];
+//    [self.navigationController pushViewController:vc animated:YES];
     
+    vc.view.alpha = 1;
+    
+    
+    [_root addNavVCAboveTab:vc];
 }
 - (void)toSettings{
 

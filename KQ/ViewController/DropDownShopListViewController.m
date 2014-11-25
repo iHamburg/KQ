@@ -56,6 +56,8 @@
     
     //???一定要是root的view吗？
     _dropDownView.mSuperView = [[KQRootViewController sharedInstance]view];
+    
+ 
 }
 
 
@@ -68,7 +70,7 @@
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
-    [_dropDownView reloadData];
+//    [_dropDownView reloadData];
 }
 
 #pragma mark - TableView
@@ -140,10 +142,15 @@
     
     
     [self willConnect:self.view];
+//      [_libraryManager startLoadingInView:_root.view];
+    
+//    [_libraryManager startProgress];
     
     [_networkClient searchShopBranches:self.searchParams block:^(NSDictionary *dict, NSError *error) {
      
-        [self willDisconnect];
+        [_libraryManager dismissProgress];
+        
+        [self willDisconnectInView:self.view];
         [self.refreshControl endRefreshing];
         
         

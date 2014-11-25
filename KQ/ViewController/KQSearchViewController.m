@@ -160,8 +160,8 @@
     
     [searchBar resignFirstResponder];
     
-    NSLog(@"search # %@",searchBar.text);
-    NSString *keyword = searchBar.text;
+//    NSLog(@"search # %@",searchBar.text);
+//    NSString *keyword = searchBar.text;
     
     KQSearchViewController *vc = self;
     

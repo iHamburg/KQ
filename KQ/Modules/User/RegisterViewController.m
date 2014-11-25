@@ -216,8 +216,6 @@
     }
    
     
-   
-    
     return cell;
     
 }
@@ -338,6 +336,7 @@
     
     //    NSLog(@"request mobile # %@",mobile);
     _userTextField.userInteractionEnabled = NO;
+    _userTextField.textColor = kColorGray;
     
     [_network requestCaptchaRegister:mobile block:^(NSDictionary* object, NSError *error) {
 
@@ -353,6 +352,8 @@
             [ErrorManager alertError:error];
             
             _userTextField.userInteractionEnabled = YES;
+            _userTextField.textColor = kColorBlack;
+            
             [_identifyB stopTimer];
         }
         

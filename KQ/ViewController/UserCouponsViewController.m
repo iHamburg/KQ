@@ -134,7 +134,7 @@
     [_networkClient queryDownloadedCoupon:_userController.uid mode:mode skip:0 block:^(NSDictionary *dict, NSError *error) {
 
 
-        [self willDisconnect];
+        [self willDisconnectInView:self.view];
         [self.refreshControl endRefreshing];
         
 
@@ -181,16 +181,19 @@
     
 }
 
-//- (void)refreshModels{
-//    [_models removeAllObjects];
-//    
-//    [self loadModels];
-//}
 
 
 - (void)toCouponDetails:(Coupon*)coupon{
     
-    [_root toCouponDetails:coupon];
+//   [_root toCouponDetails:coupon];
+    
+    
+    CouponDetailsViewController *vc = [[CouponDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    vc.view.alpha = 1;
+    vc.coupon = coupon;
+    [self.navigationController pushViewController:vc animated:YES];
+
+    
 
 }
 

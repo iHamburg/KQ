@@ -207,6 +207,7 @@
     
 
     _userTextField.userInteractionEnabled = NO;
+    _userTextField.textColor = kColorLightGray;
 
     
     [[NetworkClient sharedInstance] requestCaptchaForgetPassword:mobile block:^(NSDictionary* object, NSError *error) {
@@ -222,6 +223,7 @@
             [ErrorManager alertError:error];
             [_identifyB stopTimer];
             _userTextField.userInteractionEnabled = YES;
+            _userTextField.textColor = kColorBlack;
         }
     }];
 }

@@ -37,7 +37,7 @@
     _userTextField.placeholder = @"手机号";
     _userTextField.delegate = self;
     _userTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    _userTextField.text = @"13166361023";
+//    _userTextField.text = @"13166361023";
     
     
     _passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake(60, 0, 250, kCellHeight)];//f
@@ -47,7 +47,7 @@
     _passwordTextField.returnKeyType = UIReturnKeyGo;
     _passwordTextField.placeholder = @"密码";
     _passwordTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    _passwordTextField.text = @"111";
+//    _passwordTextField.text = @"111";
     
     _tfs = @[_userTextField,_passwordTextField];
     _tableImageNames = @[@"icon-user.png",@"icon-password01.png"];
@@ -222,7 +222,6 @@
    
     [self willConnect:_loginB];
   
-//    __weak LoginViewController *vc = self;
   
     [_userController loginWithUsername:email password:[password stringWithMD5] boolBlock:^(BOOL succeeded, NSError *error) {
     
@@ -240,9 +239,7 @@
 
        
         }
-     
-     
-
+    
     }];
 }
 
@@ -270,17 +267,7 @@
 
 - (void)test{
     
-//    _networkFlag = YES;
-//    [[NetworkClient sharedInstance] testWithBlock:^(BOOL succeeded, NSError *error) {
-//        if (self.networkFlag) {
-//            NSLog(@"收到了block的信息 # %@",self);
-//        }
-//
-//    }];
-//    
-//    [self.navigationController dismissViewControllerAnimated:YES completion:^{
-//        self.networkFlag = NO;
-//    }];
+
 }
 
 

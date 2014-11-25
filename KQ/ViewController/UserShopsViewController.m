@@ -27,15 +27,7 @@
     
      self.config = [[TableConfiguration alloc] initWithResource:@"UserShopsConfig"];
 
-    
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshModels) name:@"refreshFavoritedShops" object:nil];
-    
-//    __weak UserShopsViewController *vc = self;
-//    [[NSNotificationCenter defaultCenter] addObserverForName:@"refreshFavoritedShops" object:nil queue:nil usingBlock:^(NSNotification *note) {
-//       
-//        L();
-//        [vc.tableView reloadData];
-//    }];
+ 
 }
 
 - (void)didReceiveMemoryWarning
@@ -71,9 +63,20 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    id obj = self.models[indexPath.row];
+    if (ISEMPTY(self.models)) {
+        return;
+    }
     
-    [self toShopDetails:obj];
+    Shop *shop = self.models[indexPath.row];
+    
+    if (shop.active) {
+        [self toShopDetails:shop];
+    }
+    else{
+   
+        [_libraryManager startHint:@"该收藏商户已失效"];
+    }
+
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -89,14 +92,14 @@
     
     [_networkClient queryFavoritedShop:_userController.uid skip:0 block:^(NSDictionary *dict, NSError *error) {
 
-        [self willDisconnect];
+        [self willDisconnectInView:self.view];
         [self.refreshControl endRefreshing];
    
         
         if (!error) {
             NSArray *array = dict[@"shopbranches"];
             
-//            NSLog(@"array # %@",array);
+            NSLog(@"array # %@",array);
          
             if (ISEMPTY(array)) {
                 [_libraryManager startHint:@"还没有收藏商户" duration:1];
@@ -140,7 +143,7 @@
         if (!error) {
             NSArray *array = couponDicts[@"shopbranches"];
             
-//            NSLog(@"array # %@",array);
+          
             
             for (NSDictionary *dict in array) {
                 
@@ -170,7 +173,9 @@
     vc.view.alpha = 1;
     vc.shop = shop;
 
-    [_root addNavVCAboveTab:vc];
+//    [_root addNavVCAboveTab:vc];
+    
+    [self.navigationController pushViewController:vc animated:YES];
     
 }
 

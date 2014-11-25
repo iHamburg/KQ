@@ -69,7 +69,7 @@
     [super viewDidDisappear:animated];
     
     _networkFlag = NO;
-    [self willDisconnect];
+    [self willStopLoad];
 }
 
 #pragma mark - Table view data source
@@ -242,20 +242,30 @@
     
     //如果是下拉刷新，不显示activityview
     if (!self.refreshControl.refreshing) {
-        [_libraryManager startLoadingInView:sender];
+//        [_libraryManager startLoadingInView:sender];
+        [_libraryManager startProgressInView:sender];
     }
     
-  
     
     self.networkFlag = YES;
     
     
 }
 
-- (void)willDisconnect{
-    
-    [_libraryManager stopLoading];
-    
+
+- (void)willDisconnectInView:(UIView*)view{
+    [_libraryManager hideProgressInView:view];
 }
 
+
+
+- (void)willLoad:(UIView*)sender{
+    [_libraryManager startLoadingInView:sender];
+
+    _networkFlag = YES;
+}
+- (void)willStopLoad{
+    
+    [_libraryManager stopLoading];
+}
 @end

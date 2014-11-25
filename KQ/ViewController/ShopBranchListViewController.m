@@ -99,7 +99,7 @@
    
     [_networkClient queryAllShopBranches:_headerShopId block:^(NSDictionary *dict, NSError *error) {
         
-        [self willDisconnect];
+        [self willDisconnectInView:self.view];
         [self.refreshControl endRefreshing];
         
         if (!error) {

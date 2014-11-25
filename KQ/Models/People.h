@@ -25,6 +25,7 @@
 @property (nonatomic, assign) int newsNum;
 
 @property (nonatomic, assign) int lastNewsId;
+@property (nonatomic, assign) BOOL isNotification;
 
 
 - (id)initWithDict:(NSDictionary*)dict;

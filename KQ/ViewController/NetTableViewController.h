@@ -12,6 +12,7 @@
 @interface NetTableViewController : ConfigViewController<LoadMoreTableFooterDelegate>{
 
     NSMutableArray *_models;
+   
     LoadMoreTableFooterView *_loadMoreFooterView;
     
 	BOOL _reloading;

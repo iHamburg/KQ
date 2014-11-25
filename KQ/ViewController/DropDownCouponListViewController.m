@@ -83,9 +83,18 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    
+    [super viewDidAppear:animated];
+    
+    _searchBar.text = _keyword;
+    
+}
+
 - (void)viewWillDisappear:(BOOL)animated{
     
     [super viewWillDisappear:animated];
+    
     
     [_searchBar resignFirstResponder];
 }
@@ -113,8 +122,10 @@
 {
     
     L();
+
     searchBar.showsCancelButton = NO;
     [searchBar resignFirstResponder];
+
     
 }
 
@@ -155,13 +166,13 @@
     [self.searchParams removeAllObjects];
     
     if (self.couponTypeIndex>0) {
-        CouponType *obj = self.couponTypes[self.couponTypeIndex-1];
+        CouponType *obj = self.couponTypes[self.couponTypeIndex];
         
-        [self.searchParams setObject:obj.id forKey:@"couponTypeId"];
+        [self.searchParams setObject:obj.id forKey:@"shopTypeId"];
     }
     
     if (self.districtIndex > 0) {
-        District *obj = self.districts[self.districtIndex-1];
+        District *obj = self.districts[self.districtIndex];
         
         [self.searchParams setObject:obj.id forKey:@"districtId"];
     }
@@ -198,14 +209,14 @@
     
     [self willConnect:self.view];
     [_networkClient searchCoupons:self.searchParams block:^(NSDictionary *dict, NSError *error) {
-        [self willDisconnect];
+        [self willDisconnectInView:self.view];
         [self.refreshControl endRefreshing];
         
         
         if (!error) {
             NSArray *array = dict[@"coupons"];
      
-            NSLog(@"searchcoupons # %@",array);
+//            NSLog(@"searchcoupons # %@",array);
             
             for (NSDictionary *dict in array) {
                 Coupon *coupon = [[Coupon alloc] initWithSearchDict:dict];
@@ -230,7 +241,7 @@
     [self.searchParams setValue:[NSString stringWithInt:skip] forKey:@"skip"];
     
     
-    [_networkClient searchShopBranches:self.searchParams block:^(NSDictionary *dict, NSError *error) {
+    [_networkClient searchCoupons:self.searchParams block:^(NSDictionary *dict, NSError *error) {
         finishedBlock();
         
         if (!error) {

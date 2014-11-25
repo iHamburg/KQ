@@ -63,6 +63,7 @@ static NSArray *keys;
     }
     
     self.lastNewsId = [aDecoder decodeIntForKey:@"lastNewsId"];
+    self.isNotification = [aDecoder decodeBoolForKey:@"isNotification"];
     
 //        NSLog(@"people.lastNewsId # %d",self.lastNewsId);
     
@@ -78,6 +79,7 @@ static NSArray *keys;
     }
     
     [aCoder encodeInt:self.lastNewsId forKey:@"lastNewsId"];
+    [aCoder encodeBool:self.isNotification forKey:@"isNotification"];
 
 //    L();
 //    NSLog(@"people.lastNewsId # %d",self.lastNewsId);

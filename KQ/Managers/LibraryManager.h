@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "MBProgressHUD.h"
+#import "Coupon.h"
 
 @interface LibraryManager : NSObject{
 
@@ -21,13 +22,16 @@
 + (id)sharedInstance;
 
 - (void)shareWithText:(NSString*)text image:(UIImage*)image delegate:(id)delegate;
-
+- (void)shareCoupon:(Coupon*)coupon delegate:(id)delegate;
 
 - (void)startHint:(NSString*)text;
 - (void)startHint:(NSString *)text duration:(float)duration;
 
 - (void)startProgress;
+- (void)startProgressInView:(UIView *)view;
+- (void)hideProgressInView:(UIView*)view;
 - (void)dismissProgress;
+
 
 /**
  *	@brief	当连续多个progess需要显示的时候，用cache方便管理dismiss哪个hud

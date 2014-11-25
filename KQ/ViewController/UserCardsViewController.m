@@ -93,6 +93,8 @@
     [v addSubview:btn];
     [v addSubview:label];
     
+
+    
     return v;
     
 }
@@ -147,7 +149,7 @@
      [_networkClient queryCards:_userController.uid block:^(NSDictionary *dict, NSError *error) {
      
          
-         [self willDisconnect];
+         [self willDisconnectInView:self.view];
          [self.refreshControl endRefreshing];
   
          if (!error) {
@@ -199,7 +201,7 @@
     
     [_networkClient user:_userController.uid sessionToken:_userController.sessionToken deleteCard:card.title block:^(id object, NSError *error) {
         
-        [self willDisconnect];
+        [self willDisconnectInView:self.view];
         if (!_networkFlag) {
             return ;
         }

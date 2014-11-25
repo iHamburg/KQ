@@ -50,6 +50,9 @@
     float x =CGRectGetMaxX(self.imageView.frame)+15;
     self.textLabel.frame = CGRectMake(x, 0 , 250, 60);
     
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    
 }
 
 

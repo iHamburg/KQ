@@ -14,8 +14,9 @@
 #import "CouponManager.h"
 #import "KQRootViewController.h"
 #import "CouponType.h"
+#import "LoadMoreTableFooterView.h"
 
-@interface CouponSearchViewController : UIViewController<UITableViewDataSource,UITableViewDelegate, UISearchBarDelegate>{
+@interface CouponSearchViewController : UIViewController<UITableViewDataSource,UITableViewDelegate, UISearchBarDelegate,LoadMoreTableFooterDelegate>{
 
     UserController *_userController;  // 用户控制器
     NetworkClient *_networkClient;
@@ -31,6 +32,11 @@
     
     NSMutableArray *_models;
     BOOL _networkFlag;
+    
+    LoadMoreTableFooterView *_loadMoreFooterView;
+    
+    BOOL _reloading;
+    BOOL _isLoadMore;
 
 }
 
@@ -41,6 +47,7 @@
 @property (nonatomic, strong) NSArray *searchTypes;
 @property (nonatomic ,strong) NSMutableDictionary *searchParams;
 @property (nonatomic, assign) int selectedIndex;
+@property (nonatomic, assign) BOOL isLoadMore;
 
 /**
  *	@brief	清空原本的内容，从新载入内容
@@ -58,5 +65,10 @@
 - (void)toCouponDetails:(Coupon*)coupon;
 
 - (void)toSearchResult:(NSString*)keyword;
+
+
+
+- (void)reloadTableViewDataSource;
+- (void)doneLoadingTableViewData;
 
 @end

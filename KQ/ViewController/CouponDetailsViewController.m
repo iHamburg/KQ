@@ -230,8 +230,6 @@
     
     _coupon = coupon;
    
-    /// 从CouponList过来，需要coupon的details
-//    self.networkFlag = YES;
     
     [_networkClient queryCoupon:coupon.id latitude:_userController.latitude longitude:_userController.longitude block:^(NSDictionary *dict, NSError *error) {
    
@@ -536,11 +534,15 @@
     __weak CouponDetailsViewController *vc = self;
 
     
-    [self willConnect:sender];
+    [self willLoad:sender];
     
     [_networkClient user:_userController.uid sessionToken:_userController.sessionToken downloadCoupon:coupon.id block:^(id obj, NSError *error) {
         
-        [vc willDisconnect];
+//        [vc willDisconnectInView:self.view];
+//        [_libraryManager stopLoading];
+        
+        [vc willStopLoad];
+        
         
         if (!vc.networkFlag) {
             return ;
@@ -629,13 +631,21 @@
 
 - (void)shareCoupon:(Coupon*)coupon{
     
+    //如果没有coupon
+    if (!coupon) {
+        return;
+    }
+    
     UIImage *img = coupon.avatar;
     if (!img) {
         img = DefaultImg;
     }
     
-  //  [_libraryManager shareWithText:coupon.title image:img delegate:self];
+//[_libraryManager shareWithText:coupon.title image:img delegate:self];
     
+    
+    
+    [_libraryManager shareCoupon:coupon delegate:self];
 }
 
 - (void)pushCoupon:(Coupon*)coupon{

@@ -127,9 +127,11 @@
 }
 - (void)changePwd:(NSString*)oldPwd newPwd:(NSString*)newPwd{
 
+    
+    
     [_userController changePwd:oldPwd newPwd:newPwd boolBlock:^(BOOL succeeded, NSError *error) {
         
-        [self willDisconnect];
+//        [self willDisconnect];
         
         if (succeeded && _networkFlag) {
             [_libraryManager startHint:@"密码修改成功"];

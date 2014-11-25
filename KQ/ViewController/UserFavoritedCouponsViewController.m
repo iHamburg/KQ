@@ -66,9 +66,24 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    id obj = self.models[indexPath.row];
     
-    [self toCouponDetails:obj];
+    if(ISEMPTY(self.models)){
+        return;
+    }
+    
+  
+    
+    Coupon *coupon = self.models[indexPath.row];
+    
+    if (coupon.active) {
+        [self toCouponDetails:coupon];
+
+    }
+    else{
+        
+        [_libraryManager startHint:@"该收藏快券已失效"];
+    }
+    
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -86,7 +101,7 @@
     
     [_networkClient queryFavoritedCoupon:_userController.uid skip:0 block:^(NSDictionary *couponDicts, NSError *error) {
         
-        [self willDisconnect];
+        [self willDisconnectInView:self.view];
         [self.refreshControl endRefreshing];
         
 //        if (!_networkFlag) {
@@ -155,7 +170,13 @@
 - (void)toCouponDetails:(Coupon*)coupon{
 //
 
-    [_root toCouponDetails:coupon];
+//    [_root toCouponDetails:coupon];
+    
+    CouponDetailsViewController *vc = [[CouponDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    vc.view.alpha = 1;
+    vc.coupon = coupon;
+    [self.navigationController pushViewController:vc animated:YES];
+
 }
 
 

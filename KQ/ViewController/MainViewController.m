@@ -184,16 +184,17 @@
     
     [self willConnect:self.view];
     
+    
     [_networkClient queryHotestCouponsSkip:0 block:^(NSDictionary *couponDicts, NSError *error) {
         
-        [self willDisconnect];
+        [self willDisconnectInView:self.view];
 //        NSLog(@"refreshing # %d",self.refreshControl.refreshing);
         
         
         [self.refreshControl endRefreshing];
 //        NSLog(@"refreshing # %d",self.refreshControl.refreshing);
         
-        
+//        NSLog(@"main did load %@",couponDicts);
         if (!error) {
             NSArray *array = couponDicts[@"coupons"];
 
