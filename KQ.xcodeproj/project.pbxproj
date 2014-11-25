@@ -181,6 +181,7 @@
 		850A67B519C6EA6E00DCA982 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 850A67B419C6EA6E00DCA982 /* ChangePasswordViewController.m */; };
 		85134FAC1A176B1500669702 /* EditUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85134FAB1A176B1500669702 /* EditUserViewController.m */; };
 		85134FAE1A176F0B00669702 /* EditUserConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85134FAD1A176F0A00669702 /* EditUserConfig.plist */; };
+		8514C8131A2428E700F0157D /* home_header_receive.png in Resources */ = {isa = PBXBuildFile; fileRef = 8514C8121A2428E700F0157D /* home_header_receive.png */; };
 		8533A24D1A1E24AD00CBD8DB /* main_my_bankcards_icon_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 8533A2491A1E24AD00CBD8DB /* main_my_bankcards_icon_normal.png */; };
 		8533A24E1A1E24AD00CBD8DB /* main_my_bankcards_icon_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 8533A24A1A1E24AD00CBD8DB /* main_my_bankcards_icon_pressed.png */; };
 		8533A24F1A1E24AD00CBD8DB /* main_my_coupon_icon_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 8533A24B1A1E24AD00CBD8DB /* main_my_coupon_icon_normal.png */; };
@@ -589,6 +590,7 @@
 		85134FAA1A176B1500669702 /* EditUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditUserViewController.h; sourceTree = "<group>"; };
 		85134FAB1A176B1500669702 /* EditUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditUserViewController.m; sourceTree = "<group>"; };
 		85134FAD1A176F0A00669702 /* EditUserConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = EditUserConfig.plist; sourceTree = "<group>"; };
+		8514C8121A2428E700F0157D /* home_header_receive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home_header_receive.png; sourceTree = "<group>"; };
 		8533A2491A1E24AD00CBD8DB /* main_my_bankcards_icon_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_my_bankcards_icon_normal.png; sourceTree = "<group>"; };
 		8533A24A1A1E24AD00CBD8DB /* main_my_bankcards_icon_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_my_bankcards_icon_pressed.png; sourceTree = "<group>"; };
 		8533A24B1A1E24AD00CBD8DB /* main_my_coupon_icon_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_my_coupon_icon_normal.png; sourceTree = "<group>"; };
@@ -892,6 +894,7 @@
 			children = (
 				859DA4141A1DDBA400E8611E /* Instruction */,
 				85A188681A1B123E007253D5 /* bank_icon.png */,
+				8514C8121A2428E700F0157D /* home_header_receive.png */,
 				85EB2D801A230153006328F4 /* register_events_icon_image.png */,
 				85EB2D811A230153006328F4 /* register_events_right.png */,
 				85A764EE1A206E9300037780 /* event_bg@2x.jpg */,
@@ -1650,6 +1653,7 @@
 				26E3203519526785000A14EF /* UserCardsConfig.plist in Resources */,
 				8596C64A19C13462003B3440 /* icon-user01@2x.png in Resources */,
 				26E1661A193976780041CDD6 /* UMSnsAccountViewController.xib in Resources */,
+				8514C8131A2428E700F0157D /* home_header_receive.png in Resources */,
 				8533A25A1A1E273400CBD8DB /* main_my_about@2x.png in Resources */,
 				26DE2D8419501DE900F9C46E /* UserAvatarCell.xib in Resources */,
 				85A764E71A20203300037780 /* CouponSearchListConfig.plist in Resources */,

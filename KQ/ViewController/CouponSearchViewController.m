@@ -237,12 +237,13 @@
     else{
         NSString *identifier =@"right";
         
-        
-        
         [tableView registerClass:[CouponSearchShortListCell class] forCellReuseIdentifier:identifier];
         cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
         
         cell.value = _models[row];
+        
+        [cell addBottomLine:kColorLightGray];
+
     }
    
     
@@ -274,8 +275,6 @@
     
     [self.searchParams setObject:_couponType.id forKey:@"shopTypeId"];
 
-//        [self.searchParams setObject:@"2" forKey:@"limit"];
-//    [self.searchParams setObject:_keyword forKey:@"keyword"];
     
     //    [self addCurrentLocationToSearchParams:self.searchParams];
     CLLocationCoordinate2D coord = _userController.checkinLocation.coordinate;

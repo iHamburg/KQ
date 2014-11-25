@@ -76,6 +76,9 @@
     
     //    NSLog(@"config cell # %@",[NSString stringWithFormat:@"%d,%d",indexPath.section,indexPath.row ]);
     
+    if (ISEMPTY(_models)) {
+        return;
+    }
   
     if ([cell isKindOfClass:[ShopListCell class]]) {
         
@@ -118,6 +121,14 @@
         
         [self.searchParams setObject:obj.id forKey:@"districtId"];
     }
+    
+    if (self.orderIndex == 0) {
+        [self.searchParams setObject:@"distance" forKey:@"order"];
+    }
+    else{
+        [self.searchParams setObject:@"random" forKey:@"order"];
+    }
+//    NSLog(@"order index # %d" ,self.orderIndex);
     
 //    [self addCurrentLocationToSearchParams:self.searchParams];
     CLLocationCoordinate2D coord = _userController.checkinLocation.coordinate;

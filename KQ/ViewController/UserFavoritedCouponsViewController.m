@@ -50,7 +50,10 @@
 
 - (void)configCell:(CouponListCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     
-  
+    if (ISEMPTY(_models)) {
+        return;
+    }
+    
     if ([cell isKindOfClass:[CouponListCell class]]) {
         
         Coupon *project = _models[indexPath.row];
@@ -150,11 +153,7 @@
 }
 
 - (void)toCouponDetails:(Coupon*)coupon{
-//    
-//    CouponDetailsViewController *vc = [[CouponDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped];
-//    vc.view.alpha = 1;
-//    vc.coupon = coupon;
-//    [self.navigationController pushViewController:vc animated:YES];
+//
 
     [_root toCouponDetails:coupon];
 }

@@ -77,7 +77,7 @@
     
     _selected = YES;
     
-    _selectBtn = [UIButton buttonWithFrame:CGRectMake(10, y, 30, 30) title:nil bgImageName:@"icon-agreement03.png" target:self action:@selector(selectAgreementClicked:)];
+    _selectBtn = [UIButton buttonWithFrame:CGRectMake(10, y, 30, 30) title:nil imageName:@"icon-agreement03.png" target:self action:@selector(selectAgreementClicked:)];
     
     _readL = [[UILabel alloc] initWithFrame:CGRectMake(45, y, 100, 30)];
     _readL.text = @"我已阅读并同意";
@@ -160,8 +160,9 @@
 }
 
 - (IBAction)agreementClicked:(id)sender{
-    //    L();
+
     [self toAgreement];
+
 }
 
 
@@ -196,6 +197,10 @@
         
         code = ErrorAppInvalideCard;
        
+    }
+    else if(!_selected){
+        
+        code = ErrorAppUnselected;
     }
     
     if (code == 0) {
@@ -258,10 +263,4 @@
 
 }
 
-//- (void)toAfterDownloadBank{
-//    
-//    AfterDownloadBankViewController *vc = [[AfterDownloadBankViewController alloc] init];
-//    [self.navigationController pushViewController:vc animated:YES];
-//
-//}
 @end

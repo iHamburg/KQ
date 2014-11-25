@@ -222,19 +222,19 @@
    
     [self willConnect:_loginB];
   
-    __weak LoginViewController *vc = self;
+//    __weak LoginViewController *vc = self;
   
     [_userController loginWithUsername:email password:[password stringWithMD5] boolBlock:^(BOOL succeeded, NSError *error) {
     
-        [vc willDisconnect];
+        [self willDisconnect];
         
         if (succeeded && self.networkFlag) {
         
             NSLog(@"login successful");
             
-            vc.successBlock(YES,nil);
+            self.successBlock(YES,nil);
 
-            [vc dismissViewControllerAnimated:YES completion:^{
+            [self dismissViewControllerAnimated:YES completion:^{
                 
             }];
 

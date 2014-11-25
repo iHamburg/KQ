@@ -89,6 +89,7 @@
         self.districtIndex = index;
     }
     else{
+        // order
         self.orderIndex = index;
     }
     

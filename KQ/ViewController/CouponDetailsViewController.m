@@ -67,7 +67,7 @@
 
     self.firstLabel.text = ISEMPTY(coupon.discountContent)?@"":coupon.discountContent;
     self.secondLabel.text = ISEMPTY(coupon.title)?@"":coupon.title;
-    self.thirdLabel.text = ISEMPTY(coupon.slogan)?@"": coupon.slogan;
+    self.thirdLabel.text = ISEMPTY(coupon.short_desc)?@"": coupon.short_desc;
    
     
     
@@ -672,12 +672,13 @@
 
 
 - (void)toAfterDownload{
-    NSLog(@"用户的card # %d",_userController.people.cardNum);
+//    NSLog(@"用户的card # %d",_userController.people.cardNum);
 
     AfterDownloadViewController *vc = [[AfterDownloadViewController alloc] initWithStyle:UITableViewStyleGrouped];
     vc.view.alpha = 1;
     
     [self.navigationController pushViewController:vc animated:YES];
+
 
 }
 

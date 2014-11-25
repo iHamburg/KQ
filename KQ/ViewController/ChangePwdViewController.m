@@ -133,6 +133,8 @@
         
         if (succeeded && _networkFlag) {
             [_libraryManager startHint:@"密码修改成功"];
+            
+            [self.navigationController popViewControllerAnimated:YES];
         }
      
         

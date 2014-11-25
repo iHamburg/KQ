@@ -10,7 +10,10 @@
 #import "Coupon.h"
 #import "Shop.h"
 
-@interface CouponDetailsViewController : ConfigViewController
+@interface CouponDetailsViewController : ConfigViewController{
+
+
+}
 
 @property (nonatomic, strong) Coupon *coupon;
 

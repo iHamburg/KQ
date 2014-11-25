@@ -99,6 +99,8 @@ typedef enum {
     
     ErrorAppInvalideCard = 2003,   //无效的银联卡号
     
+    ErrorAppUnselected = 2004, //不同意协议
+    
     ErrorUnknown = 999999
     
 }CustomErrorCode;

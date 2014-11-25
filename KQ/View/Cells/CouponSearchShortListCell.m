@@ -20,6 +20,10 @@
     self.textLabel.frame = CGRectMake(x, 10, width, 38);
     _secondLabel.frame = CGRectMake(x, 35, width, 30);
     _thirdLabel.frame = CGRectMake(x, 44, width, 55);
-}
+    
+
+  }
+
+//- (void)layoutSubviews{}
 
 @end

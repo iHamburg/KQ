@@ -30,7 +30,6 @@
     
     self.isLoadMore = NO;
 
-//    self.tableView.backgroundColor = kColorRed;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,6 +37,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+- (void)dealloc{
+    L();
+    
+}
 
 #pragma mark - TableView
 
@@ -91,7 +95,7 @@
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _w, 200)];
     
     if (ISEMPTY(_models)) {
-        UIButton *btn = [UIButton buttonWithFrame:CGRectMake(10, 43, _w-20, 34) title:@"+ 添加银行卡" bgImageName:nil target:self action:@selector(addCard)];
+        UIButton *btn = [UIButton buttonWithFrame:CGRectMake(10, 43, _w-20, 34) title:@"+ 添加银行卡" bgImageName:nil target:self action:@selector(addButtonClicked:)];
         btn.backgroundColor = kColorGreen;
         btn.layer.cornerRadius = 3;
         btn.titleLabel.font = bFont(15);

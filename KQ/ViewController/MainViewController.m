@@ -81,21 +81,24 @@
         UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _w, headerHeight)];
 
     
-    UIButton *btn = [UIButton buttonWithFrame:CGRectMake(0, 0, _w, 122) title:nil bgImageName:@"home_header_image.jpg" target:self action:@selector(handleBannerTap:)];
+        UIButton *btn = [UIButton buttonWithFrame:CGRectMake(0, 0, _w, 122) title:nil bgImageName:@"home_header_image.jpg" target:self action:@selector(handleBannerTap:)];
+    UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake(_w-62, 122-29, 62, 29)];
+    imgV.image = [UIImage imageNamed:@"home_header_receive.png"];
     
         CGFloat fontSize = 12;
-    float y = 122;
+        float y = 122;
         UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(10, y, 60, 38)];
         [label setFont:[UIFont fontWithName:kFontName size:fontSize]];
         label.text = @"热门快券";
-    label.textColor = kColorDardGray;
+        label.textColor = kColorDardGray;
     
         UILabel *l2 = [[UILabel alloc] initWithFrame:CGRectMake(70, y, 40, 38)];
         l2.text = @"HOT";
         l2.textColor = kColorYellow;
         [label setFont:[UIFont fontWithName:kFontName size:fontSize]];
     
-    [v addSubview:btn];
+        [v addSubview:btn];
+    [v addSubview:imgV];
         [v addSubview:label];
         [v addSubview:l2];
         
@@ -117,12 +120,14 @@
 
 - (void)configCell:(CouponListCell *)cell atIndexPath:(NSIndexPath *)indexPath{
 
-    
+    if (ISEMPTY(_models)) {
+        return;
+    }
     if ([cell isKindOfClass:[CouponListCell class]]) {
         
-          Coupon *project = _models[indexPath.row];
+        Coupon *project = _models[indexPath.row];
         
-         [cell setValue:project];
+        [cell setValue:project];
         [cell setText:[NSString stringWithFormat:@"%@下载",project.downloadedCount]];
     }
     
@@ -168,12 +173,12 @@
 
    
     
-    NSLog(@"refreshing # %d",self.refreshControl.refreshing);
+//    NSLog(@"refreshing # %d",self.refreshControl.refreshing);
     
-    if (self.refreshControl.refreshing) {
-        [self.refreshControl endRefreshing];
-        return;
-    }
+//    if (self.refreshControl.refreshing) {
+//        [self.refreshControl endRefreshing];
+//        return;
+//    }
     
     [self.models removeAllObjects];
     
@@ -182,11 +187,12 @@
     [_networkClient queryHotestCouponsSkip:0 block:^(NSDictionary *couponDicts, NSError *error) {
         
         [self willDisconnect];
-    NSLog(@"refreshing # %d",self.refreshControl.refreshing);
+//        NSLog(@"refreshing # %d",self.refreshControl.refreshing);
         
         
         [self.refreshControl endRefreshing];
-            NSLog(@"refreshing # %d",self.refreshControl.refreshing);
+//        NSLog(@"refreshing # %d",self.refreshControl.refreshing);
+        
         
         if (!error) {
             NSArray *array = couponDicts[@"coupons"];

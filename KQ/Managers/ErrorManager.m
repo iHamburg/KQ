@@ -39,6 +39,9 @@
             
             str = @"请输入以62开头的13到19位银行卡号";
             break;
+        case ErrorAppUnselected:
+            str = @"请先阅读并同意协议";
+            break;
         default:
             str = @"";
 

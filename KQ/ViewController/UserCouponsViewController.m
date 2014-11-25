@@ -71,7 +71,9 @@
 
 - (void)configCell:(CouponListCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     
-    
+    if (ISEMPTY(_models)) {
+        return;
+    }
     
     if ([cell isKindOfClass:[CouponListCell class]]) {
         
@@ -179,11 +181,11 @@
     
 }
 
-- (void)refreshModels{
-    [_models removeAllObjects];
-    
-    [self loadModels];
-}
+//- (void)refreshModels{
+//    [_models removeAllObjects];
+//    
+//    [self loadModels];
+//}
 
 
 - (void)toCouponDetails:(Coupon*)coupon{

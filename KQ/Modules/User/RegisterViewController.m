@@ -79,7 +79,7 @@
     
     //TODO: 可以用TogoleBtn refactor
     _selected = YES;
-    _selectBtn = [UIButton buttonWithFrame:CGRectMake(10, y, 30, 30) title:nil bgImageName:@"icon-agreement03.png" target:self action:@selector(selectAgreementClicked:)];
+    _selectBtn = [UIButton buttonWithFrame:CGRectMake(10, y, 30, 30) title:nil imageName:@"icon-agreement03.png" target:self action:@selector(selectAgreementClicked:)];
 
     _readL = [[UILabel alloc] initWithFrame:CGRectMake(45, y, 100, 30)];
     _readL.text = @"我已阅读并同意";
@@ -211,7 +211,7 @@
         
         
           [cell.contentView addSubview:_tfs[indexPath.row]];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+          cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
     }
    
@@ -233,6 +233,7 @@
     
     if (_selected) {
         [_selectBtn setImage:[UIImage imageNamed:@"icon-agreement01.png"] forState:UIControlStateNormal];
+//        [_selectBtn setImage:[UIImage imageNamed:@"icon_white_back.png"] forState:UIControlStateNormal];
     }
     else{
         [_selectBtn setImage:[UIImage imageNamed:@"icon-agreement03.png"] forState:UIControlStateNormal];
@@ -313,6 +314,12 @@
         
         code = ErrorAppInvalidCaptcha;
     }
+    else if(!_selected){
+    
+        code = ErrorAppUnselected;
+    }
+
+   
     
     if (code == 0) {
         block(YES,nil);

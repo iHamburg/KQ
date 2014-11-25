@@ -103,6 +103,11 @@
 - (void)configCell:(ConfigCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     
 //    NSLog(@"cell # %@",cell);
+    
+    if (ISEMPTY(_models)) {
+        return;
+    }
+    
     if ([cell isKindOfClass:[CardCell class]]) {
         cell.value = _models[indexPath.row];
     }

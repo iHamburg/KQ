@@ -78,8 +78,9 @@
 
 - (void)initConfigCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     
-    [self addSeparatorLineInCell:cell];
+//    [self addSeparatorLineInCell:cell];
     
+    [cell addBottomLine:kColorLightGray];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -158,16 +159,15 @@
 	return _reloading;
 }
 
-#pragma mark - IBAction
+#pragma mark - IBAction Refresh
 - (IBAction)RefreshViewControlEventValueChanged:(id)sender{
     
     
-     [self loadModels];
-    
-//    if (!self.refreshControl.refreshing) {
-//            [self loadModels];
-//    }
+//     [self loadModels];
+    L();
+//      NSLog(@"refreshing # %d",self.refreshControl.refreshing);
 
+      [self loadModels];
 }
 
 #pragma mark -
@@ -182,7 +182,7 @@
 }
 
 - (void)addSeparatorLineInCell:(UITableViewCell*)cell{
-    UIView *separatorV = [[UIView alloc] initWithFrame:CGRectMake(0, cell.height, cell.width, 1)];
+    UIView *separatorV = [[UIView alloc] initWithFrame:CGRectMake(0, cell.height-1, cell.width, 1)];
     separatorV.backgroundColor = [UIColor colorWithRed:231.0/255 green:231.0/255 blue:231.0/255 alpha:1];
     [cell addSubview:separatorV];
 }

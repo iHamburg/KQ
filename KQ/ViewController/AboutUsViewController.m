@@ -85,9 +85,18 @@
 - (void)showFeedback{
     L();
     MFMailComposeViewController* mailPicker = self.globalMailComposer;
+
+    if (!mailPicker) {
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"请先设置邮件账户或直接发送意见邮件到app@quickquan.com\n谢谢您对我们的支持!" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        
+        [alert show];
+        return;
+    }
+    
     mailPicker.mailComposeDelegate = self;
     
-//    [mailPicker setMessageBody:@"haha" isHTML:YES];
+
     [mailPicker setSubject:@"意见反馈"];
     [mailPicker setToRecipients:@[@"app@quickquan.com"]];
 

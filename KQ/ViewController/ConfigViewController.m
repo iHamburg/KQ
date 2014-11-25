@@ -135,8 +135,6 @@
 {
     
     
-
-    
     NSString *cellClassName = [_config cellClassnameForIndexPath:indexPath];
     if (ISEMPTY(cellClassName)) {
         cellClassName = @"ConfigCell";
@@ -242,8 +240,13 @@
 
 - (void)willConnect:(UIView*)sender{
     
+    //如果是下拉刷新，不显示activityview
+    if (!self.refreshControl.refreshing) {
+        [_libraryManager startLoadingInView:sender];
+    }
     
-    [_libraryManager startLoadingInView:sender];
+  
+    
     self.networkFlag = YES;
     
     

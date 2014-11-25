@@ -64,7 +64,9 @@
 }
 - (void)configCell:(ShopListCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     
-    
+    if (ISEMPTY(_models)) {
+        return;
+    }
     
     if ([cell isKindOfClass:[ShopListCell class]]) {
         

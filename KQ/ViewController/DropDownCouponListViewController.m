@@ -124,6 +124,10 @@
     
     //    NSLog(@"config cell # %@",[NSString stringWithFormat:@"%d,%d",indexPath.section,indexPath.row ]);
     
+    if (ISEMPTY(_models)) {
+        return;
+    }
+
     
     if ([cell isKindOfClass:[CouponListCell class]]) {
         
@@ -162,7 +166,23 @@
         [self.searchParams setObject:obj.id forKey:@"districtId"];
     }
     
-    [_searchParams setObject:_keyword forKey:@"keyword"];
+    if (self.orderIndex == 0) {
+        //智能
+        [self.searchParams setObject:@"random" forKey:@"order"];
+    }
+    else if(self.orderIndex == 1){
+        //最近
+        [self.searchParams setObject:@"distance" forKey:@"order"];
+    }
+    else if(self.orderIndex == 2){
+        //人气
+        [self.searchParams setObject:@"hot" forKey:@"order"];
+    }
+    
+    if (!ISEMPTY(_keyword)) {
+        [_searchParams setObject:_keyword forKey:@"keyword"];
+    }
+
     
 //    [_searchParams setObject:@"西" forKey:@"keyword"];
     

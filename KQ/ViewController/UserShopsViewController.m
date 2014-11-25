@@ -54,7 +54,9 @@
 }
 - (void)configCell:(ShopListCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     
-    
+    if (ISEMPTY(_models)) {
+        return;
+    }
     
     if ([cell isKindOfClass:[ShopListCell class]]) {
         
@@ -167,7 +169,6 @@
     ShopDetailsViewController *vc = [[ShopDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     vc.view.alpha = 1;
     vc.shop = shop;
-
 
     [_root addNavVCAboveTab:vc];
     
