@@ -188,7 +188,6 @@
 
 - (void)toCouponDetails:(Coupon*)coupon{
     
-
     [_root toCouponDetails:coupon];
 
 }

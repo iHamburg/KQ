@@ -17,6 +17,7 @@
 #import "EditUserViewController.h"
 #import "AboutUsViewController.h"
 #import "UserNewsViewController.h"
+#import "AccessoryLabelCell.h"
 
 #define headerHeight 150
 
@@ -49,10 +50,8 @@
 
 
 - (void)setValue:(People *)people{
-//    L();
  
     _value = people;
-
     
     if (!people) {
         
@@ -204,41 +203,21 @@
            
             [self.tableView reloadData];
         }];
-        
-//        [_networkClient queryUserInfo:_userController.uid sessionToken:_userController.sessionToken block:^(NSDictionary* dict, NSError *error) {
-//            
-//            if (!error) {
-//                // 如果没有出错
-//                //            NSLog(@"dict # %@",dict);
-//                
-//                if ([dict isKindOfClass:[NSDictionary class]]) {
-//                    dict = [dict dictionaryCheckNull];
-//                }
-//                
-//                [_userController updateUserInfo:dict];
-//                
-//                [self.tableView reloadData];
-//            }
-//            else{
-//                int code = error.code;
-//                
-//                if (code == ErrorInvalidSession){
-//                    // 如果是session过期，logout
-//                    
-//                    [_userController logout];
-//                    
-//                    
-//                }
-//                else{
-//                    [ErrorManager alertError:error];
-//                }
-//            }
-//            
-//        }];
 
+        [_networkClient queryUserNews:_userController.uid skip:0 limit:1 lastNewsId:_userController.people.lastNewsId block:^(NSDictionary *dict, NSError *error) {
+            
+            if (error) {
+                return ;
+            }
+            
+            NSLog(@"lastNewsId # %d",_userController.people.lastNewsId);
+            
+            _userController.people.newsNum = [dict[@"count"] intValue];
+            
+            [self.tableView reloadData];
+        }];
         
     }
-  
 
 }
 
@@ -323,6 +302,20 @@
             // fShop
             int num = _userController.people.fShopNum;
             cell.value = [NSString stringWithFormat:@"%d 个",num];        }
+    }
+    else if(section == 2){
+        if ([cell isKindOfClass:[AccessoryLabelCell class]]) {
+//            cell.value = @"3";
+            
+            NSLog(@"_userController.people.newsNum # %d",_userController.people.newsNum);
+            
+            if (_userController.people.newsNum > 0) {
+              cell.value = [NSString stringWithInt:_userController.people.newsNum];
+            }
+            else{
+                cell.value = @"";
+            }
+        }
     }
     
 }

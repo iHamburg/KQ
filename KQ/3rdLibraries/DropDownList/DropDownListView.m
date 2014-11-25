@@ -232,6 +232,9 @@
     return cell;
 }
 
+- (void)reloadData{
 
+    [_mTableView reloadData];
+}
 
 @end

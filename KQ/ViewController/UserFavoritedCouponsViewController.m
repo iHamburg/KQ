@@ -11,41 +11,7 @@
 #import "CouponDetailsViewController.h"
 
 
-//
-//@interface CouponListFavoritedCell : CouponListCell
-//
-//@end
-//
-//@implementation CouponListFavoritedCell
-//
-//- (void)setValue:(Coupon*)value{
-//    [super setValue:value];
-//    
-//     _secondLabel.text = value.endDate;
-//    _thirdLabel.text = value.discountContent;
-//    
-//}
-//
-//
-//- (void)load{
-//    
-//    [super load];
-//    
-//    self.imageView.frame = CGRectMake(10, 10, 85, 65);
-//    CGFloat x = CGRectGetMaxX(self.imageView.frame) + 10;
-//    CGFloat width = _w - x- 10;
-//    self.textLabel.frame = CGRectMake(x, 10, width, 30);
-//    self.thirdLabel.frame = CGRectMake(x, CGRectGetMaxY(self.textLabel.frame) - 5, width, 20);
-//    self.secondLabel.frame = CGRectMake(x, CGRectGetMaxY(self.thirdLabel.frame), width, 20);
-//  
-//    _downloadedL.hidden = YES;
-//}
-//
-//@end
 
-//
-//#pragma mark -
-//#pragma mark - UserFavoritedCouponsViewController
 
 @interface UserFavoritedCouponsViewController ()
 
@@ -184,11 +150,13 @@
 }
 
 - (void)toCouponDetails:(Coupon*)coupon{
-    
-    CouponDetailsViewController *vc = [[CouponDetailsViewController alloc] init];
-    vc.view.alpha = 1;
-    vc.coupon = coupon;
-    [self.navigationController pushViewController:vc animated:YES];
+//    
+//    CouponDetailsViewController *vc = [[CouponDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+//    vc.view.alpha = 1;
+//    vc.coupon = coupon;
+//    [self.navigationController pushViewController:vc animated:YES];
+
+    [_root toCouponDetails:coupon];
 }
 
 

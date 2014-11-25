@@ -36,9 +36,14 @@
     //    NSLog(@"shop.poster # %@",shop.posterUrl);
     
    
-    
-    self.firstLabel.text = shop.title;
-    self.secondLabel.text = shop.desc;
+    if (!ISEMPTY(shop.title)) {
+        self.firstLabel.text = shop.title;
+    }
+
+    if (!ISEMPTY(shop.desc)) {
+        self.secondLabel.text = shop.desc;
+    }
+
     CGFloat height = [ShopDescCell cellHeightWithValue:shop];
     self.secondLabel.frame = CGRectMake(10, 45, 300, height);
 //    self.frame = CGRectMake(0, 0, _w, height );
@@ -81,7 +86,7 @@
     _secondLabel.font = nFont(12);
     _secondLabel.textColor = kColorGray;
     
-    UIButton *b = [UIButton buttonWithFrame:CGRectMake(280, 7, 30, 30) title:nil imageName:nil target:self action:@selector(toggleFavorite:)];
+    UIButton *b = [UIButton buttonWithFrame:CGRectMake(275, 7, 30, 30) title:nil imageName:nil target:self action:@selector(toggleFavorite:)];
 
     _favoritedBtn = b;
     [_favoritedBtn setBackgroundImage:[UIImage imageNamed:@"coupon_unfavorited.png"] forState:UIControlStateNormal];
@@ -190,30 +195,6 @@
     // 因为有动态的cell（coupons），所以分割线也错位了，
      self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    
-    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _w, 256)];
-    v.backgroundColor = [UIColor whiteColor];
-    
-    UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _w, 196)];
-    [imgV setImageWithURL:[NSURL URLWithString:_shop.logoUrl] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
-    
-    
-    
-    UILabel *titleL = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(imgV.frame), 260, 60)];
-    titleL.text = _shop.title;
-    titleL.font = bFont(15);
-    titleL.textColor = kColorBlack;
-    
-    UILabel *distanceL = [[UILabel alloc] initWithFrame:CGRectMake(260, CGRectGetMaxY(imgV.frame), 50, 60)];
-    distanceL.textColor = kColorYellow;
-    distanceL.font = bFont(15);
-    distanceL.text = @"444km";
-    distanceL.textAlignment = NSTextAlignmentRight;
-    
-    [v addSubview:imgV];
-    [v addSubview:titleL];
-    [v addSubview:distanceL];
-    _headerV = v;
 }
 
 - (void)didReceiveMemoryWarning
@@ -261,16 +242,15 @@
         
         UILabel *titleL = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(imgV.frame), 250, 45)];
         titleL.numberOfLines = 0;
-        titleL.text = _shop.title;
+        titleL.text = ISEMPTY(_shop.title)?@"":_shop.title;
         titleL.font = bFont(15);
         titleL.textColor = kColorBlack;
         
         UILabel *distanceL = [[UILabel alloc] initWithFrame:CGRectMake(260, CGRectGetMaxY(imgV.frame), 50, 45)];
         distanceL.textColor = kColorYellow;
         distanceL.font = bFont(12);
-//        distanceL.text = @"444km";
         NSString *distance = [_manager distanceStringFromLocation:_shop.location];
-        distanceL.text = distance;
+        distanceL.text = ISEMPTY(distance)?@"":distance;
         
         distanceL.textAlignment = NSTextAlignmentRight;
         
@@ -361,33 +341,30 @@
 
 - (void)configCell:(ConfigCell *)cell atIndexPath:(NSIndexPath *)indexPath{
  
-  
-
-    
     int section = indexPath.section;
-    
-
-    
     
     if (section == 0) {
         if ([cell.key isEqualToString:@"address"]) {
-            cell.textLabel.text = [NSString stringWithFormat:@"%@",_shop.address];
+            cell.textLabel.text = ISEMPTY(_shop.address)?@"":[NSString stringWithFormat:@"%@",_shop.address];
             cell.imageView.image = [UIImage imageNamed:@"address_loc_gray_icon.png"];
-            
-            
+
+
         }
         else if([cell.key isEqualToString:@"phone"]){
-            cell.textLabel.text = [NSString stringWithFormat:@"联系电话: %@",_shop.phone];
+            cell.textLabel.text = ISEMPTY(_shop.phone)?@"联系电话:":[NSString stringWithFormat:@"联系电话: %@",_shop.phone];
              cell.imageView.image = [UIImage imageNamed:@"phone_icon.png"];
-            
+
+
         }
         else if([cell.key isEqualToString:@"openTime"]){
-            cell.textLabel.text = [NSString stringWithFormat:@"营业时间: %@",_shop.openTime];
+            cell.textLabel.text = ISEMPTY(_shop.openTime)?@"营业时间:":[NSString stringWithFormat:@"营业时间: %@",_shop.openTime];
              cell.imageView.image = [UIImage imageNamed:@"opentime_icon.png"];
-            
+//            [cell addBottomDottedLine];
+
         }
         else if([cell.key isEqualToString:@"shoplist"]){
             cell.textLabel.text = [NSString stringWithFormat:@"查看全部%@家商户",_shop.shopCount];
+//             [cell addBottomLine:kColorLightGray];
         }
     }
 
@@ -404,7 +381,9 @@
     else if([cell isKindOfClass:[ShopDescCell class]]){
         cell.value = _shop;
     }
-    
+//    UIImageView *separatorV = [[UIImageView alloc] initWithFrame:CGRectMake(0, cell.height/2, cell.width, 1)];
+//    separatorV.image = [UIImage imageNamed:@"bg_虚线.png"];
+//    [cell addSubview:separatorV];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

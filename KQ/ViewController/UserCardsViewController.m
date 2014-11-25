@@ -190,6 +190,8 @@
     
     [self willConnect:self.view];
     
+    
+    
     [_networkClient user:_userController.uid sessionToken:_userController.sessionToken deleteCard:card.title block:^(id object, NSError *error) {
         
         [self willDisconnect];

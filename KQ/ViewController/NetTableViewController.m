@@ -49,6 +49,7 @@
     
     self.refreshControl = [[UIRefreshControl alloc]init];
     self.refreshControl.attributedTitle = [[NSAttributedString alloc]initWithString:@"下拉刷新"];
+//    self.refreshControl.tintColor =[UIColor whiteColor];
     
     [self.refreshControl addTarget:self action:@selector(RefreshViewControlEventValueChanged:) forControlEvents:UIControlEventValueChanged];
     
@@ -160,7 +161,13 @@
 #pragma mark - IBAction
 - (IBAction)RefreshViewControlEventValueChanged:(id)sender{
     
-    [self loadModels];
+    
+     [self loadModels];
+    
+//    if (!self.refreshControl.refreshing) {
+//            [self loadModels];
+//    }
+
 }
 
 #pragma mark -

@@ -86,7 +86,7 @@
 - (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken favoriteShop:(NSString*)shopId block:(IdResultBlock)block; //门店id
 - (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken unfavoriteShop:(NSString*)shopId block:(IdResultBlock)block;   //门店id
 
-- (void)queryUserNews:(NSString*)uid skip:(int)skip block:(IdResultBlock)block;
+- (void)queryUserNews:(NSString*)uid skip:(int)skip limit:(int)limit lastNewsId:(int)lastNewsId block:(IdResultBlock)block;
 
 /**
  *	@brief	忘记密码后的重置密码

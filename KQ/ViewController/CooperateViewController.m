@@ -44,7 +44,7 @@
 - (void)call{
 //    L();
     
-    NSString *telUrl = [NSString stringWithFormat:@"telprompt:%@",@"021-65218745"];
+    NSString *telUrl = [NSString stringWithFormat:@"telprompt:%@",@"021-64327339"];
    
     NSURL *url = [[NSURL alloc] initWithString:telUrl];
     

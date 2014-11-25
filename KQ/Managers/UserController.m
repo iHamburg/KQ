@@ -46,17 +46,18 @@
         return NO;
 }
 
-- (BOOL)hasBankcard{
-    
-    if (!self.people) {
-        return NO;
-    }
-    else if(ISEMPTY(self.people.cardIds)){
-        return NO;
-    }
-    else
-        return YES;
-}
+//- (BOOL)hasBankcard{
+//    
+//    if (!self.people) {
+//        return NO;
+//    }
+//    else if(ISEMPTY(self.people.cardIds)){
+//        return NO;
+//    }
+//    else
+//        return YES;
+//}
+
 
 - (NSString*)longitude{
     return [NSString stringWithFloat:_checkinLocation.coordinate.longitude];
@@ -192,7 +193,9 @@
         if (!error) {
             // 如果没有出错,载入信息到当前的user！
             
-            self.people = [People peopleWithDict:dict];
+//            self.people = [People peopleWithDict:dict];
+            
+            self.people = [[People alloc] initWithDict:dict];
             self.people.password = pw;
             
             [self savePeople:self.people];

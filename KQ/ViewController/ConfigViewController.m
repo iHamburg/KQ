@@ -93,6 +93,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     NSString *text = [_config headerInSection:section];
+    
     if (ISEMPTY(text)) {
         return nil;
     }

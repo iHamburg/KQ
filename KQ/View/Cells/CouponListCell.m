@@ -35,8 +35,12 @@
     
 //    _downloadedL.text = [NSString stringWithFormat:@"%@下载",value.downloadedCount];
 
+    //coupon_1.jpg => coupon_1_thumb.jpg
+//    NSString *avatarUrl = value.avatarThumbUrl;
     
-    [self.imageView setImageWithURL:[NSURL URLWithString:value.avatarUrl] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+//    NSLog(@"thumbUrl # %@",avatarUrl);
+    
+    [self.imageView setImageWithURL:[NSURL URLWithString:value.avatarThumbUrl] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     
 }
 

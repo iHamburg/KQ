@@ -53,13 +53,25 @@ static NSArray *searchKeys;
 
 - (NSString*)notice{
     
-    NSMutableString *notice = [NSMutableString stringWithString:@" *使用时间\n\n"];
+    NSMutableString *notice = [NSMutableString stringWithString:@"使用时间\n\n"];
     [notice appendFormat:@"%@ 至 %@\n\n\n",self.startDate,self.endDate];
-    [notice appendFormat:@"%@\n\n",@" *使用规则"];
+    [notice appendFormat:@"%@\n\n",@"使用规则"];
     [notice appendFormat:@"%@\n",self.usage];
     return notice;
     
+}
+
+- (NSString *)avatarThumbUrl{
     
+
+    NSString *fileName = [self.avatarUrl stringByDeletingPathExtension];
+    NSString *extension = [self.avatarUrl pathExtension];
+
+    
+//    NSLog(@"filename # %@, extension # %@",fileName,extension);
+    NSString *thumb = [NSString stringWithFormat:@"%@_thumb.%@",fileName,extension];
+    
+    return thumb;
 }
 
 + (id)eventCoupon{
@@ -279,6 +291,8 @@ static NSArray *searchKeys;
         for (NSString *key in searchKeys) {
             [self setValue:dict[key] forKey:key];
         }
+        
+         self.nearestLocation = [[CLLocation alloc]initWithLatitude:[dict[@"latitude"] floatValue] longitude:[dict[@"longitude"] floatValue]];
         
     }
     

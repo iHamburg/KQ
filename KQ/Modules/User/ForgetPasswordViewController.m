@@ -69,6 +69,8 @@
     
      _scrollView.contentSize = CGSizeMake(0, 600);
     
+//    [_userTextField setti]
+    
 }
 
 
@@ -180,11 +182,11 @@
         
         code = ErrorAppEmptyParameter;
     }
-//    else if (![[inputedCaptcha stringWithMD5] isEqualToString:self.captcha]) {
-//        // 验证码不一致
-//        
-//        code = ErrorAppInvalidCaptcha;
-//    }
+    else if (![[inputedCaptcha stringWithMD5] isEqualToString:self.captcha]) {
+        // 验证码不一致
+        
+        code = ErrorAppInvalidCaptcha;
+    }
     
     if (code == 0) {
         block(YES,nil);
@@ -204,7 +206,9 @@
     NSString *mobile = _userTextField.text;
     
 
-  
+    _userTextField.userInteractionEnabled = NO;
+
+    
     [[NetworkClient sharedInstance] requestCaptchaForgetPassword:mobile block:^(NSDictionary* object, NSError *error) {
       
         
@@ -212,10 +216,12 @@
             
             NSString *captcha = object[@"captcha"];
             self.captcha = captcha;
+            [_libraryMng startHint:@"验证码已发送"];
         }
         else {
             [ErrorManager alertError:error];
             [_identifyB stopTimer];
+            _userTextField.userInteractionEnabled = YES;
         }
     }];
 }

@@ -27,6 +27,7 @@
     scrollView.backgroundColor = [UIColor clearColor];
     scrollView.pagingEnabled = YES;
     scrollView.delegate = self;
+    scrollView.bounces = NO;
 
     backB = [UIButton buttonWithFrame:CGRectMake(0, 0, 113, 32) title:nil bgImageName:@"guide_finish.png" target:self action:@selector(buttonClicked:)];
     backB.layer.borderColor = [UIColor whiteColor].CGColor;

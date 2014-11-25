@@ -9,9 +9,10 @@
 #pragma mark - file
 
 
-#define kFontName @"STHeitiSC-Light"
-#define kFontBoldName @"STHeitiSC-Medium"
-
+//#define kFontName @"STHeitiSC-Light"
+#define kFontName @"ArialMT"
+//#define kFontBoldName @"STHeitiSC-Medium"
+#define kFontBoldName @"ArialMT"
 
 
 #pragma mark - Key

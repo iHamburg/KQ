@@ -166,6 +166,15 @@
 
     L();
 
+   
+    
+    NSLog(@"refreshing # %d",self.refreshControl.refreshing);
+    
+    if (self.refreshControl.refreshing) {
+        [self.refreshControl endRefreshing];
+        return;
+    }
+    
     [self.models removeAllObjects];
     
     [self willConnect:self.view];
@@ -173,8 +182,11 @@
     [_networkClient queryHotestCouponsSkip:0 block:^(NSDictionary *couponDicts, NSError *error) {
         
         [self willDisconnect];
-        [self.refreshControl endRefreshing];
+    NSLog(@"refreshing # %d",self.refreshControl.refreshing);
         
+        
+        [self.refreshControl endRefreshing];
+            NSLog(@"refreshing # %d",self.refreshControl.refreshing);
         
         if (!error) {
             NSArray *array = couponDicts[@"coupons"];

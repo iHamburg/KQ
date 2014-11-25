@@ -44,6 +44,37 @@
      self.tableView.tableHeaderView = theSearchBar;
     
     _searchBar = theSearchBar;
+    
+    
+    self.orders = @[@"智能排序",@"离我最近",@"人气最高"];
+    
+    NSMutableArray *typeTitles = [NSMutableArray arrayWithCapacity:self.couponTypes.count];
+    
+    for (CouponType *type in self.couponTypes) {
+        [typeTitles addObject:type.title];
+    }
+    
+    
+    NSMutableArray *districtTitles = [NSMutableArray arrayWithCapacity:self.districts.count];
+    //    [districtTitles addObject:@"全部商区"];
+    for (District *obj in self.districts) {
+        [districtTitles addObject:obj.title];
+    }
+
+    
+    self.dropDownArray = [NSMutableArray arrayWithArray:@[
+                                                          typeTitles,
+                                                          districtTitles,
+                                                          self.orders
+                                                          ]];
+
+    
+    _dropDownView = [[DropDownListView alloc] initWithFrame:CGRectMake(0,0, 320, 40) dataSource:self delegate:self];
+    
+    
+    //???一定要是root的view吗？
+    _dropDownView.mSuperView = [[KQRootViewController sharedInstance]view];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -133,7 +164,9 @@
     
     [_searchParams setObject:_keyword forKey:@"keyword"];
     
-    //    [self addCurrentLocationToSearchParams:self.searchParams];
+//    [_searchParams setObject:@"西" forKey:@"keyword"];
+    
+    
     
     CLLocationCoordinate2D coord = _userController.checkinLocation.coordinate;
     [_searchParams setObject:[NSString stringWithFormat:@"%f",coord.latitude] forKey:@"latitude"];
@@ -152,7 +185,8 @@
         if (!error) {
             NSArray *array = dict[@"coupons"];
      
-//            NSLog(@"searchcoupons # %@",array);
+            NSLog(@"searchcoupons # %@",array);
+            
             for (NSDictionary *dict in array) {
                 Coupon *coupon = [[Coupon alloc] initWithSearchDict:dict];
                 [self.models addObject:coupon];

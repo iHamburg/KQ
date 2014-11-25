@@ -7,6 +7,7 @@
 //
 
 #import "CouponSearchListCell.h"
+#import "CouponManager.h"
 
 @implementation CouponSearchListCell
 
@@ -16,7 +17,9 @@
     self.textLabel.text = value.shopbranchTitle;
     _secondLabel.text = value.discountContent;
     _thirdLabel.text = [NSString stringWithFormat:@"%@下载",value.downloadedCount];
-    _downloadedL.text = value.distance;
+    _downloadedL.text =[[CouponManager sharedInstance] distanceStringFromLocation:value.nearestLocation];;
+    
+//    [[CouponManager sharedInstance] distanceStringFromLocation:shop.location];
 }
 
 - (void)load{

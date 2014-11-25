@@ -45,6 +45,7 @@
 @property (nonatomic, readonly) NSArray *otherCoupons;
 @property (nonatomic, readonly) Shop *nearestShopBranch;
 @property (nonatomic, readonly) NSString *notice; //使用时间 + 使用规则
+@property (nonatomic, readonly) NSString *avatarThumbUrl;
 
 + (id)eventCoupon;
 

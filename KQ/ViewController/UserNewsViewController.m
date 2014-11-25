@@ -161,7 +161,7 @@
     
     [self willConnect:self.view];
     
-    [_networkClient queryUserNews:_userController.uid skip:0 block:^(NSDictionary *dict, NSError *error) {
+    [_networkClient queryUserNews:_userController.uid skip:0 limit:0 lastNewsId:_userController.people.lastNewsId  block:^(NSDictionary *dict, NSError *error) {
         
         [self willDisconnect];
          [self.refreshControl endRefreshing];
@@ -171,18 +171,25 @@
                 [_libraryManager startHint:@"还没有收藏商户" duration:1];
             }
             else{
-                //            NSLog(@"couponDicts # %@",couponDicts);
+                NSLog(@"couponDicts # %@",dict);
+                
                 NSArray *newsArray = dict[@"news"];
+                
+               NSDictionary *lastNewsDict = [newsArray firstObject];
+                _userController.people.lastNewsId = [lastNewsDict[@"id"] intValue];
+                [_userController savePeople:_userController.people];
+                
                 for (NSDictionary *newsDict in newsArray) {
-                    NSLog(@"dict # %@",newsDict);
+//                    NSLog(@"dict # %@",newsDict);
                     News *news = [[News alloc] initWithDict:newsDict];
                     
                     [self.models addObject:news];
                 }
                 
-                if (self.models.count< kLimit) {
-                    self.isLoadMore = NO;
-                }
+//                if (self.models.count< kLimit) {
+//                    self.isLoadMore = NO;
+//                }
+                
                 [self.tableView reloadData];
             }
 
@@ -194,5 +201,42 @@
     
 }
 
+
+- (void)loadMore:(VoidBlock)finishedBlock{
+    int count = [_models count];
+    
+    
+    //从现有的之后进行载入
+    [_networkClient queryUserNews:_userController.uid skip:count limit:0 lastNewsId:_userController.people.lastNewsId block:^(NSDictionary *couponDicts, NSError *error) {
+        
+        finishedBlock();
+        
+        
+        if (!error) {
+            NSArray *array = couponDicts[@"news"];
+            
+            //            NSLog(@"array # %@",array);
+            
+                for (NSDictionary *newsDict in array) {
+                //                    NSLog(@"dict # %@",newsDict);
+                News *news = [[News alloc] initWithDict:newsDict];
+                
+                [self.models addObject:news];
+            }
+            
+          
+            
+            [self.tableView reloadData];
+            
+            
+        }
+        else{
+            [ErrorManager alertError:error];
+        }
+        
+        
+    }];
+    
+}
 
 @end

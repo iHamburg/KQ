@@ -31,6 +31,17 @@ static NSArray *shopDetailsKeys;
     }
 }
 
+- (NSString*)logoThumbUrl{
+    NSString *fileName = [self.logoUrl stringByDeletingPathExtension];
+    NSString *extension = [self.logoUrl pathExtension];
+    
+    
+    //    NSLog(@"filename # %@, extension # %@",fileName,extension);
+    NSString *thumb = [NSString stringWithFormat:@"%@_thumb.%@",fileName,extension];
+    
+    return thumb;
+
+}
 
 - (id)initWithListDict:(NSDictionary*)dict{
     if (self = [super init]) {

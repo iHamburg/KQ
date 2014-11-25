@@ -150,7 +150,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.section == 0) {
-        return 55;
+        return 65;
     }
     else
         return kCellHeight;
@@ -170,9 +170,25 @@
 	UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier1];
     
     if (section == 0) {
-        UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 55)];
-        imgV.image = [UIImage imageNamed:@"register_banner.jpg"];
-        [cell addSubview:imgV];
+
+
+        UIImageView *leftImgV = [[UIImageView alloc] initWithFrame:CGRectMake(30, 12, 40, 40)];
+        leftImgV.image = [UIImage imageNamed:@"register_events_icon_image.png"];
+        
+        UIImageView *rightV = [[UIImageView alloc] initWithFrame:CGRectMake(272, 0, 48, 65)];
+        rightV.image = [UIImage imageNamed:@"register_events_right.png"];
+        
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(85, 0, 175, 65)];
+        label.text = @"只要注册快券，就可以1元获得原价18元的美味摩提哦";
+        label.numberOfLines = 0;
+        label.textColor = kColorYellow;
+        label.font = bFont(13);
+        
+        [cell addSubview:leftImgV];
+        [cell addSubview:rightV];
+        [cell addSubview:label];
+    
     }
     else{
         cell.imageView.image = [UIImage imageNamed:_tableImageNames[indexPath.row]];
@@ -236,44 +252,14 @@
     [_identifyB startTimer];
     [self requestCaptcha];
 }
-#pragma mark - Private methods
 
-//- (void)requestCaptcha{
-//
-//}
-//
-//-(IBAction)signUpUserPressed:(id)sender
-//{
-//
-//   
-//}
-//
-//
-//- (void)toAgreement{
-//    
-//}
-//
-//- (void)registerUser:(NSDictionary *)userInfo{
-//
-//}
-//
-//- (void)validateWithBlock:(BooleanResultBlock)block{
-//}
+
 
 
 #pragma mark - Alert
+
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
-    
-//    [[NetworkClient sharedInstance] user:[[UserController sharedInstance] uid] downloadCoupon:kEventCouponId block:^(id obj, NSError *error) {
-//        
-//        if (obj) {
-//            
-//            //            [_libraryManager startHint:@"下载快券成功"];
-//            
-//            NSLog(@"下载快券成功");
-//        }
-//        
-//    }];
+
     
     self.successBlock(YES,nil);
     [self dismissViewControllerAnimated:YES completion:^{
@@ -344,27 +330,22 @@
     NSString *mobile = _userTextField.text;
     
     //    NSLog(@"request mobile # %@",mobile);
-    
-    //在转验证码的时候,
-//    [self willConnect:_identifyB];
-    
+    _userTextField.userInteractionEnabled = NO;
     
     [_network requestCaptchaRegister:mobile block:^(NSDictionary* object, NSError *error) {
-        
-//        [self willDisconnect];
-//        if (!self.networkFlag) {
-//            return;
-//        }
+
         
         if (!error) {
             NSString *captcha = object[@"captcha"];
             //            NSLog(@"captcha # %@",captcha);
             
             self.captcha = captcha;
+            [_libraryMng startHint:@"验证码已发送"];
         }
         else{
             [ErrorManager alertError:error];
             
+            _userTextField.userInteractionEnabled = YES;
             [_identifyB stopTimer];
         }
         

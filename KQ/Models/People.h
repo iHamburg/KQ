@@ -22,16 +22,10 @@
 @property (nonatomic, assign) int dCouponNum;
 @property (nonatomic, assign) int fCouponNum;
 @property (nonatomic, assign) int fShopNum;
+@property (nonatomic, assign) int newsNum;
 
-@property (nonatomic, strong) NSMutableSet *favoritedCouponIds;
-@property (nonatomic, strong) NSMutableSet *favoritedShopIds;
-@property (nonatomic, strong) NSMutableSet *cardIds; //set
-@property (nonatomic, strong) NSMutableSet *downloadedCouponIds; //set
+@property (nonatomic, assign) int lastNewsId;
 
-
-+ (id)people;
-
-+ (id)peopleWithDict:(NSDictionary*)dict;
 
 - (id)initWithDict:(NSDictionary*)dict;
 

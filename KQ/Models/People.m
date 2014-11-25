@@ -21,6 +21,14 @@ static NSArray *keys;
 }
 
 
+- (void)setNewsNum:(int)newsNum{
+    
+    _newsNum = newsNum;
+    
+    NSLog(@"newsNum # %d",newsNum);
+    
+}
+
 - (id)initWithDict:(NSDictionary*)dict{
     if (self = [self init]) {
         
@@ -40,14 +48,6 @@ static NSArray *keys;
         self.sessionToken = dict[@"sessionToken"];
    
 
-        //!!!: 没有用到
-//        self.favoritedCouponIds = ISEMPTY(dict[@"favoritedCoupons"])?[NSMutableSet set]:[[NSMutableSet alloc] initWithArray:dict[@"favoritedCoupons"]];
-   
-       
-        ///即使dict没有favoritedShops这个key=>(null)，也能正常初始化！！
-//        self.favoritedShopIds = ISEMPTY(dict[@"favoritedShops"])?[NSMutableSet set]:[[NSMutableSet alloc] initWithArray:dict[@"favoritedShops"]];
-
-//        NSLog(@"self.favoritedShopIds # %@",self.favoritedCouponIds);
     }
     return self;
 }
@@ -62,6 +62,10 @@ static NSArray *keys;
         [self setValue:[aDecoder decodeObjectForKey:key] forKey:key];
     }
     
+    self.lastNewsId = [aDecoder decodeIntForKey:@"lastNewsId"];
+    
+//        NSLog(@"people.lastNewsId # %d",self.lastNewsId);
+    
     return self;
 }
 
@@ -72,19 +76,12 @@ static NSArray *keys;
         
         [aCoder encodeObject:[self valueForKey:key] forKey:key];
     }
-}
-
-+ (id)people{
-    L();
-    People *people = [[People alloc] init];
     
-    return people;
+    [aCoder encodeInt:self.lastNewsId forKey:@"lastNewsId"];
+
+//    L();
+//    NSLog(@"people.lastNewsId # %d",self.lastNewsId);
 }
 
-
-+ (id)peopleWithDict:(NSDictionary*)dict{
-    
-    return [[People alloc] initWithDict:dict];
-}
 
 @end

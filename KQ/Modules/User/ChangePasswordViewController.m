@@ -117,7 +117,7 @@
     
     //
     
-	UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier1];
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier1];
 
         cell.imageView.image = [UIImage imageNamed:_tableImageNames[indexPath.row]];
         

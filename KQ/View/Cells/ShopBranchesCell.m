@@ -24,14 +24,7 @@
     
 
     self.firstLabel.text = shop.title;
-    
-//    if (shop.location) {
-//        self.thirdLabel.text = [[CouponManager sharedInstance] distanceStringFromLocation:shop.location];
-//    }
-//    else{
-//        self.thirdLabel.text = @"aaa";
-//    }
-
+ 
     
     self.secondLabel.text = shop.address;
     
@@ -60,7 +53,7 @@
     _secondLabel.textColor = kColorGray;
     _secondLabel.textAlignment = NSTextAlignmentLeft;
     
-    
+    self.selectionStyle = UITableViewCellSeparatorStyleNone;
 
 }
 

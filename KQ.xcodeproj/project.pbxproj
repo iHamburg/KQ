@@ -252,7 +252,6 @@
 		859DDBA11A1F5E98003C9528 /* opentime_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 859DDB9D1A1F5E98003C9528 /* opentime_icon@2x.png */; };
 		859E90281A18D4BB00899175 /* UserNewsConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 859E90271A18D4BB00899175 /* UserNewsConfig.plist */; };
 		859E902B1A18D86200899175 /* News.m in Sources */ = {isa = PBXBuildFile; fileRef = 859E902A1A18D86200899175 /* News.m */; };
-		859E902D1A18F27F00899175 /* UserCenterConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 859E902C1A18F27F00899175 /* UserCenterConfig.plist */; };
 		85A188691A1B123E007253D5 /* bank_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 85A188681A1B123E007253D5 /* bank_icon.png */; };
 		85A1886B1A1B24C2007253D5 /* shopTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85A1886A1A1B24C2007253D5 /* shopTypes.plist */; };
 		85A1886D1A1B263A007253D5 /* districts.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85A1886C1A1B263A007253D5 /* districts.plist */; };
@@ -280,6 +279,8 @@
 		85CAC53619C057DD007A1F86 /* icon-phonenember@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 85CAC52A19C057DD007A1F86 /* icon-phonenember@2x.png */; };
 		85CAC53719C057DD007A1F86 /* icon-tip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 85CAC52B19C057DD007A1F86 /* icon-tip@2x.png */; };
 		85CAC53819C057DD007A1F86 /* icon-user@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 85CAC52C19C057DD007A1F86 /* icon-user@2x.png */; };
+		85EB2D821A230153006328F4 /* register_events_icon_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 85EB2D801A230153006328F4 /* register_events_icon_image.png */; };
+		85EB2D831A230153006328F4 /* register_events_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 85EB2D811A230153006328F4 /* register_events_right.png */; };
 		85EE360919D3D7FD0065CE2A /* NSString+md5.m in Sources */ = {isa = PBXBuildFile; fileRef = 85EE360819D3D7FD0065CE2A /* NSString+md5.m */; };
 /* End PBXBuildFile section */
 
@@ -677,7 +678,6 @@
 		859E90271A18D4BB00899175 /* UserNewsConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserNewsConfig.plist; sourceTree = "<group>"; };
 		859E90291A18D86200899175 /* News.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = News.h; sourceTree = "<group>"; };
 		859E902A1A18D86200899175 /* News.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = News.m; sourceTree = "<group>"; };
-		859E902C1A18F27F00899175 /* UserCenterConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserCenterConfig.plist; sourceTree = "<group>"; };
 		85A188681A1B123E007253D5 /* bank_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bank_icon.png; sourceTree = "<group>"; };
 		85A1886A1A1B24C2007253D5 /* shopTypes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = shopTypes.plist; sourceTree = "<group>"; };
 		85A1886C1A1B263A007253D5 /* districts.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = districts.plist; sourceTree = "<group>"; };
@@ -710,6 +710,8 @@
 		85CAC52A19C057DD007A1F86 /* icon-phonenember@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-phonenember@2x.png"; sourceTree = "<group>"; };
 		85CAC52B19C057DD007A1F86 /* icon-tip@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-tip@2x.png"; sourceTree = "<group>"; };
 		85CAC52C19C057DD007A1F86 /* icon-user@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-user@2x.png"; sourceTree = "<group>"; };
+		85EB2D801A230153006328F4 /* register_events_icon_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = register_events_icon_image.png; sourceTree = "<group>"; };
+		85EB2D811A230153006328F4 /* register_events_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = register_events_right.png; sourceTree = "<group>"; };
 		85EE360719D3D7FD0065CE2A /* NSString+md5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+md5.h"; sourceTree = "<group>"; };
 		85EE360819D3D7FD0065CE2A /* NSString+md5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+md5.m"; sourceTree = "<group>"; };
 		AE34221828C240E6B918B199 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -890,6 +892,8 @@
 			children = (
 				859DA4141A1DDBA400E8611E /* Instruction */,
 				85A188681A1B123E007253D5 /* bank_icon.png */,
+				85EB2D801A230153006328F4 /* register_events_icon_image.png */,
+				85EB2D811A230153006328F4 /* register_events_right.png */,
 				85A764EE1A206E9300037780 /* event_bg@2x.jpg */,
 				85A764EF1A206E9300037780 /* eventBtn@2x.png */,
 				859DDB991A1EFAF2003C9528 /* placeholder.png */,
@@ -1484,7 +1488,6 @@
 			isa = PBXGroup;
 			children = (
 				26EE1F9C1945EF76007C98AA /* UserCenterLoginConfig.plist */,
-				859E902C1A18F27F00899175 /* UserCenterConfig.plist */,
 				85134FAD1A176F0A00669702 /* EditUserConfig.plist */,
 				857FE57F1A18C9D80097684F /* CooperateConfig.plist */,
 				857FE56C1A1890CD0097684F /* ChangePwdConfig.plist */,
@@ -1722,11 +1725,11 @@
 				85134FAE1A176F0B00669702 /* EditUserConfig.plist in Resources */,
 				26F2380C19B7422A00D3031B /* CouponHeaderCell2.xib in Resources */,
 				26DEB4BD1941942B0063AADC /* icon_userCenter@2x.png in Resources */,
-				859E902D1A18F27F00899175 /* UserCenterConfig.plist in Resources */,
 				859DDBA11A1F5E98003C9528 /* opentime_icon@2x.png in Resources */,
 				85A188691A1B123E007253D5 /* bank_icon.png in Resources */,
 				853CAE811A21D4100072289E /* main_search_all.png in Resources */,
 				8533A24F1A1E24AD00CBD8DB /* main_my_coupon_icon_normal.png in Resources */,
+				85EB2D821A230153006328F4 /* register_events_icon_image.png in Resources */,
 				26D4B6F6195C189000C1B727 /* down_dark.png in Resources */,
 				8533A2501A1E24AD00CBD8DB /* main_my_coupon_icon_pressed.png in Resources */,
 				85A764E21A201CCA00037780 /* CouponMyListConfig.plist in Resources */,
@@ -1744,6 +1747,7 @@
 				8533A24E1A1E24AD00CBD8DB /* main_my_bankcards_icon_pressed.png in Resources */,
 				8533A2621A1E417E00CBD8DB /* icon_white_back@2x.png in Resources */,
 				26E3A53A192DE02F004F8C8C /* Main.storyboard in Resources */,
+				85EB2D831A230153006328F4 /* register_events_right.png in Resources */,
 				26DD9D7C1962DA5500521317 /* SVProgressHUD.bundle in Resources */,
 				857FE5781A18A2EC0097684F /* AboutUsConfig.plist in Resources */,
 				26E16619193976780041CDD6 /* UMSLoginViewController.xib in Resources */,

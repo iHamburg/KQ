@@ -523,13 +523,13 @@
 #pragma mark -
 
 - (void)addBottomLine:(UIColor*)color{
-            UIView *v = [[UIView alloc]initWithFrame:CGRectMake(0, self.height, self.width, 1)];
+            UIView *v = [[UIView alloc]initWithFrame:CGRectMake(0, self.height-1, self.width, 1)];
             v.backgroundColor = color;
             [self addSubview:v];
 
 }
 - (void)addBottomDottedLine{
-    UIImageView *separatorV = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.height, self.width, 1)];
+    UIImageView *separatorV = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.height-1, self.width, 1)];
     separatorV.image = [UIImage imageNamed:@"bg_虚线.png"];
     [self addSubview:separatorV];
 

@@ -8,12 +8,8 @@
 
 #import "RootViewController.h"
 
-typedef enum {
 
-    PresentUserCenterLogin,
-    PresentUserCenterDownload,
-    PresentDefault
-}PresentMode;
+
 
 @class KQTabBarViewController;
 @class InstructionViewController;
@@ -27,14 +23,12 @@ typedef enum {
     
 }
 
-//@property (nonatomic, assign) PresentMode presentMode;
 @property (nonatomic, strong) InstructionViewController *instructionVC;
 @property (nonatomic, readonly) UITabBar *tabBar;
 @property (nonatomic, copy) BooleanResultBlock presentBlock;
 
 - (void)showInstruction;
 - (void)showEvent;
-
 
 
 

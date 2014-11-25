@@ -38,6 +38,7 @@
 
 @property (nonatomic, copy) UIImage *image;
 @property (nonatomic, readonly) NSArray *coupons;
+@property (nonatomic, readonly) NSString *logoThumbUrl;
 
 //+ (instancetype)shopWithDictionary:(NSDictionary*)dict;
 

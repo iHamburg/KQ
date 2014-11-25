@@ -19,7 +19,7 @@
     
     self.textLabel.text = shop.title;
     
-    [self.imageView setImageWithURL:[NSURL URLWithString:shop.logoUrl] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+    [self.imageView setImageWithURL:[NSURL URLWithString:shop.logoThumbUrl] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     
     self.secondLabel.text = shop.district;
     self.thirdLabel.text = [NSString stringWithFormat:@"%@/人",shop.averagePreis];
@@ -51,12 +51,12 @@
     
     //discountCountent
     
-    UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(x, CGRectGetMaxY(_secondLabel.frame), 8, 20)];
+    UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(x, CGRectGetMaxY(_secondLabel.frame), 10, 20)];
     l.text = @"￥";
     l.textColor = kColorRed;
     l.font = bFont(12);
     
-    _thirdLabel = [[KQLabel alloc] initWithFrame:CGRectMake(x+8, CGRectGetMaxY(_secondLabel.frame), 50, 20)];
+    _thirdLabel = [[KQLabel alloc] initWithFrame:CGRectMake(x+12, CGRectGetMaxY(_secondLabel.frame), 50, 20)];
     _thirdLabel.font = bFont(12);
     _thirdLabel.textColor = kColorGray;
     

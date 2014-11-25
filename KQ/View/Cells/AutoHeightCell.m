@@ -15,7 +15,7 @@
     self.textLabel.text = value;
 //    CGFloat height = [AutoHeightCell cellHeightWithValue:coupon];
     float height = [AutoHeightCell cellHeightWithString:value font:[UIFont fontWithName:kFontName size:12]];
-    self.textLabel.frame = CGRectMake(10, 0, _w-20, height);
+    self.textLabel.frame = CGRectMake(10, 0, self.width - 20, height);
     self.textLabel.numberOfLines = 0;
     self.textLabel.font = nFont(12);
     self.textLabel.textColor = kColorGray;
@@ -35,4 +35,5 @@
     return textRect.size.height + 20;
 }
 
+- (void)layoutSubviews{}
 @end

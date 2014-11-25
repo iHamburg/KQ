@@ -139,9 +139,7 @@
 
 - (void)loginWithUsername:(NSString*)username password:(NSString*)password block:(IdResultBlock)block{
 
-//    password = [password stringWithMD5];
-
-    [self getWithUrl:api_login parameters:@{@"username":username,@"password":password} block:block];
+    [self getWithUrl:api_login parameters:@{@"username":username,@"password":password,@"device":@"iOS"} block:block];
   
     
 }
@@ -179,6 +177,7 @@
 - (void)user:(NSString*)uid sessionToken:(NSString*)sessionToken deleteCard:(NSString*)cardNumber block:(IdResultBlock)block{
 
     NSDictionary *params = @{@"uid":uid,@"card":cardNumber,@"sessionToken":sessionToken};
+  
     [self postWithUrl:api_my_card_delete parameters:params block:block];
     
 }
@@ -257,9 +256,14 @@
 
 
 #pragma mark - My News
-- (void)queryUserNews:(NSString*)uid skip:(int)skip block:(IdResultBlock)block{
+- (void)queryUserNews:(NSString*)uid skip:(int)skip limit:(int)limit lastNewsId:(int)lastNewsId  block:(IdResultBlock)block{
     
-    [self getWithUrl:api_my_news parameters:@{@"uid":uid,@"skip":[NSString stringWithInt:skip]} block:block];
+    
+    if (limit == 0) {
+        limit = 30;
+    }
+    
+    [self getWithUrl:api_my_news parameters:@{@"uid":uid,@"skip":[NSString stringWithInt:skip],@"lastNewsId":[NSString stringWithInt:lastNewsId],@"limit":[NSString stringWithInt:limit]} block:block];
     
 }
 
@@ -352,7 +356,7 @@
 
 - (void)requestCaptchaForgetPassword:(NSString*)username block:(IdResultBlock)block{
     
-    [self getWithUrl:api_requestCaptchaForgetPassword parameters:@{@"username":username} block:block];
+    [self getWithUrl:api_requestCaptchaForgetPassword parameters:@{@"mobile":username} block:block];
 }
 
 - (void)requestCaptchaRegister:(NSString*)username block:(IdResultBlock)block{

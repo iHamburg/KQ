@@ -65,10 +65,9 @@
         
     } failure:^(NSError *error) {}];
 
-    self.firstLabel.text = coupon.discountContent;
-    
-    self.secondLabel.text = coupon.title;
-    self.thirdLabel.text = coupon.slogan;
+    self.firstLabel.text = ISEMPTY(coupon.discountContent)?@"":coupon.discountContent;
+    self.secondLabel.text = ISEMPTY(coupon.title)?@"":coupon.title;
+    self.thirdLabel.text = ISEMPTY(coupon.slogan)?@"": coupon.slogan;
    
     
     
@@ -95,7 +94,7 @@
 
 
 - (void)load{
-//    [super load];
+
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 
@@ -202,6 +201,8 @@
 
     self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
+    [self addBottomLine:kColorLightGray];
+    
 }
 
 - (void)layoutSubviews{
@@ -284,7 +285,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.navigationController.navigationBar.translucent = NO;
+//    self.navigationController.navigationBar.translucent = NO;
     
     self.config = [[TableConfiguration alloc] initWithResource:@"CouponDetailsConfig"];
 
@@ -294,6 +295,9 @@
     UIBarButtonItem *shareBB = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"titlebar_share_btn.png"] style:UIBarButtonItemStylePlain target:self action:@selector(sharePressed:)];
     
     self.navigationItem.rightBarButtonItem = shareBB;
+    
+    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
 
@@ -359,17 +363,29 @@
 - (float)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 1;
 }
-//- (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-//    NSString *header = [super tableView:tableView titleForHeaderInSection:section];
-//    
+- (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    NSString *header = [super tableView:tableView titleForHeaderInSection:section];
+    
 //    NSLog(@"header # %@",header);
-//    
-//    if (section == 5 && ISEMPTY(_coupon.shopCoupons) ) {
-//        header = nil;
-//    }
-//    
-//    return @"ddd";
-//}
+    
+    if (section == 5 && ISEMPTY(_coupon.shopCoupons) ) {
+        header = nil;
+    }
+    
+    return header;
+}
+
+- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+    UIView *view = [super tableView:tableView viewForHeaderInSection:section];
+    
+    if (section == 5 && ISEMPTY(_coupon.shopCoupons) ) {
+        return nil;
+    }
+    
+    return view;
+    
+}
 
 - (void)initConfigCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     __weak CouponDetailsViewController *vc = self;
@@ -618,7 +634,7 @@
         img = DefaultImg;
     }
     
-    [_libraryManager shareWithText:coupon.title image:img delegate:self];
+  //  [_libraryManager shareWithText:coupon.title image:img delegate:self];
     
 }
 

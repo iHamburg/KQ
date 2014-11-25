@@ -16,7 +16,7 @@
 
 @interface DropDownListViewController ()
 
-- (void)addCouponsInModels:(NSArray *)array;
+//- (void)addCouponsInModels:(NSArray *)array;
 - (void)addCurrentLocationToSearchParams:(NSMutableDictionary*)params;
 
 @end
@@ -34,32 +34,33 @@
     
     self.couponTypes = _manager.searchCouponTypes;
     self.districts = _manager.searchDistricts;
-    self.orders = @[@"离我最近"];
+    self.orders = @[@"智能排序",@"离我最近"];
     
 //    NSLog(@"coupontypes # %@",self.couponTypes);
     
     /// init DropDownView
-    NSMutableArray *typeTitles = [NSMutableArray arrayWithCapacity:self.couponTypes.count];
-//    [typeTitles addObject:@"全部类型"];
-    for (CouponType *type in self.couponTypes) {
-        [typeTitles addObject:type.title];
-    }
+//    NSMutableArray *typeTitles = [NSMutableArray arrayWithCapacity:self.couponTypes.count];
+//
+//    for (CouponType *type in self.couponTypes) {
+//        [typeTitles addObject:type.title];
+//    }
+//    
+//    
+//    NSMutableArray *districtTitles = [NSMutableArray arrayWithCapacity:self.districts.count];
+////    [districtTitles addObject:@"全部商区"];
+//    for (District *obj in self.districts) {
+//        [districtTitles addObject:obj.title];
+//    }
     
     
-    NSMutableArray *districtTitles = [NSMutableArray arrayWithCapacity:self.districts.count];
-//    [districtTitles addObject:@"全部商区"];
-    for (District *obj in self.districts) {
-        [districtTitles addObject:obj.title];
-    }
-    
-    
-    self.dropDownArray = [NSMutableArray arrayWithArray:@[
-                                                          typeTitles,
-                                                          districtTitles,
-                                                          self.orders
-                                                          ]];
+//    self.dropDownArray = [NSMutableArray arrayWithArray:@[
+//                                                          typeTitles,
+//                                                          districtTitles,
+//                                                          self.orders
+//                                                          ]];
     
     _dropDownView = [[DropDownListView alloc] initWithFrame:CGRectMake(0,0, 320, 40) dataSource:self delegate:self];
+
     
     //???一定要是root的view吗？
     _dropDownView.mSuperView = [[KQRootViewController sharedInstance]view];

@@ -54,8 +54,11 @@
 
 - (void)initConfigCell:(ConfigCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     UITextField *tf = (UITextField*)cell.subView;
+    tf.secureTextEntry = YES;
+    
     if ([cell.key isEqualToString:@"oldPwd"]) {
         tf.placeholder = @"当前密码";
+
     }
     else if ([cell.key isEqualToString:@"newPwd"]) {
         tf.placeholder = @"新密码(6-23位)";

@@ -17,8 +17,6 @@
 @implementation DropDownShopListViewController
 
 
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -30,6 +28,34 @@
     self.config = [[TableConfiguration alloc] initWithResource:@"ShopListConfig"];
  
     self.navigationItem.leftBarButtonItem = nil;
+    
+    self.orders = @[@"离我最近",@"智能排序"];
+    NSMutableArray *typeTitles = [NSMutableArray arrayWithCapacity:self.couponTypes.count];
+    
+    for (CouponType *type in self.couponTypes) {
+        [typeTitles addObject:type.title];
+    }
+    
+    
+    NSMutableArray *districtTitles = [NSMutableArray arrayWithCapacity:self.districts.count];
+    //    [districtTitles addObject:@"全部商区"];
+    for (District *obj in self.districts) {
+        [districtTitles addObject:obj.title];
+    }
+    
+    
+    self.dropDownArray = [NSMutableArray arrayWithArray:@[
+                                                          typeTitles,
+                                                          districtTitles,
+                                                          self.orders
+                                                          ]];
+    
+    
+    _dropDownView = [[DropDownListView alloc] initWithFrame:CGRectMake(0,0, 320, 40) dataSource:self delegate:self];
+    
+    
+    //???一定要是root的view吗？
+    _dropDownView.mSuperView = [[KQRootViewController sharedInstance]view];
 }
 
 
@@ -37,6 +63,12 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
+    [_dropDownView reloadData];
 }
 
 #pragma mark - TableView
@@ -157,7 +189,9 @@
     ShopDetailsViewController *vc = [[ShopDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     vc.view.alpha = 1;
     vc.shop = shop;
-    [self.navigationController pushViewController:vc animated:YES];
+//    [self.navigationController pushViewController:vc animated:YES];
+    
+    [_root addNavVCAboveTab:vc];
     
 }
 @end

@@ -73,7 +73,7 @@
 					<key>label</key>
 					<string>站内信</string>
 					<key>class</key>
-					<string></string>
+					<string>AccessoryLabelCell</string>
 					<key>selector</key>
 					<string>newsPressed:</string>
 					<key>image</key>

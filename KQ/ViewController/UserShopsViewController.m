@@ -29,6 +29,13 @@
 
     
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshModels) name:@"refreshFavoritedShops" object:nil];
+    
+//    __weak UserShopsViewController *vc = self;
+//    [[NSNotificationCenter defaultCenter] addObserverForName:@"refreshFavoritedShops" object:nil queue:nil usingBlock:^(NSNotification *note) {
+//       
+//        L();
+//        [vc.tableView reloadData];
+//    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -157,12 +164,13 @@
 - (void)toShopDetails:(Shop*)shop{
 
     
-    ShopDetailsViewController *vc = [[ShopDetailsViewController alloc] init];
+    ShopDetailsViewController *vc = [[ShopDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     vc.view.alpha = 1;
     vc.shop = shop;
 
 
-    [self.navigationController pushViewController:vc animated:YES];
+    [_root addNavVCAboveTab:vc];
+    
 }
 
 

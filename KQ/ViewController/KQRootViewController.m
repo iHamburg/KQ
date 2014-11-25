@@ -264,6 +264,7 @@
     [[UserController sharedInstance] test];
 
     
+    
 //    [self showEvent];
 //    [self showInstruction];
  //    [self testNav:@"AddCardViewController"];
