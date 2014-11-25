@@ -132,7 +132,8 @@
 
 - (void)setShop:(Shop *)shop{
     _shop = shop;
- 
+  
+    [self.tableView reloadData];
     
     [_networkClient queryShopBranch:shop.id block:^(NSDictionary *dict, NSError *error) {
         if (error) {
@@ -150,7 +151,8 @@
         
         [self.tableView reloadData];
     }];
-    
+   
+
     ///判断coupon是否已经收藏
     if ([_userController isLogin]) {
         ///判断coupon是否已经收藏
