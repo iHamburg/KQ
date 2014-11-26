@@ -29,7 +29,6 @@
     self.bgV.userInteractionEnabled = YES;
     [self.bgV addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)]];
     
-//    float y = _h - 120;
     float y = _h*.8;
     self.button = [[UIButton alloc] initWithFrame:CGRectMake(94, y, 132, 38)];
     [self.button setBackgroundImage:[UIImage imageNamed:@"eventBtn.png"] forState:UIControlStateNormal];
