@@ -13,6 +13,7 @@
 #import "ForgetPasswordViewController.h"
 #import "NSString+md5.h"
 #import "KQRegisterViewController.h"
+//#import "ConfigCell.h"
 
 @interface LoginViewController ()
 
@@ -37,6 +38,7 @@
     _userTextField.placeholder = @"手机号";
     _userTextField.delegate = self;
     _userTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    _userTextField.returnKeyType = UIReturnKeyNext;
 //    _userTextField.text = @"13166361023";
     
     
@@ -47,6 +49,7 @@
     _passwordTextField.returnKeyType = UIReturnKeyGo;
     _passwordTextField.placeholder = @"密码";
     _passwordTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    _passwordTextField.returnKeyType = UIReturnKeySend;
 //    _passwordTextField.text = @"111";
     
     _tfs = @[_userTextField,_passwordTextField];
@@ -162,6 +165,16 @@
 
 }
 
+#pragma mark - Textfield
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    
+    if (textField == _passwordTextField) {
+        [self loginPressed:textField];
+    }
+    
+    return YES;
+}
+
 
 #pragma mark - IBAction
 
@@ -174,7 +187,9 @@
         }
         else{
             NSString *msg = [error localizedDescription];
-            [UIAlertView showAlert:msg msg:nil cancel:@"OK"];
+//            [UIAlertView showAlert:msg msg:nil cancel:@"OK"];
+            
+            [_libraryMng startHint:msg];
         }
     }];
     

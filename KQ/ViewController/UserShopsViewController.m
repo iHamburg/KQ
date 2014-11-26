@@ -113,9 +113,9 @@
                 [self.models addObject:shop];
             }
             
-            if (self.models.count <kLimit) {
-                self.isLoadMore = NO;
-            }
+           // if (self.models.count <kLimit) {
+           //     self.isLoadMore = NO;
+          //  }
             
             [self.tableView reloadData];
         }
@@ -143,6 +143,7 @@
         if (!error) {
             NSArray *array = couponDicts[@"shopbranches"];
             
+
           
             
             for (NSDictionary *dict in array) {

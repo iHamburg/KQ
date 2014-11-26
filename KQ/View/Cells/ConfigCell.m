@@ -46,5 +46,7 @@
     return 45;
 }
 
-
+- (void)dealloc{
+    L();
+}
 @end

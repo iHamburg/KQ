@@ -124,6 +124,14 @@
         // 必加的
         _clientManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
 
+        [_clientManager.requestSerializer setValue:@"Close" forHTTPHeaderField:@"Connection"];
+        [_clientManager.requestSerializer setValue:@"10" forHTTPHeaderField:@"Keep-Alive"];
+        
+//        [_clientManager.req]
+        
+        
+        
+
     }
     return self;
 }
@@ -373,9 +381,11 @@
    
 //
     
+    
     AFHTTPRequestOperation *operation = [_clientManager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
 //        NSLog(@"get url # %@,response : %@ ", url,responseObject);
 //        NSLog(@"operation code # %d, obj # %@",operation.response.statusCode,responseObject);
+        
         
         
         ///处理如果返回200，但是空值的错误
@@ -422,6 +432,7 @@
         
         block(nil,error);
     }];
+    
     
     
     
@@ -651,6 +662,16 @@
     
 //    [self testEdit];
     
+//    [self testHeader];
+    
+}
+
+- (void)testHeader{
+    NSString *url = @"http://localhost/kq/index.php/kqapi6/test_headers";
+    
+    [self getWithUrl:url parameters:nil block:^(id object, NSError *error) {
+        NSLog(@"obj # %@",object);
+    }];
 }
 
 - (void)testWithBlock:(BooleanResultBlock)block{

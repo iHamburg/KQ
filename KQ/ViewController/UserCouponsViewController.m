@@ -90,9 +90,27 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    id obj = self.models[indexPath.row];
+//    id obj = self.models[indexPath.row];
+//    
+//    [self toCouponDetails:obj];
+//    
     
-    [self toCouponDetails:obj];
+    if(ISEMPTY(self.models)){
+        return;
+    }
+    
+    
+    Coupon *coupon = self.models[indexPath.row];
+    
+    if (coupon.active) {
+        [self toCouponDetails:coupon];
+        
+    }
+    else{
+        
+        [_libraryManager startHint:@"该快券已失效"];
+    }
+
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -120,19 +138,17 @@
     [self willConnect:self.view];
     
     
-    NSString *mode;
     if (_couponStatus == CouponStatusUnused) {
-        mode = @"unused";
+        _mode = @"unused";
     }
     else if(_couponStatus == CouponStatusUsed){
-        mode = @"used";
+        _mode = @"used";
     }
     else if(_couponStatus == CouponStatusExpired){
-        mode = @"expired";
+        _mode = @"expired";
     }
     
-    [_networkClient queryDownloadedCoupon:_userController.uid mode:mode skip:0 block:^(NSDictionary *dict, NSError *error) {
-
+    [_networkClient queryDownloadedCoupon:_userController.uid mode:_mode skip:0 block:^(NSDictionary *dict, NSError *error) {
 
         [self willDisconnectInView:self.view];
         [self.refreshControl endRefreshing];
@@ -143,6 +159,7 @@
 //            NSLog(@"user coupons # %@",dict);
             
             NSArray *array = dict[@"coupons"];
+            
             
 //             NSLog(@"array # %@",array);
             
@@ -181,11 +198,43 @@
     
 }
 
+- (void)loadMore:(VoidBlock)finishedBlock{
+    
+    int count = [_models count];
+    
+    _networkFlag = YES;
+    
+    [_networkClient queryDownloadedCoupon:_userController.uid mode:_mode skip:count block:^(NSDictionary *dict, NSError *error) {
+        
+        if (!error) {
+            
+            //            NSLog(@"user coupons # %@",dict);
+            
+            NSArray *array = dict[@"coupons"];
+            
+            //            NSLog(@"dCoupons # %@",array);
+            for (NSDictionary *dict in array) {
+                
+                Coupon *coupon = [[Coupon alloc] initWithDownloadedDict:dict];
+                
+                [self.models addObject:coupon];
+            }
+            
+            [self.tableView reloadData];
+        }
+        else{
+            [ErrorManager alertError:error];
+        }
+        
+        
+    }];
+
+    
+}
+
 
 
 - (void)toCouponDetails:(Coupon*)coupon{
-    
-//   [_root toCouponDetails:coupon];
     
     
     CouponDetailsViewController *vc = [[CouponDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped];

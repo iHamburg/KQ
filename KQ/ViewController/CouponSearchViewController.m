@@ -133,13 +133,15 @@
     [self.view addSubview:_searchBar];
     [self.view addSubview:_leftV];
     [self.view addSubview:_rightV];
+    
+    [self loadModels];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:animated];
     
-    [self loadModels];
+//    [self loadModels];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -276,9 +278,7 @@
 
     }
    
-    
-    
-    
+  
     return cell;
     
 }
@@ -287,18 +287,17 @@
     
     if (tableView == _leftV) {
       
-
-        
         self.selectedIndex = indexPath.row;
-        
-//            [_rightV scrollsToTop];
-        
   
     }
-    else
+    else{
+        
+        [_searchBar resignFirstResponder];
         [self toCouponDetails:_models[indexPath.row]];
+    }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
 }
 
 
@@ -467,6 +466,8 @@
 }
 
 - (void)toCouponDetails:(Coupon*)coupon{
+    
+    
     [_root toCouponDetails:coupon];
 }
 

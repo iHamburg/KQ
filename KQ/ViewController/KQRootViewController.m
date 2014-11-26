@@ -238,6 +238,7 @@
         
     } completion:^(BOOL finished) {
           [_nav.view removeFromSuperview];
+        _nav = nil;
     }];
 
 }
@@ -267,7 +268,7 @@
     
 //    [self showEvent];
 //    [self showInstruction];
- //    [self testNav:@"AddCardViewController"];
+//     [self testNav:@"ChangePasswordViewController"];
     
 //    CGRect r = [UIScreen mainScreen].bounds;
 //    NSLog(@"screen # %@",NSStringFromCGRect(r));

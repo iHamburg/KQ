@@ -292,28 +292,47 @@
     
     if (section == 1) {
        //AccessoryLabelCell
+         UILabel *label = cell.firstLabel;
         
         if (row == 0) {
             // fCoupon
             int num = _userController.people.fCouponNum;
-            cell.value = [NSString stringWithFormat:@"%d 张",num];
+            if (num>0) {
+                label.hidden = NO;
+            }
+            else{
+                label.hidden = YES;
+            }
+            cell.value = [NSString stringWithFormat:@"%d",num];
         }
         else{
             // fShop
             int num = _userController.people.fShopNum;
-            cell.value = [NSString stringWithFormat:@"%d 个",num];        }
+            if (num>0) {
+                label.hidden = NO;
+            }
+            else{
+                label.hidden = YES;
+            }
+            cell.value = [NSString stringWithFormat:@"%d",num];        }
     }
     else if(section == 2){
         if ([cell isKindOfClass:[AccessoryLabelCell class]]) {
 //            cell.value = @"3";
             
-            NSLog(@"_userController.people.newsNum # %d",_userController.people.newsNum);
+//            NSLog(@"_userController.people.newsNum # %d",_userController.people.newsNum);
+
+//            
+            UILabel *label = cell.firstLabel;
+
             
             if (_userController.people.newsNum > 0) {
+             
               cell.value = [NSString stringWithInt:_userController.people.newsNum];
+                label.hidden = NO;
             }
             else{
-                cell.value = @"";
+                label.hidden = YES;
             }
         }
     }
@@ -391,7 +410,6 @@
     
     UserCouponsViewController *vc = [[UserCouponsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     
-//    [self.navigationController pushViewController:vc animated:YES];
     vc.view.alpha = 1;
     
     
@@ -436,27 +454,41 @@
 - (void)toSettings{
 
     UserSettingsViewController *vc = [[UserSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    [self.navigationController pushViewController:vc animated:YES];
     
+    vc.view.alpha = 1;
+    
+//    [self.navigationController pushViewController:vc animated:YES];
+    
+      [_root addNavVCAboveTab:vc];
 }
 
 - (void)pushEditUser{
     
     EditUserViewController *vc = [[EditUserViewController alloc] initWithStyle:UITableViewStyleGrouped];
     
-    [self.navigationController pushViewController:vc animated:YES];
+    vc.view.alpha = 1;
+    
+    //    [self.navigationController pushViewController:vc animated:YES];
+    
+    [_root addNavVCAboveTab:vc];
 }
 
 - (void)pushNews{
     
     UserNewsViewController *vc = [[UserNewsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    vc.view.alpha = 1;
     
-    [self.navigationController pushViewController:vc animated:YES];
+    //    [self.navigationController pushViewController:vc animated:YES];
+    
+    [_root addNavVCAboveTab:vc];
 }
 - (void)pushAboutUs{
     AboutUsViewController *vc = [[AboutUsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    vc.view.alpha = 1;
     
-    [self.navigationController pushViewController:vc animated:YES];
+    //    [self.navigationController pushViewController:vc animated:YES];
+    
+    [_root addNavVCAboveTab:vc];
 }
 
 - (void)presentLogin{

@@ -104,13 +104,14 @@
         [self willDisconnectInView:self.view];
         [self.refreshControl endRefreshing];
         
-//        if (!_networkFlag) {
-//            return ;
-//        }
         
         if (!error) {
             NSArray *array = couponDicts[@"coupons"];
 
+            if (ISEMPTY(array)) {
+                [_libraryManager startHint:@"还没有收藏快券"];
+            }
+            
 //            NSLog(@"array # %@",array);
             
             for (NSDictionary *dict in array) {
@@ -118,9 +119,9 @@
                 [self.models addObject:coupon];
             }
             
-            if (self.models.count <kLimit) {
-                self.isLoadMore = NO;
-            }
+//            if (self.models.count <kLimit) {
+//                self.isLoadMore = NO;
+//            }
             
             [self.tableView reloadData];
         }

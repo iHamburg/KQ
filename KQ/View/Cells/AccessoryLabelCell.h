@@ -15,3 +15,8 @@
 
 
 @end
+
+
+@interface AccessoryRoundLabelCell : AccessoryLabelCell
+
+@end

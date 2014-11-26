@@ -22,6 +22,7 @@
     UIButton *_favoritedBtn;
 }
 @property (nonatomic, strong) UIButton *favoritedBtn;
+@property (nonatomic, assign) BOOL favorited;
 @property (nonatomic, copy) VoidBlock toggleBlock;
 
 - (IBAction)toggleFavorite:(id)sender;
@@ -36,9 +37,9 @@
     //    NSLog(@"shop.poster # %@",shop.posterUrl);
     
    
-    if (!ISEMPTY(shop.title)) {
-        self.firstLabel.text = shop.title;
-    }
+//    if (!ISEMPTY(shop.title)) {
+//        self.firstLabel.text = shop.title;
+//    }
 
     if (!ISEMPTY(shop.desc)) {
         self.secondLabel.text = shop.desc;
@@ -46,29 +47,39 @@
 
     CGFloat height = [ShopDescCell cellHeightWithValue:shop];
     self.secondLabel.frame = CGRectMake(10, 45, 300, height);
-//    self.frame = CGRectMake(0, 0, _w, height );
+
+}
+
+- (void)setFavorited:(BOOL)favorited{
+    _favorited = favorited;
+    
+    if (favorited) {
+        [self.favoritedBtn setBackgroundImage:[UIImage imageNamed:@"coupon_favorited.png"] forState:UIControlStateNormal];
+    }
+    else{
+        [self.favoritedBtn setBackgroundImage:[UIImage imageNamed:@"coupon_unfavorited.png"] forState:UIControlStateNormal];
+    }
+
 }
 
 - (void)load{
     [super load];
     
+    NSLog(@"shopDescCell load");
+    
     [[NSNotificationCenter defaultCenter] addObserverForName:@"refreshFavoritedShops" object:nil queue:nil usingBlock:^(NSNotification *note) {
         BOOL isFavorited = [note.object boolValue];
         
         __weak ShopDescCell *cell = self;
+        cell.favorited = isFavorited;
         
-        if (isFavorited) {
-             [cell.favoritedBtn setBackgroundImage:[UIImage imageNamed:@"coupon_favorited.png"] forState:UIControlStateNormal];
-        }
-        else{
-            [cell.favoritedBtn setBackgroundImage:[UIImage imageNamed:@"coupon_unfavorited.png"] forState:UIControlStateNormal];
-        }
+    
     }];
     
-    // 针对没有注册的用户
     
     _firstLabel.frame = CGRectMake(10, 0, 250, 45);
     _firstLabel.numberOfLines = 0;
+    _firstLabel.text = @"商户介绍";
     
     UIView *v = [[UIView alloc]initWithFrame:CGRectMake(0, 45, _w, 1)];
     v.backgroundColor = kColorLightGray;
@@ -95,7 +106,7 @@
 }
 
 - (IBAction)toggleFavorite:(id)sender{
-    _toggleBlock();
+    self.toggleBlock();
 }
 
 - (void)dealloc{
@@ -105,14 +116,15 @@
 
 + (CGFloat)cellHeightWithValue:(Shop*)shop{
     
-    //    NSLog(@"shop # %@",self.va)
+//        NSLog(@"shop # %@",self.va)
     NSString *text = shop.desc;
-//    UIFont *font = [UIFont fontWithName:kFontName size:12];
+    
     CGSize constraint = CGSizeMake(300, 10000);
     
     CGRect textRect = [text boundingRectWithSize:constraint options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName:nFont(12)} context:nil];
     
     return textRect.size.height + 20; // 加header的高度
+   
 }
 
 @end
@@ -144,6 +156,7 @@
         if ([dict isKindOfClass:[NSDictionary class]]) {
             dict = [dict dictionaryCheckNull];
         }
+        
 //        NSLog(@"shop # %@",dict);
         
         Shop *shop = [[Shop alloc] initWithShopDetailsDict:dict];
@@ -382,10 +395,9 @@
     }
     else if([cell isKindOfClass:[ShopDescCell class]]){
         cell.value = _shop;
+        [(ShopDescCell*)cell setFavorited:self.shopFavorited];
     }
-//    UIImageView *separatorV = [[UIImageView alloc] initWithFrame:CGRectMake(0, cell.height/2, cell.width, 1)];
-//    separatorV.image = [UIImage imageNamed:@"bg_虚线.png"];
-//    [cell addSubview:separatorV];
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

@@ -170,7 +170,7 @@
 
 @end
 
-#pragma mark -
+#pragma mark - CouponShortCell
 
 @interface CouponShortCell : ConfigCell
 
@@ -207,6 +207,10 @@
 
 - (void)layoutSubviews{
     
+}
+
+- (void)dealloc{
+//    L();
 }
 @end
 

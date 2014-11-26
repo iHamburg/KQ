@@ -217,6 +217,7 @@
 		855AA51C19C2CC5E002B7099 /* bg-landingpage@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 855AA51B19C2CC5E002B7099 /* bg-landingpage@2x.jpg */; };
 		855AA51E19C2D083002B7099 /* btn-receive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 855AA51D19C2D083002B7099 /* btn-receive@2x.png */; };
 		8563CFF01A1346660049DBA6 /* InteractiveButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8563CFEF1A1346660049DBA6 /* InteractiveButton.m */; };
+		856F915D1A259AAC009E3B9C /* event_bg_960@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 856F915C1A259AAC009E3B9C /* event_bg_960@2x.jpg */; };
 		857FE56B1A188EFA0097684F /* ChangePwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 857FE56A1A188EFA0097684F /* ChangePwdViewController.m */; };
 		857FE56D1A1890CD0097684F /* ChangePwdConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 857FE56C1A1890CD0097684F /* ChangePwdConfig.plist */; };
 		857FE5701A1891850097684F /* TextfieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 857FE56F1A1891850097684F /* TextfieldCell.m */; };
@@ -637,6 +638,7 @@
 		855AA51D19C2D083002B7099 /* btn-receive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-receive@2x.png"; sourceTree = "<group>"; };
 		8563CFEE1A1346660049DBA6 /* InteractiveButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InteractiveButton.h; sourceTree = "<group>"; };
 		8563CFEF1A1346660049DBA6 /* InteractiveButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InteractiveButton.m; sourceTree = "<group>"; };
+		856F915C1A259AAC009E3B9C /* event_bg_960@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "event_bg_960@2x.jpg"; sourceTree = "<group>"; };
 		85755EEFD65D18BA8065DE33 /* Pods.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.adhoc.xcconfig; path = "Pods/Target Support Files/Pods/Pods.adhoc.xcconfig"; sourceTree = "<group>"; };
 		857FE5691A188EFA0097684F /* ChangePwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePwdViewController.h; sourceTree = "<group>"; };
 		857FE56A1A188EFA0097684F /* ChangePwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePwdViewController.m; sourceTree = "<group>"; };
@@ -905,6 +907,7 @@
 				85EB2D801A230153006328F4 /* register_events_icon_image.png */,
 				85EB2D811A230153006328F4 /* register_events_right.png */,
 				85A764EE1A206E9300037780 /* event_bg@2x.jpg */,
+				856F915C1A259AAC009E3B9C /* event_bg_960@2x.jpg */,
 				85A764EF1A206E9300037780 /* eventBtn@2x.png */,
 				859DDB991A1EFAF2003C9528 /* placeholder.png */,
 				85A671161A1ED6D700B63909 /* titlebar_share_btn.png */,
@@ -1678,6 +1681,7 @@
 				859DA4281A1DED3900E8611E /* instruction02@2x.png in Resources */,
 				26DE6443195ECA15008835D6 /* icon_fullStar@2x.png in Resources */,
 				85A764F01A206E9300037780 /* event_bg@2x.jpg in Resources */,
+				856F915D1A259AAC009E3B9C /* event_bg_960@2x.jpg in Resources */,
 				8533A2641A1E439A00CBD8DB /* titlebar_index_center_title@2x.png in Resources */,
 				8514C8421A245BDB00F0157D /* UMSCommentInputControlleriPad.xib in Resources */,
 				859DA4271A1DED3900E8611E /* instruction01@2x.png in Resources */,

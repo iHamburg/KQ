@@ -7,6 +7,7 @@
 //
 
 #import "ErrorManager.h"
+#import "LibraryManager.h"
 
 @implementation ErrorManager
 
@@ -57,9 +58,9 @@
     NSString *msg = error.localizedDescription;
     
     // 其他的错误就显示给用户
-//    [UIAlertView showAlert:[NSString stringWithFormat:@"错误: %d",code] msg:msg];
 
-      [UIAlertView showAlert:@"" msg:[NSString stringWithFormat:@"%@ (code: %d)",msg,code]];
+//      [UIAlertView showAlert:@"" msg:[NSString stringWithFormat:@"%@ (%d)",msg,code]];
 
+    [[LibraryManager sharedInstance] startHint:[NSString stringWithFormat:@"%@ (%d)",msg,code]];
 }
 @end

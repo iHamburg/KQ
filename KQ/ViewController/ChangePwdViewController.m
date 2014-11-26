@@ -20,6 +20,13 @@
     // Do any additional setup after loading the view.
     self.title = @"修改密码";
      _config = [[TableConfiguration alloc] initWithResource:@"ChangePwdConfig"];
+    
+    UIButton *btn = [UIButton buttonWithFrame:CGRectMake(10, 33, _w-20, 34) title:@"提交" bgImageName:nil target:self action:@selector(submitPressed:)];
+    btn.backgroundColor = kColorYellow;
+    btn.layer.cornerRadius = 3;
+    btn.titleLabel.font = [UIFont fontWithName:kFontBoldName size:15];
+    _submitBtn = btn;
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -32,20 +39,13 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 50;
+    return 120;
 }
 
 - (UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _w, 100)];
     
-    UIButton *btn = [UIButton buttonWithFrame:CGRectMake(10, 33, _w-20, 34) title:@"提交" bgImageName:nil target:self action:@selector(submitPressed:)];
-    btn.backgroundColor = kColorYellow;
-    btn.layer.cornerRadius = 3;
-    btn.titleLabel.font = [UIFont fontWithName:kFontBoldName size:15];
-    
- 
-    [v addSubview:btn];
- 
+    [v addSubview:_submitBtn];
     
     return v;
     
@@ -93,7 +93,9 @@
     
     [self validateWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
-            [self willConnect:sender];
+//            [self willConnect:sender];
+            
+            
             [self changePwd:self.oldPwd newPwd:self.nPwd];
         }
         else{
@@ -128,11 +130,12 @@
 - (void)changePwd:(NSString*)oldPwd newPwd:(NSString*)newPwd{
 
     
-    
+    [self willLoad:_submitBtn];
     [_userController changePwd:oldPwd newPwd:newPwd boolBlock:^(BOOL succeeded, NSError *error) {
         
 //        [self willDisconnect];
         
+        [self willStopLoad];
         if (succeeded && _networkFlag) {
             [_libraryManager startHint:@"密码修改成功"];
             

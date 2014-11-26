@@ -23,8 +23,11 @@
     // Do any additional setup after loading the view.
     self.bgV = [[UIImageView alloc] initWithFrame:self.view.bounds];
     
-    
-    self.bgV.image = [UIImage imageNamed:@"event_bg.jpg"];
+    NSString *imgName = @"event_bg.jpg";
+    if (isPhone4) {
+        imgName = @"event_bg_960.jpg";
+    }
+    self.bgV.image = [UIImage imageNamed:imgName];
     self.bgV.contentMode = UIViewContentModeTop;
     self.bgV.userInteractionEnabled = YES;
     [self.bgV addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)]];

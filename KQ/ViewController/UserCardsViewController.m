@@ -155,7 +155,7 @@
          if (!error) {
              NSArray *array = dict[@"cards"];
              
-                   NSLog(@"cards # %@",array);
+//            NSLog(@"cards # %@",array);
              
              if (ISEMPTY(array)) {
                  [_libraryManager startHint:@"还没有绑定银行卡" duration:1];

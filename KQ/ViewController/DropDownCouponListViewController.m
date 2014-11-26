@@ -218,6 +218,10 @@
      
 //            NSLog(@"searchcoupons # %@",array);
             
+            if (ISEMPTY(array)) {
+                [_libraryManager startHint:[NSString stringWithFormat:@"没有找到相关结果",_keyword]];
+            }
+            
             for (NSDictionary *dict in array) {
                 Coupon *coupon = [[Coupon alloc] initWithSearchDict:dict];
                 [self.models addObject:coupon];

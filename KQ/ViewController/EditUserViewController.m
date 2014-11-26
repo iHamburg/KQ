@@ -47,7 +47,7 @@
     
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _w, footerHeight)];
     
-    UIButton *btn = [UIButton buttonWithFrame:CGRectMake(10, 33, _w-20, 34) title:@"退出登录" bgImageName:nil target:self action:@selector(logoutPressed:)];
+    UIButton *btn = [UIButton buttonWithFrame:CGRectMake(10, 33, _w-20, 40) title:@"退出登录" bgImageName:nil target:self action:@selector(logoutPressed:)];
     btn.backgroundColor = kColorRed;
     btn.layer.cornerRadius = 3;
     btn.titleLabel.font = bFont(15);

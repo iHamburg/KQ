@@ -37,12 +37,14 @@
     _tableImageNames = @[@"icon-password01.png",@"icon-password02.png"];
     
     CGFloat x = 60;
-       _passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake(x, 0, 250, kCellHeight)];
+    _passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake(x, 0, 250, kCellHeight)];
     _passwordTextField.placeholder = @"新密码(至少6位)";
     _passwordTextField.secureTextEntry = YES;
     _passwordTextField.autocorrectionType =UITextAutocorrectionTypeNo;
     _passwordTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     _passwordTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    _passwordTextField.delegate = self;
+    _passwordTextField.returnKeyType = UIReturnKeyNext;
     
     
     _rePasswordTextField = [[UITextField alloc] initWithFrame:CGRectMake(x, 0, 250, kCellHeight)];
@@ -51,6 +53,8 @@
     _rePasswordTextField.autocorrectionType =UITextAutocorrectionTypeNo;
     _rePasswordTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     _rePasswordTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    _rePasswordTextField.delegate = self;
+    _rePasswordTextField.returnKeyType = UIReturnKeySend;
     
     _tfs = @[_passwordTextField,_rePasswordTextField];
     
@@ -128,6 +132,19 @@
     
 }
 
+#pragma mark - TextField
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    
+    if (textField == _passwordTextField) {
+        [_rePasswordTextField becomeFirstResponder];
+    }
+    else{
+        [self submitClicked:textField];
+    }
+    
+    return YES;
+}
+
 #pragma mark - Fcns
 
 - (IBAction)submitClicked:(id)sender{
@@ -139,7 +156,8 @@
         }
         else{
             NSString *msg = [error localizedDescription];
-            [UIAlertView showAlert:msg msg:nil cancel:@"OK"];
+//            [UIAlertView showAlert:msg msg:nil cancel:@"OK"];
+             [_libraryMng startHint:msg];
         }
     }];
     

@@ -191,12 +191,13 @@
     [_networkClient loginWithUsername:email password:pw block:^(NSDictionary *dict, NSError *error) {
         
         if (!error) {
-            // 如果没有出错,载入信息到当前的user！
+            // 载入信息到当前的user！
             
-//            self.people = [People peopleWithDict:dict];
+//            int oldLastNewsId = self.people.lastNewsId;
             
             self.people = [[People alloc] initWithDict:dict];
             self.people.password = pw;
+            self.people.lastNewsId = [[NSUserDefaults standardUserDefaults] integerForKey:@"lastNewsId"];
             
             [self savePeople:self.people];
             
@@ -349,9 +350,15 @@
 
 - (void)logout{
     
+
+    // 退出之前记下newsId，可以根据username来定！
+    [[NSUserDefaults standardUserDefaults] setInteger:self.people.lastNewsId forKey:@"lastNewsId"];
+    
     self.people = nil;
     
+    
     [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"User"];
+  
     [[NSUserDefaults standardUserDefaults] synchronize];
     
        

@@ -181,6 +181,7 @@
     }
     
     hud.labelText = text;
+//    hud.detailsLabelText = @"details";
     hud.mode = MBProgressHUDModeText;
     
     [hud hide:YES afterDelay:duration];

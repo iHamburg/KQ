@@ -56,7 +56,8 @@
     _passwordTextField.autocorrectionType =UITextAutocorrectionTypeNo;
     _passwordTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     _passwordTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    
+    _passwordTextField.returnKeyType = UIReturnKeySend;
+    _passwordTextField.delegate = self;
 
     _rePasswordTextField = [[UITextField alloc] initWithFrame:CGRectMake(x, 0, 250, kCellHeight)];
     _rePasswordTextField.placeholder = @"密码(至少6位)";
@@ -225,6 +226,18 @@
     
 }
 
+
+#pragma mark - Textfield
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    
+    if (textField == _passwordTextField) {
+        [self signUpUserPressed:textField];
+    }
+    
+    return YES;
+}
+
 #pragma mark - IBAction
 - (IBAction)selectAgreementClicked:(id)sender{
     L();
@@ -286,7 +299,9 @@
         }
         else{
             NSString *msg = [error localizedDescription];
-            [UIAlertView showAlert:msg msg:nil cancel:@"OK"];
+//          [UIAlertView showAlert:msg msg:nil cancel:@"OK"];
+            
+            [_libraryMng startHint:msg];
         }
     }];
     
@@ -336,7 +351,7 @@
     
     //    NSLog(@"request mobile # %@",mobile);
     _userTextField.userInteractionEnabled = NO;
-    _userTextField.textColor = kColorGray;
+    _userTextField.textColor = kColorLightGray;
     
     [_network requestCaptchaRegister:mobile block:^(NSDictionary* object, NSError *error) {
 

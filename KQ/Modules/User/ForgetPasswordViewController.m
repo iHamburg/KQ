@@ -51,6 +51,7 @@
     
     _verifyTextField = [[UITextField alloc] initWithFrame:CGRectMake(x, 0, 180, kCellHeight)];
     _verifyTextField.placeholder = @"请输入短信验证码";
+    _verifyTextField.keyboardType = UIKeyboardTypeNumberPad;
     
     _tfs = @[_userTextField,_verifyTextField];
     
@@ -162,7 +163,8 @@
         }
         else{
             NSString *msg = [error localizedDescription];
-            [UIAlertView showAlert:msg msg:nil cancel:@"OK"];
+//            [UIAlertView showAlert:msg msg:nil cancel:@"OK"];
+             [_libraryMng startHint:msg];
         }
     }];
 }

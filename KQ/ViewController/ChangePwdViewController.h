@@ -8,7 +8,9 @@
 
 #import "ConfigViewController.h"
 
-@interface ChangePwdViewController : ConfigViewController
+@interface ChangePwdViewController : ConfigViewController{
+    UIButton *_submitBtn;
+}
 
 @property (nonatomic, strong) NSString *oldPwd;
 @property (nonatomic, strong) NSString *nPwd;
