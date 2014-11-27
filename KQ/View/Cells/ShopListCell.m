@@ -23,6 +23,8 @@
     
     self.secondLabel.text = shop.district;
     self.thirdLabel.text = [NSString stringWithFormat:@"%@/人",shop.averagePreis];
+    
+    
 
     _downloadedL.text = [[CouponManager sharedInstance]distanceStringFromLocation:shop.location];
 }
@@ -46,7 +48,6 @@
     //slogan
     _secondLabel = [[KQLabel alloc] initWithFrame:CGRectMake(x, CGRectGetMaxY(self.textLabel.frame)-5, width, 20)];
     _secondLabel.font = bFont(12);
-//    _secondLabel.textAlignment = NSTextAlignmentLeft;
     _secondLabel.textColor = kColorGray;
     
     //discountCountent
@@ -66,11 +67,14 @@
     _downloadedL.textColor = kColorGray;
     _downloadedL.textAlignment  = NSTextAlignmentRight;
     
+    UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake(250, 62, 15, 18)];
+    imgV.image = [UIImage imageNamed:@"address_loc_red_icon.png"];
+    
     [self addSubview:l];
     [self addSubview:_downloadedL];
     [self addSubview:_secondLabel];
     [self addSubview:_thirdLabel];
-    
+    [self addSubview:imgV];
     
     self.backgroundColor = [UIColor whiteColor];
 }

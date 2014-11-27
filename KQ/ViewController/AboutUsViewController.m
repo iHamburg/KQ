@@ -99,7 +99,17 @@
 
     [mailPicker setSubject:@"意见反馈"];
     [mailPicker setToRecipients:@[@"app@quickquan.com"]];
+    
+//    NSLog(@"systemVersion: %@", [[UIDevice currentDevice] systemVersion]);
+//    NSLog(@"model: %@", [[UIDevice currentDevice] model]);
+    
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    NSString *app_build = [infoDictionary objectForKey:@"CFBundleVersion"];
+//    NSLog(@"app version # %@",app_build);
 
+    NSString *body = [NSString stringWithFormat:@"\n\n\n 来自%@ %@ version: %@",[[UIDevice currentDevice] model],[[UIDevice currentDevice] systemVersion], app_build];
+    [mailPicker setMessageBody:body isHTML:NO];
+    
     
     [self presentViewController:mailPicker animated:YES completion:nil];
 

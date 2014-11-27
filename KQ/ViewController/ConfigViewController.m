@@ -87,21 +87,20 @@
     return [_config headerInSection:section];
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-//    return 38;
-//}
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     NSString *text = [_config headerInSection:section];
     
     if (ISEMPTY(text)) {
+ 
+        
         return nil;
     }
 
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _w, 38)];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, _w, 38)];
     label.text = text;
-    label.textColor = kColorBlack;
+    label.textColor = kColorGray;
     label.font = [UIFont fontWithName:kFontBoldName size:15];
     [v addSubview:label];
     
@@ -242,7 +241,8 @@
     
     //如果是下拉刷新，不显示activityview
     if (!self.refreshControl.refreshing) {
-//        [_libraryManager startLoadingInView:sender];
+
+       
         [_libraryManager startProgressInView:sender];
     }
     

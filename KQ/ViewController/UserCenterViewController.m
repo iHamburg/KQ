@@ -34,6 +34,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *nicknameLabel;
 @property (nonatomic, strong) IBOutlet UIButton *dCouponNumBtn;
 @property (nonatomic, strong) IBOutlet UIButton *cardNumBtn;
+@property (nonatomic, strong) IBOutlet UIImageView *dCouuponImgV, *cardImgV;
 @property (nonatomic, copy) VoidBlock editUserBlock;
 @property (nonatomic, copy) VoidBlock dCouponBlock;
 @property (nonatomic, copy) VoidBlock cardBlock;
@@ -62,6 +63,8 @@
         self.cardNumLabel.text = @"0";
         self.usernameLabel.text = @"";
         self.nicknameLabel.text = @"";
+        self.dCouuponImgV.image = [UIImage imageNamed:@"main_my_coupon_icon_normal.png"];
+        self.cardImgV.image = [UIImage imageNamed:@"main_my_bankcards_icon_normal.png"];
     }
     else{
         self.oberV.image = [UIImage imageNamed:@"my_header_image.jpg"];
@@ -72,6 +75,8 @@
         self.cardNumLabel.text = [NSString stringWithFormat:@"%d 张",people.cardNum];
         self.usernameLabel.text = people.username;
         self.nicknameLabel.text = people.nickname;
+        self.dCouuponImgV.image = [UIImage imageNamed:@"main_my_coupon_icon_pressed.png"];
+        self.cardImgV.image = [UIImage imageNamed:@"main_my_bankcards_icon_pressed.png"];
     }
     
     if (ISEMPTY(people.avatarUrl)) {
@@ -83,6 +88,7 @@
          [self.avatarV setImageWithURL:[NSURL URLWithString:people.avatarUrl] placeholderImage: [UIImage imageNamed:@"main_my_avatar.png"]];
     }
     self.firstLabel.text = people.nickname;
+    
    
 }
 
@@ -97,7 +103,7 @@
     self.avatarV.layer.masksToBounds = YES;
     self.avatarV.layer.borderWidth = 2;
     self.avatarV.layer.borderColor = [UIColor whiteColor].CGColor;
-    
+    self.avatarV.contentMode = UIViewContentModeScaleAspectFill;
  
     
     self.oberV.userInteractionEnabled = YES;
@@ -191,11 +197,21 @@
 //    _config = [[TableConfiguration alloc] initWithResource:@"UserCenterConfig"];
 
     self.navigationItem.leftBarButtonItem = nil;
+    
+    __weak UserCenterViewController *vc = self;
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"refreshUserCenter" object:nil queue:nil usingBlock:^(NSNotification *note) {
+        [vc.tableView reloadData];
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     L();
+    
+    [self.tableView setContentOffset:CGPointMake(0, 1)];
+
+    
     // 刷新页面
     if (_userController.isLogin) {
         
@@ -221,18 +237,23 @@
 
 }
 
+
 - (void)viewDidAppear:(BOOL)animated{
 
     [super viewDidAppear:animated];
     
-    
-}
+    //
+  }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
     
+}
+
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
@@ -242,7 +263,7 @@
 //        return headerHeight;
         return 1;
     }
-    return 20;
+    return 5;
 }
 
 - (void)initConfigCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
@@ -303,7 +324,7 @@
             else{
                 label.hidden = YES;
             }
-            cell.value = [NSString stringWithFormat:@"%d",num];
+            cell.value = [NSString stringWithFormat:@"%d 张",num];
         }
         else{
             // fShop
@@ -314,7 +335,7 @@
             else{
                 label.hidden = YES;
             }
-            cell.value = [NSString stringWithFormat:@"%d",num];        }
+            cell.value = [NSString stringWithFormat:@"%d 个",num];        }
     }
     else if(section == 2){
         if ([cell isKindOfClass:[AccessoryLabelCell class]]) {
@@ -485,8 +506,6 @@
 - (void)pushAboutUs{
     AboutUsViewController *vc = [[AboutUsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     vc.view.alpha = 1;
-    
-    //    [self.navigationController pushViewController:vc animated:YES];
     
     [_root addNavVCAboveTab:vc];
 }

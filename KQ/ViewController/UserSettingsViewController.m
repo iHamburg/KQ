@@ -44,6 +44,7 @@
         UISwitch *aSwitch = cell.value;
         [aSwitch addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
         
+  
         aSwitch.on = _userController.people.isNotification;
         
     }

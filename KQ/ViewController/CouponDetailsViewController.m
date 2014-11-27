@@ -11,6 +11,7 @@
 #import "ShopBranchesCell.h"
 
 #import "AutoHeightCell.h"
+#import "AutoHeight2Cell.h"
 
 #import "UMSocial.h"
 #import "UIImageView+WebCache.h"
@@ -250,7 +251,6 @@
         Coupon *coupon = [[Coupon alloc] initWithDetailsDict:dict];
         _coupon = coupon;
         
-//        NSLog(@"othercoupons # %@",_coupon.otherCoupons);
 
         [self.tableView reloadData];
    
@@ -287,7 +287,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-//    self.navigationController.navigationBar.translucent = NO;
     
     self.config = [[TableConfiguration alloc] initWithResource:@"CouponDetailsConfig"];
 
@@ -353,7 +352,8 @@
         
     }
     else if (indexPath.section == 4) {
-        height = [AutoHeightCell cellHeightWithString:self.coupon.notice font:[UIFont fontWithName:kFontName size:12]];
+        height = [AutoHeightCell cellHeightWithString:self.coupon.notice font:[UIFont fontWithName:kFontName size:12]] ;
+        
         
     }
 
@@ -361,7 +361,12 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+  
     if (section == 0) {
+        return 1;
+    }
+    
+    if (section == 5 && ISEMPTY(_coupon.shopCoupons) ) {
         return 1;
     }
     
@@ -371,6 +376,7 @@
 - (float)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 1;
 }
+
 - (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     NSString *header = [super tableView:tableView titleForHeaderInSection:section];
     
@@ -461,8 +467,11 @@
     else if([cell isKindOfClass:[AutoHeightCell class]]){
         NSString *key = cell.key;
         [cell setValue:[self.coupon valueForKey:key]];
-    }
 
+    }
+//    else if ([cell isKindOfClass:[AutoHeight2Cell class]]){
+//        cell.textLabel.text = @"AutoHeight2Cell";
+//    }
 
     if ([cell.key isEqualToString:@"shopCoupons"]) {
         if (ISEMPTY(self.coupon.shopCoupons)) {
@@ -491,17 +500,39 @@
     
 }
 
+//- (void)viewDidLayoutSubviews{
+//    [super viewDidLayoutSubviews];
+//    
+//    if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
+//        [self.tableView setSeparatorInset:UIEdgeInsetsZero];
+//    }
+//    
+//    if ([self.tableView respondsToSelector:@selector(setLayoutMargins:)]) {
+//        [self.tableView setLayoutMargins:UIEdgeInsetsZero];
+//    }
+//}
+//
+//- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    
+//    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+//        
+//        [cell setSeparatorInset:UIEdgeInsetsZero];
+//        
+//    }
+//    
+//    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+//        
+//        [cell setLayoutMargins:UIEdgeInsetsZero];
+//        
+//    }
+//    
+//}
+
+
 #pragma mark - IBAction
 
 
-///toCouponDetails, 按back之后没有实现
-//- (IBAction)backPressed:(id)sender{
-//    L();
-//    
-//    [self dismissViewControllerAnimated:YES completion:^{
-//        
-//    }];
-//}
 
 - (IBAction)sharePressed:(id)sender{
     

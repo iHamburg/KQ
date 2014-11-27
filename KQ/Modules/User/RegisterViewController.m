@@ -371,10 +371,9 @@
             
             [_identifyB stopTimer];
         }
-        
-        
     }];
 }
+
 // pw 已经是md5
 - (void)registerUser:(NSDictionary *)userInfo{
     
@@ -387,7 +386,7 @@
         if (succeeded && self.networkFlag) {
             
             /// 注册成功后显示提示窗
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"注册成功" message:@"已获免费摩提快券，请前往绑定银行卡" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"注册成功" message:@"前往领取免费美味摩提快券" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
             [alert show];
         }
         

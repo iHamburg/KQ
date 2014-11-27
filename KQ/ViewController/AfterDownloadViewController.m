@@ -167,7 +167,7 @@
         if (!error) {
             NSArray *array = dict[@"cards"];
             
-            NSLog(@"cards # %@",array);
+//            NSLog(@"cards # %@",array);
             
             for (NSDictionary *dict in array) {
                 

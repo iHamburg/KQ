@@ -85,12 +85,14 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="avatarV" destination="AbN-LH-Q0t" id="vfj-Jd-44K"/>
+                <outlet property="cardImgV" destination="kz9-hA-M0H" id="agQ-50-dga"/>
                 <outlet property="cardNumBtn" destination="zR4-eM-UYu" id="cML-WN-vs4"/>
                 <outlet property="cardNumLabel" destination="YvL-bU-K69" id="hj2-t0-Wt1"/>
                 <outlet property="cardTitleL" destination="Gp5-E8-EHj" id="TGd-PE-zgd"/>
                 <outlet property="dCouponNumBtn" destination="ctr-Yo-UoY" id="diu-3v-HqO"/>
                 <outlet property="dCouponNumLabel" destination="GeW-hU-8u5" id="f42-VX-BEe"/>
                 <outlet property="dCouponTitleL" destination="edj-DF-0gN" id="qUO-2R-Iic"/>
+                <outlet property="dCouuponImgV" destination="mlL-Dl-dLL" id="ZMd-bZ-UdC"/>
                 <outlet property="nicknameLabel" destination="IhO-9F-A07" id="Sf6-08-NUH"/>
                 <outlet property="oberV" destination="O8K-rl-kl2" id="XE5-GX-vrn"/>
                 <outlet property="usernameLabel" destination="JeX-Eg-NdK" id="r54-y3-4YO"/>

@@ -19,7 +19,6 @@
     
     //    NSLog(@"card.title # %@",card.title);
     
-    
     self.textLabel.text = card.bankTitle;
     self.firstLabel.text = [self cardTitleWithSecurity:card.title];
     

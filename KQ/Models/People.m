@@ -25,9 +25,19 @@ static NSArray *keys;
     
     _newsNum = newsNum;
     
-    NSLog(@"newsNum # %d",newsNum);
+//    NSLog(@"newsNum # %d",newsNum);
     
 }
+
+- (id)init{
+    
+    if (self = [super init]) {
+        self.isNotification = YES;
+    }
+    
+    return self;
+}
+
 
 - (id)initWithDict:(NSDictionary*)dict{
     if (self = [self init]) {
@@ -46,6 +56,7 @@ static NSArray *keys;
         self.avatarUrl = dict[@"avatarUrl"];
         self.nickname = dict[@"nickname"];
         self.sessionToken = dict[@"sessionToken"];
+        self.isNotification = YES;
    
 
     }
@@ -65,6 +76,13 @@ static NSArray *keys;
     self.lastNewsId = [aDecoder decodeIntForKey:@"lastNewsId"];
     self.isNotification = [aDecoder decodeBoolForKey:@"isNotification"];
     
+     NSLog(@"self.isnotification # %d",self.isNotification);
+    
+    if (self.isNotification != false) {
+        self.isNotification = YES;
+    }
+    
+    NSLog(@"self.isnotification # %d",self.isNotification);
 //        NSLog(@"people.lastNewsId # %d",self.lastNewsId);
     
     return self;

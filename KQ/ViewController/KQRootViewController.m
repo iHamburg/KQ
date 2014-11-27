@@ -264,8 +264,18 @@
     [[NetworkClient sharedInstance] test];
     [[UserController sharedInstance] test];
 
+    // 版本号
+  
     
     
+//    NSLog(@"uniqueIdentifier: %@", [[UIDevice currentDevice] uniqueIdentifier]);
+
+//    NSLog(@"systemVersion: %@", [[UIDevice currentDevice] systemVersion]);
+//    NSLog(@"model: %@", [[UIDevice currentDevice] model]);
+// 
+//    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+//    NSString *app_build = [infoDictionary objectForKey:@"CFBundleVersion"];
+//    NSLog(@"app version # %@",app_build);
 //    [self showEvent];
 //    [self showInstruction];
 //     [self testNav:@"ChangePasswordViewController"];

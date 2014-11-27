@@ -55,18 +55,41 @@
 #pragma mark - TableView
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (ISEMPTY(_models)) {
+        return 110;
+    }
     return headerHeight;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if(section == 0){
-        UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _w, headerHeight)];
+        
+        UIView *v;
+        if (ISEMPTY(_models)) {
+            v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _w, 110)];
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, _w-20, 50)];
+            label.text = @"您没有支持快券使用的银行卡";
+            label.textColor = kColorRed;
+            label.textAlignment = NSTextAlignmentCenter;
+            label.font = [UIFont fontWithName:kFontBoldName size:15];
+            
+            UILabel *l2 = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(label.frame), _w - 20, 40)];
+            l2.numberOfLines = 0;
+            l2.textColor = kColorGray;
+            l2.text = @"您只需添加一张银行卡到“我的银行卡”开通服务。即可现场刷卡，使用已下载的快券啦！";
+            l2.font = nFont(12);
+            
+            [v addSubview:label];
+            [v addSubview:l2];
+        }
+        else{
+        v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _w, headerHeight)];
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, _w, headerHeight)];
         label.text = @"凭以下银行卡可享受快券优惠";
         label.textColor = kColorGray;
         label.font = [UIFont fontWithName:kFontBoldName size:15];
         [v addSubview:label];
-        
+        }
         return v;
     }
     
@@ -86,10 +109,10 @@
     btn.titleLabel.font = [UIFont fontWithName:kFontBoldName size:15];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(btn.frame)+10, _w, 30)];
-    label.text = @"中国银联将保障您的账户信息安全";
+    label.text = @"(限卡号62开头的银行卡)";
     label.textColor = kColorGray;
     label.font = [UIFont fontWithName:kFontBoldName size:12];
-    label.textAlignment = NSTextAlignmentCenter;
+    label.textAlignment = NSTextAlignmentLeft;
     [v addSubview:btn];
     [v addSubview:label];
     
@@ -160,8 +183,6 @@
              if (ISEMPTY(array)) {
                  [_libraryManager startHint:@"还没有绑定银行卡" duration:1];
              }
-             
-//             NSLog(@"cards # %@",array);
              
              for (NSDictionary *dict in array) {
                  

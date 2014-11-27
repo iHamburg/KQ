@@ -193,11 +193,10 @@
         if (!error) {
             // 载入信息到当前的user！
             
-//            int oldLastNewsId = self.people.lastNewsId;
-            
             self.people = [[People alloc] initWithDict:dict];
             self.people.password = pw;
             self.people.lastNewsId = [[NSUserDefaults standardUserDefaults] integerForKey:@"lastNewsId"];
+
             
             [self savePeople:self.people];
             

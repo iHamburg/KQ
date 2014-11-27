@@ -13,24 +13,28 @@
 - (void)setValue:(NSString*)value{
     
     self.textLabel.text = value;
-//    CGFloat height = [AutoHeightCell cellHeightWithValue:coupon];
     float height = [AutoHeightCell cellHeightWithString:value font:[UIFont fontWithName:kFontName size:12]];
     self.textLabel.frame = CGRectMake(10, 0, self.width - 20, height);
     self.textLabel.numberOfLines = 0;
     self.textLabel.font = nFont(12);
-    self.textLabel.textColor = kColorGray;
+    self.textLabel.textColor = kColorBlack;
 }
 
+
+- (void)load{
+    
+    self.textLabel.textAlignment = NSTextAlignmentLeft;
+    
+//    self.accessoryType = UITableViewCellAccessoryNone;
+}
 
 + (CGFloat)cellHeightWithString:(NSString*)text font:(UIFont*)font{
     
     //    NSLog(@"shop # %@",self.va)
 
-
     CGSize constraint = CGSizeMake(300, 10000);
     
     CGRect textRect = [text boundingRectWithSize:constraint options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName:font} context:nil];
-    
 
     return textRect.size.height + 20;
 }

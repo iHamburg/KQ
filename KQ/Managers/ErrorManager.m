@@ -40,6 +40,7 @@
             
             str = @"请输入以62开头的13到19位银行卡号";
             break;
+            
         case ErrorAppUnselected:
             str = @"请先阅读并同意协议";
             break;
@@ -54,13 +55,13 @@
 
 + (void)alertError:(NSError*)error{
 
-    int code = error.code;
+//    int code = error.code;
     NSString *msg = error.localizedDescription;
     
     // 其他的错误就显示给用户
 
-//      [UIAlertView showAlert:@"" msg:[NSString stringWithFormat:@"%@ (%d)",msg,code]];
-
-    [[LibraryManager sharedInstance] startHint:[NSString stringWithFormat:@"%@ (%d)",msg,code]];
+//    [[LibraryManager sharedInstance] startHint:[NSString stringWithFormat:@"%@ (%d)",msg,code]];
+    
+        [[LibraryManager sharedInstance] startHint:[NSString stringWithFormat:@"%@",msg]];
 }
 @end

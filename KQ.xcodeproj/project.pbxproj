@@ -272,6 +272,7 @@
 		85A764F11A206E9300037780 /* eventBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 85A764EF1A206E9300037780 /* eventBtn@2x.png */; };
 		85AD3CE71A26233600AD3532 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85AD3CE51A26233600AD3532 /* libMobClickLibrary.a */; };
 		85C5E2E019C68E250047BAE3 /* loading-pic02.png in Resources */ = {isa = PBXBuildFile; fileRef = 85C5E2DF19C68E250047BAE3 /* loading-pic02.png */; };
+		85C631101A2709E800DA382B /* AutoHeight2Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85C6310F1A2709E800DA382B /* AutoHeight2Cell.m */; };
 		85CAC52D19C057DD007A1F86 /* icon-agreement01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 85CAC52119C057DD007A1F86 /* icon-agreement01@2x.png */; };
 		85CAC52E19C057DD007A1F86 /* icon-agreement02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 85CAC52219C057DD007A1F86 /* icon-agreement02@2x.png */; };
 		85CAC52F19C057DD007A1F86 /* icon-credit card@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 85CAC52319C057DD007A1F86 /* icon-credit card@2x.png */; };
@@ -711,6 +712,8 @@
 		85AD3CE51A26233600AD3532 /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
 		85AD3CE61A26233600AD3532 /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
 		85C5E2DF19C68E250047BAE3 /* loading-pic02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loading-pic02.png"; sourceTree = "<group>"; };
+		85C6310E1A2709E800DA382B /* AutoHeight2Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoHeight2Cell.h; sourceTree = "<group>"; };
+		85C6310F1A2709E800DA382B /* AutoHeight2Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoHeight2Cell.m; sourceTree = "<group>"; };
 		85CAC52119C057DD007A1F86 /* icon-agreement01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-agreement01@2x.png"; sourceTree = "<group>"; };
 		85CAC52219C057DD007A1F86 /* icon-agreement02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-agreement02@2x.png"; sourceTree = "<group>"; };
 		85CAC52319C057DD007A1F86 /* icon-credit card@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-credit card@2x.png"; sourceTree = "<group>"; };
@@ -1346,6 +1349,8 @@
 				853EE37E1A1A34E200DEDDA9 /* AccessoryLabelCell.m */,
 				8554A5461A1CA6EA00D54761 /* AutoHeightCell.h */,
 				8554A5471A1CA6EA00D54761 /* AutoHeightCell.m */,
+				85C6310E1A2709E800DA382B /* AutoHeight2Cell.h */,
+				85C6310F1A2709E800DA382B /* AutoHeight2Cell.m */,
 				26E14B67193C65FD007A7081 /* LoadMoreCell.h */,
 				26E14B68193C65FD007A7081 /* LoadMoreCell.m */,
 				26E290FE193DB4E700B7E0C9 /* CouponListCell.h */,
@@ -1908,6 +1913,7 @@
 				26E290EF193DB21C00B7E0C9 /* District.m in Sources */,
 				26DD9D7D1962DA5500521317 /* SVProgressHUD.m in Sources */,
 				26D393E7194E8F18000ED175 /* SDWebImageManager.m in Sources */,
+				85C631101A2709E800DA382B /* AutoHeight2Cell.m in Sources */,
 				26E14B59193C64FB007A7081 /* SearchViewController.m in Sources */,
 				26919EE6195D7E3200974010 /* SwitchCell.m in Sources */,
 				26E29108193DE11700B7E0C9 /* ShopDetailsViewController.m in Sources */,
@@ -2042,7 +2048,7 @@
 					"$(PROJECT_DIR)/KQ/3rdLibraries",
 				);
 				PRODUCT_NAME = "快券";
-				PROVISIONING_PROFILE = "40436332-1e6b-4409-8198-6bf9b4d6d6bf";
+				PROVISIONING_PROFILE = "cce46e28-0e6c-4b24-8dd0-37ebca8b0250";
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
 				WARNING_CFLAGS = (
 					"-Wno-arc-performSelector-leaks\n-Wno-arc-performSelector-leaks\n-Wno-arc-performSelector-leaks",
@@ -2155,7 +2161,7 @@
 					"$(PROJECT_DIR)/KQ/3rdLibraries",
 				);
 				PRODUCT_NAME = "快券";
-				PROVISIONING_PROFILE = "8f0a4072-7169-4e3c-b378-56ca803363da";
+				PROVISIONING_PROFILE = "f649ee5d-3eaf-4981-8c5d-453189c32cc0";
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
 				WARNING_CFLAGS = (
 					"-Wno-arc-performSelector-leaks\n-Wno-arc-performSelector-leaks\n-Wno-arc-performSelector-leaks",
@@ -2190,7 +2196,7 @@
 					"$(PROJECT_DIR)/KQ/3rdLibraries",
 				);
 				PRODUCT_NAME = "快券";
-				PROVISIONING_PROFILE = "de394948-1035-47bb-9746-d2a5fe762b10";
+				PROVISIONING_PROFILE = "1d5e1437-074c-4207-9d51-a01a53b9f306";
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
 				WARNING_CFLAGS = (
 					"-Wno-arc-performSelector-leaks\n-Wno-arc-performSelector-leaks\n-Wno-arc-performSelector-leaks",

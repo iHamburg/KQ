@@ -65,7 +65,7 @@
     
     NSString *title = coupon.title;
     NSString *discountContent = coupon.discountContent;
-    NSString *advertise = @"试试快券吧，再也不用带着团购验证码逛街了！更多详情 http://www.quickquan.com";
+    NSString *advertise = [NSString stringWithFormat:@"试试快券吧，再也不用带着团购验证码逛街了！   更多详情：%@",@"http://www.quickquan.com/app/share.php"];
     NSString *short_desc = coupon.short_desc;
     
     NSString *sinaText = [NSString stringWithFormat:@"【%@%@】%@%@",title,discountContent,advertise,short_desc];
@@ -83,6 +83,7 @@
     //短信：【摩提工房立减五元】+advertise
     NSString *smsText = [NSString stringWithFormat:@"【%@%@】%@",title,discountContent,advertise];
     [UMSocialData defaultData].extConfig.smsData.shareText = smsText;
+    [UMSocialData defaultData].extConfig.smsData.shareImage = nil;
   
     //email : sinaText
     [UMSocialData defaultData].extConfig.emailData.shareText = sinaText;

@@ -113,10 +113,6 @@
                 [self.models addObject:shop];
             }
             
-           // if (self.models.count <kLimit) {
-           //     self.isLoadMore = NO;
-          //  }
-            
             [self.tableView reloadData];
         }
         else{

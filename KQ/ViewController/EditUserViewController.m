@@ -73,6 +73,7 @@
  
     if ([cell.key isEqualToString:@"avatar"]) {
         UIImageView *avatar = [[UIImageView alloc] initWithFrame:CGRectMake(230, 16, 60, 60)];
+        avatar.contentMode = UIViewContentModeScaleAspectFill;
         if (ISEMPTY(_userController.people.avatarUrl)) {
             
             avatar.image = [UIImage imageNamed:@"main_my_avatar.png"];
@@ -252,7 +253,10 @@
     
     [_userController logout];
     
-    [self.navigationController popToRootViewControllerAnimated:YES];
+//    [self.navigationController popToRootViewControllerAnimated:YES];
+//    [self.navigationController popViewControllerAnimated:YES];
+    
+    [_root removeNavVCAboveTab];
     
 }
 - (void)changeUserName:(NSString*)newName{

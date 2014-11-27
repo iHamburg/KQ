@@ -54,7 +54,7 @@
     _secondLabel = [[KQLabel alloc] initWithFrame:CGRectMake(130, CGRectGetMaxY(self.textLabel.frame)+10, 150, 20)];
     _secondLabel.font = nFont(14);
     _secondLabel.numberOfLines = 0;
-//    _secondLabel.textAlignment = NSTextAlignmentLeft;
+
     _secondLabel.textColor = kColorGray;
     
     
@@ -171,13 +171,16 @@
                 [_libraryManager startHint:@"还没有收藏商户" duration:1];
             }
             else{
-                NSLog(@"couponDicts # %@",dict);
+//                NSLog(@"couponDicts # %@",dict);
                 
                 NSArray *newsArray = dict[@"news"];
                 
                NSDictionary *lastNewsDict = [newsArray firstObject];
                 _userController.people.lastNewsId = [lastNewsDict[@"id"] intValue];
+                _userController.people.newsNum = 0;
                 [_userController savePeople:_userController.people];
+             
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshUserCenter" object:nil];
                 
                 for (NSDictionary *newsDict in newsArray) {
 //                    NSLog(@"dict # %@",newsDict);
@@ -185,10 +188,6 @@
                     
                     [self.models addObject:news];
                 }
-                
-//                if (self.models.count< kLimit) {
-//                    self.isLoadMore = NO;
-//                }
                 
                 [self.tableView reloadData];
             }
@@ -204,7 +203,6 @@
 
 - (void)loadMore:(VoidBlock)finishedBlock{
     int count = [_models count];
-    
     
     //从现有的之后进行载入
     [_networkClient queryUserNews:_userController.uid skip:count limit:0 lastNewsId:_userController.people.lastNewsId block:^(NSDictionary *couponDicts, NSError *error) {

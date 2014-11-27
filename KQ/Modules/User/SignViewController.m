@@ -80,6 +80,40 @@
 }
 
 
+
+
+//确保分割线左边顶头
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    
+    if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
+        [self.tableView setSeparatorInset:UIEdgeInsetsZero];
+    }
+    
+    if ([self.tableView respondsToSelector:@selector(setLayoutMargins:)]) {
+        [self.tableView setLayoutMargins:UIEdgeInsetsZero];
+    }
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+
+{
+    
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+        
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+        
+    }
+    
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+        
+    }
+    
+}
+
+
 #pragma mark - IBAction
 - (IBAction)backPressed:(id)sender{
     
@@ -115,5 +149,7 @@
     [_libraryMng stopLoading];
     
 }
+
+
 
 @end
