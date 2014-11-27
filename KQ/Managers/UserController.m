@@ -281,9 +281,12 @@
     
     [_networkClient user:self.uid editInfo:dict block:^(NSDictionary *dict, NSError *error) {
         if (!error) {
-            if ([dict isKindOfClass:[NSDictionary class]]) {
-                dict = [dict dictionaryCheckNull];
-            }
+//            if ([dict isKindOfClass:[NSDictionary class]]) {
+//                dict = [dict dictionaryCheckNull];
+//            }
+          
+            
+            
             self.people.password = newPwd;
             [self savePeople:self.people];
             

@@ -478,6 +478,9 @@
             if (ISEMPTY(msg)) {
                 msg = dict[@"msg"];
             }
+            
+            
+            
             NSError *error = [NSError errorWithDomain:kKQErrorDomain code:code userInfo:@{NSLocalizedDescriptionKey:msg}];
             
             block(nil,error);

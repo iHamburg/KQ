@@ -12,6 +12,7 @@
 #import "KQRootViewController.h"
 #import "UMSocialSinaHandler.h"
 #import "UMSocialQQHandler.h"
+#import "MobClick.h"
 
 #define kWeixinAppId @"wxe65e25809040a5bb"
 #define kWeixinAppSecret @"7e49bb0130145071b7fa9ede711c4660"
@@ -51,6 +52,11 @@
 //    [UMSocialData defaultData].extConfig.tencentData.shareImage = [UIImage imageNamed:@"icon"]; //分享到腾讯微博图片
 //    [[UMSocialData defaultData].extConfig.wechatSessionData.urlResource setResourceType:UMSocialUrlResourceTypeImage url:@"http://www.baidu.com/img/bdlogo.gif"];  //设置微信好友分享url图片
 //    [[UMSocialData defaultData].extConfig.wechatTimelineData.urlResource setResourceType:UMSocialUrlResourceTypeVideo url:@"http://v.youku.com/v_show/id_XNjQ1NjczNzEy.html?f=21207816&ev=2"]; //设置微信朋友圈分享视频
+    
+    
+    [MobClick startWithAppkey:kUmengAppKey reportPolicy:BATCH   channelId:@""];
+    
+    [MobClick setLogEnabled:YES];
     
 }
 //

@@ -231,11 +231,7 @@
         //70x96
         
         CouponType *type = self.searchTypes[row];
-        NSString *title = type.title;
-        if (type.id == 0) {
-            title = @"全部";
-        }
-        
+                
         UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake(19, 10, 32, 32)];
         imgV.image = [UIImage imageNamed:_leftImgNames[row]];
 

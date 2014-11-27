@@ -65,7 +65,7 @@
 
     [super viewWillAppear:animated];
     
-    
+     [MobClick beginLogPageView:@"Main"];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -171,14 +171,6 @@
 
     L();
 
-   
-    
-//    NSLog(@"refreshing # %d",self.refreshControl.refreshing);
-    
-//    if (self.refreshControl.refreshing) {
-//        [self.refreshControl endRefreshing];
-//        return;
-//    }
     
     [self.models removeAllObjects];
     

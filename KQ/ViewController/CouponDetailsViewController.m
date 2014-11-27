@@ -303,6 +303,12 @@
 }
 
 
+- (void)viewDidAppear:(BOOL)animated{
+    
+    [super viewDidAppear:animated];
+    
+     [MobClick beginLogPageView:@"CouponDetails"];
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -640,11 +646,11 @@
         return;
     }
     
-    UIImage *img = coupon.avatar;
-    if (!img) {
-        img = DefaultImg;
-    }
-    
+//    UIImage *img = coupon.avatar;
+//    if (!img) {
+//        img = DefaultImg;
+//    }
+//    
 //[_libraryManager shareWithText:coupon.title image:img delegate:self];
     
     

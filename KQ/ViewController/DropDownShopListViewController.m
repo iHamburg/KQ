@@ -70,6 +70,7 @@
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
+    [MobClick beginLogPageView:@"Around Shop"];
 }
 
 #pragma mark - TableView

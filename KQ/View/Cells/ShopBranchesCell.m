@@ -73,17 +73,7 @@
 
 #pragma mark - IBAction
 
-//- (IBAction)dialPhone:(id)sender{
-//
-//    _phoneNumber = [(Shop*)_value phone];
-//    
-//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"拨打电话: %@?",_phoneNumber] message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"拨打", nil];
-//    [alert show];
-//}
-//- (IBAction)toMap:(id)sender{
-//
-//    _toMapBlock(self.value);
-//}
+
 - (IBAction)toShopList:(id)sender{
 
     _toShopListBlock();

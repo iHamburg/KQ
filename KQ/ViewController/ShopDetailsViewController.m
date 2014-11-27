@@ -212,6 +212,13 @@
     
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    
+    [super viewDidAppear:animated];
+    
+     [MobClick beginLogPageView:@"ShopDetails"];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

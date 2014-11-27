@@ -61,7 +61,7 @@ typedef enum {
 
 @property (nonatomic, strong) CouponManager *manager;
 
-- (IBAction)segmentChanged:(id)sender;
+//- (IBAction)segmentChanged:(id)sender;
 
 
 - (void)startSearch;

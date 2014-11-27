@@ -219,7 +219,7 @@
 //            NSLog(@"searchcoupons # %@",array);
             
             if (ISEMPTY(array)) {
-                [_libraryManager startHint:[NSString stringWithFormat:@"没有找到相关结果",_keyword]];
+                [_libraryManager startHint:@"没有找到相关结果"];
             }
             
             for (NSDictionary *dict in array) {

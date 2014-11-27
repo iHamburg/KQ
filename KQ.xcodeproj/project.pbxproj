@@ -270,6 +270,7 @@
 		85A764ED1A2051FA00037780 /* CaptchaButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A764EC1A2051FA00037780 /* CaptchaButton.m */; };
 		85A764F01A206E9300037780 /* event_bg@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 85A764EE1A206E9300037780 /* event_bg@2x.jpg */; };
 		85A764F11A206E9300037780 /* eventBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 85A764EF1A206E9300037780 /* eventBtn@2x.png */; };
+		85AD3CE71A26233600AD3532 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85AD3CE51A26233600AD3532 /* libMobClickLibrary.a */; };
 		85C5E2E019C68E250047BAE3 /* loading-pic02.png in Resources */ = {isa = PBXBuildFile; fileRef = 85C5E2DF19C68E250047BAE3 /* loading-pic02.png */; };
 		85CAC52D19C057DD007A1F86 /* icon-agreement01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 85CAC52119C057DD007A1F86 /* icon-agreement01@2x.png */; };
 		85CAC52E19C057DD007A1F86 /* icon-agreement02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 85CAC52219C057DD007A1F86 /* icon-agreement02@2x.png */; };
@@ -707,6 +708,8 @@
 		85A764EC1A2051FA00037780 /* CaptchaButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptchaButton.m; sourceTree = "<group>"; };
 		85A764EE1A206E9300037780 /* event_bg@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "event_bg@2x.jpg"; sourceTree = "<group>"; };
 		85A764EF1A206E9300037780 /* eventBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eventBtn@2x.png"; sourceTree = "<group>"; };
+		85AD3CE51A26233600AD3532 /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
+		85AD3CE61A26233600AD3532 /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
 		85C5E2DF19C68E250047BAE3 /* loading-pic02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loading-pic02.png"; sourceTree = "<group>"; };
 		85CAC52119C057DD007A1F86 /* icon-agreement01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-agreement01@2x.png"; sourceTree = "<group>"; };
 		85CAC52219C057DD007A1F86 /* icon-agreement02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-agreement02@2x.png"; sourceTree = "<group>"; };
@@ -743,6 +746,7 @@
 				8514C84D1A245BDB00F0157D /* libSocialWechat.a in Frameworks */,
 				26E14BBB193CB39E007A7081 /* CoreTelephony.framework in Frameworks */,
 				26E3A527192DE02F004F8C8C /* CoreGraphics.framework in Frameworks */,
+				85AD3CE71A26233600AD3532 /* libMobClickLibrary.a in Frameworks */,
 				8514C84B1A245BDB00F0157D /* TencentOpenAPI.framework in Frameworks */,
 				8514C8491A245BDB00F0157D /* libSocialSina.a in Frameworks */,
 				26E14BB9193CB37D007A7081 /* libsqlite3.dylib in Frameworks */,
@@ -1113,6 +1117,8 @@
 		26E3A562192DE042004F8C8C /* 3rdLibraries */ = {
 			isa = PBXGroup;
 			children = (
+				85AD3CE51A26233600AD3532 /* libMobClickLibrary.a */,
+				85AD3CE61A26233600AD3532 /* MobClick.h */,
 				8514C8141A245BDB00F0157D /* UMSocial_Sdk_4.2 */,
 				8514C82F1A245BDB00F0157D /* UMSocial_Sdk_Extra_Frameworks */,
 			);
@@ -2033,9 +2039,10 @@
 					"$(PROJECT_DIR)/KQ/3rdLibraries/UMSocial_Sdk_Extra_Frameworks/Sina",
 					"$(PROJECT_DIR)/KQ/3rdLibraries/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/KQ/3rdLibraries/UMSocial_Sdk_Extra_Frameworks/Wechat",
+					"$(PROJECT_DIR)/KQ/3rdLibraries",
 				);
 				PRODUCT_NAME = "快券";
-				PROVISIONING_PROFILE = "cce46e28-0e6c-4b24-8dd0-37ebca8b0250";
+				PROVISIONING_PROFILE = "40436332-1e6b-4409-8198-6bf9b4d6d6bf";
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
 				WARNING_CFLAGS = (
 					"-Wno-arc-performSelector-leaks\n-Wno-arc-performSelector-leaks\n-Wno-arc-performSelector-leaks",
@@ -2145,9 +2152,10 @@
 					"$(PROJECT_DIR)/KQ/3rdLibraries/UMSocial_Sdk_Extra_Frameworks/Sina",
 					"$(PROJECT_DIR)/KQ/3rdLibraries/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/KQ/3rdLibraries/UMSocial_Sdk_Extra_Frameworks/Wechat",
+					"$(PROJECT_DIR)/KQ/3rdLibraries",
 				);
 				PRODUCT_NAME = "快券";
-				PROVISIONING_PROFILE = "f649ee5d-3eaf-4981-8c5d-453189c32cc0";
+				PROVISIONING_PROFILE = "8f0a4072-7169-4e3c-b378-56ca803363da";
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
 				WARNING_CFLAGS = (
 					"-Wno-arc-performSelector-leaks\n-Wno-arc-performSelector-leaks\n-Wno-arc-performSelector-leaks",
@@ -2179,6 +2187,7 @@
 					"$(PROJECT_DIR)/KQ/3rdLibraries/UMSocial_Sdk_Extra_Frameworks/Sina",
 					"$(PROJECT_DIR)/KQ/3rdLibraries/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/KQ/3rdLibraries/UMSocial_Sdk_Extra_Frameworks/Wechat",
+					"$(PROJECT_DIR)/KQ/3rdLibraries",
 				);
 				PRODUCT_NAME = "快券";
 				PROVISIONING_PROFILE = "de394948-1035-47bb-9746-d2a5fe762b10";
