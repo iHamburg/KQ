@@ -2048,7 +2048,7 @@
 					"$(PROJECT_DIR)/KQ/3rdLibraries",
 				);
 				PRODUCT_NAME = "快券";
-				PROVISIONING_PROFILE = "cce46e28-0e6c-4b24-8dd0-37ebca8b0250";
+				PROVISIONING_PROFILE = "9ac90005-c4e8-4fec-87ba-4be74eb49afa";
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
 				WARNING_CFLAGS = (
 					"-Wno-arc-performSelector-leaks\n-Wno-arc-performSelector-leaks\n-Wno-arc-performSelector-leaks",
@@ -2161,7 +2161,7 @@
 					"$(PROJECT_DIR)/KQ/3rdLibraries",
 				);
 				PRODUCT_NAME = "快券";
-				PROVISIONING_PROFILE = "f649ee5d-3eaf-4981-8c5d-453189c32cc0";
+				PROVISIONING_PROFILE = "d3dccb48-0b4f-416c-8067-92c246fd504e";
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
 				WARNING_CFLAGS = (
 					"-Wno-arc-performSelector-leaks\n-Wno-arc-performSelector-leaks\n-Wno-arc-performSelector-leaks",

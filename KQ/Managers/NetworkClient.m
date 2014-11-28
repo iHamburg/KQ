@@ -341,17 +341,6 @@
 
 
 
-/////deprecated
-//- (void)queryShopBranches:(NSString*)parentId block:(IdResultBlock)block{
-//    
-//    
-//    NSString *url = [RESTHOST stringByAppendingFormat:@"/shopbranches/parentId/%@",parentId];
-//    
-//    
-//    [self getWithUrl:url parameters:nil block:block];
-//}
-
-
 - (void)searchCoupons:(NSDictionary*)params block:(IdResultBlock)block{
     
     [self getWithUrl:api_searchCoupons parameters:params block:block];
