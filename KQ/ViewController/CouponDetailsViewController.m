@@ -247,7 +247,7 @@
         if ([dict isKindOfClass:[NSDictionary class]]) {
             dict = [dict dictionaryCheckNull];
         }
-//        NSLog(@"coupon # %@",dict);
+        NSLog(@"coupon # %@",dict);
         Coupon *coupon = [[Coupon alloc] initWithDetailsDict:dict];
         _coupon = coupon;
         

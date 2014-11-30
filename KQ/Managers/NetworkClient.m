@@ -12,7 +12,7 @@
 
 
 //获取最新的优惠券
-#define api_newestCoupons       [RESTHOST stringByAppendingFormat:@"/newestCoupons"]
+//#define api_newestCoupons       [RESTHOST stringByAppendingFormat:@"/newestCoupons"]
 
 #define api_hotestCoupons       [RESTHOST stringByAppendingFormat:@"/hotestCoupons"]
 
@@ -369,7 +369,7 @@
 - (void)getWithUrl:(NSString*)url parameters:(NSDictionary*)parameters block:(IdResultBlock)block{
    
 //
-    
+//    NSLog(@"get url # %@",url);
     
     AFHTTPRequestOperation *operation = [_clientManager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
 //        NSLog(@"get url # %@,response : %@ ", url,responseObject);
