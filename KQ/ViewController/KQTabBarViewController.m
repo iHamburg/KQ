@@ -31,9 +31,8 @@
     _userCenterVC = [[UserCenterViewController alloc] initWithStyle:UITableViewStyleGrouped];
     self.delegate = self;
     
-//    NSArray *vcs = @[_mainVC,_aroundVC,_searchVC,_userCenterVC];
     
-        NSArray *vcs = @[_mainVC,_aroundVC,[[CouponSearchViewController alloc]init],_userCenterVC];
+    NSArray *vcs = @[_mainVC,_aroundVC,[[CouponSearchViewController alloc]init],_userCenterVC];
     
     NSMutableArray *tabVCs = [NSMutableArray array];
     for (UIViewController *vc in vcs) {
