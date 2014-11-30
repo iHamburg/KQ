@@ -9,14 +9,17 @@
 #import "ConfigViewController.h"
 #import "Shop.h"
 
-@interface ShopDetailsViewController : ConfigViewController
+@interface ShopDetailsViewController : ConfigViewController{
+    UIView *_headerV;
+}
 
 @property (nonatomic, strong) Shop* shop;
-@property (nonatomic, strong) NSArray *shopBranches;
-
+//@property (nonatomic, strong) NSArray *shopBranches;
+@property (nonatomic, readonly) NSArray *coupons;
 @property (nonatomic, assign) BOOL shopFavorited;
 
 - (void)toMap;
+- (void)dial:(NSString *)phone;
 - (void)toShopList;
 - (void)toCouponDetails:(id)coupon;
 

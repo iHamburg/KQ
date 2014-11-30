@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>sections</key>
+	<array>
+		<dict>
+			<key>rows</key>
+			<array>
+				<dict>
+					<key>key</key>
+					<string></string>
+					<key>label</key>
+					<string></string>
+					<key>class</key>
+					<string>NewsCell</string>
+					<key>selector</key>
+					<string></string>
+				</dict>
+			</array>
+			<key>dynamic</key>
+			<integer>1</integer>
+			<key>height</key>
+			<string>100</string>
+		</dict>
+	</array>
+</dict>
+</plist>

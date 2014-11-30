@@ -41,17 +41,15 @@
     [self initVariables];
     
     
-    
-    
     [self checkVersion];
     
     
     
-//    [self fonts];
+//  [self fonts];
     
     [self customizeAppearance];
     
-//    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+//  self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 //	[self.window makeKeyAndVisible];
     
 
@@ -86,6 +84,7 @@
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
 }
+
 
 - (void)saveContext
 {

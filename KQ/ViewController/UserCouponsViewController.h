@@ -18,9 +18,13 @@ typedef enum {
 
 }
 
+@property (nonatomic, assign) CouponStatus couponStatus;
+@property (nonatomic, assign) NSString *mode;
+
 - (IBAction)segmentedControlChanged:(id)sender;
 
-- (void)queryCoupons:(CouponStatus)status;
+
+
 - (void)toCouponDetails:(id)coupon;
 
 @end

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>sections</key>
+	<array>
+		<dict>
+			<key>rows</key>
+			<array>
+				<dict>
+					<key>key</key>
+					<string></string>
+					<key>label</key>
+					<string>021-64327339</string>
+					<key>class</key>
+					<string></string>
+					<key>selector</key>
+					<string>callPressed:</string>
+					<key>image</key>
+					<string>phone_icon.png</string>
+				</dict>
+			</array>
+			<key>height</key>
+			<string>50</string>
+			<key>header</key>
+			<string>商户合作电话</string>
+		</dict>
+	</array>
+</dict>
+</plist>

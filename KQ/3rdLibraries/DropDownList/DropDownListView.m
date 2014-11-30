@@ -44,13 +44,16 @@
         CGFloat sectionWidth = (1.0*(frame.size.width)/sectionNum);
         for (int i = 0; i <sectionNum; i++) {
             UIButton *sectionBtn = [[UIButton alloc] initWithFrame:CGRectMake(sectionWidth*i, 1, sectionWidth, frame.size.height-2)];
+            
+//            sectionBtn.backgroundColor = [UIColor redColor];
+            
             sectionBtn.tag = SECTION_BTN_TAG_BEGIN + i;
             [sectionBtn addTarget:self action:@selector(sectionBtnTouch:) forControlEvents:UIControlEventTouchUpInside];
             NSString *sectionBtnTitle = @"--";
             if ([self.dropDownDataSource respondsToSelector:@selector(titleInSection:index:)]) {
                 sectionBtnTitle = [self.dropDownDataSource titleInSection:i index:[self.dropDownDataSource defaultShowSection:i]];
             }
-            [sectionBtn  setTitle:sectionBtnTitle forState:UIControlStateNormal];
+            [sectionBtn setTitle:sectionBtnTitle forState:UIControlStateNormal];
             [sectionBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             sectionBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0f];
             [self addSubview:sectionBtn];
@@ -74,6 +77,20 @@
     return self;
 }
 
+
+- (void)layoutSubviews{
+    
+    [super layoutSubviews];
+    
+        if ([self.mTableView respondsToSelector:@selector(setSeparatorInset:)]) {
+            [self.mTableView setSeparatorInset:UIEdgeInsetsZero];
+        }
+    
+        if ([self.mTableView respondsToSelector:@selector(setLayoutMargins:)]) {
+            [self.mTableView setLayoutMargins:UIEdgeInsetsZero];
+        }
+
+}
 -(void)sectionBtnTouch:(UIButton *)btn
 {
     NSInteger section = btn.tag - SECTION_BTN_TAG_BEGIN;
@@ -213,10 +230,12 @@
 {
     return 1;
 }
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [self.dropDownDataSource numberOfRowsInSection:currentExtendSection];
 }
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -233,5 +252,21 @@
 }
 
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 
+{
+    
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+        
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+        
+    }
+    
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+        
+    }
+    
+}
 @end

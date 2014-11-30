@@ -38,6 +38,12 @@
         _root = [KQRootViewController sharedInstance];
         
         _hudCache = [NSMutableDictionary dictionary];
+        
+        _acitvityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+
+        _acitvityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+        
+
     }
     return self;
 }
@@ -50,11 +56,57 @@
                                          appKey:kUmengAppKey
                                       shareText:text
                                      shareImage:image
-                                shareToSnsNames:@[UMShareToSina,UMShareToWechatSession,UMShareToWechatTimeline,UMShareToEmail,UMShareToSms]
+                                shareToSnsNames:@[UMShareToSina,UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQQ,UMShareToQzone,UMShareToEmail,UMShareToSms]
                                        delegate:nil];
     
 }
 
+- (void)shareCoupon:(Coupon*)coupon delegate:(id)delegate{
+    
+    NSString *title = coupon.title;
+    NSString *discountContent = coupon.discountContent;
+    NSString *advertise = [NSString stringWithFormat:@"试试快券吧，再也不用带着团购验证码逛街了！   更多详情：%@",@"http://www.quickquan.com/app/share.php"];
+    NSString *short_desc = coupon.short_desc;
+    
+    NSString *sinaText = [NSString stringWithFormat:@"【%@%@】%@%@",title,discountContent,advertise,short_desc];
+     [UMSocialData defaultData].extConfig.sinaData.shareText = sinaText;
+    
+    //weixin:  [多商圈]摩提工房 立减5元
+    NSString *weixinText = [NSString stringWithFormat:@"【多商圈】%@%@",title,discountContent];
+    
+    [UMSocialData defaultData].extConfig.wechatSessionData.shareText = weixinText;
+    
+    //朋友圈：摩提工房 立减5元
+    NSString *wechatTimeline = [NSString stringWithFormat:@"【多商圈】%@%@",title,discountContent];
+    [UMSocialData defaultData].extConfig.wechatTimelineData.shareText = wechatTimeline;
+    
+    //短信：【摩提工房立减五元】+advertise
+    NSString *smsText = [NSString stringWithFormat:@"【%@%@】%@",title,discountContent,advertise];
+    [UMSocialData defaultData].extConfig.smsData.shareText = smsText;
+    [UMSocialData defaultData].extConfig.smsData.shareImage = nil;
+  
+    //email : sinaText
+    [UMSocialData defaultData].extConfig.emailData.shareText = sinaText;
+    
+    //QQ: 【多商圈】 摩提工房 立减5元
+    [UMSocialData defaultData].extConfig.qqData.shareText = [NSString stringWithFormat:@"【多商圈】%@%@",title,discountContent];
+
+    
+    //QZone 【摩提工房立减5元】 + short_desc
+    [UMSocialData defaultData].extConfig.qzoneData.shareText = [NSString stringWithFormat:@"【%@%@】%@",title,discountContent,short_desc];
+
+
+    
+    
+    [UMSocialSnsService presentSnsIconSheetView:delegate
+                                         appKey:kUmengAppKey
+                                      shareText:sinaText
+                                     shareImage:coupon.avatar
+                                shareToSnsNames:@[UMShareToSina,UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQQ,UMShareToQzone,UMShareToEmail,UMShareToSms]
+                                       delegate:delegate];
+
+    
+}
 
 
 - (void)startProgress{
@@ -65,6 +117,21 @@
     [self dismissProgress:@"Default"];
 }
 
+- (void)startProgressInView:(UIView *)view{
+  
+    
+   
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
+   
+    [hud show:YES];
+   
+
+}
+
+
+- (void)hideProgressInView:(UIView*)view{
+    [MBProgressHUD hideAllHUDsForView:view animated:YES];
+}
 - (void)startProgress:(NSString*)key{
    
     if (ISEMPTY(key)) {
@@ -74,7 +141,8 @@
     MBProgressHUD *hud = _hudCache[key];
 
     if (!hud) {
-        hud = [MBProgressHUD showHUDAddedTo:_root.view animated:YES];
+        UIView *view = [[[UIApplication sharedApplication] windows] firstObject];
+        hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
         [_hudCache setObject:hud forKey:key];
     }
     else{
@@ -88,8 +156,6 @@
     
     MBProgressHUD *hud = [_hudCache objectForKey:key];
 //    L();
-//    NSLog(@"hud # %@,key # %@",hud,key);
-    
     [hud hide:YES];
     
 //    [_hudCache removeObjectForKey:key];
@@ -106,18 +172,36 @@
     MBProgressHUD *hud = _hudCache[@"DefaultHint"];
     
     if (!hud) {
-        hud = [MBProgressHUD showHUDAddedTo:_root.view animated:YES];
+        UIView *view = [[[UIApplication sharedApplication] windows] firstObject];
+         hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
+//        hud = [MBProgressHUD showHUDAddedTo:_root.view animated:YES];
         [_hudCache setObject:hud forKey:@"DefaultHint"];
     }
     else{
         [hud show:YES];
     }
     
-//    _hud = [MBProgressHUD showHUDAddedTo:_root.view animated:YES];
     hud.labelText = text;
+//    hud.detailsLabelText = @"details";
     hud.mode = MBProgressHUDModeText;
     
     [hud hide:YES afterDelay:duration];
 
+}
+
+
+- (void)startLoadingInView:(UIView*)view{
+    
+    _acitvityIndicatorView.frame = view.bounds;
+//    _acitvityIndicatorView.backgroundColor = [UIColor redColor];
+    
+    [view addSubview:_acitvityIndicatorView];
+    
+    [_acitvityIndicatorView startAnimating];
+}
+- (void)stopLoading{
+    
+    [_acitvityIndicatorView stopAnimating];
+    [_acitvityIndicatorView removeFromSuperview];
 }
 @end

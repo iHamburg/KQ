@@ -32,7 +32,7 @@
     
     self.title = @"搜索";
     
-    [self.navigationController.navigationBar setBarTintColor:[UIColor whiteColor]];
+//    [self.navigationController.navigationBar setBarTintColor:[UIColor whiteColor]];
     
     
     self.listContent = [@[@"1",@"2",@"3",@"4"] mutableCopy];
@@ -49,7 +49,7 @@
     
     theSearchBar.delegate = self;
     
-    self.tableView.tableHeaderView = theSearchBar;
+//    self.tableView.tableHeaderView = theSearchBar;
     _searchBar = theSearchBar;
     
     searchdispalyCtrl = [[UISearchDisplayController  alloc] initWithSearchBar:theSearchBar contentsController:self];
@@ -60,14 +60,25 @@
     
     searchdispalyCtrl.searchResultsDataSource = self;
 
-    UISegmentedControl *seg = [[UISegmentedControl alloc] initWithItems:@[@"按地区找",@"按分类找"]];
+//    UISegmentedControl *seg = [[UISegmentedControl alloc] initWithItems:@[@"按地区找",@"按分类找"]];
+//    
+//    seg.frame = CGRectMake(0, 0, 160, 30);
+//    seg.selectedSegmentIndex = 0;
+//    [seg addTarget:self action:@selector(segmentChanged:) forControlEvents:UIControlEventValueChanged];
+//    self.navigationItem.titleView = seg;
+
     
-    seg.frame = CGRectMake(0, 0, 160, 30);
-    seg.selectedSegmentIndex = 0;
-    [seg addTarget:self action:@selector(segmentChanged:) forControlEvents:UIControlEventValueChanged];
-    self.navigationItem.titleView = seg;
+}
 
-
+- (void)viewDidAppear:(BOOL)animated{
+    
+    [super viewDidAppear:animated];
+    
+    self.view.frame = CGRectMake(0, 50, 320, 300);
+    
+    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 100, 50, _h)];
+    v.backgroundColor = [UIColor redColor];
+    [self.view.superview addSubview:v];
     
 }
 
@@ -84,6 +95,14 @@
 }
 
 #pragma mark - TableView
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 40;
+}
+
+- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    return _searchBar;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {

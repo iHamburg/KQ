@@ -21,7 +21,7 @@
 			<key>nib</key>
 			<string>UserAvatarCell</string>
 			<key>height</key>
-			<string>190</string>
+			<string>150</string>
 		</dict>
 		<dict>
 			<key>rows</key>
@@ -30,61 +30,25 @@
 					<key>key</key>
 					<string></string>
 					<key>label</key>
-					<string>我的快券</string>
+					<string>收藏的快券</string>
 					<key>class</key>
-					<string></string>
+					<string>AccessoryLabelCell</string>
 					<key>selector</key>
-					<string>toCoupons</string>
+					<string>fCouponPressed:</string>
 					<key>image</key>
-					<string>icon_mycoupons.png</string>
-				</dict>
-				<dict>
-					<key>key</key>
-					<string>aboutus</string>
-					<key>label</key>
-					<string>我的银行卡</string>
-					<key>class</key>
-					<string></string>
-					<key>selector</key>
-					<string>toCards</string>
-					<key>image</key>
-					<string>icon_mycards.png</string>
+					<string>main_my_favorited_coupon.png</string>
 				</dict>
 				<dict>
 					<key>key</key>
 					<string></string>
 					<key>label</key>
-					<string>我收藏的快券</string>
+					<string>收藏的商户</string>
 					<key>class</key>
-					<string></string>
+					<string>AccessoryLabelCell</string>
 					<key>selector</key>
-					<string>toFavoritedCoupons</string>
+					<string>fShopPressed:</string>
 					<key>image</key>
-					<string>icon_myfavoritedcoupons.png</string>
-				</dict>
-				<dict>
-					<key>key</key>
-					<string>aboutus</string>
-					<key>label</key>
-					<string>我收藏的商家</string>
-					<key>class</key>
-					<string></string>
-					<key>selector</key>
-					<string>toShops</string>
-					<key>image</key>
-					<string>icon_myfavoritedshops.png</string>
-				</dict>
-				<dict>
-					<key>key</key>
-					<string>aboutus</string>
-					<key>label</key>
-					<string>设置</string>
-					<key>class</key>
-					<string></string>
-					<key>selector</key>
-					<string>toSettings</string>
-					<key>image</key>
-					<string>icon_mysettings.png</string>
+					<string>main_my_favorited_shop.png</string>
 				</dict>
 			</array>
 		</dict>
@@ -95,11 +59,37 @@
 					<key>key</key>
 					<string></string>
 					<key>label</key>
-					<string>退出当前账号</string>
+					<string>设置</string>
 					<key>class</key>
-					<string>ButtonCell</string>
+					<string></string>
 					<key>selector</key>
-					<string>logout</string>
+					<string>settingPressed:</string>
+					<key>image</key>
+					<string>main_my_setting.png</string>
+				</dict>
+				<dict>
+					<key>key</key>
+					<string></string>
+					<key>label</key>
+					<string>站内信</string>
+					<key>class</key>
+					<string>AccessoryRoundLabelCell</string>
+					<key>selector</key>
+					<string>newsPressed:</string>
+					<key>image</key>
+					<string>main_my_favorited_letters.png</string>
+				</dict>
+				<dict>
+					<key>key</key>
+					<string></string>
+					<key>label</key>
+					<string>关于我们</string>
+					<key>class</key>
+					<string></string>
+					<key>selector</key>
+					<string>aboutUsPressed:</string>
+					<key>image</key>
+					<string>main_my_about.png</string>
 				</dict>
 			</array>
 		</dict>

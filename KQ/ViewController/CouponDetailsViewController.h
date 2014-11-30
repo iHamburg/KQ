@@ -10,19 +10,19 @@
 #import "Coupon.h"
 #import "Shop.h"
 
-@interface CouponDetailsViewController : ConfigViewController
+@interface CouponDetailsViewController : ConfigViewController{
+
+
+}
 
 @property (nonatomic, strong) Coupon *coupon;
 
-@property (nonatomic, strong) NSArray *shopBranches;
-@property (nonatomic, strong) Shop *nearestShopBranch;
-@property (nonatomic, strong) Shop *shop;
+
 @property (nonatomic, assign) BOOL isFavoritedCoupon;  ///被headerCell observe
 
 
-- (IBAction)backPressed:(id)sender;
-
-- (void)downloadCoupon:(Coupon*)coupon;
+//- (void)downloadCoupon:(Coupon*)coupon;
+- (void)downloadCoupon:(Coupon*)coupon sender:(id)sender;
 - (void)toggleFavoriteCoupon:(Coupon*)coupon;
 - (void)favoriteCoupon:(Coupon*)coupon;
 - (void)unfavoriteCoupon:(Coupon*)coupon;
@@ -30,7 +30,8 @@
 
 
 
-- (void)toMap;
+- (void)presentAddCard;
+- (void)pushCoupon:(Coupon*)coupon;
 - (void)toShop;
 - (void)toShopList;
 - (void)toAfterDownload;

@@ -47,7 +47,7 @@
  1. iphoneR的scale不对，调整一下？
  
  */
-+ (UIImage*)imageWithContentsOfFileUniversal:(NSString *)fileName;  //TODO: 说明
++ (UIImage*)imageWithContentsOfFileUniversal:(NSString *)fileName; 
 
 /**
  

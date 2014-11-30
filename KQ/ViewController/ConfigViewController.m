@@ -33,8 +33,13 @@
     
     self.view.backgroundColor = kColorBG;
 
-    self.navigationController.navigationBar.translucent = NO;
     
+    self.navigationController.navigationBar.translucent = NO;
+
+   
+    UIBarButtonItem *backBB = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_white_back.png"] style:UIBarButtonItemStylePlain target:self action:@selector(backPressed:)];
+    self.navigationItem.leftBarButtonItem = backBB;
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -57,8 +62,14 @@
 
 //    NSLog(@"table.contentSize # %f",self.tableView.contentSize.height);
     
+}
 
-
+- (void)viewDidDisappear:(BOOL)animated{
+    
+    [super viewDidDisappear:animated];
+    
+    _networkFlag = NO;
+    [self willStopLoad];
 }
 
 #pragma mark - Table view data source
@@ -76,6 +87,26 @@
     return [_config headerInSection:section];
 }
 
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    NSString *text = [_config headerInSection:section];
+    
+    if (ISEMPTY(text)) {
+ 
+        
+        return nil;
+    }
+
+    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _w, 38)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, _w, 38)];
+    label.text = text;
+    label.textColor = kColorGray;
+    label.font = [UIFont fontWithName:kFontBoldName size:15];
+    [v addSubview:label];
+    
+    return v;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
@@ -87,6 +118,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+  
     CGFloat height = [_config heightForRowInSection:indexPath.section];
 
     if (height>0) {
@@ -101,8 +133,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    
-
     
     NSString *cellClassName = [_config cellClassnameForIndexPath:indexPath];
     if (ISEMPTY(cellClassName)) {
@@ -120,11 +150,13 @@
 
     }
     
-    
     ConfigCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
     
 //    NSLog(@"className # %@,identifier %@,cell # %@",cellClassName,identifier,cell);
     
+    cell.key = [_config keyForIndexPath:indexPath];
+  
+    // 只要有label，就会显示在textLabel上！但如果是textfieldCell，textLabel会被盖到下面去不显示
     cell.textLabel.text = [_config labelForIndexPath:indexPath];
 
     NSString *imgName = [_config imageNameForIndexPath:indexPath];
@@ -158,13 +190,82 @@
         [self performSelector:selector withObject:nil];
     }
 
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
 }
-- (void)initConfigCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath{
+
+
+//确保分割线左边顶头
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    
+    if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
+        [self.tableView setSeparatorInset:UIEdgeInsetsZero];
+    }
+    
+    if ([self.tableView respondsToSelector:@selector(setLayoutMargins:)]) {
+        [self.tableView setLayoutMargins:UIEdgeInsetsZero];
+    }
 }
-- (void)configCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath{
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+
+{
+    
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+        
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+        
+    }
+    
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+        
+    }
+    
+}
+
+- (void)initConfigCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath{}
+
+- (void)configCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath{}
+
+#pragma mark - IBAction
+
+- (IBAction)backPressed:(id)sender{
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)willConnect:(UIView*)sender{
+    
+    //如果是下拉刷新，不显示activityview
+    if (!self.refreshControl.refreshing) {
+
+       
+        [_libraryManager startProgressInView:sender];
+    }
+    
+    
+    self.networkFlag = YES;
+    
+    
 }
 
 
+- (void)willDisconnectInView:(UIView*)view{
+    [_libraryManager hideProgressInView:view];
+}
+
+
+
+- (void)willLoad:(UIView*)sender{
+    [_libraryManager startLoadingInView:sender];
+
+    _networkFlag = YES;
+}
+- (void)willStopLoad{
+    
+    [_libraryManager stopLoading];
+}
 @end

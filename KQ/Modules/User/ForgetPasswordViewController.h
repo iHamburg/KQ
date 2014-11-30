@@ -7,17 +7,22 @@
 //
 
 #import "SignViewController.h"
+#import "CaptchaButton.h"
 
 @interface ForgetPasswordViewController : SignViewController{
     
     IBOutlet UITextField* _userTextField, *_verifyTextField;
 
-    UIButton *_identifyB;
+    CaptchaButton *_identifyB;
 
     NSString *_username, *_captcha1;
 
 }
 
+@property (nonatomic, strong) NSString *username;
+@property (nonatomic, strong) NSString *captcha;  // 从服务器获得的md5
+
+- (void)toChangePwd;
 
 
 @end

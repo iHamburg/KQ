@@ -9,14 +9,14 @@
 #import <UIKit/UIKit.h>
 
 #import "MainViewController.h"
-#import "AroundViewController.h"
+#import "DropDownShopListViewController.h"
 #import "KQSearchViewController.h"
 #import "UserCenterViewController.h"
 
 @interface KQTabBarViewController : UITabBarController<UITabBarControllerDelegate>{
     
     MainViewController *_mainVC;
-    AroundViewController *_aroundVC;
+    DropDownShopListViewController *_aroundVC;
     KQSearchViewController *_searchVC;
     UserCenterViewController *_userCenterVC;
 }

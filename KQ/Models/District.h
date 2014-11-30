@@ -13,12 +13,11 @@
 @property (nonatomic, copy) NSString *id;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *cityId;
-//@property (nonatomic, copy) NSArray *subDistricts;
-//@property (nonatomic, copy) NSString *parentId;
+
 
 - (id)initWithDict:(NSDictionary*)dict;
 
-+ (instancetype)districtWithDict:(NSDictionary*)dict;
+//+ (instancetype)districtWithDict:(NSDictionary*)dict;
 
 + (id)allInstance;
 

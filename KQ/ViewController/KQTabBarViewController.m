@@ -8,7 +8,9 @@
 
 #import "KQTabBarViewController.h"
 #import "KQRootViewController.h"
-
+#import "SearchViewController.h"
+#import "DropDownCouponListViewController.h"
+#import "CouponSearchViewController.h"
 
 @interface KQTabBarViewController ()
 
@@ -23,13 +25,15 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    _mainVC = [[MainViewController alloc] init];
-    _aroundVC = [[AroundViewController alloc] init];
-    _searchVC = [[KQSearchViewController alloc] init];
-    _userCenterVC = [[UserCenterViewController alloc] init];
+    _mainVC = [[MainViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    _aroundVC = [[DropDownShopListViewController alloc] initWithStyle:UITableViewStyleGrouped];
+//    _searchVC = [[KQSearchViewController alloc] init];
+    _userCenterVC = [[UserCenterViewController alloc] initWithStyle:UITableViewStyleGrouped];
     self.delegate = self;
     
-    NSArray *vcs = @[_mainVC,_aroundVC,_searchVC,_userCenterVC];
+    
+    NSArray *vcs = @[_mainVC,_aroundVC,[[CouponSearchViewController alloc]init],_userCenterVC];
+    
     NSMutableArray *tabVCs = [NSMutableArray array];
     for (UIViewController *vc in vcs) {
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
@@ -76,16 +80,18 @@
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UINavigationController *)viewController{
     //    L();
     
-    if (![[UserController sharedInstance] isLogin]) {
-        UIViewController *rootVC = [viewController.viewControllers firstObject];
-        if ([rootVC isKindOfClass:[UserCenterViewController class]]){
-            
-            [[KQRootViewController sharedInstance] toLogin];
-            return NO;
-        }
-        else
-            return YES;
-    }
+//    if (![[UserController sharedInstance] isLogin]) {
+//      
+//        
+//        UIViewController *rootVC = [viewController.viewControllers firstObject];
+//        if ([rootVC isKindOfClass:[UserCenterViewController class]]){
+//            
+//            [[KQRootViewController sharedInstance] toLogin];
+//            return NO;
+//        }
+//        else
+//            return YES;
+//    }
     return YES;
 }
 

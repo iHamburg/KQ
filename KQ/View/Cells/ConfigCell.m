@@ -17,13 +17,6 @@
         // Initialization code
         [self load];
         
-//        self.firstLabel = [[KQLabel alloc] initWithFrame:CGRectZero];
-//        self.secondLabel = [[KQLabel alloc] initWithFrame:CGRectZero];
-//        self.thirdLabel = [[KQLabel alloc] initWithFrame:CGRectZero];
-//        self.avatarV = [[UIImageView alloc] initWithFrame:CGRectZero];
-//        [self addSubview:self.firstLabel];
-//
-//        NSLog(@"textlabel # %@,details label # %@",self.textLabel, self.detailTextLabel);
     }
     return self;
 }
@@ -34,17 +27,26 @@
 
 - (void)load{
 
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    self.textLabel.font = [UIFont fontWithName:kFontName size:16];
-    self.detailTextLabel.font = [UIFont fontWithName:kFontName size:16];
-    
-    self.textLabel.textColor = kColorBlack;
-    self.detailTextLabel.textColor = kColorBlack;
 
+    _firstLabel = [[KQLabel alloc] initWithFrame:CGRectZero];
+    _secondLabel = [[KQLabel alloc] initWithFrame:CGRectZero];
+    _thirdLabel = [[KQLabel alloc] initWithFrame:CGRectZero];
+    _fourthLabel = [[KQLabel alloc] initWithFrame:CGRectZero];
+    
+    [self addSubview:_firstLabel];
+    [self addSubview:_secondLabel];
+    [self addSubview:_thirdLabel];
+    [self addSubview:_fourthLabel];
+    
 }
 
 + (CGFloat)cellHeightWithValue:(id)value{
     return 45;
 }
 
+- (void)dealloc{
+    L();
+}
 @end

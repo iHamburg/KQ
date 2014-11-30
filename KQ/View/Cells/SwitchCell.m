@@ -12,6 +12,9 @@
     UISwitch *_switch;
 }
 
+- (id)value{
+    return _switch;
+}
 
 - (void)load{
 

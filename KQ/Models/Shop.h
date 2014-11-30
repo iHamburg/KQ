@@ -11,24 +11,46 @@
 
 @interface Shop : NSObject
 
-@property (nonatomic, strong) NSString *id;
-@property (nonatomic, strong) NSString *parentId;
-@property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSString *desc;
-@property (nonatomic, strong) NSString *posterUrl;
-@property (nonatomic, strong) NSString *phone;
-@property (nonatomic, strong) NSString *address;
-@property (nonatomic, strong) NSString *openTime;
+@property (nonatomic, copy) NSString *id;
+@property (nonatomic, copy) NSString *parentId;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *desc;
+@property (nonatomic, copy) NSString *logoUrl;
+@property (nonatomic, copy) NSString *phone;
+@property (nonatomic, copy) NSString *address;
+@property (nonatomic, copy) NSString *openTime;
+@property (nonatomic, copy) NSString *averagePreis;
+@property (nonatomic, copy) NSString *longitude;
+@property (nonatomic, copy) NSString *latitude;
+@property (nonatomic, copy) NSString *district;
+@property (nonatomic, copy) NSString *distance;
+@property (nonatomic, copy) NSString *shopCount;
+@property (nonatomic, assign) BOOL active;
+
+
 @property (nonatomic, assign) CLLocationCoordinate2D coord;
 @property (nonatomic, strong) CLLocation *location;
-@property (nonatomic, assign) CLLocationDistance distance;
-
-@property (nonatomic, strong) NSString *districtId;
-@property (nonatomic, strong) NSArray *coupons;
-@property (nonatomic, strong) NSArray *comments;
-@property (nonatomic, strong) UIImage *image;
+@property (nonatomic, assign) CLLocationDistance locationDistance;
 
 
-+ (instancetype)shopWithDictionary:(NSDictionary*)dict;
+@property (nonatomic, copy) NSString *districtId;
+
+
+@property (nonatomic, copy) UIImage *image;
+@property (nonatomic, readonly) NSArray *coupons;
+@property (nonatomic, readonly) NSString *logoThumbUrl;
+
+//+ (instancetype)shopWithDictionary:(NSDictionary*)dict;
+
+/**
+ *	@brief	包括： 收藏的门店，搜索的门店，门户列表
+ *
+ *
+ */
+- (id)initWithListDict:(NSDictionary*)dict;
+
+//- (id)initWithSearchDict:(NSDictionary*)dict;
+- (id)initWithCouponDetailsDict:(NSDictionary*)dict; //从CouponDetails传过来的dict
+- (id)initWithShopDetailsDict:(NSDictionary*)dict;
 
 @end

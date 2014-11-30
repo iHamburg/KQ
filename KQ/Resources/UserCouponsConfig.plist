@@ -9,11 +9,11 @@
 			<array>
 				<dict>
 					<key>key</key>
-					<string>aboutus</string>
+					<string></string>
 					<key>label</key>
 					<string></string>
 					<key>class</key>
-					<string>CouponListCell</string>
+					<string>CouponListDownloadedCell</string>
 					<key>selector</key>
 					<string></string>
 				</dict>
@@ -21,7 +21,7 @@
 			<key>dynamic</key>
 			<integer>1</integer>
 			<key>height</key>
-			<string>80</string>
+			<string>85</string>
 		</dict>
 	</array>
 </dict>

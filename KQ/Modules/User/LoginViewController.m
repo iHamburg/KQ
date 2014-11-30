@@ -11,7 +11,9 @@
 #import "UserController.h"
 #import "KQRootViewController.h"
 #import "ForgetPasswordViewController.h"
-
+#import "NSString+md5.h"
+#import "KQRegisterViewController.h"
+//#import "ConfigCell.h"
 
 @interface LoginViewController ()
 
@@ -36,10 +38,8 @@
     _userTextField.placeholder = @"手机号";
     _userTextField.delegate = self;
     _userTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    
-//    _userTextField.backgroundColor = [UIColor colorWithWhite:1 alpha:0.5];
-//    _userTextField.leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_user.png"]];
-//    _userTextField.leftViewMode = UITextFieldViewModeAlways;
+    _userTextField.returnKeyType = UIReturnKeyNext;
+//    _userTextField.text = @"13166361023";
     
     
     _passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake(60, 0, 250, kCellHeight)];//f
@@ -49,6 +49,8 @@
     _passwordTextField.returnKeyType = UIReturnKeyGo;
     _passwordTextField.placeholder = @"密码";
     _passwordTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    _passwordTextField.returnKeyType = UIReturnKeySend;
+//    _passwordTextField.text = @"111";
     
     _tfs = @[_userTextField,_passwordTextField];
     _tableImageNames = @[@"icon-user.png",@"icon-password01.png"];
@@ -92,35 +94,31 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-//    [_userTextField becomeFirstResponder];
 }
 
-#pragma mark - IBAction
-
--(IBAction)loginPressed:(id)sender
-{
- 
-    [self loginWithEmail:_userTextField.text password:_passwordTextField.text];
-}
-
-
-- (IBAction)registerPressed:(id)sender{
-
-    [self toRegister];
-}
-
-- (IBAction)forgetPressed:(id)sender{
-
+- (void)viewDidAppear:(BOOL)animated{
     
-    [self toForget];
+    [super viewDidAppear:animated];
+    
+    [self test];
+    
 }
 
+- (void)viewDidDisappear:(BOOL)animated{
+    
+    [super viewDidDisappear:animated];
+  
+}
+
+-(void)dealloc{
+//    L();
+    NSLog(@"dealloc # %@",self);
+}
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    
     return 1;
     
 }
@@ -133,7 +131,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+  
     return kCellHeight;
+
 }
 
 
@@ -144,7 +144,7 @@
     static NSString *CellIdentifier1 = @"Cell1";
     
     
-    //!!!: 可以根据Setting的不同进行不同的工作
+    
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier1];
     
     if (!cell) {
@@ -154,8 +154,6 @@
     }
     
     cell.imageView.image = [UIImage imageNamed:_tableImageNames[indexPath.row]];
-    
-
     
     return cell;
     
@@ -167,28 +165,96 @@
 
 }
 
-#pragma mark - 
-- (void)back{
+#pragma mark - Textfield
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
     
-    L();
-    [self.navigationController dismissViewControllerAnimated:YES completion:^{
-        
-    }];
+    if (textField == _passwordTextField) {
+        [self loginPressed:textField];
+    }
+    
+    return YES;
 }
 
+
+#pragma mark - IBAction
+
+-(IBAction)loginPressed:(id)sender
+{
+    
+    [self validateWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            [self loginWithEmail:_userTextField.text password:_passwordTextField.text];
+        }
+        else{
+            NSString *msg = [error localizedDescription];
+//            [UIAlertView showAlert:msg msg:nil cancel:@"OK"];
+            
+            [_libraryMng startHint:msg];
+        }
+    }];
+    
+    
+}
+
+
+- (IBAction)registerPressed:(id)sender{
+    
+    [self toRegister];
+}
+
+- (IBAction)forgetPressed:(id)sender{
+    
+    [self toForget];
+    
+}
 #pragma mark - Fcns
+
+- (void)validateWithBlock:(BooleanResultBlock)block{
+    
+    int code = 0;
+    
+    if (ISEMPTY(_userTextField.text) || ISEMPTY(_passwordTextField.text)) {
+        // 如果用户名或密码为空
+        
+        code = ErrorAppEmptyParameter;
+    }
+  
+    
+    if (code == 0) {
+        block(YES,nil);
+    }
+    else{
+        
+        NSError *error = [NSError errorWithDomain:kKQErrorDomain code:code userInfo:@{NSLocalizedDescriptionKey:[ErrorManager localizedDescriptionForCode: code]}];
+        
+        block(NO,error);
+    }
+    
+}
 
 - (void)loginWithEmail:(NSString*)email password:(NSString *)password{
     
-    [[UserController sharedInstance] loginWithEmail:email pw:password block:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
+   
+    [self willConnect:_loginB];
+  
+  
+    [_userController loginWithUsername:email password:[password stringWithMD5] boolBlock:^(BOOL succeeded, NSError *error) {
+    
+        [self willDisconnect];
         
-            [self back];
+        if (succeeded && self.networkFlag) {
+        
+            NSLog(@"login successful");
             
-            //TODO: 这里发一个消息更好！
-            [[KQRootViewController sharedInstance] didLogin];
-        
+            self.successBlock(YES,nil);
+
+            [self dismissViewControllerAnimated:YES completion:^{
+                
+            }];
+
+       
         }
+    
     }];
 }
 
@@ -196,17 +262,28 @@
 
 
 - (void)toRegister{
-    
+    KQRegisterViewController *vc = [[KQRegisterViewController alloc] init];
+    vc.view.alpha = 1;
+    vc.successBlock = self.successBlock;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)toForget{
     L();
     
     ForgetPasswordViewController *vc = [[ForgetPasswordViewController alloc] init];
+    vc.view.alpha = 1;
+    vc.successBlock = self.successBlock;
     [self.navigationController pushViewController:vc animated:YES];
+    
 }
 
 
+
+- (void)test{
+    
+
+}
 
 
 @end

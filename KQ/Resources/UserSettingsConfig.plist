@@ -9,27 +9,7 @@
 			<array>
 				<dict>
 					<key>key</key>
-					<string></string>
-					<key>label</key>
-					<string>短信提醒</string>
-					<key>class</key>
-					<string>SwitchCell</string>
-					<key>selector</key>
-					<string></string>
-				</dict>
-				<dict>
-					<key>key</key>
-					<string></string>
-					<key>label</key>
-					<string>站内消息提醒</string>
-					<key>class</key>
-					<string>SwitchCell</string>
-					<key>selector</key>
-					<string></string>
-				</dict>
-				<dict>
-					<key>key</key>
-					<string></string>
+					<string>notification</string>
 					<key>label</key>
 					<string>广播</string>
 					<key>class</key>
@@ -50,17 +30,7 @@
 					<key>class</key>
 					<string>ButtonCell</string>
 					<key>selector</key>
-					<string></string>
-				</dict>
-				<dict>
-					<key>key</key>
-					<string>aboutus</string>
-					<key>label</key>
-					<string>关于我们</string>
-					<key>class</key>
-					<string>ButtonCell</string>
-					<key>selector</key>
-					<string></string>
+					<string>versionPressed:</string>
 				</dict>
 			</array>
 		</dict>

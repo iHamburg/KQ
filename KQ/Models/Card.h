@@ -11,15 +11,12 @@
 
 @interface Card : NSObject
 
-@property (nonatomic, strong) NSString *id;
-@property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSString *peopleId;
-@property (nonatomic, strong) NSString *bankId;
-//@property (nonatomic, strong) NSString *level;
-
-@property (nonatomic, strong) NSString *bankName;
+@property (nonatomic, copy) NSString *id;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *logoUrl;
+@property (nonatomic, copy) NSString *bankTitle;
 
 - (id)initWithDict:(NSDictionary*)dict;
-+ (id)cardWithDict:(NSDictionary*)dict;
+
 
 @end

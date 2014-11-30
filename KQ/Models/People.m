@@ -10,42 +10,98 @@
 
 @implementation People
 
-- (id)initWithDict:(NSDictionary*)dict{
-    if (self = [self init]) {
-        
-//        NSLog(@"dict # %@",dict);
-        
-         dict = [dict dictionaryCheckNull];
-        self.id = dict[@"objectId"];
-        self.phone = dict[@"phone"];
-        self.avatarUrl = dict[@"avatarUrl"];
-        self.nickname = dict[@"nickname"];
-   
+static NSArray *keys;
 
-        //!!!: 没有用到
-        self.favoritedCouponIds = ISEMPTY(dict[@"favoritedCoupons"])?[NSMutableSet set]:[[NSMutableSet alloc] initWithArray:dict[@"favoritedCoupons"]];
-   
-       
-        ///即使dict没有favoritedShops这个key=>(null)，也能正常初始化！！
-        self.favoritedShopIds = ISEMPTY(dict[@"favoritedShops"])?[NSMutableSet set]:[[NSMutableSet alloc] initWithArray:dict[@"favoritedShops"]];
++ (void)initialize {
+    if (self == [People self]) {
+        // ... do the initialization ...
 
-//        NSLog(@"self.favoritedShopIds # %@",self.favoritedCouponIds);
+        keys = @[@"id",@"username",@"password",@"sessionToken",@"avatarUrl",@"nickname"];
     }
+}
+
+
+- (void)setNewsNum:(int)newsNum{
+    
+    _newsNum = newsNum;
+    
+//    NSLog(@"newsNum # %d",newsNum);
+    
+}
+
+- (id)init{
+    
+    if (self = [super init]) {
+        self.isNotification = YES;
+    }
+    
     return self;
 }
 
 
-+ (id)people{
-    
-    People *people = [[People alloc] init];
-    
-    return people;
+- (id)initWithDict:(NSDictionary*)dict{
+    if (self = [self init]) {
+        
+        NSLog(@"dict # %@",dict);
+     
+        if ([dict isKindOfClass:[NSDictionary class]]) {
+            dict = [dict dictionaryCheckNull];
+        }
+        else{
+            return self;
+        }
+        
+        self.id = dict[@"id"];
+        self.username = dict[@"username"];
+        self.avatarUrl = dict[@"avatarUrl"];
+        self.nickname = dict[@"nickname"];
+        self.sessionToken = dict[@"sessionToken"];
+        self.isNotification = YES;
+   
+
+    }
+    return self;
 }
 
+- (id)initWithCoder:(NSCoder *)aDecoder{
 
-+ (id)peopleWithDict:(NSDictionary*)dict{
+    self = [super init];
     
-    return [[People alloc] initWithDict:dict];
+    for (NSString *key in keys) {
+//        NSLog(@"key # %@, value # %@",key,[aDecoder decodeObjectForKey:key]);
+        
+        [self setValue:[aDecoder decodeObjectForKey:key] forKey:key];
+    }
+    
+    self.lastNewsId = [aDecoder decodeIntForKey:@"lastNewsId"];
+    self.isNotification = [aDecoder decodeBoolForKey:@"isNotification"];
+    
+     NSLog(@"self.isnotification # %d",self.isNotification);
+    
+    if (self.isNotification != false) {
+        self.isNotification = YES;
+    }
+    
+    NSLog(@"self.isnotification # %d",self.isNotification);
+//        NSLog(@"people.lastNewsId # %d",self.lastNewsId);
+    
+    return self;
 }
+
+- (void)encodeWithCoder:(NSCoder *)aCoder{
+
+    for (NSString *key in keys) {
+//          NSLog(@"key # %@, value # %@",key,[self valueForKey:key]);
+        
+        [aCoder encodeObject:[self valueForKey:key] forKey:key];
+    }
+    
+    [aCoder encodeInt:self.lastNewsId forKey:@"lastNewsId"];
+    [aCoder encodeBool:self.isNotification forKey:@"isNotification"];
+
+//    L();
+//    NSLog(@"people.lastNewsId # %d",self.lastNewsId);
+}
+
 
 @end

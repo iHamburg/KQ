@@ -6,10 +6,9 @@
 // project.
 
 
-// AVOSCloud
-#define COCOAPODS_POD_AVAILABLE_AVOSCloud
-// This library does not follow semantic-versioning,
-// so we were not able to define version macros.
-// Please contact the author.
-// Version: 2.6.5.1.
+// FXLabel
+#define COCOAPODS_POD_AVAILABLE_FXLabel
+#define COCOAPODS_VERSION_MAJOR_FXLabel 1
+#define COCOAPODS_VERSION_MINOR_FXLabel 5
+#define COCOAPODS_VERSION_PATCH_FXLabel 8
 

@@ -10,4 +10,7 @@
 
 @interface UserSettingsViewController : ConfigViewController
 
+- (IBAction)versionPressed:(id)sender;
+
+- (void)checkVersion;
 @end

@@ -9,6 +9,7 @@
 #import "EventViewController.h"
 #import "KQRootViewController.h"
 #import "NetworkClient.h"
+#import "InteractiveButton.h"
 
 @interface EventViewController ()
 
@@ -22,23 +23,24 @@
     // Do any additional setup after loading the view.
     self.bgV = [[UIImageView alloc] initWithFrame:self.view.bounds];
     
-    
-    self.bgV.image = [UIImage imageNamed:@"bg-landingpage.jpg"];
+    NSString *imgName = @"event_bg.jpg";
+    if (isPhone4) {
+        imgName = @"event_bg_960.jpg";
+    }
+    self.bgV.image = [UIImage imageNamed:imgName];
     self.bgV.contentMode = UIViewContentModeTop;
     self.bgV.userInteractionEnabled = YES;
     [self.bgV addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)]];
     
+    float y = _h*.8;
+    self.button = [[UIButton alloc] initWithFrame:CGRectMake(94, y, 132, 38)];
+    [self.button setBackgroundImage:[UIImage imageNamed:@"eventBtn.png"] forState:UIControlStateNormal];
+    [self.button addTarget:self action:@selector(eventButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
 
-    UIButton *button = [UIButton buttonWithFrame:CGRectMake(85, _h - 64, 150, 44) title:nil bgImageName:@"btn-receive.png" target:self action:@selector(eventButtonClicked:)];
-    
-    self.coupon = [[Coupon alloc] init];
-    self.coupon.id = kEventCouponId;
-    self.coupon.avatarUrl = @"http://www.quickquan.com/images/moti_coupon.jpg";
-    self.coupon.discountContent = @"0元享18元套餐";
-    self.coupon.usage = @"新用户注册即可0元享受，价值18元的美味摩提2个！榴莲慕思摩提、蓝莓味摩提香甜好味、松软曼妙口感！30家店通用";
+    _coupon = [Coupon eventCoupon];
     
     [self.view addSubview:self.bgV];
-    [self.view addSubview:button];
+    [self.view addSubview:self.button];
 
  
 }
@@ -47,6 +49,7 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    
 }
 
 
@@ -58,15 +61,16 @@
 
 - (IBAction)eventButtonClicked:(id)sender{
 
-//    self.toEventCoupon(self.coupon);
-
+//    L();
     [self toCouponDetails];
 }
 
 #pragma mark - Fcns
 
+    // 进首页
 - (void)back{
     L();
+
     [self.view removeFromSuperview];
 }
 

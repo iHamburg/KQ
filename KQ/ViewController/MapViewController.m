@@ -28,6 +28,10 @@
     return self.shop.title;
 }
 
+- (NSString*)subtitle{
+    return self.shop.address;
+}
+
 - (id)initWithLocation:(CLLocationCoordinate2D)coord{
 
     if (self = [super init]) {
@@ -62,9 +66,31 @@
     
 
     if (ISEMPTY(shop.location)) {
+        
         coord = CLLocationCoordinate2DMake(31.1, 121.1);
+
     }else{
-        coord = shop.location.coordinate;
+/*
+ 
+ double x = bd_lon - 0.0065, y = bd_lat - 0.006;
+ double z = Math.sqrt(x * x + y * y) - 0.00002 * Math.sin(y * x_pi);
+ double theta = Math.atan2(y, x) - 0.000003 * Math.cos(x * x_pi);
+ gg_lon = z * Math.cos(theta);
+ gg_lat = z * Math.sin(theta);
+ 
+
+ */
+ 
+         double x_pi = 3.14159265358979324 * 3000.0 / 180.0;
+        double x = shop.location.coordinate.longitude - 0.0065, y = shop.location.coordinate.latitude - 0.006;
+        double z = sqrt(x*x + y*y) - 0.00002 * sin(y * x_pi);
+        double theta = atan2(y, x) - 0.000003 *cos(x * x_pi);
+        double longitude = z * cos(theta);
+        double latitude = z *sin(theta);
+        
+//        NSLog(@"lon # %f, lat # %f",longitude,latitude);
+//        coord = shop.location.coordinate;
+        coord = CLLocationCoordinate2DMake(latitude, longitude);
     }
     
     _shopAnnotation = [[ShopAnnotation alloc] initWithLocation:coord];
@@ -78,8 +104,6 @@
     // Do any additional setup after loading the view.
     
     self.title = @"地图";
-    
-    
     
     if (isIOS7) {
         
@@ -128,13 +152,14 @@
             pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation
                                                       reuseIdentifier:@"CustomPinAnnotationView"];
         
-         pinView.annotation = annotation;
+            pinView.annotation = annotation;
         
             pinView.pinColor = MKPinAnnotationColorRed;
             
             pinView.animatesDrop = YES;
             
             pinView.canShowCallout = YES;
+        
         
     }
     

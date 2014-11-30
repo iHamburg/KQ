@@ -11,15 +11,14 @@
 @implementation ButtonCell
 
 
+
+
 - (void)load{
     self.textLabel.textAlignment = NSTextAlignmentCenter;
     self.accessoryType = UITableViewCellAccessoryNone;
 }
 
-- (void)layoutSubviews{
-    
-    self.textLabel.frame = self.bounds;
-}
+
 
 
 

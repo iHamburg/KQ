@@ -21,24 +21,7 @@
 			<key>dynamic</key>
 			<integer>1</integer>
 			<key>height</key>
-			<string>100</string>
-		</dict>
-		<dict>
-			<key>rows</key>
-			<array>
-				<dict>
-					<key>key</key>
-					<string></string>
-					<key>label</key>
-					<string></string>
-					<key>class</key>
-					<string>ImageButtonCell</string>
-					<key>selector</key>
-					<string>addCard</string>
-				</dict>
-			</array>
-			<key>height</key>
-			<string>65</string>
+			<string>84</string>
 		</dict>
 	</array>
 </dict>

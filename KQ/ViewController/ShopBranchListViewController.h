@@ -7,10 +7,11 @@
 //
 
 #import "NetTableViewController.h"
-
+#import "Shop.h"
 ///分店列表
 @interface ShopBranchListViewController : NetTableViewController
 
-- (void)toMap:(id)shop;
+@property (nonatomic, strong) NSString *headerShopId;
 
+- (void)pushShopDetails:(Shop*)shop;
 @end

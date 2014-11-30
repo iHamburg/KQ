@@ -7,6 +7,7 @@
 //
 
 #import "ErrorManager.h"
+#import "LibraryManager.h"
 
 @implementation ErrorManager
 
@@ -15,22 +16,38 @@
     NSString *str;
     
     switch (code) {
-        case XIncompleteFormFailed:
-            str = LString(@"请填写完整表单!");
+        case ErrorEmptyParameter:
+        
+            str = @"传入的参数不完整";
+        break;
+        case ErrorClientSuccessNil:
+            str = @"服务器没有返回值";
+        
             break;
-        case XNotEnoughEnergy:
-            str = LString(@"没有能量了!");
+        case ErrorAppPasswordInConsistent:
+            
+            str = @"密码输入不一致";
             break;
-        case XHasUnlockedLogo:
-            str = LString(@"徽章已经收集过了！");
+        case ErrorAppInvalidCaptcha:
+            
+            str = @"验证码错误";
             break;
-        case XColdTime:
-            str = LString(@"还在冷却时间内,等几分钟再试试吧");
+        case ErrorAppEmptyParameter:
+            
+            str = @"请完整输入所有信息";
+            break;
+        case ErrorAppInvalideCard:
+            
+            str = @"请输入以62开头的13到19位银行卡号";
+            break;
+            
+        case ErrorAppUnselected:
+            str = @"请先阅读并同意协议";
             break;
         default:
-            str = LString(@"未知错误");
+            str = @"";
 
-            break;
+        break;
     }
     
     return str;
@@ -38,11 +55,13 @@
 
 + (void)alertError:(NSError*)error{
 
-    NSString *msg = [ErrorManager localizedDescriptionForCode:(CustomErrorCode)error.code];
-    if ([msg isEqualToString:LString(@"未知错误")]) {
-        msg = [error localizedDescription];
-    }
+//    int code = error.code;
+    NSString *msg = error.localizedDescription;
     
-    [UIAlertView showAlert:LString(@"错误") msg:msg cancel:LString(@"OK")];
+    // 其他的错误就显示给用户
+
+//    [[LibraryManager sharedInstance] startHint:[NSString stringWithFormat:@"%@ (%d)",msg,code]];
+    
+        [[LibraryManager sharedInstance] startHint:[NSString stringWithFormat:@"%@",msg]];
 }
 @end

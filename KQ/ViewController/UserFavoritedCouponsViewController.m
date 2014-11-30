@@ -10,6 +10,9 @@
 #import "CouponListCell.h"
 #import "CouponDetailsViewController.h"
 
+
+
+
 @interface UserFavoritedCouponsViewController ()
 
 @end
@@ -22,13 +25,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-     self.config = [[TableConfiguration alloc] initWithResource:@"UserCouponsConfig"];
+     self.config = [[TableConfiguration alloc] initWithResource:@"CouponMyListConfig"];
     
     self.title = @"我收藏的快券";
     
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshModels) name:@"refreshFavoritedCoupons" object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -39,12 +40,19 @@
 
 - (void)dealloc{
     L();
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 #pragma mark - Tableview
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 1;
+}
+
 - (void)configCell:(CouponListCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     
-    
+    if (ISEMPTY(_models)) {
+        return;
+    }
     
     if ([cell isKindOfClass:[CouponListCell class]]) {
         
@@ -54,17 +62,32 @@
         
     }
     
-    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    id obj = self.models[indexPath.row];
     
-    [self toCouponDetails:obj];
+    if(ISEMPTY(self.models)){
+        return;
+    }
+    
+  
+    
+    Coupon *coupon = self.models[indexPath.row];
+    
+    if (coupon.active) {
+        [self toCouponDetails:coupon];
+
+    }
+    else{
+        
+        [_libraryManager startHint:@"该收藏快券已失效"];
+    }
+    
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
 
 #pragma mark - Fcns
 
@@ -72,70 +95,90 @@
 - (void)loadModels{
     L();
     
-    [_libraryManager startProgress:nil];
-    
     [self.models removeAllObjects];
     
-    [_networkClient queryFavoritedCoupon:_userController.uid block:^(NSArray *couponDicts, NSError *error) {
+    [self willConnect:self.view];
+    
+    [_networkClient queryFavoritedCoupon:_userController.uid skip:0 block:^(NSDictionary *couponDicts, NSError *error) {
         
-        [_libraryManager dismissProgress:nil];
-        if (ISEMPTY(couponDicts)) {
-            [_libraryManager startHint:@"还没有收藏商户" duration:1];
+        [self willDisconnectInView:self.view];
+        [self.refreshControl endRefreshing];
+        
+        
+        if (!error) {
+            NSArray *array = couponDicts[@"coupons"];
+
+            if (ISEMPTY(array)) {
+                [_libraryManager startHint:@"还没有收藏快券"];
+            }
+            
+//            NSLog(@"array # %@",array);
+            
+            for (NSDictionary *dict in array) {
+                Coupon *coupon = [[Coupon alloc] initWithFavoriteDict:dict];
+                [self.models addObject:coupon];
+            }
+            
+//            if (self.models.count <kLimit) {
+//                self.isLoadMore = NO;
+//            }
+            
+            [self.tableView reloadData];
         }
         else{
-//            NSLog(@"couponDicts # %@",couponDicts);
-            for (NSDictionary *dict in couponDicts) {
-                Coupon *coupon = [Coupon couponWithDict:dict];
-                [self.models addObject:coupon];
-                
-            }
+            [ErrorManager alertError:error];
         }
-        [self.tableView reloadData];
      
     }];
 
 }
 
-///当用户refresh了收藏信息
-- (void)refreshModels{
-    [self.models removeAllObjects];
+- (void)loadMore:(VoidBlock)finishedBlock{
+    int count = [_models count];
     
-    [_networkClient queryFavoritedCoupon:_userController.uid block:^(NSArray *couponDicts, NSError *error) {
-   
-        if (ISEMPTY(couponDicts)) {
-     
+    //    NSLog(@"networkflag # %d",_networkFlag);
+    
+    _networkFlag = YES;
+    
+    //从现有的之后进行载入
+    [_networkClient queryFavoritedCoupon:_userController.uid skip:count block:^(NSDictionary *couponDicts, NSError *error) {
+        
+        finishedBlock();
+        
+        
+        if (!error) {
+            NSArray *array = couponDicts[@"coupons"];
+            
+//            [self addCouponsInModel:array];
+            for (NSDictionary *dict in array) {
+                Coupon *coupon = [[Coupon alloc] initWithListDict:dict];
+                [self.models addObject:coupon];
+            }
+            
+            [self.tableView reloadData];
+
+            
         }
         else{
-            
-            for (NSDictionary *dict in couponDicts) {
-                Coupon *coupon = [Coupon couponWithDict:dict];
-                [self.models addObject:coupon];
-                
-            }
+            [ErrorManager alertError:error];
         }
-  
-        [self.tableView reloadData];
+        
         
     }];
 
 }
 
 - (void)toCouponDetails:(Coupon*)coupon{
+//
+
+//    [_root toCouponDetails:coupon];
     
-    CouponDetailsViewController *vc = [[CouponDetailsViewController alloc] init];
+    CouponDetailsViewController *vc = [[CouponDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     vc.view.alpha = 1;
     vc.coupon = coupon;
     [self.navigationController pushViewController:vc animated:YES];
+
 }
 
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-//{
-//    if ([segue.identifier isEqualToString:@"toCouponDetails"])
-//    {
-//        //        L();
-//        [segue.destinationViewController setValue:sender forKeyPath:@"coupon"];
-//        
-//    }
-//}
 
 @end

@@ -10,7 +10,6 @@
 #import "CouponListCell.h"
 #import "CouponDetailsViewController.h"
 
-#pragma mark - UserCouponsVC
 
 @interface UserCouponsViewController (){
     UIView *_tableHeader;
@@ -33,7 +32,7 @@
 
     _tableHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
     _tableHeader.backgroundColor = kColorBG;
-    
+    //
     UISegmentedControl *seg = [[UISegmentedControl alloc] initWithItems:@[@"未使用",@"已使用",@"已过期"]];
     seg.selectedSegmentIndex = 0;
     seg.frame = CGRectMake(0, 0, 260, 30);
@@ -42,8 +41,8 @@
     [_tableHeader addSubview:seg];
 
     
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.config = [[TableConfiguration alloc] initWithResource:@"UserCouponsConfig"];
+ 
+    self.config = [[TableConfiguration alloc] initWithResource:@"CouponMyListConfig"];
     self.isLoadMore = NO;
 }
 
@@ -69,26 +68,49 @@
     
 }
 
+
 - (void)configCell:(CouponListCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     
-    
+    if (ISEMPTY(_models)) {
+        return;
+    }
     
     if ([cell isKindOfClass:[CouponListCell class]]) {
         
         Coupon *project = _models[indexPath.row];
         
         [cell setValue:project];
+        [cell setText:[NSString stringWithFormat:@"%@张",project.number]];
         
     }
  
+     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    id obj = self.models[indexPath.row];
+//    id obj = self.models[indexPath.row];
+//    
+//    [self toCouponDetails:obj];
+//    
     
-    [self toCouponDetails:obj];
+    if(ISEMPTY(self.models)){
+        return;
+    }
+    
+    
+    Coupon *coupon = self.models[indexPath.row];
+    
+    if (coupon.active) {
+        [self toCouponDetails:coupon];
+        
+    }
+    else{
+        
+        [_libraryManager startHint:@"该快券已失效"];
+    }
+
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -97,87 +119,130 @@
 - (IBAction)segmentedControlChanged:(UISegmentedControl*)sender{
     int index = (int)sender.selectedSegmentIndex;
     NSLog(@"index # %d",index);
+    self.couponStatus = index;
 
-    [self queryCoupons:index];
+    //重新刷新
+    [self loadModels];
+//    [self queryCoupons:index];
 }
 
 #pragma mark - Fcns;
 
-- (void)queryCoupons:(CouponStatus)status{
-
-    switch (status) {
-        case CouponStatusUnused:
-            [self loadModels];
-            break;
-        case CouponStatusUsed:
-        case CouponStatusExpired:
-            
-            //应该显示不同的优惠券
-            [self demoEmptyTable];
-        default:
-            break;
-    }
-    
-}
-
-- (void)demoEmptyTable{
-    [self.models removeAllObjects];
-    [self.tableView reloadData];
-
-    [_libraryManager startHint:@"没有优惠券" duration:1];
-    
-    
-}
 
 - (void)loadModels{
     
     
-    if (!ISEMPTY(_models)) {
-        return;
-    }
-    
-    [_libraryManager startProgress:nil];
-    
     [self.models removeAllObjects];
 
 
-    [_networkClient queryDownloadedCoupon:_userController.uid block:^(NSArray *couponDicts, NSError *error) {
-        [_libraryManager dismissProgress:nil];  
+    [self willConnect:self.view];
+    
+    
+    if (_couponStatus == CouponStatusUnused) {
+        _mode = @"unused";
+    }
+    else if(_couponStatus == CouponStatusUsed){
+        _mode = @"used";
+    }
+    else if(_couponStatus == CouponStatusExpired){
+        _mode = @"expired";
+    }
+    
+    [_networkClient queryDownloadedCoupon:_userController.uid mode:_mode skip:0 block:^(NSDictionary *dict, NSError *error) {
 
-        if (!ISEMPTY(couponDicts)) {
+        [self willDisconnectInView:self.view];
+        [self.refreshControl endRefreshing];
+        
+
+        if (!error) {
             
-            for (NSDictionary *dict in couponDicts) {
-                if ([dict isKindOfClass:[NSNull class]]) {
-                    continue;
+//            NSLog(@"user coupons # %@",dict);
+            
+            NSArray *array = dict[@"coupons"];
+            
+            
+//             NSLog(@"array # %@",array);
+            
+            if (ISEMPTY(array)) {
+                NSString *msg;
+                if (_couponStatus == CouponStatusUnused) {
+                    msg = @"没有未使用的快券";
                 }
-                
-                Coupon *coupon = [Coupon couponWithDict:dict];
-                [_models addObject:coupon];
-                NSLog(@"coupon # %@",coupon.id);
-                
+                else if(_couponStatus == CouponStatusUsed){
+                    msg = @"没有已经使用的快券";
+                }
+                else if(_couponStatus == CouponStatusExpired){
+                    msg = @"没有过期的快券";
+                }
+
+                [_libraryManager startHint:msg duration:1];
             }
+            
+
+//            NSLog(@"dCoupons # %@",array);
+            for (NSDictionary *dict in array) {
+                
+                Coupon *coupon = [[Coupon alloc] initWithDownloadedDict:dict];
+                
+                [self.models addObject:coupon];
+            }
+            
+            [self.tableView reloadData];
         }
         else{
-             [_libraryManager startHint:@"还没有优惠券" duration:1];
+            [ErrorManager alertError:error];
         }
 
-        [self.tableView reloadData];
 
     }];
     
 }
 
-- (void)refreshModels{
-    [_models removeAllObjects];
+- (void)loadMore:(VoidBlock)finishedBlock{
     
-    [self loadModels];
+    int count = [_models count];
+    
+    _networkFlag = YES;
+    
+    [_networkClient queryDownloadedCoupon:_userController.uid mode:_mode skip:count block:^(NSDictionary *dict, NSError *error) {
+        
+        if (!error) {
+            
+            //            NSLog(@"user coupons # %@",dict);
+            
+            NSArray *array = dict[@"coupons"];
+            
+            //            NSLog(@"dCoupons # %@",array);
+            for (NSDictionary *dict in array) {
+                
+                Coupon *coupon = [[Coupon alloc] initWithDownloadedDict:dict];
+                
+                [self.models addObject:coupon];
+            }
+            
+            [self.tableView reloadData];
+        }
+        else{
+            [ErrorManager alertError:error];
+        }
+        
+        
+    }];
+
+    
 }
+
 
 
 - (void)toCouponDetails:(Coupon*)coupon{
     
+    
+    CouponDetailsViewController *vc = [[CouponDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    vc.view.alpha = 1;
+    vc.coupon = coupon;
+    [self.navigationController pushViewController:vc animated:YES];
 
-    [_root toCouponDetails:coupon];
+    
 
 }
 

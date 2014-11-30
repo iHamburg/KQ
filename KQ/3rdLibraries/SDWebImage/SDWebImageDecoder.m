@@ -108,7 +108,7 @@ static SDWebImageDecoder *sharedInstance;
                                                  colorSpace,
                                                  // Makes system don't need to do extra conversion when displayed.
                                                  // NOTE: here we remove the alpha channel for performance. Most of the time, images loaded
-                                                 //       from the network are jpeg with no alpha channel. As a TODO, finding a way to detect
+                                                 //       from the network are jpeg with no alpha channel. As , finding a way to detect
                                                  //       if alpha channel is necessary would be nice.
                                                  kCGImageAlphaNoneSkipLast | kCGBitmapByteOrder32Little);
     CGColorSpaceRelease(colorSpace);

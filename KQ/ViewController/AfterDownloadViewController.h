@@ -1,20 +1,18 @@
 //
-//  AfterDownloadViewController.h
+//  AfterDownload2ViewController.h
 //  KQ
 //
-//  Created by AppDevelopper on 14-9-14.
+//  Created by Forest on 14-11-23.
 //  Copyright (c) 2014年 Xappsoft. All rights reserved.
 //
 
-#import "SignViewController.h"
+#import "NetTableViewController.h"
 
-@interface AfterDownloadViewController : SignViewController{
+@interface AfterDownloadViewController : NetTableViewController
 
-}
 
-@property (nonatomic, assign) int source; // 0:从注册来，dissmiss； 1： 从coupondetails的下载来，pop
-
-- (void)toAddCard;
-
+- (void)presentAddCard;
+- (void)pushUserCoupons;
+- (void)toMain;
 
 @end
