@@ -8,7 +8,7 @@
 
 #import "KQRootViewController.h"
 #import "SearchViewController.h"
-#import "AVOSServer.h"
+
 #import "NetworkClient.h"
 #import "KQLoginViewController.h"
 #import "UserCenterViewController.h"
@@ -20,25 +20,27 @@
 #import "KQLoginViewController.h"
 #import "UserCouponsViewController.h"
 #import "NSString+md5.h"
+#import "InstructionViewController.h"
 
 @interface KQRootViewController (){
 
+    
     EventViewController *_eventVC;
+    
     
 }
 
 @property (nonatomic, strong) IBOutlet EventViewController *eventVC;
 
-- (void)addVCAboveTab:(UIViewController*)vc;
-- (void)removeVCFromTab:(UIViewController *)vc;
-
-- (void)addNavVCAboveTab:(UIViewController*)vc;
-- (void)removeNavVCAboveTab;
-
 
 @end
 
 @implementation KQRootViewController
+
+
+- (UITabBar*)tabBar{
+    return _tabVC.tabBar;
+}
 
 + (id)sharedInstance{
    
@@ -61,8 +63,6 @@
     // Do any additional setup after loading the view.
     
     
-    L();
-
     _tabVC = [[KQTabBarViewController alloc] init];
     
     [self.view addSubview:_tabVC.view];
@@ -86,19 +86,19 @@
     
 }
 
+
+- (void)handleAppFirstTimeOpen{
+    L();
+    [self showInstruction];
+}
+
 - (void)handleRootFirstWillAppear{
     
     L();
     
-    [super handleRootFirstWillAppear];
-    
-    
-    if (kIsMainApplyEvent) {
-        
-        [self startEvent];
+    if (![[UserController sharedInstance] isLogin]) {
+        [self showEvent];
     }
-    
-
 
 }
 
@@ -111,11 +111,7 @@
 
 - (void)registerNotification{
     [super registerNotification];
-    
-    [[NSNotificationCenter defaultCenter] addObserverForName:@"toLogin" object:nil queue:nil usingBlock:^(NSNotification *note) {
-        [self toLogin];
-    }];
-    
+  
 }
 
 
@@ -124,163 +120,175 @@
     [self removeNavVCAboveTab];
 }
 
-#pragma mark - Private Fcns
 
-
-- (void)addVCAboveTab:(UIViewController*)vc{
-
-    [_tabVC.view addSubview:vc.view];
-
-}
-
-
-- (void)removeVCFromTab:(UIViewController *)vc{
-    [vc.view removeFromSuperview];
-}
-
-
-///??? 如果有多个vc叠加的话会怎么样？
-- (void)addNavVCAboveTab:(UIViewController*)vc{
- 
-    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_back.png" target:self action:@selector(removeNavPressed:)]];
-    _nav = [[UINavigationController alloc] initWithRootViewController:vc];
-  
-    [self.view addSubview:_nav.view];
-    
-    
-    
-}
-- (void)removeNavVCAboveTab{
-    
-    [_nav.view removeFromSuperview];
-    
-}
 
 #pragma mark - Fcns
 
-- (void)startEvent{
+- (void)showInstruction{
+    self.instructionVC = [[InstructionViewController alloc] init];
     
-    //判断是否登录
-    
-    if ([[UserController sharedInstance] isLogin]) {
-        NSLog(@"user has login, go to mainPage");
-        
-       
-    }
-    else{
-        NSLog(@"no user, show event Page");
-        
-        _eventVC = [[EventViewController alloc] init];
+    [self.view addSubview:self.instructionVC.view];
+}
 
-        [self.view addSubview:_eventVC.view];
-        
-      
-        
-    }
+- (void)showEvent{
+    
+//    //判断是否登录
+//    
+//    if ([[UserController sharedInstance] isLogin]) {
+//        NSLog(@"user has login, go to mainPage");
+//        
+//       
+//    }
+//    else{
+//        NSLog(@"no user, show event Page");
+//        
+//        _eventVC = [[EventViewController alloc] init];
+//
+//        [self.view insertSubview:_eventVC.view aboveSubview:_tabVC.view];
+//
+//       
+//    }
+    _eventVC = [[EventViewController alloc] init];
+    
+    [self.view insertSubview:_eventVC.view aboveSubview:_tabVC.view];
     
 }
 
 
-//点击banner
+//从main， 附近进couponDetails
 - (void)toCouponDetails:(Coupon*)coupon{
     
-    CouponDetailsViewController *vc = [[CouponDetailsViewController alloc] init];
+    CouponDetailsViewController *vc = [[CouponDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     vc.view.alpha = 1;
     vc.coupon = coupon;
-    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_back.png" target:self action:@selector(removeNavPressed:)]];
    
-    _nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self addNavVCAboveTab:vc];
 
+}
+
+
+- (void)presentLoginWithBlock:(BooleanResultBlock)block{
+    KQLoginViewController *vc = [[KQLoginViewController alloc] init];
+    
+    vc.view.alpha = 1;  //提前先load LoginVC，生成back，这样之后的back的selector能覆盖默认的back
+    // 这里的block可以放在root，让root有一个bool值的block
+    vc.successBlock = block;
+    
+    [self presentNav:vc];
+}
+
+- (void)toTab:(int)index{
+
+    _tabVC.selectedIndex = 0;
+    
+}
+
+- (void)presentNav:(UIViewController*)vc{
+    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_white_back.png" target:self action:@selector(dismissNav)]];
+    
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
+        
+    }];
+
+}
+
+- (void)presentNav:(UIViewController *)vc block:(BooleanResultBlock)block{
+    
+    self.presentBlock = block;
+    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_white_back.png" target:self action:@selector(dismissNav)]];
+    
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
+        
+    }];
+
+}
+
+//- (void)presentNav:(UIViewController*)vc mode:(PresentMode)mode{
+//    
+//    self.presentMode = mode;
+//    
+//    [self presentNav:vc];
+//}
+
+- (void)addNavVCAboveTab:(UIViewController *)vc{
+    
+    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_white_back.png" target:self action:@selector(removeNavPressed:)]];
+    
+    _nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    
     [_nav.view setOrigin:CGPointMake(_w, 0)];
     [self.view addSubview:_nav.view];
-  
-    [UIView animateWithDuration:.4 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    
+    [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         
         [_nav.view setOrigin:CGPointMake(0, 0)];
         
     } completion:^(BOOL finished) {
         
     }];
-    
 
 }
 
-- (void)toMyCoupons{
-    // 如果在toCouponDetails，先退出来
-    [_nav.view removeFromSuperview];
+- (void)removeNavVCAboveTab{
     
-    UserCouponsViewController *vc = [[UserCouponsViewController alloc] init];
-    vc.view.alpha = 1;
-    
-    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_back.png" target:self action:@selector(removeNavPressed:)]];
-    
-    _nav = [[UINavigationController alloc] initWithRootViewController:vc];
-    [self.view addSubview:_nav.view];
-}
-
-/**
- **/
-- (void)toLogin {
-
-    KQLoginViewController *vc = [[KQLoginViewController alloc] init];
-    vc.view.alpha = 1;
-//    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_back.png" target:self action:@selector(removeNavPressed:)]];
-    
-    
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
+  
+    [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         
+        [_nav.view setOrigin:CGPointMake(_w, 0)];
+        
+    } completion:^(BOOL finished) {
+          [_nav.view removeFromSuperview];
+        _nav = nil;
     }];
 
-//    _nav = [[UINavigationController alloc] initWithRootViewController:vc];
+}
+
+- (void)dismissNav{
+    
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+        // 把presentMode调回default
+//        self.presentMode = PresentDefault;
+    }];
+}
+
+//- (void)addNav:(UIViewController*)vc{
 //    
-//    [_nav.view setOrigin:CGPointMake(_w, 0)];
-//    [self.view addSubview:_nav.view];
-//    
-//    [UIView animateWithDuration:.4 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-//        
-//        [_nav.view setOrigin:CGPointMake(0, 0)];
-//        
-//    } completion:^(BOOL finished) {
-//        
-//    }];
-
-   
-    
-}
-
-
-
-
-- (void)didLogin{
-//    self.selectedIndex = 3;
-    
-}
-
-- (void)didLogout{
-
-    _tabVC.selectedIndex = 0;
-    
-}
-
-
+//}
 
 - (void)test{
     L();
     
     [super test];
     
-    [[AVOSServer sharedInstance] test];
     [[NetworkClient sharedInstance] test];
     [[UserController sharedInstance] test];
 
- //    [self testNav:@"AddCardViewController"];
+    // 版本号
+  
     
-    CGRect r = [UIScreen mainScreen].bounds;
-    NSLog(@"screen # %@",NSStringFromCGRect(r));
-    r = CGRectApplyAffineTransform(r, CGAffineTransformMakeRotation(90 * M_PI / 180.));
-        NSLog(@"screen # %@",NSStringFromCGRect(r));
+    
+//    NSLog(@"uniqueIdentifier: %@", [[UIDevice currentDevice] uniqueIdentifier]);
 
+//    NSLog(@"systemVersion: %@", [[UIDevice currentDevice] systemVersion]);
+//    NSLog(@"model: %@", [[UIDevice currentDevice] model]);
+// 
+//    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+//    NSString *app_build = [infoDictionary objectForKey:@"CFBundleVersion"];
+//    NSLog(@"app version # %@",app_build);
+//    [self showEvent];
+//    [self showInstruction];
+//     [self testNav:@"ChangePasswordViewController"];
+    
+//    CGRect r = [UIScreen mainScreen].bounds;
+//    NSLog(@"screen # %@",NSStringFromCGRect(r));
+//    r = CGRectApplyAffineTransform(r, CGAffineTransformMakeRotation(90 * M_PI / 180.));
+//        NSLog(@"screen # %@",NSStringFromCGRect(r));
+    
 
+//    [self testNav:@"ChangePasswordViewController"];
+
+//    [self testNav:@"KQRegisterViewController"];
 }
 
 

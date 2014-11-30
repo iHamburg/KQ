@@ -12,7 +12,7 @@
 #import "KQRootViewController.h"
 #import "LibraryManager.h"
 #import "InsetsTextField.h"
-#import "AfterDownloadBankViewController.h"
+#import "WebViewController.h"
 
 @interface AddCardViewController (){
     
@@ -29,10 +29,6 @@
 @end
 
 
-/**
- 
- 
- */
 @implementation AddCardViewController
 
 
@@ -51,7 +47,7 @@
     
     self.title = @"添加银行卡";
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_back.png" target:self action:@selector(backPressed:)]];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_white_back.png" target:self action:@selector(backPressed:)]];
     
     self.view.backgroundColor  = kColorBG;
     
@@ -73,7 +69,6 @@
     tf.placeholder = @"银行卡卡号";
     tf.delegate = self;
     tf.clearButtonMode = UITextFieldViewModeWhileEditing;
-
     _tf = tf;
     
     
@@ -82,7 +77,7 @@
     
     _selected = YES;
     
-    _selectBtn = [UIButton buttonWithFrame:CGRectMake(10, y, 30, 30) title:nil bgImageName:@"icon-agreement03.png" target:self action:@selector(selectAgreementClicked:)];
+    _selectBtn = [UIButton buttonWithFrame:CGRectMake(10, y, 30, 30) title:nil imageName:@"icon-agreement03.png" target:self action:@selector(selectAgreementClicked:)];
     
     _readL = [[UILabel alloc] initWithFrame:CGRectMake(45, y, 100, 30)];
     _readL.text = @"我已阅读并同意";
@@ -103,6 +98,14 @@
     btn.titleLabel.font = [UIFont fontWithName:kFontBoldName size:20];
     _button = btn;
     
+    UIImageView *unionImgV = [[UIImageView alloc] initWithFrame:CGRectMake(_w/2-32, CGRectGetMaxY(_button.frame)+10, 64, 64)];
+    unionImgV.image = [UIImage imageNamed:@"bank_icon.png"];
+    
+    UILabel *unionL = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(unionImgV.frame)+10, _w, 30)];
+    unionL.font = [UIFont fontWithName:kFontName size:10];
+    unionL.textAlignment = NSTextAlignmentCenter;
+    unionL.text = @"中国银联将保障您的账户信息安全";
+    
     [self.view addSubview:label];
     [self.view addSubview:tfBgV];
     [self.view addSubview:_tf];
@@ -110,8 +113,9 @@
     [self.view addSubview:_readL];
     [self.view addSubview:_agreementB];
     [self.view addSubview:_button];
-    
-//    NSLog(@"label # %@",label);
+    [self.view addSubview:unionImgV];
+    [self.view addSubview:unionL];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -124,7 +128,14 @@
 
     [super viewWillAppear:animated];
     
-//    [_tf becomeFirstResponder];
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    
+    [super viewDidAppear:animated];
+    
+//    [_libraryManager startHint:@"还需一步，即可下载成功！"];
+
 }
 
 #pragma mark - IBAction
@@ -149,8 +160,9 @@
 }
 
 - (IBAction)agreementClicked:(id)sender{
-    //    L();
+
     [self toAgreement];
+
 }
 
 
@@ -162,6 +174,9 @@
         if (succeeded) {
             [self addCard:_tf.text];
         }
+        else{
+            [ErrorManager alertError:error];
+        }
     }];
     
 }
@@ -170,70 +185,82 @@
 
 - (void)validateWithBlock:(BooleanResultBlock)block{
 
+    int code = 0;
+    
     NSString *number = _tf.text;
     int length = number.length;
     NSRange range = [number rangeOfString:@"62"];
 //    NSLog(@"range # %@",NSStringFromRange(range));
 
-    NSString *msg = @"请输入以62开头的13到19位银行卡号";
     
     if (range.location!=0 || length<13 ||length>19) {
         
-        [UIAlertView showAlert:msg msg:nil cancel:@"OK"];
-    
-        block(NO,nil);
+        code = ErrorAppInvalideCard;
        
     }
-    else{
+    else if(!_selected){
+        
+        code = ErrorAppUnselected;
+    }
+    
+    if (code == 0) {
         block(YES,nil);
     }
+    else{
+        
+        NSError *error = [NSError errorWithDomain:kKQErrorDomain code:code userInfo:@{NSLocalizedDescriptionKey:[ErrorManager localizedDescriptionForCode: code]}];
+        
+        block(NO,error);
+    }
+    
+
 }
 
 
 - (void)addCard:(NSString*)number{
 
-    [[LibraryManager sharedInstance] startProgress:nil];
     
-    [[NetworkClient sharedInstance] user:[[UserController sharedInstance] uid] addCard:number block:^(id object, NSError *error) {
+    [self willLoad:_button];
     
-        [[LibraryManager sharedInstance] dismissProgress:nil];
+    NSString *uid = [[UserController sharedInstance] uid];
+    NSString *sessionToken = [[UserController sharedInstance] sessionToken];
+    
+    [[NetworkClient sharedInstance] user:uid sessionToken:sessionToken addCard:number block:^(id object, NSError *error) {
+       [self willStopLoad];
      
-        if (!ISEMPTY(object)) {
-
-            ///
-            if (_parent) {
-               ///如果是从usercardVC过来的
-                
-                [self.navigationController popViewControllerAnimated:YES];
-                
-                //!!!: 如果是从活动流程过来
-                [_parent didAddCard];
-            }
-            else{
-                
-                // 更新userController.cardSet?
-                
-                [[UserController sharedInstance] loadUser];
-                
-                
-                [self toAfterDownloadBank];
-            }
-            
+        if (!_networkFlag) {
+            return ;
         }
         
+        if (!error) {
+            [_libraryManager startHint:@"银行卡绑定成功"];
+            
+            // 从present过来的有presentBlock
+            if (self.presentBlock) {
+                self.presentBlock(YES,nil);
+                [self dismissViewControllerAnimated:YES completion:^{
+                    
+                }];
+            }
+            else{
+                 [self.navigationController popViewControllerAnimated:YES];
+            }
+        }
+        else{
+            [ErrorManager alertError:error];
+        }
+
     }];
 }
 
 - (void)toAgreement{
     
-    L();
-    
-}
-
-- (void)toAfterDownloadBank{
-    
-    AfterDownloadBankViewController *vc = [[AfterDownloadBankViewController alloc] init];
+//    L();
+    WebViewController *vc = [[WebViewController alloc] init];
+    vc.fileName = @"bankcard_agreement.html";
+    vc.title = @"银联钱包技术使用协议";
     [self.navigationController pushViewController:vc animated:YES];
 
 }
+
 @end

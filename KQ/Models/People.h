@@ -8,25 +8,27 @@
 
 #import <Foundation/Foundation.h>
 
-@interface People : NSObject
+@interface People : NSObject<NSCoding>
 
 @property (nonatomic, copy) NSString *id;
-@property (nonatomic, copy) NSString *avatarUrl;
-@property (nonatomic, copy) NSString *phone;
-@property (nonatomic, copy) NSString *password;
-@property (nonatomic, copy) NSString *nickname;
+@property (nonatomic, copy) NSString *username;
+@property (nonatomic, copy) NSString *password;  // md5
 @property (nonatomic, copy) NSString *sessionToken;
 
-@property (nonatomic, strong) NSMutableSet *favoritedCouponIds;
-@property (nonatomic, strong) NSMutableSet *favoritedShopIds;
-@property (nonatomic, strong) NSMutableSet *cardIds; //set
-@property (nonatomic, strong) NSMutableSet *downloadedCouponIds; //set
+@property (nonatomic, copy) NSString *avatarUrl;
+@property (nonatomic, copy) NSString *nickname;
 
+@property (nonatomic, assign) int cardNum;
+@property (nonatomic, assign) int dCouponNum;
+@property (nonatomic, assign) int fCouponNum;
+@property (nonatomic, assign) int fShopNum;
+@property (nonatomic, assign) int newsNum;
 
-+ (id)people;
+@property (nonatomic, assign) int lastNewsId;
+@property (nonatomic, assign) BOOL isNotification;
 
-+ (id)peopleWithDict:(NSDictionary*)dict;
 
 - (id)initWithDict:(NSDictionary*)dict;
+
 
 @end

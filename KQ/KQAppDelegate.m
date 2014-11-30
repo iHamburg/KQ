@@ -10,11 +10,15 @@
 #import "UMSocial.h"
 #import "UMSocialWechatHandler.h"
 #import "KQRootViewController.h"
+#import "UMSocialSinaHandler.h"
+#import "UMSocialQQHandler.h"
+#import "MobClick.h"
 
-
-#import <AVOSCloud/AVOSCloud.h>
-
-#define kWeixinAppId @"wxb5fa63851976db24"
+#define kWeixinAppId @"wxe65e25809040a5bb"
+#define kWeixinAppSecret @"7e49bb0130145071b7fa9ede711c4660"
+#define kShareUrl @"http://www.quickquan.com/app/share.php"
+#define kQQAppKey @"1103359890"
+#define kQQAppSecret @"5OsrrE4MdSuOfKzc"
 
 @implementation KQAppDelegate
 
@@ -25,7 +29,7 @@
     
     [self initUmeng];
     
-    [self initAvosCloud];
+//    [self initAvosCloud];
     
     [self customizeAppearance];
     
@@ -40,17 +44,29 @@
 {
     // 友盟
     [UMSocialData setAppKey:kUmengAppKey];
-    [UMSocialWechatHandler setWXAppId:kWeixinAppId url:@"http://www.makers.co"];
+    [UMSocialWechatHandler setWXAppId:kWeixinAppId appSecret:kWeixinAppSecret url:kShareUrl];
+    [UMSocialSinaHandler openSSOWithRedirectURL:@"http://www.quickquan.com"];
+    [UMSocialQQHandler setQQWithAppId:kQQAppKey appKey:kQQAppSecret url:kShareUrl];
+    
+//    [UMSocialData defaultData].extConfig.sinaData.shareText = @"分享到新浪微博内容";
+//    [UMSocialData defaultData].extConfig.tencentData.shareImage = [UIImage imageNamed:@"icon"]; //分享到腾讯微博图片
+//    [[UMSocialData defaultData].extConfig.wechatSessionData.urlResource setResourceType:UMSocialUrlResourceTypeImage url:@"http://www.baidu.com/img/bdlogo.gif"];  //设置微信好友分享url图片
+//    [[UMSocialData defaultData].extConfig.wechatTimelineData.urlResource setResourceType:UMSocialUrlResourceTypeVideo url:@"http://v.youku.com/v_show/id_XNjQ1NjczNzEy.html?f=21207816&ev=2"]; //设置微信朋友圈分享视频
+    
+    
+    [MobClick startWithAppkey:kUmengAppKey reportPolicy:BATCH   channelId:@""];
+    
+    [MobClick setLogEnabled:YES];
     
 }
-
-- (void)initAvosCloud{
-    
-    static NSString *AVOSApplicationId = @"ezxvldwk94k38d6fki1ks4yq55jkl2t15tttu5ezdqbk8mio";
-    static NSString *AVOSClientKey = @"mtbrztjctplgnho2qf49cs70gd4lfggiayww7u6h4mv5s60t";
-    [AVOSCloud setApplicationId:AVOSApplicationId clientKey:AVOSClientKey];
-
-}
+//
+//- (void)initAvosCloud{
+//    
+//    static NSString *AVOSApplicationId = @"ezxvldwk94k38d6fki1ks4yq55jkl2t15tttu5ezdqbk8mio";
+//    static NSString *AVOSClientKey = @"mtbrztjctplgnho2qf49cs70gd4lfggiayww7u6h4mv5s60t";
+//    [AVOSCloud setApplicationId:AVOSApplicationId clientKey:AVOSClientKey];
+//
+//}
 
 - (void)customizeAppearance{
 
@@ -69,8 +85,9 @@
     
     // Title文字
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],
-                                                           NSFontAttributeName:[UIFont fontWithName:kFontBoldName size:22]}];
+                                                           NSFontAttributeName:[UIFont fontWithName:kFontBoldName size:18]}];
     
+    // --- Segement
     
     [[UISegmentedControl appearance] setTitleTextAttributes:@{
                                                               NSForegroundColorAttributeName : kColorDardGray,
@@ -80,11 +97,23 @@
                                                               NSForegroundColorAttributeName : [UIColor whiteColor],
                                                             NSFontAttributeName:[UIFont fontWithName:kFontBoldName size:13]
                                                               } forState:UIControlStateHighlighted];
-    // Title文件颜色
+
+    // SegmentTitle文件颜色
     [[UISegmentedControl appearance] setTintColor:kColorLightYellow];
     
 
 }
 
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    return  [UMSocialSnsService handleOpenURL:url];
+}
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation
+{
+    return  [UMSocialSnsService handleOpenURL:url];
+}
 
 @end

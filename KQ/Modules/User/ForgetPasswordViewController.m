@@ -8,6 +8,8 @@
 
 #import "ForgetPasswordViewController.h"
 #import "ChangePasswordViewController.h"
+#import "ErrorManager.h"
+#import "NSString+md5.h"
 
 @interface ForgetPasswordViewController ()
 
@@ -42,14 +44,14 @@
     CGFloat x = 60;
     
     _userTextField = [[UITextField alloc] initWithFrame:CGRectMake(x, 0, 250, kCellHeight)];
-    //    _userTextField.leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_user.png"]];
-    //    _userTextField.leftViewMode = UITextFieldViewModeAlways;
+    _userTextField.keyboardType = UIKeyboardTypeNumberPad;
     _userTextField.autocorrectionType =UITextAutocorrectionTypeNo;
     _userTextField.placeholder = @"请输入手机号码";
     _userTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     
     _verifyTextField = [[UITextField alloc] initWithFrame:CGRectMake(x, 0, 180, kCellHeight)];
     _verifyTextField.placeholder = @"请输入短信验证码";
+    _verifyTextField.keyboardType = UIKeyboardTypeNumberPad;
     
     _tfs = @[_userTextField,_verifyTextField];
     
@@ -67,6 +69,8 @@
     [_scrollView addSubview:_submitBtn];
     
      _scrollView.contentSize = CGSizeMake(0, 600);
+    
+//    [_userTextField setti]
     
 }
 
@@ -101,7 +105,6 @@
     static NSString *CellIdentifier1 = @"Cell1";
     
     
-    //!!!: 可以根据Setting的不同进行不同的工作
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier1];
     
     if (!cell) {
@@ -111,7 +114,7 @@
     }
     
     if (indexPath.row == 1) {
-        _identifyB = [UIButton buttonWithFrame:CGRectMake(230, 3, 90, kCellHeight - 6) title:@"获取验证码" bgImageName:nil target:self action:@selector(identifyClicked:)];
+        _identifyB = (CaptchaButton*)[CaptchaButton buttonWithFrame:CGRectMake(230, 3, 90, kCellHeight - 6) title:@"获取验证码" bgImageName:nil target:self action:@selector(identifyClicked:)];
         
         [_identifyB setTitleColor:kColorYellow forState:UIControlStateNormal];
         [_identifyB.titleLabel setFont:[UIFont fontWithName:kFontName size:14]];
@@ -125,7 +128,7 @@
     }
     
     cell.imageView.image = [UIImage imageNamed:_tableImageNames[indexPath.row]];
-    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     
     
@@ -140,26 +143,103 @@
 
 - (IBAction)identifyClicked:(id)sender{
     L();
-    _username = _userTextField.text;
-//    _captcha = _verifyTextField.text;
     
-    [_network requestCaptchaForgetPassword:_username block:^(id object, NSError *error) {
-        NSLog(@"object # %@",object);
-    }];
 
+    
+    [self requestCaptcha];
+    
+    [_identifyB startTimer];
 }
 
 
-
-
-- (void)submit{
+- (IBAction)submit{
     L();
     
-    ChangePasswordViewController *vc = [[ChangePasswordViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+    
+    [self validateWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            self.username = _userTextField.text;
+            [self toChangePwd];
+        }
+        else{
+            NSString *msg = [error localizedDescription];
+//            [UIAlertView showAlert:msg msg:nil cancel:@"OK"];
+             [_libraryMng startHint:msg];
+        }
+    }];
+}
+
+#pragma mark - Fcn
+
+
+- (void)validateWithBlock:(BooleanResultBlock)block{
+    
+    int code = 0;
+    
+     NSString *inputedCaptcha = _verifyTextField.text;
+    
+    //TODO: reset
+    if (ISEMPTY(_verifyTextField.text) || ISEMPTY(_userTextField.text)) {
+        // 如果用户名或密码为空
+        
+        code = ErrorAppEmptyParameter;
+    }
+    else if (![[inputedCaptcha stringWithMD5] isEqualToString:self.captcha]) {
+        // 验证码不一致
+        
+        code = ErrorAppInvalidCaptcha;
+    }
+    
+    if (code == 0) {
+        block(YES,nil);
+    }
+    else{
+        
+        NSError *error = [NSError errorWithDomain:kKQErrorDomain code:code userInfo:@{NSLocalizedDescriptionKey:[ErrorManager localizedDescriptionForCode: code]}];
+        
+        block(NO,error);
+    }
     
 }
 
 
+- (void)requestCaptcha{
+    
+    NSString *mobile = _userTextField.text;
+    
+
+    _userTextField.userInteractionEnabled = NO;
+    _userTextField.textColor = kColorLightGray;
+
+    
+    [[NetworkClient sharedInstance] requestCaptchaForgetPassword:mobile block:^(NSDictionary* object, NSError *error) {
+      
+        
+        if (!error) {
+            
+            NSString *captcha = object[@"captcha"];
+            self.captcha = captcha;
+            [_libraryMng startHint:@"验证码已发送"];
+        }
+        else {
+            [ErrorManager alertError:error];
+            [_identifyB stopTimer];
+            _userTextField.userInteractionEnabled = YES;
+            _userTextField.textColor = kColorBlack;
+        }
+    }];
+}
+
+
+
+- (void)toChangePwd{
+    
+    ChangePasswordViewController *vc = [[ChangePasswordViewController alloc] init];
+    vc.view.alpha = 1;
+    vc.username = self.username;
+    vc.successBlock = self.successBlock;
+    [self.navigationController pushViewController:vc animated:YES];
+
+}
 
 @end

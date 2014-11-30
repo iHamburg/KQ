@@ -7,33 +7,51 @@
 //
 
 #import "RootViewController.h"
+#import "MobClick.h"
 
-#define kIsMainApplyEvent  YES
 
 
 @class KQTabBarViewController;
+@class InstructionViewController;
 @class Coupon;
 
 @interface KQRootViewController : RootViewController<UITabBarControllerDelegate>{
 
-    KQTabBarViewController *_tabVC;
-    UINavigationController *_nav;  // above在tab上的nav
+    KQTabBarViewController *_tabVC; // tabVC 只有一个，拉出来
+
+    UINavigationController *_nav;  // tab上点击新出现的vc， 不确定nav的root是否唯一
     
 }
 
+@property (nonatomic, strong) InstructionViewController *instructionVC;
+@property (nonatomic, readonly) UITabBar *tabBar;
+@property (nonatomic, copy) BooleanResultBlock presentBlock;
 
-- (void)toLogin;
+- (void)showInstruction;
+- (void)showEvent;
+
 
 
 
 - (void)toCouponDetails:(Coupon*)coupon;
 
 
-- (void)toMyCoupons;
-- (void)didLogin;
-- (void)didLogout;
+
+- (void)toTab:(int)index;
+
+- (void)presentNav:(UIViewController*)vc;
+- (void)presentNav:(UIViewController *)vc block:(BooleanResultBlock)block;
+- (void)presentLoginWithBlock:(BooleanResultBlock)block;
+
+/**
+ *	@brief	在dismiss的时候都会调回default
+ */
+- (void)dismissNav;
 
 
+
+- (void)addNavVCAboveTab:(UIViewController*)vc;
+- (void)removeNavVCAboveTab;
 
 
 @end

@@ -11,24 +11,12 @@
 #import "KQLabel.h"
 #import "CouponManager.h"
 
-@interface ShopBranchesCell (){
-
-//    UILabel *_timeL;
-    
-    
-}
-
-@end
-
 
 // 123: 85+38
 @implementation ShopBranchesCell
 
 - (void)setValue:(Shop*)shop{
     
-
-//    L();
-
     _value = shop;
     
     
@@ -36,13 +24,14 @@
     
 
     self.firstLabel.text = shop.title;
+ 
     
-    if (shop.location) {
-        self.secondLabel.text = [[CouponManager sharedInstance] distanceStringFromLocation:shop.location];
-    }
+    self.secondLabel.text = shop.address;
     
-    self.thirdLabel.text = shop.address;
+//    _secondLabel.frame = CGRectMake(10, 10, 250, 20);
 
+//    float distance = [shop.distance floatValue];
+    self.thirdLabel.text = [[CouponManager sharedInstance] distanceStringFromLocation:shop.location];
 }
 
 - (void)setShopBranchesNum:(int)shopBranchesNum{
@@ -52,47 +41,48 @@
 }
 
 
-- (void)awakeFromNib{
-
+- (void)load{
     [self.contentView removeFromSuperview];
     
+    _firstLabel.frame = CGRectMake(10, 0, 250, 40);
+    _firstLabel.font = bFont(15);
+    _firstLabel.textColor  = kColorBlack;
+    
+    _secondLabel.frame = CGRectMake(10, 10, 250, 20);
+    _secondLabel.font = bFont(12);
+    _secondLabel.textColor = kColorGray;
+    _secondLabel.textAlignment = NSTextAlignmentLeft;
+    
+    self.selectionStyle = UITableViewCellSeparatorStyleNone;
 
 }
-
 
 - (void)layoutSubviews{
     
     
 }
 
-#pragma mark - AlertView
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
-//    NSLog(@"button # %d",buttonIndex);
-    
-    if (buttonIndex == 1) {
-        [self didDialPhone];
-    }
-}
+//#pragma mark - AlertView
+//- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
+////    NSLog(@"button # %d",buttonIndex);
+//    
+//    if (buttonIndex == 1) {
+//        [self didDialPhone];
+//    }
+//}
 
 #pragma mark - IBAction
 
-- (IBAction)dialPhone:(id)sender{
 
-    _phoneNumber = [(Shop*)_value phone];
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"拨打电话: %@?",_phoneNumber] message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"拨打", nil];
-    [alert show];
-}
-- (IBAction)toMap:(id)sender{
-
-    _toMapBlock(self.value);
-}
 - (IBAction)toShopList:(id)sender{
 
     _toShopListBlock();
 }
 
-- (void)didDialPhone{
-  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",_phoneNumber]]];
+- (IBAction)toShop:(id)sender{
+    _toShopBlock();
 }
+//- (void)didDialPhone{
+//  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",_phoneNumber]]];
+//}
 @end

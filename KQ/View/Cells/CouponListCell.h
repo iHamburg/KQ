@@ -7,11 +7,13 @@
 //
 
 
-#import "CouponCell.h"
-#import "Shop.h"
+#import "ConfigCell.h"
+#import "Coupon.h"
 
-@interface CouponListCell : CouponCell
+@interface CouponListCell : ConfigCell{
+    UILabel *_downloadedL;
+}
 
-@property (nonatomic, strong) Shop *shop;
+@property (nonatomic, strong) NSString *text;
 
 @end

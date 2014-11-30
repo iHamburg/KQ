@@ -48,19 +48,20 @@
     if (self = [super initWithFrame:frame]) {
 		
 		self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-//		self.backgroundColor = [UIColor colorWithRed:226.0/255.0 green:231.0/255.0 blue:237.0/255.0 alpha:1.0];
+
 		self.backgroundColor = [UIColor clearColor];
         
 		UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 15.0f, self.frame.size.width, 20.0f)];
 		label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-		label.font = [UIFont boldSystemFontOfSize:15.0f];
-		label.textColor = TEXT_COLOR;
-
-        
+//		label.font = [UIFont boldSystemFontOfSize:15.0f];
+        label.font = nFont(15);
+//		label.textColor = TEXT_COLOR;
+     
 		label.backgroundColor = [UIColor clearColor];
 		label.textAlignment = NSTextAlignmentCenter;
 		[self addSubview:label];
 		_statusLabel=label;
+        _statusLabel.textColor = kColorGray;
 						
 		UIActivityIndicatorView *view = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
 		view.frame = CGRectMake(150.0f, 15.0f, 20.0f, 20.0f);
@@ -83,10 +84,10 @@
 - (void)setState:(LoadMoreState)aState{	
 	switch (aState) {
 		case LoadMorePulling:
-			_statusLabel.text = NSLocalizedString(@"松开载入更多。。。", @"Release to load more");
+			_statusLabel.text = NSLocalizedString(@"松开载入更多", @"Release to load more");
 			break;
 		case LoadMoreNormal:
-			_statusLabel.text = NSLocalizedString(@"载入更多", @"Load More");
+			_statusLabel.text = NSLocalizedString(@"继续加载", @"Load More");
 			_statusLabel.hidden = NO;
 			[_activityView stopAnimating];
 			break;
@@ -118,7 +119,8 @@
 		if (_state == LoadMoreNormal && scrollView.contentOffset.y < (scrollView.contentSize.height - 360) && scrollView.contentOffset.y > (scrollView.contentSize.height - 420) && !_loading) {
 		
             self.frame = CGRectMake(0, scrollView.contentSize.height - 30, self.frame.size.width, self.frame.size.height);
-			self.hidden = NO;
+
+            self.hidden = NO;
 		
         } else if (_state == LoadMoreNormal && scrollView.contentOffset.y > (scrollView.contentSize.height - 360) && !_loading) {
 		
@@ -159,7 +161,7 @@
 }
 
 - (void)loadMoreScrollViewDataSourceDidFinishedLoading:(UIScrollView *)scrollView {	
-
+//
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:.3];
 	[scrollView setContentInset:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];

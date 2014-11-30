@@ -8,6 +8,10 @@
 
 #import "ConfigCell.h"
 
+/**
+ *	@brief	Accessory 是Switch
+ */
 @interface SwitchCell : ConfigCell
+
 
 @end

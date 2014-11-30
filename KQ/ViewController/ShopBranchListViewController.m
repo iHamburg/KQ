@@ -7,8 +7,8 @@
 //
 
 #import "ShopBranchListViewController.h"
-#import "ShopBranchesCell.h"
-#import "MapViewController.h"
+#import "ShopListCell.h"
+#import "ShopDetailsViewController.h"
 
 @interface ShopBranchListCell : ConfigCell{
    }
@@ -37,9 +37,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = @"门店列表";
+    self.title = @"商户列表";
    
-    self.config = [[TableConfiguration alloc] initWithResource:@"ShopBranchListConfig"];
+    self.config = [[TableConfiguration alloc] initWithResource:@"ShopListConfig"];
+
+    // 会返回所有门店
     self.isLoadMore = NO;
     
 }
@@ -48,9 +50,6 @@
     
     [super viewWillAppear:animated];
     
-//    NSLog(@"_models # %@",self.models);
-    
-    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -60,45 +59,80 @@
 }
 
 #pragma mark - TableView
-- (void)configCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
-//    L();
-    if ([cell isKindOfClass:[ShopBranchesCell class]]) {
-        ShopBranchesCell *aCell = (ShopBranchesCell*)cell;
-        Shop *shop = _models[indexPath.row];
-        [cell setValue:shop forKeyPath:@"value"];
-        aCell.shopListB.hidden = YES;
-        aCell.indicatorV.hidden = YES;
-        aCell.nearestIndicatorV.hidden= YES;
-        
-        [aCell setToMapBlock:^(Shop *Shop) {
-            [self toMap:shop];
-        }];
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 1;
+}
+- (void)configCell:(ShopListCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+    
+    if (ISEMPTY(_models)) {
+        return;
     }
+    
+    if ([cell isKindOfClass:[ShopListCell class]]) {
+        
+        Shop *project = _models[indexPath.row];
+        
+        [cell setValue:project];
+        
+    }
+    
+    
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    id obj = self.models[indexPath.row];
+    
+    [self pushShopDetails:obj];
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 
 #pragma mark - Fcns
-- (void)toMap:(id)shop{
-    MapViewController *vc = [[MapViewController alloc] init];
-    vc.view.alpha = 1;
-    vc.shop = shop;
-    [self.navigationController pushViewController:vc animated:YES];
-    
 
+- (void)loadModels{
+    
+    [self.models removeAllObjects];
+    
+    [self willConnect:self.view];
+   
+    [_networkClient queryAllShopBranches:_headerShopId block:^(NSDictionary *dict, NSError *error) {
+        
+        [self willDisconnectInView:self.view];
+        [self.refreshControl endRefreshing];
+        
+        if (!error) {
+            NSArray *array = dict[@"shopbranches"];
+            
+            NSLog(@"array # %@",array);
+            
+            
+            for (NSDictionary *dict in array) {
+                
+                Shop *shop = [[Shop alloc] initWithListDict:dict];
+                
+                [self.models addObject:shop];
+            }
+         
+            [self.tableView reloadData];
+        }
+        else{
+            [ErrorManager alertError:error];
+        }
+
+    }];
 }
 
-//
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-//{
-//    
-//    NSString *identifier = segue.identifier;
-//    
-//  if([identifier isEqualToString:@"toMap"]){
-//        
-//        [segue.destinationViewController setValue:sender forKeyPath:@"shop"];
-//        
-//}
-//   
-//}
+
+
+- (void)pushShopDetails:(Shop*)shop{
+    ShopDetailsViewController *vc = [[ShopDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    vc.view.alpha = 1.0;
+    vc.shop = shop;
+    
+    
+    [self.navigationController pushViewController:vc animated:YES];
+}
 
 @end

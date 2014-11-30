@@ -24,9 +24,13 @@ extern BOOL isFirstOpen;
 extern BOOL isUpdateOpen;
 extern NSString *FONTNAME;
 
+
+
 /// extern Fcns
 void saveArchived(id, NSString*);
 id loadArchived(NSString*);
+UIFont* nFont(int); // normal Font
+UIFont* bFont(int);  // bold Font
 void report_memory();
 
 //NSDictionary* avosPoint(NSString* ,NSString*, NSString*);

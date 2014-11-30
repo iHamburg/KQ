@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>sections</key>
+	<array>
+		<dict>
+			<key>rows</key>
+			<array>
+				<dict>
+					<key>key</key>
+					<string>avatar</string>
+					<key>label</key>
+					<string>头像</string>
+					<key>class</key>
+					<string></string>
+					<key>selector</key>
+					<string>editAvatarPressed:</string>
+				</dict>
+			</array>
+			<key>height</key>
+			<string>87</string>
+		</dict>
+		<dict>
+			<key>rows</key>
+			<array>
+				<dict>
+					<key>key</key>
+					<string>username</string>
+					<key>label</key>
+					<string>用户名</string>
+					<key>class</key>
+					<string>AccessoryLabelCell</string>
+					<key>selector</key>
+					<string>editUsernamePressed:</string>
+				</dict>
+				<dict>
+					<key>key</key>
+					<string></string>
+					<key>label</key>
+					<string>密码修改</string>
+					<key>class</key>
+					<string></string>
+					<key>selector</key>
+					<string>editPasswordPressed:</string>
+				</dict>
+			</array>
+			<key>height</key>
+			<string>50</string>
+		</dict>
+	</array>
+</dict>
+</plist>

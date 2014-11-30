@@ -8,9 +8,11 @@
 
 #import "UserController.h"
 #import <MapKit/MapKit.h>
-#import "AVOSEngine.h"
-#import "Card.h"
 
+#import "Card.h"
+#import "ErrorManager.h"
+#import "LibraryManager.h"
+#import "NSString+md5.h"
 
 @interface UserController (){
 
@@ -23,47 +25,47 @@
 
 @implementation UserController
 
-- (void)setCity:(NSString *)city{
 
-    [[NSUserDefaults standardUserDefaults] setObject:city forKey:@"city"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+
+- (NSString*)uid{
+    
+    return self.people.id;
 }
 
-- (NSString*)city{
-    return [[NSUserDefaults standardUserDefaults] objectForKey:@"city"];
-}
-
-- (void)setAvatar:(UIImage *)avatar{
-    //
-    [[AVOSEngine sharedInstance] saveImageForUser:avatar key:@"avatar" block:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
-            [self loadUser];
-        }
-    }];
+- (NSString*)sessionToken{
+    return self.people.sessionToken;
 }
 
 - (BOOL)isLogin{
     
     
-    if (self.uid) {
+    if (self.people) {
         return YES;
     }
     else
         return NO;
 }
 
-- (BOOL)hasBankcard{
-    
-    if (!self.isLogin) {
-        return NO;
-    }
-    else if(ISEMPTY(self.people.cardIds)){
-        return NO;
-    }
-    else
-        return YES;
+//- (BOOL)hasBankcard{
+//    
+//    if (!self.people) {
+//        return NO;
+//    }
+//    else if(ISEMPTY(self.people.cardIds)){
+//        return NO;
+//    }
+//    else
+//        return YES;
+//}
+
+
+- (NSString*)longitude{
+    return [NSString stringWithFloat:_checkinLocation.coordinate.longitude];
 }
 
+- (NSString*)latitude{
+    return [NSString stringWithFloat:_checkinLocation.coordinate.latitude];
+}
 #pragma mark - Init
 
 + (id)sharedInstance {
@@ -88,17 +90,25 @@
         
         _networkClient = [NetworkClient sharedInstance];
         
-        
-        if (!ISEMPTY([[NSUserDefaults standardUserDefaults] objectForKey:@"uid"])) {
 
-            [self loadUser];
+        self.people = [self loadPeople];
+        NSLog(@"people # %@",self.people);
+        
+        // 如果用户已经登陆的话
+        if (!ISEMPTY(self.people)) {
+            //获得用户信息，判断session是否过期
+           
+            [self updateUserInfoWithBlock:^(BOOL succeeded, NSError *error) {
+                
+            }];
+            
         }
+   
         
         self.checkinLocation = [[CLLocation alloc] initWithLatitude:31.02 longitude:121.02];
         
         [self setupLocationManager];
         
-//        NSLog(@"avos user # %@",[[AVOSEngine sharedInstance] currentUser]);
         
     }
     return self;
@@ -109,6 +119,7 @@
 #pragma mark - Location
 
 - (void) setupLocationManager {
+    
     _locationManager = [[CLLocationManager alloc] init] ;
     if ([CLLocationManager locationServicesEnabled]) {
         //        NSLog( @"Starting CLLocationManager" );
@@ -141,59 +152,30 @@
 
 #pragma mark - Fcns
 
-- (void)loadUser{
-    
-    self.uid = [[NSUserDefaults standardUserDefaults] objectForKey:@"uid"];
-    self.sessionToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
- 
-
-    [_networkClient queryUser:self.uid block:^(NSDictionary *dict, NSError *error) {
-     
-        if (!ISEMPTY(dict)) {
-            self.people = [People peopleWithDict:dict];
-            
-        }
-        
-        [_networkClient queryCards:self.uid block:^(NSArray *array, NSError *error) {
-            
-//            NSLog(@"cards # %@",array);
-            
-            if (ISEMPTY(array)) {
-                return ;
-            }
-            
-            self.people.cardIds = [NSMutableSet set];
-            
-            for (NSDictionary *dict in array) {
-                [self.people.cardIds addObject:dict[@"objectId"]];
-                
-                
-            }
-//            NSLog(@"people.cardIds # %@",self.people.cardIds);
-        }];
-        
-    }];
-}
-
-
-
+// 注册成功也是login
 - (void)registerWithUserInfo:(NSDictionary*)userInfo block:(BooleanResultBlock)block{
     
-    [[NetworkClient sharedInstance] registerWithDict:userInfo block:^(NSDictionary *dict, NSError *error) {
-        
-        if (!ISEMPTY(dict)) {
+    
+    [_networkClient registerWithDict:userInfo block:^(NSDictionary *dict, NSError *error) {
+       
+        if (!error) {
+            // 如果注册成功, 自动login获得信息
             
-            [self didLoginWithUid:dict[@"objectId"] token:dict[@"sessionToken"]];
+            // 如果注册成功， 后台login 一下获得用户的咨询
+            NSString *username = userInfo[@"username"];
+            NSString *password = userInfo[@"password"];
             
-            [[AVOSEngine sharedInstance] loginWithUsername:userInfo[@"username"] password:userInfo[@"password"] block:^(id object, NSError *error) {
-                
+            [self loginWithUsername:username password:password boolBlock:^(BOOL succeeded, NSError *error) {
+                  block(YES,nil);
             }];
-            
-            block(YES,nil);
-            
+        
         }
         else{
+            // 注册失败
+            [ErrorManager alertError:error];
+            
             block(NO,error);
+            
         }
         
     }];
@@ -202,59 +184,202 @@
 }
 
 
-- (void)loginWithEmail:(NSString*)email pw:(NSString*)pw block:(BooleanResultBlock)block{
+- (void)loginWithUsername:(NSString*)email password:(NSString*)pw boolBlock:(BooleanResultBlock)block{
     
 //    NSLog(@"pw # %@",pw);
-    
-    [[NetworkClient sharedInstance] loginWithUsername:email password:pw block:^(NSDictionary *dict, NSError *error) {
+  
+    [_networkClient loginWithUsername:email password:pw block:^(NSDictionary *dict, NSError *error) {
         
-        if (!ISEMPTY(dict)) {
+        if (!error) {
+            // 载入信息到当前的user！
             
-            NSLog(@"login user # %@",dict);
+            self.people = [[People alloc] initWithDict:dict];
+            self.people.password = pw;
+            self.people.lastNewsId = [[NSUserDefaults standardUserDefaults] integerForKey:@"lastNewsId"];
+
             
-            [self didLoginWithUid:dict[@"objectId"] token:dict[@"sessionToken"]];
+            [self savePeople:self.people];
             
-            [[AVOSEngine sharedInstance] loginWithUsername:email password:pw block:^(id object, NSError *error) {
-                
+            // 如果登录成功就更新信息
+            [self updateUserInfoWithBlock:^(BOOL succeeded, NSError *error) {
+                    block(YES,nil);
             }];
+   
+        }
+        else{
+
+            [ErrorManager alertError:error];
+
+            block(NO,error);
+            
+        }
+
+   
+    }];
+
+}
+
+- (void)changeNickname:(NSString *)nickname boolBlock:(BooleanResultBlock)block{
+    
+    NSDictionary *dict = @{@"uid":self.uid,@"sessionToken":self.sessionToken,@"nickname":nickname};
+    
+    [_networkClient user:self.uid editInfo:dict block:^(NSDictionary *dict, NSError *error) {
+       
+        if (!error) {
+            
+            self.people.nickname = dict[@"nickname"];
+            
+            // 保存people
+            [self savePeople:self.people];
             
             block(YES,nil);
         }
         else{
+            [ErrorManager alertError:error];
+            
+            block(NO,error);
+        }
+    }];
+    
+}
+
+- (void)changeAvatar:(UIImage*)img boolBlock:(BooleanResultBlock)block{
+    
+    NSData *_data = UIImageJPEGRepresentation(img, .8f);
+    
+    NSString *_encodedImageStr = [_data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    
+    NSDictionary *dict = @{@"uid":self.uid,@"sessionToken":self.sessionToken,@"avatar":_encodedImageStr};
+    
+    
+    [_networkClient user:self.uid editInfo:dict block:^(NSDictionary *dict, NSError *error) {
+        if (!error) {
+            if ([dict isKindOfClass:[NSDictionary class]]) {
+                dict = [dict dictionaryCheckNull];
+            }
+            self.people.avatarUrl = dict[@"avatarUrl"];
+            [self savePeople:self.people];
+            
+            block(YES,nil);
+        }
+        else{
+            [ErrorManager alertError:error];
             block(NO,error);
         }
     }];
 
 }
 
-- (void)didLoginWithUid:(NSString*)uid token:(NSString*)token{
-    self.uid = uid;
-    self.sessionToken = token;
+- (void)changePwd:(NSString*)oldPwd newPwd:(NSString*)newPwd boolBlock:(BooleanResultBlock)block{
     
-    [[NSUserDefaults standardUserDefaults]setObject:self.uid forKey:@"uid"];
-    [[NSUserDefaults standardUserDefaults]setObject:self.sessionToken forKey:@"token"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    NSDictionary *pwdDict = @{@"oldPassword":[oldPwd stringWithMD5],@"newPassword":[newPwd stringWithMD5]};
+    NSData *jsonData = [NSJSONSerialization
+                        dataWithJSONObject:pwdDict options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *jsonStr = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+     NSDictionary *dict = @{@"uid":self.uid,@"sessionToken":self.sessionToken,@"password":jsonStr};
     
-    [self loadUser];
+    [_networkClient user:self.uid editInfo:dict block:^(NSDictionary *dict, NSError *error) {
+        if (!error) {
+//            if ([dict isKindOfClass:[NSDictionary class]]) {
+//                dict = [dict dictionaryCheckNull];
+//            }
+          
+            
+            
+            self.people.password = newPwd;
+            [self savePeople:self.people];
+            
+            block(YES,nil);
+        }
+        else{
+            [ErrorManager alertError:error];
+            block(NO,error);
+        }
+    }];
+
     
 }
 
-- (void)requestPasswordResetForEmailInBackground:(NSString*)email block:(BooleanResultBlock)block{
+- (void)updateUserInfoWithBlock:(BooleanResultBlock)block{
     
-//    [_engine requestPasswordResetForEmailInBackground:email block:block];
+    [_networkClient queryUserInfo:self.uid sessionToken:self.sessionToken block:^(NSDictionary* dict, NSError *error) {
+        
+        if (!error) {
+            // 如果没有出错
+            //                    NSLog(@"dict # %@",dict);
+            if ([dict isKindOfClass:[NSDictionary class]]) {
+                dict = [dict dictionaryCheckNull];
+            }
+            
+            
+            self.people.dCouponNum = [dict[@"dCouponNum"] intValue];
+            self.people.cardNum = [dict[@"cardNum"] intValue];
+            self.people.fCouponNum = [dict[@"fCouponNum"] intValue];
+            self.people.fShopNum = [dict[@"fShopNum"] intValue];
+            
+            block(YES,nil);
+        }
+        else{
+            int code = error.code;
+            
+            if (code == ErrorInvalidSession){
+                // 如果是session过期，logout
+                
+                [self logout];
+            }
+            block(NO,error);
+            
+        }
+        
+    }];
+
+    
+}
+- (BOOL)updateUserInfo:(NSDictionary*)dict{
+    
+    if (!self.people) {
+        return NO;
+    }
+    
+    self.people.dCouponNum = [dict[@"dCouponNum"] intValue];
+    self.people.cardNum = [dict[@"cardNum"] intValue];
+    self.people.fCouponNum = [dict[@"fCouponNum"] intValue];
+    self.people.fShopNum = [dict[@"fShopNum"] intValue];
+
+    return YES;
+    
 }
 
 - (void)logout{
     
-    self.uid = nil;
-    self.sessionToken = nil;
+
+    // 退出之前记下newsId，可以根据username来定！
+    [[NSUserDefaults standardUserDefaults] setInteger:self.people.lastNewsId forKey:@"lastNewsId"];
     
-    [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"uid"];
-    [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"token"];
+    self.people = nil;
+    
+    
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"User"];
+  
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    [[AVOSEngine sharedInstance] logout];
+       
+}
+
+- (void)savePeople:(People*)people{
     
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:people];
+    [defaults setObject:data forKey:@"User"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
+}
+
+- (People*)loadPeople{
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"User"];
+    People *people = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+
+    return people;
 }
 
 
@@ -263,6 +388,8 @@
 - (void)test{
     L();
 
+//    [People people];
+//    [People people];
     
     
 //    

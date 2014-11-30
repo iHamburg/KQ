@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+//左右双table
 @interface DistrictsTableView : UIView<UITableViewDataSource,UITableViewDelegate>{
 
     

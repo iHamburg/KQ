@@ -10,6 +10,6 @@
 
 @interface KQRegisterViewController : RegisterViewController
 
-- (void)toAfterDownload;
+//- (void)toAfterDownload;
 
 @end

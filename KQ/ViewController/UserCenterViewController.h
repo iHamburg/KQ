@@ -7,27 +7,32 @@
 //
 
 #import "ConfigViewController.h"
+#import "NetTableViewController.h"
 
 
-
-@interface UserCenterViewController : ConfigViewController<UIAlertViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>{
+@interface UserCenterViewController : ConfigViewController<UIAlertViewDelegate>{
     People *_people;
-
+    
 }
 
-- (IBAction)logout;
+- (IBAction)dCouponPressed:(id)sender;
+- (IBAction)cardPressed:(id)sender;
+- (IBAction)fCouponPressed:(id)sender;
+- (IBAction)fShopPressed:(id)sender;
+- (IBAction)aboutUsPressed:(id)sender;
+- (IBAction)newsPressed:(id)sender;
+- (IBAction)settingPressed:(id)sender;
 
+- (void)pushEditUser;
 - (void)toCoupons;
 - (void)toShops;
 - (void)toCards;
 - (void)toFavoritedCoupons;
-- (void)toSettings;
 
-- (void)willLogout;
+- (void)toSettings; //设置
+- (void)pushAboutUs; //关于我们
+- (void)pushNews; //站内信
+- (void)presentLogin; //要求登录
 
-/**
- *	@brief	登录成功
- */
-- (void)didLogin;
 
 @end

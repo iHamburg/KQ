@@ -11,8 +11,9 @@
 #import "NetworkClient.h"
 #import "CouponManager.h"
 
+
 @interface CouponListCell (){
-    UILabel *_downloadedL;
+    
 }
 
 @end
@@ -27,80 +28,79 @@
     _value = value;
     
     self.textLabel.text = value.title;
-  
-    _secondLabel.text = value.discountContent;
     
-    
-    NSString *downloaded = value.downloadedCount;
-    if (ISEMPTY(downloaded)) {
-        downloaded = @"0";
-    }
-    _downloadedL.text = [NSString stringWithFormat:@"%@人购买",downloaded];
+    _secondLabel.text = value.slogan;
 
+    _thirdLabel.text = value.discountContent;
+    
+//    _downloadedL.text = [NSString stringWithFormat:@"%@下载",value.downloadedCount];
 
+    //coupon_1.jpg => coupon_1_thumb.jpg
+//    NSString *avatarUrl = value.avatarThumbUrl;
     
-    if (value.nearestDistance) {
-      _thirdLabel.text = [[CouponManager sharedInstance] stringFromDistance:value.nearestDistance];
-    }
-
+//    NSLog(@"thumbUrl # %@",avatarUrl);
     
-    [self.imageView setImageWithURL:[NSURL URLWithString:value.avatarUrl] placeholderImage:[UIImage imageNamed:@"quickquan300.jpg"]];
-    
+    [self.imageView setImageWithURL:[NSURL URLWithString:value.avatarThumbUrl] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     
 }
 
-- (void)setShop:(Shop *)shop{
-    _shop = shop;
+- (void)setText:(NSString *)text{
+    _text = text;
     
-
-    
+    _downloadedL.text = text;
 }
 
 //height: 85
 
-
 - (void)load{
     
-//    L();
     
-    
-    self.separatorInset = UIEdgeInsetsMake(0, 0, 0,0); // 分割线是全屏的
-    
-    self.imageView.frame = CGRectMake(10, 10, 108, 65);
+    self.imageView.frame = CGRectMake(10, 10, 108, 76);
     self.imageView.layer.masksToBounds = YES;
     self.imageView.layer.cornerRadius = 3;
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     
+    CGFloat x = CGRectGetMaxX(self.imageView.frame) + 10;
+    CGFloat width = _w - x- 10;
+  
     // title
-    self.textLabel.frame = CGRectMake(130, 10, 150, 20);
-    self.textLabel.font = [UIFont fontWithName:kFontBoldName size:14];
+    self.textLabel.frame = CGRectMake(x, 10, width, 38);
+    self.textLabel.font = [UIFont fontWithName:kFontBoldName size:16];
     self.textLabel.textAlignment = NSTextAlignmentLeft;
+
     
-    _secondLabel = [[KQLabel alloc] initWithFrame:CGRectMake(130, CGRectGetMaxY(self.textLabel.frame)+10, 150, 20)];
-    _secondLabel.font = [UIFont fontWithName:kFontBoldName size:14];
+    //slogan
+    _secondLabel = [[KQLabel alloc] initWithFrame:CGRectMake(x, 35, width, 30)];
+    _secondLabel.font = [UIFont fontWithName:kFontBoldName size:11];
     _secondLabel.textAlignment = NSTextAlignmentLeft;
-    _secondLabel.textColor = kColorDarkYellow;
+    _secondLabel.textColor = kColorGray;
     
-    _downloadedL = [[KQLabel alloc] initWithFrame:CGRectMake(130, 50, 180, 30)];
+    //discountCountent
+    _thirdLabel = [[KQLabel alloc] initWithFrame:CGRectMake(x, 44, 125, 55)];
+    _thirdLabel.font = [UIFont fontWithName:kFontBoldName size:15];
+    _thirdLabel.textColor = kColorYellow;
+    
+    
+    _downloadedL = [[KQLabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_thirdLabel.frame), 44, _w -CGRectGetMaxX(_thirdLabel.frame) - 10, 55)];
     _downloadedL.font = [UIFont fontWithName:kFontName size:11];
     _downloadedL.textColor = kColorGray;
     _downloadedL.textAlignment  = NSTextAlignmentRight;
     
-    //distance
-    _thirdLabel = [[KQLabel alloc] initWithFrame:CGRectMake(250, 20, 60, 30)];
-    _thirdLabel.font = [UIFont fontWithName:kFontName size:12];
     
-    [self addSubview:_downloadedL];
+   
     [self addSubview:_secondLabel];
     [self addSubview:_thirdLabel];
-    
+    [self addSubview:_downloadedL];
     
     self.backgroundColor = [UIColor whiteColor];
+    
+
 
 }
 
+
 - (void)layoutSubviews{
-//
+
 
 }
 

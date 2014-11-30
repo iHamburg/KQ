@@ -5,8 +5,6 @@
 	<key>sections</key>
 	<array>
 		<dict>
-			<key>nib</key>
-			<string>ShopListCell</string>
 			<key>rows</key>
 			<array>
 				<dict>
@@ -23,7 +21,7 @@
 			<key>dynamic</key>
 			<integer>1</integer>
 			<key>height</key>
-			<string>80</string>
+			<string>95</string>
 		</dict>
 	</array>
 </dict>

@@ -41,7 +41,7 @@
 
 
 + (UIButton*)buttonWithFrame:(CGRect)frame title:(NSString*)title bgImageName:(NSString*)imageName target:(id)target action:(SEL)action{
-	UIButton *b = [[UIButton alloc] initWithFrame:frame];
+	UIButton *b = [[[self class] alloc] initWithFrame:frame];
 	if (!ISEMPTY(title)) {
 		[b setTitle:title forState:UIControlStateNormal];
 	}

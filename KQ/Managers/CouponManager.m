@@ -42,54 +42,35 @@
 
         _networkClient = [NetworkClient sharedInstance];
         
-     
-//        [[LibraryManager sharedInstance] startProgress:@"queryCouponType"];
-        
-        [_networkClient queryHeadCouponTypesWithBlock:^(NSDictionary *dict, NSError *error) {
-            if (dict) {
-//               NSLog(@"types # %@",array);
-                
-                NSArray *array = dict[@"districts"];
-             
-                NSLog(@"array # %@",array);
-                
-                NSMutableArray *types = [NSMutableArray array];
-                for (NSDictionary *dict in array) {
-                    CouponType *obj = [CouponType couponTypeWithDict:dict];
-                    [types addObject:obj];
-                }
-                
-                self.couponTypes = types;
-                
-//                [[LibraryManager sharedInstance] dismissProgress:@"queryCouponType"];
-            }
-        }];
-        
+        NSString *filePath = [NSString filePathForResource:@"shopTypes.plist"];
+        NSArray *shopTypeArray = [NSArray arrayWithContentsOfFile:filePath];
+//        NSLog(@"shopTypes # %@",shopTypeArray);
 
-//        [[LibraryManager sharedInstance] startProgress:@"queryDistricts"];
-        [_networkClient queryHeadDistrictsWithBlock:^(NSArray *array, NSError *error) {
-            if (array) {
-//                    NSLog(@"distric # %@",array);
-                
-                NSMutableArray *types = [NSMutableArray array];
-                for (NSDictionary *dict in array) {
-                    District *obj = [District districtWithDict:dict];
-                    [types addObject:obj];
-                }
-                
-                self.districts = types;
-
-
-//                [[LibraryManager sharedInstance] dismissProgress:@"queryDistricts"];
-
-            }
+        NSMutableArray *array = [NSMutableArray array];
+        for (NSDictionary *dict in shopTypeArray) {
+            CouponType *type = [[CouponType alloc] initWithDict:dict];
+            [array addObject:type];
             
+        }
+        self.couponTypes = [array copy];
+        
+        filePath = [NSString filePathForResource:@"districts.plist"];
+        shopTypeArray = [NSArray arrayWithContentsOfFile:filePath];
+//        NSLog(@"shopTypes # %@",shopTypeArray);
+        
+        [array removeAllObjects];
+        
+        for (NSDictionary *dict in shopTypeArray) {
+            District *type = [[District alloc] initWithDict:dict];
+            [array addObject:type];
+            
+        }
+        self.districts = [array copy];
+       
+        
+        _formatter = [[MKDistanceFormatter alloc] init];
+        _formatter.units = MKDistanceFormatterUnitsMetric;
 
-            _formatter = [[MKDistanceFormatter alloc] init];
-            _formatter.units = MKDistanceFormatterUnitsMetric;
-
-
-        }];
     }
     return self;
 }
@@ -101,12 +82,43 @@
 
 - (NSString*)distanceStringFromLocation:(CLLocation*)location{
 
+    // 米
     CLLocationDistance distance = [location distanceFromLocation:[[UserController sharedInstance] checkinLocation]];
     
-    return [_formatter stringFromDistance:distance];
+    
+    NSString *distanceStr = [_formatter stringFromDistance:distance];
+    
+//    NSLog(@"distance # %f, str # %@",distance,distanceStr);
+    
+    return distanceStr;
 }
 
 
+- (NSArray*)searchCouponTypes{
+    
+    
+    NSMutableArray *array = [NSMutableArray array];
+    
+    for (CouponType *type in self.couponTypes) {
+        int couponId = [type.id intValue];
+        switch (couponId) {
+            case 0:
+            case 1:
+            case 4:
+                
+                [array addObject:type];
+                break;
+                
+            default:
+                break;
+        }
+    }
+    
+    return [array copy];
+}
+- (NSArray*)searchDistricts{
+    return self.districts;
+}
 - (CouponType*)couponTypeWithTitle:(NSString*)title{
 
     for (CouponType *type in self.couponTypes) {
