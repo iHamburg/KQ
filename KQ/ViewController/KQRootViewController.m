@@ -80,7 +80,6 @@
     L();
     [super viewDidAppear:animated];
     
-    
     [self test];
     
     
@@ -132,22 +131,6 @@
 
 - (void)showEvent{
     
-//    //判断是否登录
-//    
-//    if ([[UserController sharedInstance] isLogin]) {
-//        NSLog(@"user has login, go to mainPage");
-//        
-//       
-//    }
-//    else{
-//        NSLog(@"no user, show event Page");
-//        
-//        _eventVC = [[EventViewController alloc] init];
-//
-//        [self.view insertSubview:_eventVC.view aboveSubview:_tabVC.view];
-//
-//       
-//    }
     _eventVC = [[EventViewController alloc] init];
     
     [self.view insertSubview:_eventVC.view aboveSubview:_tabVC.view];
@@ -203,12 +186,7 @@
 
 }
 
-//- (void)presentNav:(UIViewController*)vc mode:(PresentMode)mode{
-//    
-//    self.presentMode = mode;
-//    
-//    [self presentNav:vc];
-//}
+
 
 - (void)addNavVCAboveTab:(UIViewController *)vc{
     
