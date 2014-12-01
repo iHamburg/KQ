@@ -12,8 +12,8 @@
 
 #ifdef DEBUG
 
-#define RESTHOST @"http://61.153.100.241/kqapitest/index.php/kqapi6"
-//#define RESTHOST @"http://192.168.1.101/kq/index.php/kqapi1_1"
+//#define RESTHOST @"http://61.153.100.241/kqapitest/index.php/kqapi6"
+#define RESTHOST @"http://localhost/kq/index.php/kqapi1_1"
 
 
 #else
