@@ -14,6 +14,7 @@
 }
 
 @property (nonatomic, strong) Shop* shop;
+//@property (nonatomic, strong) NSArray *shopBranches;
 @property (nonatomic, readonly) NSArray *coupons;
 @property (nonatomic, assign) BOOL shopFavorited;
 

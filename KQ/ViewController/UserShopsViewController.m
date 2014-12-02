@@ -138,7 +138,10 @@
         
         if (!error) {
             NSArray *array = couponDicts[@"shopbranches"];
-         
+            
+
+          
+            
             for (NSDictionary *dict in array) {
                 
                 Shop *shop = [[Shop alloc] initWithListDict:dict];
@@ -167,6 +170,7 @@
     vc.view.alpha = 1;
     vc.shop = shop;
 
+//    [_root addNavVCAboveTab:vc];
     
     [self.navigationController pushViewController:vc animated:YES];
     

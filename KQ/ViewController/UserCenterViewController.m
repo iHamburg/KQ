@@ -194,6 +194,7 @@
     self.title = @"我的";
     
     _config = [[TableConfiguration alloc] initWithResource:@"UserCenterLoginConfig"];
+//    _config = [[TableConfiguration alloc] initWithResource:@"UserCenterConfig"];
 
     self.navigationItem.leftBarButtonItem = nil;
     
@@ -241,6 +242,7 @@
 
     [super viewDidAppear:animated];
     
+    //
   }
 
 - (void)didReceiveMemoryWarning
@@ -337,7 +339,11 @@
     }
     else if(section == 2){
         if ([cell isKindOfClass:[AccessoryLabelCell class]]) {
-        
+//            cell.value = @"3";
+            
+//            NSLog(@"_userController.people.newsNum # %d",_userController.people.newsNum);
+
+//            
             UILabel *label = cell.firstLabel;
 
             
@@ -435,7 +441,7 @@
 
     
     UserShopsViewController *vc = [[UserShopsViewController alloc] initWithStyle:UITableViewStyleGrouped];
-
+//    [self.navigationController pushViewController:vc animated:YES];
     
     vc.view.alpha = 1;
     
@@ -446,6 +452,7 @@
 - (void)toCards{
 
     UserCardsViewController *vc = [[UserCardsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+//    [self.navigationController pushViewController:vc animated:YES];
     
     vc.view.alpha = 1;
     
@@ -455,9 +462,10 @@
 }
 - (void)toFavoritedCoupons{
 
-   
+    
+    
     UserFavoritedCouponsViewController *vc = [[UserFavoritedCouponsViewController alloc] initWithStyle:UITableViewStyleGrouped];
-
+//    [self.navigationController pushViewController:vc animated:YES];
     
     vc.view.alpha = 1;
     
@@ -470,6 +478,7 @@
     
     vc.view.alpha = 1;
     
+//    [self.navigationController pushViewController:vc animated:YES];
     
       [_root addNavVCAboveTab:vc];
 }
@@ -480,6 +489,7 @@
     
     vc.view.alpha = 1;
     
+    //    [self.navigationController pushViewController:vc animated:YES];
     
     [_root addNavVCAboveTab:vc];
 }
@@ -489,6 +499,7 @@
     UserNewsViewController *vc = [[UserNewsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     vc.view.alpha = 1;
     
+    //    [self.navigationController pushViewController:vc animated:YES];
     
     [_root addNavVCAboveTab:vc];
 }

@@ -169,7 +169,9 @@
 }
 
 - (void)toCouponDetails:(Coupon*)coupon{
+//
 
+//    [_root toCouponDetails:coupon];
     
     CouponDetailsViewController *vc = [[CouponDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     vc.view.alpha = 1;

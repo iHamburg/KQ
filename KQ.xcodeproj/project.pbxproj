@@ -92,6 +92,7 @@
 		26E14BC5193CC313007A7081 /* Coupon.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E14BC4193CC313007A7081 /* Coupon.m */; };
 		26E14BCE193CC630007A7081 /* Shop.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E14BCD193CC630007A7081 /* Shop.m */; };
 		26E16623193976A10041CDD6 /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26E16622193976A10041CDD6 /* AFNetworking.framework */; };
+		26E166291939EF6B0041CDD6 /* CityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E166281939EF6B0041CDD6 /* CityViewController.m */; };
 		26E16BB6194F1CD500036039 /* couponHeaderBGPattern@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 26E16BB5194F1CD500036039 /* couponHeaderBGPattern@2x.jpg */; };
 		26E290EC193DB21400B7E0C9 /* City.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E290EB193DB21400B7E0C9 /* City.m */; };
 		26E290EF193DB21C00B7E0C9 /* District.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E290EE193DB21C00B7E0C9 /* District.m */; };
@@ -427,6 +428,8 @@
 		26E14BCC193CC630007A7081 /* Shop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shop.h; sourceTree = "<group>"; };
 		26E14BCD193CC630007A7081 /* Shop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Shop.m; sourceTree = "<group>"; };
 		26E16622193976A10041CDD6 /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AFNetworking.framework; sourceTree = "<group>"; };
+		26E166271939EF6B0041CDD6 /* CityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityViewController.h; sourceTree = "<group>"; };
+		26E166281939EF6B0041CDD6 /* CityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityViewController.m; sourceTree = "<group>"; };
 		26E16BB5194F1CD500036039 /* couponHeaderBGPattern@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "couponHeaderBGPattern@2x.jpg"; sourceTree = "<group>"; };
 		26E290EA193DB21400B7E0C9 /* City.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = City.h; sourceTree = "<group>"; };
 		26E290EB193DB21400B7E0C9 /* City.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = City.m; sourceTree = "<group>"; };
@@ -941,6 +944,8 @@
 			children = (
 				26E14B51193C64B6007A7081 /* MainViewController.h */,
 				26E14B52193C64B6007A7081 /* MainViewController.m */,
+				26E166271939EF6B0041CDD6 /* CityViewController.h */,
+				26E166281939EF6B0041CDD6 /* CityViewController.m */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -1851,6 +1856,7 @@
 				853CAE7C1A21B6A50072289E /* DownloadAddCardViewController.m in Sources */,
 				26E3A5C3192DE042004F8C8C /* NSURL+Extras.m in Sources */,
 				26E3A5E9192E216C004F8C8C /* KQRegisterViewController.m in Sources */,
+				26E166291939EF6B0041CDD6 /* CityViewController.m in Sources */,
 				26E14BAF193C81C3007A7081 /* NetTableViewController.m in Sources */,
 				26E3A5C8192DE042004F8C8C /* UIDevice+Extras.m in Sources */,
 				26E3A5CD192DE042004F8C8C /* UIView+Extras.m in Sources */,
