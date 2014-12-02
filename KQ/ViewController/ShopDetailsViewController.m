@@ -203,12 +203,11 @@
     // Do any additional setup after loading the view.
     self.config = [[TableConfiguration alloc] initWithResource:@"ShopDetailsConfig"];
 
-//    self.title = self.shop.title;
 
     self.title = @"商户详情";
     
     // 因为有动态的cell（coupons），所以分割线也错位了，
-     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
 }
 

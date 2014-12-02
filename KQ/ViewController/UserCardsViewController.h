@@ -13,6 +13,6 @@
 
 - (IBAction)addCard;
 
-//- (void)didAddCard;
 - (void)deleteCardAtIndexPath:(NSIndexPath*)indexPath;
+
 @end

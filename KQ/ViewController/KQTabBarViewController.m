@@ -27,7 +27,6 @@
     
     _mainVC = [[MainViewController alloc] initWithStyle:UITableViewStyleGrouped];
     _aroundVC = [[DropDownShopListViewController alloc] initWithStyle:UITableViewStyleGrouped];
-//    _searchVC = [[KQSearchViewController alloc] init];
     _userCenterVC = [[UserCenterViewController alloc] initWithStyle:UITableViewStyleGrouped];
     self.delegate = self;
     
@@ -78,28 +77,9 @@
 #pragma mark - TabbarController
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UINavigationController *)viewController{
-    //    L();
-    
-//    if (![[UserController sharedInstance] isLogin]) {
-//      
-//        
-//        UIViewController *rootVC = [viewController.viewControllers firstObject];
-//        if ([rootVC isKindOfClass:[UserCenterViewController class]]){
-//            
-//            [[KQRootViewController sharedInstance] toLogin];
-//            return NO;
-//        }
-//        else
-//            return YES;
-//    }
+
     return YES;
 }
-
-//
-//- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
-//    
-//    
-//}
 
 
 @end

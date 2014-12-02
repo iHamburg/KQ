@@ -36,7 +36,7 @@
 
  
     self.isLoadMore = NO;
-//    self.view.backgroundColor = kColorBG;
+
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -218,11 +218,10 @@
     
     [self willConnect:self.view];
     
-    
-    
     [_networkClient user:_userController.uid sessionToken:_userController.sessionToken deleteCard:card.title block:^(id object, NSError *error) {
         
         [self willDisconnectInView:self.view];
+        
         if (!_networkFlag) {
             return ;
         }

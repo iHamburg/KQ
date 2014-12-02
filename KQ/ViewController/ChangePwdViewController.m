@@ -133,16 +133,13 @@
     [self willLoad:_submitBtn];
     [_userController changePwd:oldPwd newPwd:newPwd boolBlock:^(BOOL succeeded, NSError *error) {
         
-//        [self willDisconnect];
-        
         [self willStopLoad];
         if (succeeded && _networkFlag) {
             [_libraryManager startHint:@"密码修改成功"];
             
             [self.navigationController popViewControllerAnimated:YES];
         }
-     
-        
+    
     }];
 }
 

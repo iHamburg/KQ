@@ -24,7 +24,6 @@ typedef enum {
 - (IBAction)segmentedControlChanged:(id)sender;
 
 
-
 - (void)toCouponDetails:(id)coupon;
 
 @end

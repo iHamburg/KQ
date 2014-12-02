@@ -136,8 +136,7 @@
     //    UIImage *editedImage = [info objectForKey:@"UIImagePickerControllerEditedImage"];
     
     UIImage *originalImage = info[UIImagePickerControllerOriginalImage];
-    //    NSURL *url = info[UIImagePickerControllerMediaURL];
-    //    [importImages addObject:originalImage];
+  
     
     
     //avatar 图片的size是200x200 （retina）
@@ -159,7 +158,7 @@
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
-    L();
+//    L();
     
     [picker dismissViewControllerAnimated:YES completion:^{
         
@@ -219,7 +218,6 @@
         
     }
     
-//    [_editAvatarAction showInView:self.view];
     [_editAvatarAction showFromTabBar:_root.tabBar];
 }
 - (void)alertEditUsername{
@@ -252,9 +250,6 @@
 - (void)logout{
     
     [_userController logout];
-    
-//    [self.navigationController popToRootViewControllerAnimated:YES];
-//    [self.navigationController popViewControllerAnimated:YES];
     
     [_root removeNavVCAboveTab];
     
