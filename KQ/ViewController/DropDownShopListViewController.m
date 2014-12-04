@@ -111,14 +111,14 @@
     
     
     
-    if (self.couponTypeIndex>0) {
+    if (self.couponTypeIndex>0) {  // 商户类型filter
       
         CouponType *obj = self.couponTypes[self.couponTypeIndex];
         
         [self.searchParams setObject:obj.id forKey:@"shopTypeId"];
     }
     
-    if (self.districtIndex > 0) {
+    if (self.districtIndex > 0) {  // 区域filter
         District *obj = self.districts[self.districtIndex];
         
         [self.searchParams setObject:obj.id forKey:@"districtId"];
