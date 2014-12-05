@@ -298,9 +298,21 @@
     [self getWithUrl:api_shopBranch parameters:@{@"id":shopId} block:block];
 }
 
-- (void)queryAllShopBranches:(NSString*)headerShopId block:(IdResultBlock)block{
+- (void)queryAllShopBranches:(NSString*)headerShopId latitude:(NSString*)latitude longitude:(NSString*)longitude block:(IdResultBlock)block;{
 
-    [self getWithUrl:api_all_shopBranches parameters:@{@"id":headerShopId} block:block];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setValue:headerShopId forKey:@"id"];
+  
+    if (!ISEMPTY(latitude)) {
+        [params setValue:latitude forKey:@"latitude"];
+    }
+    if (!ISEMPTY(longitude)) {
+        [params setValue:longitude forKey:@"longitude"];
+    }
+    
+//    NSLog(@"all shopbranch params # %@",params);
+
+    [self getWithUrl:api_all_shopBranches parameters:params block:block];
 }
 - (void)queryHotestCouponsSkip:(int)skip block:(IdResultBlock)block{
     

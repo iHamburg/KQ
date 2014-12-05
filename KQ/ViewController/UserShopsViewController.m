@@ -99,7 +99,7 @@
         if (!error) {
             NSArray *array = dict[@"shopbranches"];
             
-            NSLog(@"array # %@",array);
+//            NSLog(@"array # %@",array);
          
             if (ISEMPTY(array)) {
                 [_libraryManager startHint:@"还没有收藏商户" duration:1];
