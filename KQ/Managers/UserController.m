@@ -46,25 +46,23 @@
         return NO;
 }
 
-//- (BOOL)hasBankcard{
-//    
-//    if (!self.people) {
-//        return NO;
-//    }
-//    else if(ISEMPTY(self.people.cardIds)){
-//        return NO;
-//    }
-//    else
-//        return YES;
-//}
+
 
 
 - (NSString*)longitude{
-    return [NSString stringWithFloat:_checkinLocation.coordinate.longitude];
+    
+//    NSLog(@"longitude before # %@",_checkinLocation.coordinate.longitude);
+    
+    
+    return [NSString stringWithFormat:@"%.3f",_checkinLocation.coordinate.longitude];
+//    return [NSString stringWithFloat:_checkinLocation.coordinate.longitude];
 }
 
 - (NSString*)latitude{
-    return [NSString stringWithFloat:_checkinLocation.coordinate.latitude];
+    
+    return [NSString stringWithFormat:@"%.3f",_checkinLocation.coordinate.latitude];
+    
+//    return [NSString stringWithFloat:_checkinLocation.coordinate.latitude];
 }
 #pragma mark - Init
 
@@ -125,7 +123,7 @@
         //        NSLog( @"Starting CLLocationManager" );
         _locationManager.delegate = self;
         _locationManager.distanceFilter = 500;
-        //        locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+//        locationManager.desiredAccuracy = kCLLocationAccuracyBest;
         _locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
         _locationManager.activityType = CLActivityTypeOther;
         [_locationManager startUpdatingLocation];
@@ -143,6 +141,12 @@
     L();
     
     _checkinLocation = newLocation;
+    
+//    float longitude =_checkinLocation.coordinate.longitude;
+//    NSLog(@"longitude # %f",longitude);
+//    
+//    NSString *longi = [NSString stringWithFormat:@"%.3f",longitude];
+//    NSLog(@"string # %@",longi);
     
 }
 

@@ -457,7 +457,7 @@
 		26E36B8B195132ED0008707A /* LoadMoreTableFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadMoreTableFooterView.h; sourceTree = "<group>"; };
 		26E36B8C195132ED0008707A /* LoadMoreTableFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadMoreTableFooterView.m; sourceTree = "<group>"; };
 		26E36BD41951BA470008707A /* UserCouponsConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserCouponsConfig.plist; sourceTree = "<group>"; };
-		26E3A521192DE02F004F8C8C /* 快券1.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "快券1.0.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		26E3A521192DE02F004F8C8C /* 快券.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "快券.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		26E3A524192DE02F004F8C8C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		26E3A526192DE02F004F8C8C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		26E3A528192DE02F004F8C8C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -1042,7 +1042,7 @@
 		26E3A522192DE02F004F8C8C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				26E3A521192DE02F004F8C8C /* 快券1.0.app */,
+				26E3A521192DE02F004F8C8C /* 快券.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1620,7 +1620,7 @@
 			);
 			name = KQ;
 			productName = KQ;
-			productReference = 26E3A521192DE02F004F8C8C /* 快券1.0.app */;
+			productReference = 26E3A521192DE02F004F8C8C /* 快券.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -2047,7 +2047,7 @@
 					"$(PROJECT_DIR)/KQ/3rdLibraries/UMSocial_Sdk_Extra_Frameworks/Wechat",
 					"$(PROJECT_DIR)/KQ/3rdLibraries",
 				);
-				PRODUCT_NAME = "快券1.0";
+				PRODUCT_NAME = "快券";
 				PROVISIONING_PROFILE = "089a9bbf-7bd7-45ae-9cc1-2fcd21044c9b";
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
 				WARNING_CFLAGS = (
@@ -2160,7 +2160,7 @@
 					"$(PROJECT_DIR)/KQ/3rdLibraries/UMSocial_Sdk_Extra_Frameworks/Wechat",
 					"$(PROJECT_DIR)/KQ/3rdLibraries",
 				);
-				PRODUCT_NAME = "快券1.0";
+				PRODUCT_NAME = "快券";
 				PROVISIONING_PROFILE = "0491855f-ae68-4164-b81e-abffe4a3c5be";
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
 				WARNING_CFLAGS = (
@@ -2195,7 +2195,7 @@
 					"$(PROJECT_DIR)/KQ/3rdLibraries/UMSocial_Sdk_Extra_Frameworks/Wechat",
 					"$(PROJECT_DIR)/KQ/3rdLibraries",
 				);
-				PRODUCT_NAME = "快券1.0";
+				PRODUCT_NAME = "快券";
 				PROVISIONING_PROFILE = "1d5e1437-074c-4207-9d51-a01a53b9f306";
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
 				WARNING_CFLAGS = (

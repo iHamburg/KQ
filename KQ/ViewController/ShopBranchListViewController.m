@@ -97,7 +97,7 @@
     
     [self willConnect:self.view];
    
-    [_networkClient queryAllShopBranches:_headerShopId block:^(NSDictionary *dict, NSError *error) {
+    [_networkClient queryAllShopBranches:_headerShopId latitude:_userController.latitude longitude:_userController.longitude block:^(NSDictionary *dict, NSError *error) {
         
         [self willDisconnectInView:self.view];
         [self.refreshControl endRefreshing];
@@ -105,7 +105,7 @@
         if (!error) {
             NSArray *array = dict[@"shopbranches"];
             
-            NSLog(@"array # %@",array);
+//            NSLog(@"array # %@",array);
             
             
             for (NSDictionary *dict in array) {
