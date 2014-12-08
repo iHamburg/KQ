@@ -32,7 +32,6 @@
 
 
 
-
 - (void)toCouponDetails:(Coupon*)coupon;
 
 
@@ -43,11 +42,7 @@
 - (void)presentNav:(UIViewController *)vc block:(BooleanResultBlock)block;
 - (void)presentLoginWithBlock:(BooleanResultBlock)block;
 
-/**
- *	@brief	在dismiss的时候都会调回default
- */
 - (void)dismissNav;
-
 
 
 - (void)addNavVCAboveTab:(UIViewController*)vc;
