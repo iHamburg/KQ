@@ -237,7 +237,9 @@
             
             // 从present过来的有presentBlock
             if (self.presentBlock) {
+              
                 self.presentBlock(YES,nil);
+                
                 [self dismissViewControllerAnimated:YES completion:^{
                     
                 }];
@@ -255,7 +257,6 @@
 
 - (void)toAgreement{
     
-//    L();
     WebViewController *vc = [[WebViewController alloc] init];
     vc.fileName = @"bankcard_agreement.html";
     vc.title = @"银联钱包技术使用协议";

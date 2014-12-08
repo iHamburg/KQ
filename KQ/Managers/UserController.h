@@ -18,6 +18,7 @@
     NetworkClient *_networkClient;
     CLLocationManager *_locationManager;
     CLLocation *_checkinLocation;
+    
 }
 
 
@@ -30,9 +31,9 @@
 @property (nonatomic, readonly) NSString *uid;
 @property (nonatomic, readonly) NSString *sessionToken;
 @property (nonatomic, readonly) BOOL isLogin;
-//@property (nonatomic, readonly) BOOL hasBankcard;
 @property (nonatomic, readonly) NSString *longitude;
 @property (nonatomic, readonly) NSString *latitude;
+
 
 + (id)sharedInstance;
 

@@ -51,18 +51,15 @@
 
 - (NSString*)longitude{
     
-//    NSLog(@"longitude before # %@",_checkinLocation.coordinate.longitude);
-    
     
     return [NSString stringWithFormat:@"%.3f",_checkinLocation.coordinate.longitude];
-//    return [NSString stringWithFloat:_checkinLocation.coordinate.longitude];
+
 }
 
 - (NSString*)latitude{
     
     return [NSString stringWithFormat:@"%.3f",_checkinLocation.coordinate.latitude];
     
-//    return [NSString stringWithFloat:_checkinLocation.coordinate.latitude];
 }
 #pragma mark - Init
 
@@ -184,7 +181,6 @@
         
     }];
 
-    
 }
 
 

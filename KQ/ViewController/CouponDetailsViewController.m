@@ -299,6 +299,19 @@
     
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+//    @try{
+//        NSString *str;
+//        NSArray *arr = @[@"1",str];
+//    }
+//    @catch(NSException *e){
+//         NSLog(@"exception:%@", e);
+//    }
+
+//    NSString *str;
+//    NSArray *arr = @[@"1",str];
+//
+//    [[KQRootViewController sharedInstance] changeInLength];
 }
 
 
@@ -579,9 +592,6 @@
     
     [_networkClient user:_userController.uid sessionToken:_userController.sessionToken downloadCoupon:coupon.id block:^(id obj, NSError *error) {
         
-//        [vc willDisconnectInView:self.view];
-//        [_libraryManager stopLoading];
-        
         [vc willStopLoad];
         
         
@@ -723,7 +733,6 @@
 
 
 - (void)toAfterDownload{
-//    NSLog(@"用户的card # %d",_userController.people.cardNum);
 
     AfterDownloadViewController *vc = [[AfterDownloadViewController alloc] initWithStyle:UITableViewStyleGrouped];
     vc.view.alpha = 1;
@@ -738,7 +747,7 @@
     DownloadAddCardViewController *vc = [[DownloadAddCardViewController alloc] initWithStyle:UITableViewStyleGrouped];
     vc.view.alpha = 1;
     vc.presentBlock = ^(BOOL succeeded, NSError *error){
-        L();
+//        L();
         [self downloadCoupon:_coupon sender:nil];
     };
     

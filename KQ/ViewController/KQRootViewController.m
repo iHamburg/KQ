@@ -67,6 +67,8 @@
     
     [self.view addSubview:_tabVC.view];
     
+
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -267,6 +269,7 @@
 //    [self testNav:@"ChangePasswordViewController"];
 
 //    [self testNav:@"KQRegisterViewController"];
+    
 }
 
 

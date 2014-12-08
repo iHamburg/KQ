@@ -18,12 +18,13 @@
 
 #define RESTHOST @"http://61.153.100.241/kqapitest/index.php/kqapi1_1"
 
-//#define RESTHOST @"http://192.168.1.132/kq/index.php/kqapi1_1"
+//#define RESTHOST @"http://192.168.1.106/kq/index.php/kqapi1_1"
 
 #else
 
 //#define HOST @"http://115.29.148.47/kq/index.php/kqavos"
 //#define RESTHOST @"http://115.29.148.47/kq/index.php/kqapi3"
+
 
 
 #define RESTHOST @"http://61.153.100.241/kqdev/index.php/kqapi6"
@@ -102,10 +103,10 @@
 
 
 #pragma mark -
+
 /**
  *	@brief 获取优惠券信息
  */
-
 - (void)queryCoupon:(NSString*)couponId latitude:(NSString*)latitude longitude:(NSString*)longitude block:(IdResultBlock)block;
 
 /**
@@ -129,7 +130,7 @@
 /**
  *	@brief	附近（搜索门店）
  *
- *	@param 	params 	<#params description#>
+ *	@param 	params
  */
 - (void)searchShopBranches:(NSDictionary*)params block:(IdResultBlock)block;
 
