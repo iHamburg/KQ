@@ -60,7 +60,8 @@
                 
     			if (i == numOfPages -1 ) {
                     float y = _h-50;
-                    if (isPhone5) {
+                   
+                    if (!isPhone4) {
                         y = _h - 100;
                     }
                     
@@ -70,7 +71,7 @@
     		}
     
         
-    CGFloat hPageControl = isPhone5?100:20;
+    CGFloat hPageControl = (!isPhone4)?100:20;
     pageControl = [[UIPageControl alloc]initWithFrame:CGRectMake(0, _h - hPageControl, _w, hPageControl)];
     pageControl.numberOfPages = numOfPages;
     pageControl.userInteractionEnabled = NO;

@@ -243,11 +243,7 @@
     [[UserController sharedInstance] test];
 
     // 版本号
-//    CLLocation *l1 = [[CLLocation alloc] initWithLatitude:31.00 longitude:121.00];
-//    CLLocation *l2 = [[CLLocation alloc] initWithLatitude:31.001 longitude:121.001];
-//  
-//    CGFloat distance = [l1 distanceFromLocation:l2];
-//    NSLog(@"distance # %f",distance);
+
     
     
 //    NSLog(@"uniqueIdentifier: %@", [[UIDevice currentDevice] uniqueIdentifier]);

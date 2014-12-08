@@ -100,8 +100,6 @@
     [mailPicker setSubject:@"意见反馈"];
     [mailPicker setToRecipients:@[@"app@quickquan.com"]];
     
-//    NSLog(@"systemVersion: %@", [[UIDevice currentDevice] systemVersion]);
-//    NSLog(@"model: %@", [[UIDevice currentDevice] model]);
     
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     NSString *app_build = [infoDictionary objectForKey:@"CFBundleVersion"];
