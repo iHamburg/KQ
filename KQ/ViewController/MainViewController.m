@@ -50,8 +50,6 @@
     self.navigationItem.titleView = imgV;
     
     
-//    NSLog(@"main");
-    
     
 }
 

@@ -79,7 +79,7 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     
-    L();
+//    L();
     [super viewDidAppear:animated];
     
     [self test];

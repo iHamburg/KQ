@@ -35,6 +35,7 @@
 @property (nonatomic, readonly) NSString *latitude;
 
 
+
 + (id)sharedInstance;
 
 
