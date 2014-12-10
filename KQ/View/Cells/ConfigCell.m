@@ -47,6 +47,6 @@
 }
 
 - (void)dealloc{
-    L();
+//    L();
 }
 @end

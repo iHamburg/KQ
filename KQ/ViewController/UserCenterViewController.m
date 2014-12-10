@@ -260,11 +260,23 @@
 #pragma mark - TableView
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section == 0) {
-//        return headerHeight;
-        return 1;
+
+        return 20;
     }
     return 5;
 }
+//
+//- (void)tableView:(UITableView *)tableView
+//willDisplayHeaderView:(UIView *)view
+//       forSection:(NSInteger)section{
+//    L();
+//    view.backgroundColor = [UIColor redColor];
+//}
+//
+//- (void)tableView:(UITableView *)tableView didEndDisplayingHeaderView:(UIView *)view forSection:(NSInteger)section{
+//    L();
+//    view.backgroundColor = [UIColor redColor];
+//}
 
 - (void)initConfigCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     if ([cell isKindOfClass:[UserAvatarCell class]]) {

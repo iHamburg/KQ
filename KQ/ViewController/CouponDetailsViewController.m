@@ -557,28 +557,44 @@
 
 #pragma mark - Fcns
 
-//没有登录的用户会先到这里
+//没有登录的用户先present登录流程，如果成功的话
 - (void)willDownloadCoupon:(Coupon*)coupon sender:(id)sender{
     __weak CouponDetailsViewController *vc = self;
     
-    if (!_userController.isLogin) {
-        //如果没有登录，让用户登录
-        
-        [_root presentLoginWithBlock:^(BOOL succeeded, NSError *error) {
-            
-            if (succeeded) {
-                NSLog(@"login successful, to download");
-                
-                //如果成功就先更新用户信息
-          
-                [_userController updateUserInfoWithBlock:^(BOOL succeeded, NSError *error) {
-                    [vc downloadCoupon:coupon sender:sender];
-                }];
+//    if (!_userController.isLogin) {
+//        //如果没有登录，让用户登录
+//        
+//        [_root presentLoginWithBlock:^(BOOL succeeded, NSError *error) {
+//            
+//            if (succeeded) {
+//                NSLog(@"login successful, to download");
+//                
+//                //如果成功就先更新用户信息
+//          
+//                [_userController updateUserInfoWithBlock:^(BOOL succeeded, NSError *error) {
+//                    [vc downloadCoupon:coupon sender:sender];
+//                }];
+//
+//            }
+//        }];
+//        
+//    }
 
-            }
-        }];
+    [_root presentLoginWithBlock:^(BOOL succeeded, NSError *error) {
         
-    }
+        if (succeeded) {
+            NSLog(@"login successful, to download");
+            
+            //如果成功就先更新用户信息
+            
+            [_userController updateUserInfoWithBlock:^(BOOL succeeded, NSError *error) {
+                [vc downloadCoupon:coupon sender:sender];
+            }];
+            
+        }
+    }];
+
+
 }
 
 - (void)downloadCoupon:(Coupon*)coupon sender:(id)sender{

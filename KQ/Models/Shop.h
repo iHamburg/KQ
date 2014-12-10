@@ -45,12 +45,12 @@
 /**
  *	@brief	包括： 收藏的门店，搜索的门店，门户列表
  *
- *
  */
 - (id)initWithListDict:(NSDictionary*)dict;
 
 //- (id)initWithSearchDict:(NSDictionary*)dict;
 - (id)initWithCouponDetailsDict:(NSDictionary*)dict; //从CouponDetails传过来的dict
+
 - (id)initWithShopDetailsDict:(NSDictionary*)dict;
 
 @end

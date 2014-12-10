@@ -198,6 +198,7 @@
     vc.view.alpha = 1;
     vc.presentBlock = ^(BOOL successed, NSError *error){
         if (successed) {
+           
             //成功绑卡
             [self.tableView reloadData];
         }

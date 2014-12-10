@@ -91,6 +91,7 @@
         
         // 如果用户已经登陆的话
         if (!ISEMPTY(self.people)) {
+           
             //获得用户信息，判断session是否过期
            
             [self updateUserInfoWithBlock:^(BOOL succeeded, NSError *error) {

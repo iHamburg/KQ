@@ -49,7 +49,7 @@
 
 + (id)eventCoupon;
 
-- (id)initWithDict:(NSDictionary*)dict;
+//- (id)initWithDict:(NSDictionary*)dict;
 /**
  *	@brief	首页的快券列表
  */
