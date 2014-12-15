@@ -139,6 +139,9 @@
     
 }
 
+- (void)showTutorial{
+    
+}
 
 //从main， 附近进couponDetails
 - (void)toCouponDetails:(Coupon*)coupon{

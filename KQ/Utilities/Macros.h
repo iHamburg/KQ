@@ -9,7 +9,7 @@
 
 
 
-#define DefaultImg [UIImage imageNamed:@"quickquan300.jpg"]
+#define DefaultImg [UIImage imageNamed:@"quickquan_launcher.jpg"]
 
 
 

@@ -7,15 +7,19 @@
 //
 
 #import "NetTableViewController.h"
+#import "TutorialView.h"
+
+@interface MainViewController : NetTableViewController{
 
 
-@interface MainViewController : NetTableViewController
+}
 
+@property (nonatomic, strong) TutorialView *tutorialV;
 
 - (IBAction)handleBannerTap:(id)sender;
 
 
-- (void)toCouponDetails:(id)couponModel; /// 从root调用detais+nav，盖在tab上
-
+- (void)toCouponDetails:(id)couponModel; /// root addNavVCAboveTab
+- (void)addTutorial;
 
 @end

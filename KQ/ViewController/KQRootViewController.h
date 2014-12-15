@@ -27,10 +27,14 @@
 @property (nonatomic, readonly) UITabBar *tabBar;
 @property (nonatomic, copy) BooleanResultBlock presentBlock;
 
+// 用户第一次打开APP时显示 Instraction
 - (void)showInstruction;
+
+// 用户没有登录的时候显示活动页面
 - (void)showEvent;
 
-
+// 用户点击新手教程
+- (void)showTutorial;
 
 - (void)toCouponDetails:(Coupon*)coupon;
 

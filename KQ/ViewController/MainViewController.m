@@ -80,8 +80,8 @@
 
     
         UIButton *btn = [UIButton buttonWithFrame:CGRectMake(0, 0, _w, 122) title:nil bgImageName:@"home_header_image.jpg" target:self action:@selector(handleBannerTap:)];
-    UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake(_w-62, 122-29, 62, 29)];
-    imgV.image = [UIImage imageNamed:@"home_header_receive.png"];
+//    UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake(_w-62, 122-29, 62, 29)];
+//    imgV.image = [UIImage imageNamed:@"home_header_receive.png"];
     
         CGFloat fontSize = 12;
         float y = 122;
@@ -96,7 +96,7 @@
         [label setFont:[UIFont fontWithName:kFontName size:fontSize]];
     
         [v addSubview:btn];
-    [v addSubview:imgV];
+//        [v addSubview:imgV];
         [v addSubview:label];
         [v addSubview:l2];
         
@@ -178,11 +178,10 @@
     [_networkClient queryHotestCouponsSkip:0 block:^(NSDictionary *couponDicts, NSError *error) {
         
         [self willDisconnectInView:self.view];
-//        NSLog(@"refreshing # %d",self.refreshControl.refreshing);
-        
-        
+
+
         [self.refreshControl endRefreshing];
-//        NSLog(@"refreshing # %d",self.refreshControl.refreshing);
+
         
 //        NSLog(@"main did load %@",couponDicts);
         if (!error) {
@@ -232,16 +231,6 @@
     }];
 }
 
-
-
-- (void)toCouponDetails:(Coupon*)coupon{
-
-    //把tab切换出去！
-    [_root toCouponDetails:coupon];
-}
-
-
-
 - (void)addCouponsInModel:(NSArray *)array {
     for (NSDictionary *dict in array) {
         Coupon *coupon = [[Coupon alloc] initWithListDict:dict];
@@ -251,5 +240,22 @@
     
     [self.tableView reloadData];
 }
+
+- (void)toCouponDetails:(Coupon*)coupon{
+
+
+    [_root toCouponDetails:coupon];
+}
+
+
+- (void)addTutorial{
+    
+    if (!_tutorialV) {
+        _tutorialV = [[TutorialView alloc] initWithFrame:CGRectZero];
+    }
+}
+
+
+
 
 @end

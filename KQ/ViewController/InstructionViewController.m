@@ -33,9 +33,7 @@
     backB.layer.borderColor = [UIColor whiteColor].CGColor;
     backB.layer.borderWidth = 1;
     backB.layer.cornerRadius = 2;
-    
-    
-    
+  
     		for (int i = 0; i<numOfPages; i++) {
     
                 NSString *imgName = [NSString stringWithFormat:@"instruction0%d.png",i+1];
