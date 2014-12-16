@@ -142,7 +142,7 @@
     
     
     [self willConnect:self.view];
-//      [_libraryManager startLoadingInView:_root.view];
+
     
 //    [_libraryManager startProgress];
     

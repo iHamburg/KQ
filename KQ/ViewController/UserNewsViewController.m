@@ -64,6 +64,7 @@
     
     _seperatorV = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _w, 1)];
     _seperatorV.backgroundColor = kColorLightGray;
+  
     
     [self addSubview:_secondLabel];
     [self addSubview:_thirdLabel];

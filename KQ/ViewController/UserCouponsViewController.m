@@ -90,10 +90,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-//    id obj = self.models[indexPath.row];
-//    
-//    [self toCouponDetails:obj];
-//    
     
     if(ISEMPTY(self.models)){
         return;

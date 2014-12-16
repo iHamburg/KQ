@@ -16,9 +16,9 @@
 
 //#define RESTHOST @"http://61.153.100.241/kq/index.php/kqapi1_1"
 
-#define RESTHOST @"http://61.153.100.241/kqapitest/index.php/kqapi1_1"
+//#define RESTHOST @"http://61.153.100.241/kqapitest/index.php/kqapi1_1"
 
-//#define RESTHOST @"http://192.168.1.113/kq/index.php/kqapi1_1"
+#define RESTHOST @"http://localhost/kq/index.php/kqapi1_1"
 
 #else
 
