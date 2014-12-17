@@ -12,7 +12,6 @@
 
 
 //获取最新的优惠券
-//#define api_newestCoupons       [RESTHOST stringByAppendingFormat:@"/newestCoupons"]
 
 #define api_hotestCoupons       [RESTHOST stringByAppendingFormat:@"/hotestCoupons"]
 
@@ -22,6 +21,8 @@
 //附件门店
 #define api_search_shopbranches        [RESTHOST stringByAppendingFormat:@"/aroundShopbranches"]
 
+// 活动情况
+#define api_event                 [RESTHOST stringByAppendingFormat:@"/event"]
 
 
 //获取优惠券
@@ -363,6 +364,14 @@
     [self getWithUrl:api_search_shopbranches parameters:params block:block];
 }
 
+- (void)queryEventWithBlock:(IdResultBlock)block{
+    
+    [self getWithUrl:api_event parameters:nil block:block];
+    
+}
+
+#pragma mark - Captcha
+
 - (void)requestCaptchaForgetPassword:(NSString*)username block:(IdResultBlock)block{
     
     [self getWithUrl:api_requestCaptchaForgetPassword parameters:@{@"mobile":username} block:block];
@@ -667,6 +676,10 @@
 //    [self testEdit];
     
 //    [self testHeader];
+    
+    [self queryEventWithBlock:^(id object, NSError *error) {
+        NSLog(@"event # %@",object);
+    }];
     
 }
 

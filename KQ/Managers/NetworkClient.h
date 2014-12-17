@@ -158,6 +158,9 @@
  */
 - (void)queryHeadCouponTypesWithBlock:(IdResultBlock)block;
 
+// 获取最新的活动
+- (void)queryEventWithBlock:(IdResultBlock)block;
+
 
 /**
  *	@brief 用户忘记密码时点击获得验证码

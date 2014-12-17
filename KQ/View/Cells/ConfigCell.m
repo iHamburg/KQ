@@ -48,6 +48,6 @@
 }
 
 - (void)dealloc{
-//    L();
+
 }
 @end

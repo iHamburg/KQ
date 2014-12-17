@@ -133,6 +133,7 @@
 
 - (void)showEvent{
     
+    
     _eventVC = [[EventViewController alloc] init];
     
     [self.view insertSubview:_eventVC.view aboveSubview:_tabVC.view];

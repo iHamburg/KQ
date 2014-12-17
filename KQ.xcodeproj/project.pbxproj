@@ -269,6 +269,7 @@
 		85A764F01A206E9300037780 /* event_bg@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 85A764EE1A206E9300037780 /* event_bg@2x.jpg */; };
 		85A764F11A206E9300037780 /* eventBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 85A764EF1A206E9300037780 /* eventBtn@2x.png */; };
 		85AD3CE71A26233600AD3532 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85AD3CE51A26233600AD3532 /* libMobClickLibrary.a */; };
+		85BC2E811A41722900DBDD8E /* EventUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 85BC2E801A41722900DBDD8E /* EventUpdate.m */; };
 		85C5E2E019C68E250047BAE3 /* loading-pic02.png in Resources */ = {isa = PBXBuildFile; fileRef = 85C5E2DF19C68E250047BAE3 /* loading-pic02.png */; };
 		85C631101A2709E800DA382B /* AutoHeight2Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 85C6310F1A2709E800DA382B /* AutoHeight2Cell.m */; };
 		85CAC52D19C057DD007A1F86 /* icon-agreement01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 85CAC52119C057DD007A1F86 /* icon-agreement01@2x.png */; };
@@ -708,6 +709,8 @@
 		85A764EF1A206E9300037780 /* eventBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eventBtn@2x.png"; sourceTree = "<group>"; };
 		85AD3CE51A26233600AD3532 /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
 		85AD3CE61A26233600AD3532 /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
+		85BC2E7F1A41722900DBDD8E /* EventUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventUpdate.h; sourceTree = "<group>"; };
+		85BC2E801A41722900DBDD8E /* EventUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventUpdate.m; sourceTree = "<group>"; };
 		85C5E2DF19C68E250047BAE3 /* loading-pic02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loading-pic02.png"; sourceTree = "<group>"; };
 		85C6310E1A2709E800DA382B /* AutoHeight2Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoHeight2Cell.h; sourceTree = "<group>"; };
 		85C6310F1A2709E800DA382B /* AutoHeight2Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoHeight2Cell.m; sourceTree = "<group>"; };
@@ -1162,6 +1165,8 @@
 				26E290F7193DB24E00B7E0C9 /* Comment.m */,
 				859E90291A18D86200899175 /* News.h */,
 				859E902A1A18D86200899175 /* News.m */,
+				85BC2E7F1A41722900DBDD8E /* EventUpdate.h */,
+				85BC2E801A41722900DBDD8E /* EventUpdate.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1885,6 +1890,7 @@
 				26821B4F19530EE2005549D3 /* MapViewController.m in Sources */,
 				26E3A5C5192DE042004F8C8C /* UIBezierPath+Extras.m in Sources */,
 				26E36B8D195132ED0008707A /* LoadMoreTableFooterView.m in Sources */,
+				85BC2E811A41722900DBDD8E /* EventUpdate.m in Sources */,
 				26DEB4C41941BC570063AADC /* ShopListCell.m in Sources */,
 				26E14B5C193C6508007A7081 /* UserCenterViewController.m in Sources */,
 				26EE1F9619458C0B007C98AA /* CouponType.m in Sources */,

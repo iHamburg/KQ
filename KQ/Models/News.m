@@ -21,6 +21,7 @@ static NSArray *keys;
     }
 }
 
+
 - (id)initWithDict:(NSDictionary*)dict{
     if (self = [self init]) {
         

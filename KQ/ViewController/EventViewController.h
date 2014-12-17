@@ -8,16 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "Coupon.h"
+#import "CouponManager.h"
 
+@interface EventViewController : UIViewController{
 
-@interface EventViewController : UIViewController
+    CouponManager *_couponManager;
+}
 
 @property (nonatomic, strong) Coupon *coupon; //这个Coupon是自己获得的
 @property (nonatomic, strong) UIImage *bgImage;
 @property (nonatomic, strong) IBOutlet UIImageView *bgV;
 @property (nonatomic, strong) UIButton *button;
-
-//@property (nonatomic, copy) void(^toEventCoupon)(Coupon*); //没有必要由root来控制toEventCoupon的流程，
 
 
 

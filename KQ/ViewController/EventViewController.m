@@ -21,12 +21,18 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    _couponManager = [CouponManager sharedInstance];
+    
+    
     self.bgV = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    
     
     NSString *imgName = @"event_bg.jpg";
     if (isPhone4) {
         imgName = @"event_bg_960.jpg";
     }
+    
     self.bgV.image = [UIImage imageNamed:imgName];
     self.bgV.contentMode = UIViewContentModeTop;
     self.bgV.userInteractionEnabled = YES;
@@ -37,7 +43,10 @@
     [self.button setBackgroundImage:[UIImage imageNamed:@"eventBtn.png"] forState:UIControlStateNormal];
     [self.button addTarget:self action:@selector(eventButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
 
+    
     _coupon = [Coupon eventCoupon];
+    
+    
     
     [self.view addSubview:self.bgV];
     [self.view addSubview:self.button];
