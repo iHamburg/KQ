@@ -20,7 +20,9 @@
 #import "KQLoginViewController.h"
 #import "UserCouponsViewController.h"
 #import "NSString+md5.h"
-#import "InstructionViewController.h"
+#import "InstructionView.h"
+#import "GuideView.h"
+#import "CouponListViewController.h"
 
 @interface KQRootViewController (){
 
@@ -126,9 +128,11 @@
 #pragma mark - Fcns
 
 - (void)showInstruction{
-    self.instructionVC = [[InstructionViewController alloc] init];
     
-    [self.view addSubview:self.instructionVC.view];
+    _instructionV = [[InstructionView alloc] initWithFrame:self.view.bounds];
+    _instructionV.imgNames = @[@"instruction01.jpg",@"instruction02.jpg",@"instruction03.jpg",@"instruction04.jpg",];
+    
+    [self.view addSubview:_instructionV];
 }
 
 - (void)showEvent{
@@ -140,8 +144,24 @@
     
 }
 
-- (void)showTutorial{
+- (void)showGuide{
     
+    if (!_guideV) {
+        _guideV = [[GuideView alloc] initWithFrame:self.view.bounds];
+
+        _guideV.imgNames = @[@"guide-step01.jpg",@"guide-step02.jpg",@"guide-step03.jpg",@"guide-step04.jpg"];
+        
+        __weak KQRootViewController *vc = self;
+        _guideV.pageClickedBlock = ^(int index){ // banner的新手教程要进入couponlist！
+
+            [vc addNavCouponList];
+
+        };
+    }
+    
+    [_guideV reset];
+    
+    [self.view addSubview:_guideV];
 }
 
 //从main， 附近进couponDetails
@@ -155,6 +175,14 @@
 
 }
 
+- (void)addNavCouponList{
+
+    CouponListViewController *vc = [[CouponListViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    vc.view.alpha = 1;
+    
+    [self addNavVCAboveTab:vc];
+}
+
 
 - (void)presentLoginWithBlock:(BooleanResultBlock)block{
     KQLoginViewController *vc = [[KQLoginViewController alloc] init];
@@ -166,11 +194,11 @@
     [self presentNav:vc];
 }
 
-- (void)toTab:(int)index{
-
-    _tabVC.selectedIndex = 0;
-    
-}
+//- (void)toTab:(int)index{
+//
+//    _tabVC.selectedIndex = 0;
+//    
+//}
 
 - (void)presentNav:(UIViewController*)vc{
     vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_white_back.png" target:self action:@selector(dismissNav)]];
@@ -236,10 +264,6 @@
     }];
 }
 
-//- (void)addNav:(UIViewController*)vc{
-//    
-//}
-
 - (void)test{
     L();
     
@@ -270,7 +294,7 @@
 //        NSLog(@"screen # %@",NSStringFromCGRect(r));
     
 
-//    [self testNav:@"ChangePasswordViewController"];
+//    [self testNav:@"CouponListViewController"];
 
 //    [self testNav:@"KQRegisterViewController"];
     

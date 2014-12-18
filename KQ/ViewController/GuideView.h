@@ -1,14 +1,17 @@
 //
-//  TutorialView.m
+//  TutorialView.h
 //  KQ
 //
 //  Created by Forest on 14-12-14.
 //  Copyright (c) 2014年 Xappsoft. All rights reserved.
 //
 
-#import "TutorialView.h"
+#import <UIKit/UIKit.h>
 
-@implementation TutorialView
+#import "CarouselView.h"
+
+@interface GuideView : CarouselView
+
 
 
 @end

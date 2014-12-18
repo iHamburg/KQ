@@ -158,7 +158,6 @@
     
     [self.models removeAllObjects];
     
-//    NSLog(@"uid # %@",_userController.uid);
     
     [self willConnect:self.view];
     

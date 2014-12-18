@@ -33,6 +33,7 @@
 @property (nonatomic, readonly) BOOL isLogin;
 @property (nonatomic, readonly) NSString *longitude;
 @property (nonatomic, readonly) NSString *latitude;
+@property (nonatomic, readonly) int cardNum;
 
 
 
@@ -93,6 +94,8 @@
 
 //获得用户信息，判断session是否过期
 - (void)updateUserInfoWithBlock:(BooleanResultBlock)block;
+
+
 
 - (void)logout;
 

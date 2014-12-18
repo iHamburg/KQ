@@ -99,6 +99,10 @@
     // SegmentTitle文件颜色
     [[UISegmentedControl appearance] setTintColor:kColorLightYellow];
     
+    
+    // Alert
+
+    
 
 }
 

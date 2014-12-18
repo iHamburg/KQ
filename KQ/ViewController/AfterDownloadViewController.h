@@ -8,11 +8,16 @@
 
 #import "NetTableViewController.h"
 
+
+
 @interface AfterDownloadViewController : NetTableViewController
 
+@property (nonatomic, strong) Coupon *coupon;
 
 - (void)presentAddCard;
-- (void)pushUserCoupons;
-- (void)toMain;
+//- (void)pushUserCoupons;
+//- (void)toMain;
+- (void)showDownloadGuide;
+- (void)pushShopbranchList;
 
 @end

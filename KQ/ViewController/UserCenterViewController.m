@@ -220,13 +220,16 @@
             [self.tableView reloadData];
         }];
 
+        // 获得用户的未读的news数量
         [_networkClient queryUserNews:_userController.uid skip:0 limit:1 lastNewsId:_userController.people.lastNewsId block:^(NSDictionary *dict, NSError *error) {
             
             if (error) {
                 return ;
             }
             
-            NSLog(@"lastNewsId # %d",_userController.people.lastNewsId);
+            NSLog(@"dict # %@",dict);
+            
+//            NSLog(@"lastNewsId # %d",_userController.people.lastNewsId);
             
             _userController.people.newsNum = [dict[@"count"] intValue];
             
@@ -261,7 +264,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section == 0) {
 
-        return 20;
+        return 1;
     }
     return 5;
 }

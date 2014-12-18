@@ -22,8 +22,10 @@
 #import "MapViewController.h"
 #import "AfterDownloadViewController.h"
 #import "DownloadAddCardViewController.h"
+#import "UserCouponsViewController.h"
 
 #pragma mark - Cell: CouponHeader
+
 @interface CouponHeaderCell : ConfigCell{
 
     IBOutlet UIButton *_downloadB, *_favoriteB;
@@ -68,8 +70,9 @@
 
     self.firstLabel.text = ISEMPTY(coupon.discountContent)?@"":coupon.discountContent;
     self.secondLabel.text = ISEMPTY(coupon.title)?@"":coupon.title;
+
     self.thirdLabel.text = ISEMPTY(coupon.short_desc)?@"": coupon.short_desc;
-   
+    self.thirdLabel.numberOfLines = 0;
     
     
     NSString *downloaded = coupon.downloadedCount;
@@ -80,14 +83,18 @@
 
     ///如果sellout
     if (coupon.sellOut) {
+    
         _downloadB.backgroundColor = kColorGray;
         _downloadB.userInteractionEnabled = NO;
         [_downloadB setTitle:@"已抢光" forState:UIControlStateNormal];
+    
     }
     else{
+        
         _downloadB.backgroundColor = kColorRed;
         _downloadB.userInteractionEnabled = YES;
         [_downloadB setTitle:@"下载快券" forState:UIControlStateNormal];
+    
     }
 
 }
@@ -164,7 +171,7 @@
 }
 
 - (void)dealloc{
-    L();
+//    L();
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -300,18 +307,6 @@
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-//    @try{
-//        NSString *str;
-//        NSArray *arr = @[@"1",str];
-//    }
-//    @catch(NSException *e){
-//         NSLog(@"exception:%@", e);
-//    }
-
-//    NSString *str;
-//    NSArray *arr = @[@"1",str];
-//
-//    [[KQRootViewController sharedInstance] changeInLength];
 }
 
 
@@ -424,11 +419,11 @@
         
         
         aCell.toShopBlock = ^{
-            [vc toShop];
+            [vc pushShop];
         };
         
         aCell.toShopListBlock = ^{
-            [vc toShopList];
+            [vc pushShopList];
         };
         
     }
@@ -482,9 +477,6 @@
         [cell setValue:[self.coupon valueForKey:key]];
 
     }
-//    else if ([cell isKindOfClass:[AutoHeight2Cell class]]){
-//        cell.textLabel.text = @"AutoHeight2Cell";
-//    }
 
     if ([cell.key isEqualToString:@"shopCoupons"]) {
         if (ISEMPTY(self.coupon.shopCoupons)) {
@@ -513,34 +505,14 @@
     
 }
 
-//- (void)viewDidLayoutSubviews{
-//    [super viewDidLayoutSubviews];
-//    
-//    if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
-//        [self.tableView setSeparatorInset:UIEdgeInsetsZero];
-//    }
-//    
-//    if ([self.tableView respondsToSelector:@selector(setLayoutMargins:)]) {
-//        [self.tableView setLayoutMargins:UIEdgeInsetsZero];
-//    }
-//}
-//
-//- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    
-//    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
-//        
-//        [cell setSeparatorInset:UIEdgeInsetsZero];
-//        
-//    }
-//    
-//    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
-//        
-//        [cell setLayoutMargins:UIEdgeInsetsZero];
-//        
-//    }
-//    
-//}
+#pragma mark - UIAlertView
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
+//    L();
+    
+    if (buttonIndex == 1) {
+        [self pushMyCoupons];
+    }
+}
 
 
 #pragma mark - IBAction
@@ -560,25 +532,6 @@
 //没有登录的用户先present登录流程，如果成功的话
 - (void)willDownloadCoupon:(Coupon*)coupon sender:(id)sender{
     __weak CouponDetailsViewController *vc = self;
-    
-//    if (!_userController.isLogin) {
-//        //如果没有登录，让用户登录
-//        
-//        [_root presentLoginWithBlock:^(BOOL succeeded, NSError *error) {
-//            
-//            if (succeeded) {
-//                NSLog(@"login successful, to download");
-//                
-//                //如果成功就先更新用户信息
-//          
-//                [_userController updateUserInfoWithBlock:^(BOOL succeeded, NSError *error) {
-//                    [vc downloadCoupon:coupon sender:sender];
-//                }];
-//
-//            }
-//        }];
-//        
-//    }
 
     [_root presentLoginWithBlock:^(BOOL succeeded, NSError *error) {
         
@@ -598,7 +551,9 @@
 }
 
 - (void)downloadCoupon:(Coupon*)coupon sender:(id)sender{
-    
+ 
+    [self pushAfterDownload];
+    return;
     
     //    NSLog(@"coupon # %@",coupon);
     __weak CouponDetailsViewController *vc = self;
@@ -618,11 +573,15 @@
         //如果出错
         if (error) {
             
-            if (error.code == ErrorUnionNoCardBunden) {
-            // 如果是没有绑卡的错误, present DownloadAddCard
+            if (error.code == ErrorUnionNoCardBunden) { // 已经绑定银联用户，但是删除了所有的银行卡
             
                 [self presentAddCard];
                 
+            }
+            else if(error.code == ErrorDownloadCouponLimit || error.code == ErrorDownloadEventCouponLimit){
+            
+                _alert = [[UIAlertView alloc] initWithTitle:error.localizedDescription message:nil delegate:self cancelButtonTitle:@"返回" otherButtonTitles:@"我的快券", nil];
+                [_alert show];
             }
             else{
                 [ErrorManager alertError:error];
@@ -632,8 +591,8 @@
             return;
         }
  
-//       下载成功后到afterdownload去, 注册肯定没有卡， 登录和忘记密码有可能有卡
-        [vc toAfterDownload];
+//       下载成功后到afterdownload去, 新注册肯定没有卡， 登录和忘记密码有可能有卡
+        [vc pushAfterDownload];
     }];
     
 }
@@ -663,8 +622,6 @@
 
     [_networkClient user:_userController.uid sessionToken:_userController.sessionToken favoriteCoupon:coupon.id block:^(id obj, NSError *error) {
 
-//            [_libraryManager dismissProgress:nil];
-        
 
         if (error) {
             [ErrorManager alertError:error];
@@ -703,14 +660,6 @@
         return;
     }
     
-//    UIImage *img = coupon.avatar;
-//    if (!img) {
-//        img = DefaultImg;
-//    }
-//    
-//[_libraryManager shareWithText:coupon.title image:img delegate:self];
-    
-    
     
     [_libraryManager shareCoupon:coupon delegate:self];
 }
@@ -723,7 +672,7 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)toShop{
+- (void)pushShop{
 
     ShopDetailsViewController *vc = [[ShopDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     vc.view.alpha = 1.0;
@@ -735,7 +684,7 @@
 
 }
 
-- (void)toShopList{
+- (void)pushShopList{
 
     ShopBranchListViewController *vc = [[ShopBranchListViewController alloc] initWithStyle:UITableViewStyleGrouped];
     vc.view.alpha = 1;
@@ -747,8 +696,8 @@
 
 }
 
-
-- (void)toAfterDownload{
+// 下载完成
+- (void)pushAfterDownload{
 
     AfterDownloadViewController *vc = [[AfterDownloadViewController alloc] initWithStyle:UITableViewStyleGrouped];
     vc.view.alpha = 1;
@@ -756,6 +705,12 @@
     [self.navigationController pushViewController:vc animated:YES];
 
 
+}
+
+- (void)pushMyCoupons{
+    UserCouponsViewController *vc = [[UserCouponsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    vc.view.alpha = 1;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)presentAddCard{

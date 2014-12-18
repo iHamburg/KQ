@@ -14,7 +14,7 @@
 #import "CityViewController.h"
 #import "ImageCell.h"
 #import "CouponDetailsViewController.h"
-
+#import "BannerView.h"
 
 #pragma mark - MainViewController
 
@@ -27,7 +27,7 @@
 
 @end
 
-#define headerHeight 162
+#define headerHeight 200
 
 @implementation MainViewController
 
@@ -49,7 +49,29 @@
     imgV.image = [UIImage imageNamed:@"titlebar_index_center_title.png"];
     self.navigationItem.titleView = imgV;
     
+    _bannerImgNames =  @[@"http://www.quickquan.com/app/image/banner_coupon_39.jpg",@"http://www.quickquan.com/app/image/banner_coupon_39.jpg",@"http://www.quickquan.com/app/image/banner_coupon_39.jpg"];
+    _bannerIds = @[@"0",@"39",@"60"];
     
+    _bannerV = [[BannerView alloc] initWithFrame:CGRectMake(0, 0, 320, 160)];
+    _bannerV.imgNames = _bannerImgNames;
+    _bannerV.scrollInterval = 4.0;
+    __weak MainViewController *vc = self;
+    _bannerV.pageClickedBlock = ^(int index){
+        L();
+        NSString *couponId = vc.bannerIds[index];
+        
+        if ([couponId intValue] == 0) { // 如果为0 ，进入tutorial
+           
+            [vc showGuide];
+            
+        }
+        else{
+        
+            Coupon *coupon = [Coupon new];
+            coupon.id = couponId;
+            [vc toCouponDetails:coupon];
+        }
+    };
     
 }
 
@@ -79,12 +101,12 @@
         UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _w, headerHeight)];
 
     
-        UIButton *btn = [UIButton buttonWithFrame:CGRectMake(0, 0, _w, 122) title:nil bgImageName:@"home_header_image.jpg" target:self action:@selector(handleBannerTap:)];
-//    UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake(_w-62, 122-29, 62, 29)];
-//    imgV.image = [UIImage imageNamed:@"home_header_receive.png"];
+//        UIButton *btn = [UIButton buttonWithFrame:CGRectMake(0, 0, _w, 122) title:nil bgImageName:@"home_header_image.jpg" target:self action:@selector(handleBannerTap:)];
+    
+   
     
         CGFloat fontSize = 12;
-        float y = 122;
+        float y = 160;
         UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(10, y, 60, 38)];
         [label setFont:[UIFont fontWithName:kFontName size:fontSize]];
         label.text = @"热门快券";
@@ -95,8 +117,7 @@
         l2.textColor = kColorYellow;
         [label setFont:[UIFont fontWithName:kFontName size:fontSize]];
     
-        [v addSubview:btn];
-//        [v addSubview:imgV];
+        [v addSubview:_bannerV];
         [v addSubview:label];
         [v addSubview:l2];
         
@@ -152,13 +173,6 @@
 
 #pragma mark - IBAction
 
-- (IBAction)handleBannerTap:(id)sender{
-    
-    Coupon *coupon = [[Coupon alloc] init];
-    coupon.id = @"39";
-    
-    [self toCouponDetails:coupon];
-}
 
 #pragma mark - Fcns
 
@@ -226,7 +240,6 @@
         else{
             [ErrorManager alertError:error];
         }
-        
 
     }];
 }
@@ -243,16 +256,15 @@
 
 - (void)toCouponDetails:(Coupon*)coupon{
 
-
     [_root toCouponDetails:coupon];
+
 }
 
 
-- (void)addTutorial{
+- (void)showGuide{
+    L();
+    [_root showGuide];
     
-    if (!_tutorialV) {
-        _tutorialV = [[TutorialView alloc] initWithFrame:CGRectZero];
-    }
 }
 
 

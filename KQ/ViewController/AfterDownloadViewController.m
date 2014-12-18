@@ -10,7 +10,7 @@
 #import "CardCell.h"
 #import "AddCardViewController.h"
 #import "UserCouponsViewController.h"
-
+#import "ShopBranchListViewController.h"
 
 #define headerHeight 100
 
@@ -24,7 +24,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = @"放入我的快券";
+//    self.title = @"放入我的快券";
+    self.title = @"下载成功";
     
     _config = [[TableConfiguration alloc] initWithResource:@"UserCardsConfig"];
     
@@ -191,6 +192,8 @@
 }
 
 #pragma mark - Fcn
+
+// 成功加载之后就更换页面
 - (void)presentAddCard{
     L();
     AddCardViewController *vc = [[AddCardViewController alloc] initWithStyle:UITableViewStyleGrouped];
@@ -213,9 +216,22 @@
     UserCouponsViewController *vc = [[UserCouponsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     
     [self.navigationController pushViewController:vc animated:YES];
+    
 }
 - (void)toMain{
+    
     [_root removeNavVCAboveTab];
+    
+
+}
+
+- (void)showDownloadGuide{
+    
+}
+- (void)pushShopbranchList{
+    ShopBranchListViewController *vc = [[ShopBranchListViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    vc.view.alpha = 1;
+//    vc.headerShopId
 }
 
 @end

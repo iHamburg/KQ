@@ -10,9 +10,9 @@
 #import "Coupon.h"
 #import "Shop.h"
 
-@interface CouponDetailsViewController : ConfigViewController{
+@interface CouponDetailsViewController : ConfigViewController<UIAlertViewDelegate>{
 
-
+    UIAlertView *_alert;
 }
 
 @property (nonatomic, strong) Coupon *coupon;
@@ -32,10 +32,11 @@
 
 - (void)presentAddCard;
 - (void)pushCoupon:(Coupon*)coupon;
-- (void)toShop;
-- (void)toShopList;
-- (void)toAfterDownload;
 
+- (void)pushShop;
+- (void)pushShopList;
+- (void)pushAfterDownload;
 
+- (void)pushMyCoupons;
 
 @end

@@ -46,7 +46,13 @@
         return NO;
 }
 
-
+- (int)cardNum{
+    if (self.isLogin) {
+        return self.people.cardNum;
+    }
+    
+    return 0;
+}
 
 
 - (NSString*)longitude{
@@ -196,6 +202,7 @@
             
             self.people = [[People alloc] initWithDict:dict];
             self.people.password = pw;
+            // 新登录时从userdefaults中获取lastNewsId
             self.people.lastNewsId = [[NSUserDefaults standardUserDefaults] integerForKey:@"lastNewsId"];
 
             
@@ -315,6 +322,7 @@
             
             self.people.dCouponNum = [dict[@"dCouponNum"] intValue];
             self.people.cardNum = [dict[@"cardNum"] intValue];
+//                 self.people.cardNum = 0;
             self.people.fCouponNum = [dict[@"fCouponNum"] intValue];
             self.people.fShopNum = [dict[@"fShopNum"] intValue];
             

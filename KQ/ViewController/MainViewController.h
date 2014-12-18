@@ -7,19 +7,22 @@
 //
 
 #import "NetTableViewController.h"
-#import "TutorialView.h"
-
+//#import "GuideView.h"
+#import "BannerView.h"
 @interface MainViewController : NetTableViewController{
 
-
+    BannerView *_bannerV;
+    NSArray *_bannerImgNames;
+    NSArray *_bannerIds;
 }
 
-@property (nonatomic, strong) TutorialView *tutorialV;
+//@property (nonatomic, strong) GuideView *tutorialV;
+@property (nonatomic, strong) NSArray *bannerIds;
 
 - (IBAction)handleBannerTap:(id)sender;
 
 
-- (void)toCouponDetails:(id)couponModel; /// root addNavVCAboveTab
-- (void)addTutorial;
+- (void)toCouponDetails:(id)coupon; /// root addNavVCAboveTab
+- (void)showGuide;
 
 @end

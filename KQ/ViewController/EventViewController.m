@@ -17,10 +17,11 @@
 
 @implementation EventViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad{
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
     
     _couponManager = [CouponManager sharedInstance];
     

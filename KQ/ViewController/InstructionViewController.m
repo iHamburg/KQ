@@ -92,10 +92,9 @@
 }
 
 #pragma mark - IBAction
-- (void)buttonClicked:(id)sender{
+- (IBAction)buttonClicked:(id)sender{
 	if (sender == backB) {
-
-        
+ 
         [self.view removeFromSuperview];
 
 	}
@@ -109,21 +108,4 @@
 	pageControl.currentPage = page;
 }
 
-//- (void)scrollViewDidScroll:(UIScrollView *)_scrollView{
-//    CGFloat xOffset = scrollView.contentOffset.x;
-//    
-//    //    NSLog(@"yOffset # %f",yOffset);
-//    CGFloat xValue = (numOfPages - 1)*_w;
-//    
-//    
-//    /// 会多次被调用！不是想要的。但是效果确是预计要达到的！
-//    if (xOffset>xValue ) {
-//
-//        ///scrollview固定住，由delegate负责退出
-//        [scrollView setContentOffset:CGPointMake((numOfPages-1) * _w, 0) animated:NO];
-//
-//        [_delegate instructionVCWillDismiss:self];
-//        
-//    }
-//}
 @end
