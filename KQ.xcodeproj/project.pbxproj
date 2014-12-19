@@ -163,6 +163,7 @@
 		26F4FA3F19B55E6A0019430A /* AddSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 26F4FA3E19B55E6A0019430A /* AddSegue.m */; };
 		82746BA17C3B4D42AE8196DB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE34221828C240E6B918B199 /* libPods.a */; };
 		850A67B519C6EA6E00DCA982 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 850A67B419C6EA6E00DCA982 /* ChangePasswordViewController.m */; };
+		8511B4841A4328A3006BE796 /* DownloadGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8511B4831A4328A3006BE796 /* DownloadGuideView.m */; };
 		85134FAC1A176B1500669702 /* EditUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85134FAB1A176B1500669702 /* EditUserViewController.m */; };
 		85134FAE1A176F0B00669702 /* EditUserConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85134FAD1A176F0A00669702 /* EditUserConfig.plist */; };
 		8514C8131A2428E700F0157D /* home_header_receive.png in Resources */ = {isa = PBXBuildFile; fileRef = 8514C8121A2428E700F0157D /* home_header_receive.png */; };
@@ -280,12 +281,12 @@
 		85A851901A42CD8B00D4D9F3 /* btn-step04-start.png in Resources */ = {isa = PBXBuildFile; fileRef = 85A851851A42CD8B00D4D9F3 /* btn-step04-start.png */; };
 		85A851911A42CD8B00D4D9F3 /* dot-big.png in Resources */ = {isa = PBXBuildFile; fileRef = 85A851861A42CD8B00D4D9F3 /* dot-big.png */; };
 		85A851921A42CD8B00D4D9F3 /* dot-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 85A851871A42CD8B00D4D9F3 /* dot-small.png */; };
-		85A851931A42CD8B00D4D9F3 /* guide-step01.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 85A851881A42CD8B00D4D9F3 /* guide-step01.jpg */; };
-		85A851941A42CD8B00D4D9F3 /* guide-step02.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 85A851891A42CD8B00D4D9F3 /* guide-step02.jpg */; };
-		85A851951A42CD8B00D4D9F3 /* guide-step03.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 85A8518A1A42CD8B00D4D9F3 /* guide-step03.jpg */; };
-		85A851961A42CD8B00D4D9F3 /* guide-step04.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 85A8518B1A42CD8B00D4D9F3 /* guide-step04.jpg */; };
-		85A851971A42CD8B00D4D9F3 /* guide02-step03.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 85A8518C1A42CD8B00D4D9F3 /* guide02-step03.jpg */; };
-		85A851981A42CD8B00D4D9F3 /* guide02-step04.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 85A8518D1A42CD8B00D4D9F3 /* guide02-step04.jpg */; };
+		85A851931A42CD8B00D4D9F3 /* guide-step01@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 85A851881A42CD8B00D4D9F3 /* guide-step01@2x.jpg */; };
+		85A851941A42CD8B00D4D9F3 /* guide-step02@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 85A851891A42CD8B00D4D9F3 /* guide-step02@2x.jpg */; };
+		85A851951A42CD8B00D4D9F3 /* guide-step03@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 85A8518A1A42CD8B00D4D9F3 /* guide-step03@2x.jpg */; };
+		85A851961A42CD8B00D4D9F3 /* guide-step04@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 85A8518B1A42CD8B00D4D9F3 /* guide-step04@2x.jpg */; };
+		85A851971A42CD8B00D4D9F3 /* guide02-step03@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 85A8518C1A42CD8B00D4D9F3 /* guide02-step03@2x.jpg */; };
+		85A851981A42CD8B00D4D9F3 /* guide02-step04@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 85A8518D1A42CD8B00D4D9F3 /* guide02-step04@2x.jpg */; };
 		85A8519E1A42D97400D4D9F3 /* CouponListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85A8519D1A42D97400D4D9F3 /* CouponListViewController.m */; };
 		85AD3CE71A26233600AD3532 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85AD3CE51A26233600AD3532 /* libMobClickLibrary.a */; };
 		85BC2E811A41722900DBDD8E /* EventUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 85BC2E801A41722900DBDD8E /* EventUpdate.m */; };
@@ -579,6 +580,8 @@
 		6426E4542FA68E50EDEB04AD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		850A67B319C6EA6E00DCA982 /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
 		850A67B419C6EA6E00DCA982 /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
+		8511B4821A4328A3006BE796 /* DownloadGuideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadGuideView.h; sourceTree = "<group>"; };
+		8511B4831A4328A3006BE796 /* DownloadGuideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadGuideView.m; sourceTree = "<group>"; };
 		85134FAA1A176B1500669702 /* EditUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditUserViewController.h; sourceTree = "<group>"; };
 		85134FAB1A176B1500669702 /* EditUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditUserViewController.m; sourceTree = "<group>"; };
 		85134FAD1A176F0A00669702 /* EditUserConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = EditUserConfig.plist; sourceTree = "<group>"; };
@@ -741,12 +744,12 @@
 		85A851851A42CD8B00D4D9F3 /* btn-step04-start.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-step04-start.png"; sourceTree = "<group>"; };
 		85A851861A42CD8B00D4D9F3 /* dot-big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-big.png"; sourceTree = "<group>"; };
 		85A851871A42CD8B00D4D9F3 /* dot-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-small.png"; sourceTree = "<group>"; };
-		85A851881A42CD8B00D4D9F3 /* guide-step01.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "guide-step01.jpg"; sourceTree = "<group>"; };
-		85A851891A42CD8B00D4D9F3 /* guide-step02.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "guide-step02.jpg"; sourceTree = "<group>"; };
-		85A8518A1A42CD8B00D4D9F3 /* guide-step03.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "guide-step03.jpg"; sourceTree = "<group>"; };
-		85A8518B1A42CD8B00D4D9F3 /* guide-step04.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "guide-step04.jpg"; sourceTree = "<group>"; };
-		85A8518C1A42CD8B00D4D9F3 /* guide02-step03.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "guide02-step03.jpg"; sourceTree = "<group>"; };
-		85A8518D1A42CD8B00D4D9F3 /* guide02-step04.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "guide02-step04.jpg"; sourceTree = "<group>"; };
+		85A851881A42CD8B00D4D9F3 /* guide-step01@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "guide-step01@2x.jpg"; sourceTree = "<group>"; };
+		85A851891A42CD8B00D4D9F3 /* guide-step02@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "guide-step02@2x.jpg"; sourceTree = "<group>"; };
+		85A8518A1A42CD8B00D4D9F3 /* guide-step03@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "guide-step03@2x.jpg"; sourceTree = "<group>"; };
+		85A8518B1A42CD8B00D4D9F3 /* guide-step04@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "guide-step04@2x.jpg"; sourceTree = "<group>"; };
+		85A8518C1A42CD8B00D4D9F3 /* guide02-step03@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "guide02-step03@2x.jpg"; sourceTree = "<group>"; };
+		85A8518D1A42CD8B00D4D9F3 /* guide02-step04@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "guide02-step04@2x.jpg"; sourceTree = "<group>"; };
 		85A8519C1A42D97400D4D9F3 /* CouponListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponListViewController.h; sourceTree = "<group>"; };
 		85A8519D1A42D97400D4D9F3 /* CouponListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponListViewController.m; sourceTree = "<group>"; };
 		85AD3CE51A26233600AD3532 /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
@@ -1468,6 +1471,8 @@
 				85A851801A42BC4100D4D9F3 /* BannerView.m */,
 				85A537341A3DDC5A003A443A /* GuideView.h */,
 				85A537351A3DDC5A003A443A /* GuideView.m */,
+				8511B4821A4328A3006BE796 /* DownloadGuideView.h */,
+				8511B4831A4328A3006BE796 /* DownloadGuideView.m */,
 				859DA41E1A1DDC4900E8611E /* InstructionViewController.h */,
 				859DA41F1A1DDC4900E8611E /* InstructionViewController.m */,
 			);
@@ -1665,12 +1670,12 @@
 				85A851851A42CD8B00D4D9F3 /* btn-step04-start.png */,
 				85A851861A42CD8B00D4D9F3 /* dot-big.png */,
 				85A851871A42CD8B00D4D9F3 /* dot-small.png */,
-				85A851881A42CD8B00D4D9F3 /* guide-step01.jpg */,
-				85A851891A42CD8B00D4D9F3 /* guide-step02.jpg */,
-				85A8518A1A42CD8B00D4D9F3 /* guide-step03.jpg */,
-				85A8518B1A42CD8B00D4D9F3 /* guide-step04.jpg */,
-				85A8518C1A42CD8B00D4D9F3 /* guide02-step03.jpg */,
-				85A8518D1A42CD8B00D4D9F3 /* guide02-step04.jpg */,
+				85A851881A42CD8B00D4D9F3 /* guide-step01@2x.jpg */,
+				85A851891A42CD8B00D4D9F3 /* guide-step02@2x.jpg */,
+				85A8518A1A42CD8B00D4D9F3 /* guide-step03@2x.jpg */,
+				85A8518B1A42CD8B00D4D9F3 /* guide-step04@2x.jpg */,
+				85A8518C1A42CD8B00D4D9F3 /* guide02-step03@2x.jpg */,
+				85A8518D1A42CD8B00D4D9F3 /* guide02-step04@2x.jpg */,
 			);
 			path = guide;
 			sourceTree = "<group>";
@@ -1761,7 +1766,7 @@
 				8533A25A1A1E273400CBD8DB /* main_my_about@2x.png in Resources */,
 				26DE2D8419501DE900F9C46E /* UserAvatarCell.xib in Resources */,
 				8514C8441A245BDB00F0157D /* UMShareEditViewControlleriPad.xib in Resources */,
-				85A851931A42CD8B00D4D9F3 /* guide-step01.jpg in Resources */,
+				85A851931A42CD8B00D4D9F3 /* guide-step01@2x.jpg in Resources */,
 				85A851901A42CD8B00D4D9F3 /* btn-step04-start.png in Resources */,
 				85A764E71A20203300037780 /* CouponSearchListConfig.plist in Resources */,
 				853CAE851A220DC00072289E /* address_loc_red_icon.png in Resources */,
@@ -1794,7 +1799,7 @@
 				8533A2601A1E34B200CBD8DB /* main_my_avatar.png in Resources */,
 				85CAC53219C057DD007A1F86 /* icon-info@2x.png in Resources */,
 				26919EE3195D7DC000974010 /* UserSettingsConfig.plist in Resources */,
-				85A851951A42CD8B00D4D9F3 /* guide-step03.jpg in Resources */,
+				85A851951A42CD8B00D4D9F3 /* guide-step03@2x.jpg in Resources */,
 				26E290FD193DB41600B7E0C9 /* CouponListConfig.plist in Resources */,
 				26E08B201954308000E55A96 /* ShopBranchesCell.xib in Resources */,
 				85A851921A42CD8B00D4D9F3 /* dot-small.png in Resources */,
@@ -1803,7 +1808,7 @@
 				26DE643D195EBA78008835D6 /* bg_虚线@2x.png in Resources */,
 				853CAE831A21D4100072289E /* main_search_eating.png in Resources */,
 				8514C8411A245BDB00F0157D /* UMSCommentInputController.xib in Resources */,
-				85A851941A42CD8B00D4D9F3 /* guide-step02.jpg in Resources */,
+				85A851941A42CD8B00D4D9F3 /* guide-step02@2x.jpg in Resources */,
 				8533A25D1A1E273400CBD8DB /* main_my_favorited_shop@2x.png in Resources */,
 				8533A2661A1E4E0F00CBD8DB /* phone_icon@2x.png in Resources */,
 				26E50C5A19584E7300CBFEE8 /* icon_tabuser@2x.png in Resources */,
@@ -1824,11 +1829,11 @@
 				85CAC53319C057DD007A1F86 /* icon-name@2x.png in Resources */,
 				8596C65619C1789F003B3440 /* icon-agreement03@2x.png in Resources */,
 				85CAC53819C057DD007A1F86 /* icon-user@2x.png in Resources */,
-				85A851971A42CD8B00D4D9F3 /* guide02-step03.jpg in Resources */,
+				85A851971A42CD8B00D4D9F3 /* guide02-step03@2x.jpg in Resources */,
 				8533A2681A1E505D00CBD8DB /* quickquan_launcher.png in Resources */,
 				8596C64719C13462003B3440 /* icon-index01@2x.png in Resources */,
 				859DA4291A1DED3900E8611E /* instruction03@2x.png in Resources */,
-				85A851981A42CD8B00D4D9F3 /* guide02-step04.jpg in Resources */,
+				85A851981A42CD8B00D4D9F3 /* guide02-step04@2x.jpg in Resources */,
 				26E50C5919584E7300CBFEE8 /* icon_location@2x.png in Resources */,
 				8533A24D1A1E24AD00CBD8DB /* main_my_bankcards_icon_normal.png in Resources */,
 				859DA42C1A1E0BAA00E8611E /* home_header_image.jpg in Resources */,
@@ -1852,7 +1857,7 @@
 				8514C8471A245BDB00F0157D /* UMSShareListController.xib in Resources */,
 				85A764E21A201CCA00037780 /* CouponMyListConfig.plist in Resources */,
 				8514C8461A245BDB00F0157D /* UMSnsAccountViewController.xib in Resources */,
-				85A851961A42CD8B00D4D9F3 /* guide-step04.jpg in Resources */,
+				85A851961A42CD8B00D4D9F3 /* guide-step04@2x.jpg in Resources */,
 				859DDB911A1EEEBF003C9528 /* coupon_favorited@2x.png in Resources */,
 				26E570AF193E9B7F009AB7F8 /* ShopListConfig.plist in Resources */,
 				26E2911D193DE41C00B7E0C9 /* CouponDetailsConfig.plist in Resources */,
@@ -1924,6 +1929,7 @@
 				859DA4201A1DDC4900E8611E /* InstructionViewController.m in Sources */,
 				26E290F2193DB22D00B7E0C9 /* Bank.m in Sources */,
 				857FE5731A18A1E50097684F /* UserNewsViewController.m in Sources */,
+				8511B4841A4328A3006BE796 /* DownloadGuideView.m in Sources */,
 				85A764DD1A201AEE00037780 /* CouponMyListCell.m in Sources */,
 				26D393E4194E8F18000ED175 /* SDImageCache.m in Sources */,
 				26E3A5CE192DE042004F8C8C /* UIWebView+Extras.m in Sources */,

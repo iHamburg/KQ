@@ -7,17 +7,21 @@
 //
 
 #import "NetTableViewController.h"
+#import "DownloadGuideView.h"
 
 
-
-@interface AfterDownloadViewController : NetTableViewController
+@interface AfterDownloadViewController : NetTableViewController{
+    DownloadGuideView *_downloadGuideV;
+}
 
 @property (nonatomic, strong) Coupon *coupon;
+@property (nonatomic, strong) DownloadGuideView *downloadGuideV;
 
 - (void)presentAddCard;
 //- (void)pushUserCoupons;
 //- (void)toMain;
 - (void)showDownloadGuide;
 - (void)pushShopbranchList;
+- (void)toCouponList;
 
 @end

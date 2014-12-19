@@ -80,6 +80,7 @@
    
     if (_pageControl.currentPage == self.numOfPages - 1) {
         [self removeFromSuperview];
+//        [self back];
     }
  
 }
@@ -88,6 +89,7 @@
 
 - (void)back{
     
+
     self.pageClickedBlock(self.numOfPages - 1);
     [self removeFromSuperview];
 }

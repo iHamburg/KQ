@@ -24,11 +24,13 @@
 
     CarouselView *_instructionV;
     CarouselView *_guideV;
+    CarouselView *_downloadGuideV;
 }
 
 @property (nonatomic, strong) InstructionViewController *instructionVC;
 @property (nonatomic, readonly) UITabBar *tabBar;
 @property (nonatomic, copy) BooleanResultBlock presentBlock;
+@property (nonatomic, readonly) UINavigationController *nav;
 
 // 用户第一次打开APP时显示 Instraction
 - (void)showInstruction;
@@ -38,6 +40,7 @@
 
 // 用户点击banner新手教程
 - (void)showGuide;
+- (void)showDownloadGuide;
 
 - (void)toCouponDetails:(Coupon*)coupon;
 - (void)addNavCouponList;

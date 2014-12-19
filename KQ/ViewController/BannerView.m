@@ -73,6 +73,19 @@
     return self;
 }
 
+#pragma mark - ScrollView
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+ 
+    [super scrollViewDidEndDecelerating:scrollView];
+    
+    // 确保用户拉过之后再等待_scrollInterval再自动 scroll
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+ 
+    if (_scrollInterval>0) {
+        [self performSelector:@selector(scrollToNextPage) withObject:nil afterDelay:_scrollInterval];
+    }
+    
+}
 #pragma mark - IBAction
 - (IBAction)handleTap:(UITapGestureRecognizer*)sender{
     L();

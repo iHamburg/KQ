@@ -32,6 +32,11 @@
 
 
 #pragma mark - TableView
+
+- (float)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 1;
+}
+
 - (void)configCell:(CouponListCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     
     if (ISEMPTY(_models)) {

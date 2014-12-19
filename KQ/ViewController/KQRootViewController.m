@@ -23,6 +23,7 @@
 #import "InstructionView.h"
 #import "GuideView.h"
 #import "CouponListViewController.h"
+#import "DownloadGuideView.h"
 
 @interface KQRootViewController (){
 
@@ -164,6 +165,22 @@
     [self.view addSubview:_guideV];
 }
 
+//- (void)showDownloadGuide{
+//    if (!_downloadGuideV) {
+//        _downloadGuideV = [[DownloadGuideView alloc] initWithFrame:self.view.bounds];
+//        _downloadGuideV.imgNames = @[@"guide02-step03.jpg",@"guide02-step04.jpg"];
+//        __weak KQRootViewController *vc = self;
+//        _downloadGuideV.pageClickedBlock = ^(int index){ // banner的新手教程要进入couponlist！
+//            L();
+////            [vc addNavCouponList];
+//            
+//        };
+//
+//    }
+//    [_downloadGuideV reset];
+//    [self.view addSubview:_downloadGuideV];
+//}
+
 //从main， 附近进couponDetails
 - (void)toCouponDetails:(Coupon*)coupon{
     
@@ -259,8 +276,6 @@
     
     [self dismissViewControllerAnimated:YES completion:^{
         
-        // 把presentMode调回default
-//        self.presentMode = PresentDefault;
     }];
 }
 

@@ -50,6 +50,9 @@ static NSArray *searchKeys;
     }
 }
 
+- (NSString*)displayedTitle{
+    return [NSString stringWithFormat:@"%@%@",self.title,self.discountContent];
+}
 
 - (NSString*)notice{
     

@@ -98,31 +98,27 @@
 #pragma mark - TableView
 
 - (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-        UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _w, headerHeight)];
 
+    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _w, headerHeight)];
     
-//        UIButton *btn = [UIButton buttonWithFrame:CGRectMake(0, 0, _w, 122) title:nil bgImageName:@"home_header_image.jpg" target:self action:@selector(handleBannerTap:)];
+    CGFloat fontSize = 12;
+    float y = 160;
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(10, y, 60, 38)];
+    [label setFont:[UIFont fontWithName:kFontName size:fontSize]];
+    label.text = @"热门快券";
+    label.textColor = kColorDardGray;
+
+    UILabel *l2 = [[UILabel alloc] initWithFrame:CGRectMake(70, y, 40, 38)];
+    l2.text = @"HOT";
+    l2.textColor = kColorYellow;
+    [label setFont:[UIFont fontWithName:kFontName size:fontSize]];
+
+    [v addSubview:_bannerV];
+    [v addSubview:label];
+    [v addSubview:l2];
     
-   
-    
-        CGFloat fontSize = 12;
-        float y = 160;
-        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(10, y, 60, 38)];
-        [label setFont:[UIFont fontWithName:kFontName size:fontSize]];
-        label.text = @"热门快券";
-        label.textColor = kColorDardGray;
-    
-        UILabel *l2 = [[UILabel alloc] initWithFrame:CGRectMake(70, y, 40, 38)];
-        l2.text = @"HOT";
-        l2.textColor = kColorYellow;
-        [label setFont:[UIFont fontWithName:kFontName size:fontSize]];
-    
-        [v addSubview:_bannerV];
-        [v addSubview:label];
-        [v addSubview:l2];
-        
-        return v;
-   
+    return v;
+
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{

@@ -191,7 +191,6 @@
     
     self.textLabel.text = coupon.title;
 
-//        self.textLabel.text = @"意义意义意义意义意义意义意义意义意义意义意义意义意义意义意义意义意义";
     self.firstLabel.text = coupon.discountContent;
 }
 
@@ -701,6 +700,7 @@
 
     AfterDownloadViewController *vc = [[AfterDownloadViewController alloc] initWithStyle:UITableViewStyleGrouped];
     vc.view.alpha = 1;
+    vc.coupon = self.coupon;
     
     [self.navigationController pushViewController:vc animated:YES];
 

@@ -7,7 +7,6 @@
 //
 
 #import "NetTableViewController.h"
-//#import "GuideView.h"
 #import "BannerView.h"
 @interface MainViewController : NetTableViewController{
 
