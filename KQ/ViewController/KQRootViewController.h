@@ -40,7 +40,7 @@
 
 // 用户点击banner新手教程
 - (void)showGuide;
-- (void)showDownloadGuide;
+
 
 - (void)toCouponDetails:(Coupon*)coupon;
 - (void)addNavCouponList;

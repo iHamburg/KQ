@@ -20,9 +20,14 @@
 @property (nonatomic, strong) IBOutlet UIImageView *bgV;
 @property (nonatomic, strong) UIButton *button;
 
+@property (nonatomic, strong) NSString *bgImgUrl;
+@property (nonatomic, strong) NSString *buttonImgUrl;
+@property (nonatomic, strong) NSString *couponId;
+
 
 
 - (void)back;
 - (void)toCouponDetails;
+
 
 @end

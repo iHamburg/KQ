@@ -90,7 +90,7 @@
  *
  *	@param 	dict 	<#dict description#>
  */
-- (BOOL)updateUserInfo:(NSDictionary*)dict;
+//- (BOOL)updateUserInfo:(NSDictionary*)dict;
 
 //获得用户信息，判断session是否过期
 - (void)updateUserInfoWithBlock:(BooleanResultBlock)block;

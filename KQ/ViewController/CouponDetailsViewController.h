@@ -13,6 +13,7 @@
 @interface CouponDetailsViewController : ConfigViewController<UIAlertViewDelegate>{
 
     UIAlertView *_alert;
+    
 }
 
 @property (nonatomic, strong) Coupon *coupon;

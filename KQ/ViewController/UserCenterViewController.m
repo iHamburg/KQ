@@ -75,8 +75,20 @@
         self.cardNumLabel.text = [NSString stringWithFormat:@"%d 张",people.cardNum];
         self.usernameLabel.text = people.username;
         self.nicknameLabel.text = people.nickname;
-        self.dCouuponImgV.image = [UIImage imageNamed:@"main_my_coupon_icon_pressed.png"];
-        self.cardImgV.image = [UIImage imageNamed:@"main_my_bankcards_icon_pressed.png"];
+
+        if (people.dCouponNum > 0) {
+            self.dCouuponImgV.image = [UIImage imageNamed:@"main_my_coupon_icon_pressed.png"];
+        }
+        else{
+            self.dCouuponImgV.image = [UIImage imageNamed:@"main_my_coupon_icon_normal.png"];
+        }
+        
+        if (people.cardNum > 0) {
+            self.cardImgV.image = [UIImage imageNamed:@"main_my_bankcards_icon_pressed.png"];
+        }
+        else{
+            self.cardImgV.image = [UIImage imageNamed:@"main_my_bankcards_icon_normal.png"];
+        }
     }
     
     if (ISEMPTY(people.avatarUrl)) {
@@ -212,6 +224,8 @@
     [self.tableView setContentOffset:CGPointMake(0, 1)];
 
     
+  
+    
     // 刷新页面
     if (_userController.isLogin) {
         
@@ -238,6 +252,8 @@
         
     }
 
+    
+    [self.tableView reloadData];
 }
 
 
@@ -268,18 +284,7 @@
     }
     return 5;
 }
-//
-//- (void)tableView:(UITableView *)tableView
-//willDisplayHeaderView:(UIView *)view
-//       forSection:(NSInteger)section{
-//    L();
-//    view.backgroundColor = [UIColor redColor];
-//}
-//
-//- (void)tableView:(UITableView *)tableView didEndDisplayingHeaderView:(UIView *)view forSection:(NSInteger)section{
-//    L();
-//    view.backgroundColor = [UIColor redColor];
-//}
+
 
 - (void)initConfigCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     if ([cell isKindOfClass:[UserAvatarCell class]]) {

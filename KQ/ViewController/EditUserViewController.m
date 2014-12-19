@@ -253,8 +253,7 @@
     
     [_userController logout];
     
-//    [self.navigationController popToRootViewControllerAnimated:YES];
-//    [self.navigationController popViewControllerAnimated:YES];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshUserCenter" object:nil];
     
     [_root removeNavVCAboveTab];
     

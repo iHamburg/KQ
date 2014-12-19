@@ -239,9 +239,10 @@
     
 //    NSParameterAssert(coupon);
     
+    
     _coupon = coupon;
    
-    
+//    __weak CouponDetailsViewController *vc = self;
     [_networkClient queryCoupon:coupon.id latitude:_userController.latitude longitude:_userController.longitude block:^(NSDictionary *dict, NSError *error) {
    
         
@@ -253,10 +254,14 @@
         if ([dict isKindOfClass:[NSDictionary class]]) {
             dict = [dict dictionaryCheckNull];
         }
-        NSLog(@"coupon # %@",dict);
+        
+//        NSLog(@"coupon # %@",dict);
+        
         Coupon *coupon = [[Coupon alloc] initWithDetailsDict:dict];
         _coupon = coupon;
+     
         
+//        NSLog(@"oldNum # %@, downloadCount # %@",vc.oldDNum,_coupon.downloadedCount);
 
         [self.tableView reloadData];
    

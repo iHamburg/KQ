@@ -78,10 +78,30 @@
 //        NSLog(@"object # %@",object);
         NSArray *banners = object[@"banners"];
 
+        NSMutableArray *imgNames = [NSMutableArray array];
+        NSMutableArray *ids = [NSMutableArray array];
         if (!ISEMPTY(banners)) {
             
-        }
+            for (NSDictionary *dict in banners) {
+                [imgNames addObject:dict[@"imgUrl"]];
+                if ([dict[@"type"] isEqualToString:@"coupon"]) {
+                    [ids addObject:dict[@"id"]];
+                }
+                else{
+                    [ids addObject:@"0"];
+                }
+            }
+            
+            
+//            NSLog(@"imgNames # %@, ids # %@",imgNames,ids);
         
+            vc.bannerImgNames = imgNames;
+            vc.bannerIds = ids;
+            
+            [vc.tableView reloadData];
+        
+        }
+ 
         
     }];
     

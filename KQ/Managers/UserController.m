@@ -321,7 +321,10 @@
             
             
             self.people.dCouponNum = [dict[@"dCouponNum"] intValue];
+//            self.people.dCouponNum = 0;
+            
             self.people.cardNum = [dict[@"cardNum"] intValue];
+
 //                 self.people.cardNum = 0;
             self.people.fCouponNum = [dict[@"fCouponNum"] intValue];
             self.people.fShopNum = [dict[@"fShopNum"] intValue];
@@ -344,20 +347,20 @@
 
     
 }
-- (BOOL)updateUserInfo:(NSDictionary*)dict{
-    
-    if (!self.people) {
-        return NO;
-    }
-    
-    self.people.dCouponNum = [dict[@"dCouponNum"] intValue];
-    self.people.cardNum = [dict[@"cardNum"] intValue];
-    self.people.fCouponNum = [dict[@"fCouponNum"] intValue];
-    self.people.fShopNum = [dict[@"fShopNum"] intValue];
-
-    return YES;
-    
-}
+//- (BOOL)updateUserInfo:(NSDictionary*)dict{
+//    
+//    if (!self.people) {
+//        return NO;
+//    }
+//    
+//    self.people.dCouponNum = [dict[@"dCouponNum"] intValue];
+//    self.people.cardNum = [dict[@"cardNum"] intValue];
+//    self.people.fCouponNum = [dict[@"fCouponNum"] intValue];
+//    self.people.fShopNum = [dict[@"fShopNum"] intValue];
+//
+//    return YES;
+//    
+//}
 
 - (void)logout{
     
