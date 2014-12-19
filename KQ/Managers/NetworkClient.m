@@ -677,9 +677,9 @@
     
 //    [self testHeader];
     
-    [self queryEventWithBlock:^(id object, NSError *error) {
-        NSLog(@"event # %@",object);
-    }];
+//    [self queryEventWithBlock:^(id object, NSError *error) {
+//        NSLog(@"event # %@",object);
+//    }];
     
 }
 

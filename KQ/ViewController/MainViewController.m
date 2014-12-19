@@ -49,7 +49,7 @@
     imgV.image = [UIImage imageNamed:@"titlebar_index_center_title.png"];
     self.navigationItem.titleView = imgV;
     
-    _bannerImgNames =  @[@"http://www.quickquan.com/app/image/banner_coupon_39.jpg",@"http://www.quickquan.com/app/image/banner_coupon_39.jpg",@"http://www.quickquan.com/app/image/banner_coupon_39.jpg"];
+    _bannerImgNames =  @[@"http://www.quickquan.com/app/image/banner_tutorial_2.jpg",@"http://www.quickquan.com/app/image/banner_coupon_39.jpg",@"http://www.quickquan.com/app/image/banner_coupon_60_2.jpg"];
     _bannerIds = @[@"0",@"39",@"60"];
     
     _bannerV = [[BannerView alloc] initWithFrame:CGRectMake(0, 0, 320, 160)];
@@ -72,6 +72,18 @@
             [vc toCouponDetails:coupon];
         }
     };
+    
+    [_networkClient queryEventWithBlock:^(id object, NSError *error) {
+        
+//        NSLog(@"object # %@",object);
+        NSArray *banners = object[@"banners"];
+
+        if (!ISEMPTY(banners)) {
+            
+        }
+        
+        
+    }];
     
 }
 

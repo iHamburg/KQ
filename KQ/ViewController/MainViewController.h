@@ -15,10 +15,8 @@
     NSArray *_bannerIds;
 }
 
-//@property (nonatomic, strong) GuideView *tutorialV;
 @property (nonatomic, strong) NSArray *bannerIds;
-
-- (IBAction)handleBannerTap:(id)sender;
+@property (nonatomic, strong) NSArray *bannerImgNames;
 
 
 - (void)toCouponDetails:(id)coupon; /// root addNavVCAboveTab

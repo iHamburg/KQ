@@ -2259,7 +2259,7 @@
 					"$(PROJECT_DIR)/KQ/3rdLibraries",
 				);
 				PRODUCT_NAME = "快券";
-				PROVISIONING_PROFILE = "f649ee5d-3eaf-4981-8c5d-453189c32cc0";
+				PROVISIONING_PROFILE = "d3dccb48-0b4f-416c-8067-92c246fd504e";
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
 				WARNING_CFLAGS = (
 					"-Wno-arc-performSelector-leaks\n-Wno-arc-performSelector-leaks\n-Wno-arc-performSelector-leaks",
