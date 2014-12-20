@@ -190,7 +190,7 @@
 
 }
 
-
+// login 会自动调用updateUserInfo
 - (void)loginWithUsername:(NSString*)email password:(NSString*)pw boolBlock:(BooleanResultBlock)block{
     
 //    NSLog(@"pw # %@",pw);
@@ -288,12 +288,7 @@
     
     [_networkClient user:self.uid editInfo:dict block:^(NSDictionary *dict, NSError *error) {
         if (!error) {
-//            if ([dict isKindOfClass:[NSDictionary class]]) {
-//                dict = [dict dictionaryCheckNull];
-//            }
-          
-            
-            
+     
             self.people.password = newPwd;
             [self savePeople:self.people];
             

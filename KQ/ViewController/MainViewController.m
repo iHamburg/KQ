@@ -72,6 +72,7 @@
             [vc toCouponDetails:coupon];
         }
     };
+
     
     [_networkClient queryEventWithBlock:^(id object, NSError *error) {
         

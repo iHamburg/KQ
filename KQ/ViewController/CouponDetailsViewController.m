@@ -518,6 +518,9 @@
     }
 }
 
+//- (void)willPresentAlertView:(UIAlertView *)alertView{
+//    NSLog(@"alert.subview # %@",alertView.subviews);
+//}
 
 #pragma mark - IBAction
 
@@ -539,15 +542,10 @@
 
     [_root presentLoginWithBlock:^(BOOL succeeded, NSError *error) {
         
-        if (succeeded) {
+        if (succeeded) {// 登录或注册成功，自动更新用户信息
             NSLog(@"login successful, to download");
-            
-            //如果成功就先更新用户信息
-            
-            [_userController updateUserInfoWithBlock:^(BOOL succeeded, NSError *error) {
-                [vc downloadCoupon:coupon sender:sender];
-            }];
-            
+
+            [vc downloadCoupon:coupon sender:sender];
         }
     }];
 
@@ -556,8 +554,8 @@
 
 - (void)downloadCoupon:(Coupon*)coupon sender:(id)sender{
  
-    [self pushAfterDownload];
-    return;
+//    [self pushAfterDownload];
+//    return;
     
     //    NSLog(@"coupon # %@",coupon);
     __weak CouponDetailsViewController *vc = self;
@@ -582,9 +580,11 @@
                 [self presentAddCard];
                 
             }
-            else if(error.code == ErrorDownloadCouponLimit || error.code == ErrorDownloadEventCouponLimit){
+            else if(error.code == ErrorDownloadCouponLimit || error.code == ErrorDownloadEventCouponLimit){ // 如果用户下载过优惠券或是活动券
             
-                _alert = [[UIAlertView alloc] initWithTitle:error.localizedDescription message:nil delegate:self cancelButtonTitle:@"返回" otherButtonTitles:@"我的快券", nil];
+//                _alert = [[UIAlertView alloc] initWithTitle:error.localizedDescription message:nil delegate:self cancelButtonTitle:@"返回" otherButtonTitles:@"我的快券", nil];
+                _alert = [[UIAlertView alloc] initWithTitle:@"" message:error.localizedDescription delegate:self cancelButtonTitle:@"返回" otherButtonTitles:@"我的快券", nil];
+
                 [_alert show];
             }
             else{
@@ -609,6 +609,7 @@
         [_root presentLoginWithBlock:^(BOOL succeeded, NSError *error) {
             
         }];
+        
         return;
     }
 
@@ -706,6 +707,7 @@
     AfterDownloadViewController *vc = [[AfterDownloadViewController alloc] initWithStyle:UITableViewStyleGrouped];
     vc.view.alpha = 1;
     vc.coupon = self.coupon;
+    vc.vc = self;
     
     [self.navigationController pushViewController:vc animated:YES];
 
@@ -728,6 +730,38 @@
     };
     
     [_root presentNav:vc ];
+    
+}
+
+- (void)showDownloadGuide{
+    
+    
+    if (!_downloadGuideV) {
+        _downloadGuideV = [[DownloadGuideView alloc] initWithFrame:self.navigationController.view.bounds];
+        _downloadGuideV.imgNames = @[@"guide02-step03.jpg",@"guide02-step04.jpg"];
+        
+        
+    }
+    __weak CouponDetailsViewController *vc = self;
+    _downloadGuideV.pageClickedBlock = ^(int index){ // banner的新手教程要进入couponlist！
+//        L();
+        
+        
+        [vc.downloadGuideV removeFromSuperview];
+
+        [vc pushShopList];
+        
+    };
+    
+    _downloadGuideV.backBlock = ^{
+        
+        [vc.downloadGuideV removeFromSuperview];
+
+        
+    };
+    
+    [_downloadGuideV reset];
+    [self.navigationController.view addSubview:_downloadGuideV];
     
 }
 

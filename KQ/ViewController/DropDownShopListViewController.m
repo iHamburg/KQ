@@ -29,7 +29,7 @@
  
     self.navigationItem.leftBarButtonItem = nil;
     
-    self.orders = @[@"离我最近",@"智能排序"];
+    self.orders = @[@"离我最近",@"智能排序",@"人均最高",@"人均最低"];
     NSMutableArray *typeTitles = [NSMutableArray arrayWithCapacity:self.couponTypes.count];
     
     for (CouponType *type in self.couponTypes) {
@@ -54,9 +54,9 @@
     _dropDownView = [[DropDownListView alloc] initWithFrame:CGRectMake(0,0, 320, 40) dataSource:self delegate:self];
     
     
-    //???一定要是root的view吗？
     _dropDownView.mSuperView = [[KQRootViewController sharedInstance]view];
-    
+
+
  
 }
 
@@ -124,12 +124,19 @@
         [self.searchParams setObject:obj.id forKey:@"districtId"];
     }
     
-    if (self.orderIndex == 0) {
+    if (self.orderIndex == 0) { // 离我最近
         [self.searchParams setObject:@"distance" forKey:@"order"];
     }
-    else{
-        [self.searchParams setObject:@"random" forKey:@"order"];
+    else if(self.orderIndex == 1){ //智能
+        [self.searchParams setObject:@"ai" forKey:@"order"];
     }
+    else if(self.orderIndex == 2){ //人均最高
+        [self.searchParams setObject:@"preisdown" forKey:@"order"];
+    }
+    else if(self.orderIndex == 3){ //人均最低
+        [self.searchParams setObject:@"preisup" forKey:@"order"];
+    }
+
 //    NSLog(@"order index # %d" ,self.orderIndex);
     
 //    [self addCurrentLocationToSearchParams:self.searchParams];

@@ -45,7 +45,7 @@
     self.config = [[TableConfiguration alloc] initWithResource:@"CouponMyListConfig"];
     self.isLoadMore = NO;
     
-    _alert = [[UIAlertView alloc] initWithTitle:@"添加银行卡即可享用快券" message:nil delegate:self cancelButtonTitle:@"稍后再说" otherButtonTitles:@"立即添加", nil];
+    _alert = [[UIAlertView alloc] initWithTitle:@"" message:@"添加银行卡即可享用快券" delegate:self cancelButtonTitle:@"稍后再说" otherButtonTitles:@"立即添加", nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -62,7 +62,7 @@
     [super viewDidAppear:animated];
     
     int num = _userController.people.cardNum;
-    NSLog(@"card # %d",num);
+
     if (num == 0) {
         [_alert show];
     }
@@ -127,12 +127,12 @@
 #pragma mark - SegmentedControl
 - (IBAction)segmentedControlChanged:(UISegmentedControl*)sender{
     int index = (int)sender.selectedSegmentIndex;
-    NSLog(@"index # %d",index);
+//    NSLog(@"index # %d",index);
     self.couponStatus = index;
 
     //重新刷新
     [self loadModels];
-//    [self queryCoupons:index];
+
 }
 
 

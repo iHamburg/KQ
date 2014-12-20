@@ -206,7 +206,7 @@
     self.title = @"我的";
     
     _config = [[TableConfiguration alloc] initWithResource:@"UserCenterLoginConfig"];
-//    _config = [[TableConfiguration alloc] initWithResource:@"UserCenterConfig"];
+
 
     self.navigationItem.leftBarButtonItem = nil;
     
@@ -241,7 +241,7 @@
                 return ;
             }
             
-            NSLog(@"dict # %@",dict);
+//            NSLog(@"dict # %@",dict);
             
 //            NSLog(@"lastNewsId # %d",_userController.people.lastNewsId);
             
@@ -532,7 +532,7 @@
 
 - (void)presentLogin{
     
-    
+    // 成功注册后回在本页
     [_root presentLoginWithBlock:^(BOOL succeeded, NSError *error) {
 
     }];

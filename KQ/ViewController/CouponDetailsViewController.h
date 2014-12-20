@@ -9,6 +9,7 @@
 #import "ConfigViewController.h"
 #import "Coupon.h"
 #import "Shop.h"
+#import "DownloadGuideView.h"
 
 @interface CouponDetailsViewController : ConfigViewController<UIAlertViewDelegate>{
 
@@ -17,7 +18,7 @@
 }
 
 @property (nonatomic, strong) Coupon *coupon;
-
+@property (nonatomic, strong) DownloadGuideView *downloadGuideV;
 
 @property (nonatomic, assign) BOOL isFavoritedCoupon;  ///被headerCell observe
 
@@ -37,7 +38,7 @@
 - (void)pushShop;
 - (void)pushShopList;
 - (void)pushAfterDownload;
-
 - (void)pushMyCoupons;
 
+- (void)showDownloadGuide;
 @end

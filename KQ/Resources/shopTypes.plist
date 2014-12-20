@@ -2,12 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <array>
-    <dict>
-        <key>id</key>
-        <string>0</string>
-        <key>title</key>
-        <string>全部类型</string>
-    </dict>
+	<dict>
+		<key>id</key>
+		<string>0</string>
+		<key>title</key>
+		<string>全部类型</string>
+	</dict>
 	<dict>
 		<key>id</key>
 		<string>1</string>
@@ -16,21 +16,9 @@
 	</dict>
 	<dict>
 		<key>id</key>
-		<string>2</string>
+		<string>4</string>
 		<key>title</key>
-		<string>娱乐</string>
+		<string>丽人</string>
 	</dict>
-	<dict>
-		<key>id</key>
-		<string>3</string>
-		<key>title</key>
-		<string>购物</string>
-	</dict>
-    <dict>
-        <key>id</key>
-        <string>4</string>
-        <key>title</key>
-        <string>丽人</string>
-    </dict>
 </array>
 </plist>

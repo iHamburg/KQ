@@ -59,6 +59,7 @@
     [MobClick startWithAppkey:kUmengAppKey reportPolicy:BATCH   channelId:@""];
     
     [MobClick setLogEnabled:YES];
+    [MobClick updateOnlineConfig];
 //    [MobClick setCrashReportEnabled:NO];
 
 

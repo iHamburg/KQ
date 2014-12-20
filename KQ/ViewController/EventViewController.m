@@ -77,7 +77,7 @@
     __weak EventViewController *vc = self;
     [networkClient queryEventWithBlock:^(id object, NSError *error) {
         
-        NSLog(@"object # %@",object);
+//        NSLog(@"object # %@",object);
         NSDictionary *dict = object[@"event"];
         vc.couponId = dict[@"id"];
         vc.bgImgUrl = dict[@"imgUrl"];

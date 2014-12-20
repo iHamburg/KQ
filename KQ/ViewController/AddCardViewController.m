@@ -134,8 +134,7 @@
 - (void)viewDidAppear:(BOOL)animated{
     
     [super viewDidAppear:animated];
-    
-//    [_libraryManager startHint:@"还需一步，即可下载成功！"];
+
 
 }
 

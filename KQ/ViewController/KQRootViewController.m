@@ -191,6 +191,7 @@
     KQLoginViewController *vc = [[KQLoginViewController alloc] init];
     
     vc.view.alpha = 1;  //提前先load LoginVC，生成back，这样之后的back的selector能覆盖默认的back
+   
     // 这里的block可以放在root，让root有一个bool值的block
     vc.successBlock = block;
     
@@ -298,6 +299,12 @@
 //    [self testNav:@"CouponListViewController"];
 
 //    [self testNav:@"KQRegisterViewController"];
+    
+//    NSLog(@"umeng params #  %@",[MobClick getConfigParams]);
+    
+    
+
+
     
 }
 
