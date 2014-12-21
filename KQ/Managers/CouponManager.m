@@ -43,15 +43,15 @@
 
         _networkClient = [NetworkClient sharedInstance];
         NSString *filePath;
-        
-        NSString *json = [MobClick getConfigParams:@"shopTypeJsonStr"];
-        NSData *data = [json dataUsingEncoding:NSUTF8StringEncoding];
-        NSError *error;
-        NSArray *shopTypeArray =   [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
-
-        if (error) {
-            NSLog(@"error # %@",error.localizedDescription);
-        }
+        NSArray *shopTypeArray;
+//        NSString *json = [MobClick getConfigParams:@"shopTypeJsonStr"];
+//        NSData *data = [json dataUsingEncoding:NSUTF8StringEncoding];
+//        NSError *error;
+//        NSArray *shopTypeArray =   [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+//
+//        if (error) {
+//            NSLog(@"error # %@",error.localizedDescription);
+//        }
         
        NSLog(@"shopType # %@",shopTypeArray);
         
@@ -119,26 +119,21 @@
 - (NSArray*)searchCouponTypes{
     
     
-//    NSMutableArray *array = [NSMutableArray array];
-//    
-//    for (CouponType *type in self.couponTypes) {
-//        int couponId = [type.id intValue];
-//        switch (couponId) {
-//            case 0:
-//            case 1:
-//            case 4:
-//                
-//                [array addObject:type];
-//                break;
-//                
-//            default:
-//                break;
-//        }
-//    }
-//    
-//    return [array copy];
 
-    return self.couponTypes;
+    int num = [[MobClick getConfigParams:@"shopTypeNum"] intValue];
+    if (num == 0) {
+        num = 3;
+    }
+    
+    NSMutableArray *array = [NSMutableArray array];
+   
+    for (int i = 0; i<num; i++) {
+        [array addObject:self.couponTypes[i]];
+    }
+    
+    return [array copy];
+    
+   
 }
 
 - (NSArray*)searchDistricts{

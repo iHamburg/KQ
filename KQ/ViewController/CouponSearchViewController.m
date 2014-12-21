@@ -109,13 +109,11 @@
     
     _leftImgNames = @[@"main_search_all.png",@"main_search_eating.png",@"main_search_beauty.png"];
 
-//    NSString *
-    
     _rightV = [[UITableView alloc] initWithFrame:CGRectMake(70, 40, 250, self.view.height - 44) style:UITableViewStyleGrouped];
     _rightV.delegate = self;
     _rightV.dataSource = self;
     _rightV.separatorStyle = UITableViewCellSeparatorStyleNone;
-//    _rightV.autoresizingMask = kAutoResize;
+
     _rightV.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     
     if (_loadMoreFooterView == nil) {
@@ -205,7 +203,7 @@
     
     
     if (tableView == _leftV) {
-        return 3;
+        return [self.searchTypes count];
     }
     else{
         return _models.count;

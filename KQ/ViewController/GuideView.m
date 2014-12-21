@@ -42,7 +42,7 @@
                 y = _h - 100;
             }
             
-            UIImageView *iconV = [[UIImageView alloc] initWithFrame:CGRectMake(275, 15, 30, 30)];
+            UIImageView *iconV = [[UIImageView alloc] initWithFrame:CGRectMake(275, 20, 30, 30)];
             iconV.image = [UIImage imageNamed:@"btn-step04-close.png"];
             [imgV addSubview:iconV];
             
@@ -58,7 +58,7 @@
     
     if (self = [super initWithFrame:frame]) {
         
-        _backB = [UIButton buttonWithFrame:CGRectMake(0, 0, 170, 48) title:nil bgImageName:@"btn-step04-start.png" target:self action:@selector(buttonClicked:)];
+        _backB = [UIButton buttonWithFrame:CGRectMake(0, 0, 140, 40) title:nil bgImageName:@"btn-step04-start.png" target:self action:@selector(buttonClicked:)];
 
 
         _pageControl.pageIndicatorTintColor = [UIColor whiteColor];

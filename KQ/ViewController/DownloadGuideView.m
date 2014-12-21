@@ -16,7 +16,7 @@
     
     if (self = [super initWithFrame:frame]) {
         
-        _backB = [UIButton buttonWithFrame:CGRectMake(0, 0, 170, 48) title:nil bgImageName:@"btn-step04-shop.png" target:self action:@selector(buttonClicked:)];
+        _backB = [UIButton buttonWithFrame:CGRectMake(0, 0, 140, 40) title:nil bgImageName:@"btn-step04-shop.png" target:self action:@selector(buttonClicked:)];
         
         
     }
@@ -35,7 +35,7 @@
     
     if (_pageControl.currentPage == self.numOfPages - 1) {
         [self back];
-        //        [self back];
+     
     }
     
 }

@@ -53,7 +53,7 @@
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(imgV.frame)+10, _w, 30)];
     label.textAlignment = NSTextAlignmentCenter;
-    label.text = @"快券 1.0";
+    label.text = @"快券 1.1";
     label.font = nFont(15);
     label.textColor = kColorGray;
     

@@ -20,5 +20,11 @@
 		<key>title</key>
 		<string>丽人</string>
 	</dict>
+	<dict>
+		<key>id</key>
+		<string>999</string>
+		<key>title</key>
+		<string>其他</string>
+	</dict>
 </array>
 </plist>

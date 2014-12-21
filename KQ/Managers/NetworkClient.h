@@ -26,8 +26,7 @@
 //#define RESTHOST @"http://115.29.148.47/kq/index.php/kqapi3"
 
 
-
-#define RESTHOST @"http://61.153.100.241/kqdev/index.php/kqapi6"
+#define RESTHOST @"http://61.153.100.241/kq/index.php/kqapi1_1"
 
 #endif
 

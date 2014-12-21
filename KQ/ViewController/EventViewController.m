@@ -41,6 +41,9 @@
     self.bgImgUrl = [[NSUserDefaults standardUserDefaults] stringForKey:@"eventBgImgUrl"];
     self.buttonImgUrl = [[NSUserDefaults standardUserDefaults] stringForKey:@"eventButtonImgUrl"];
     
+    if (!self.couponId) {
+        self.couponId = @"39";
+    }
     
     if (!self.bgImgUrl) {
         self.bgV.image = [UIImage imageNamed:imgName];
