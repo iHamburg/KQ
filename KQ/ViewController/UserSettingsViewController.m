@@ -58,7 +58,8 @@
 }
 
 - (void)configCell:(ConfigCell *)cell atIndexPath:(NSIndexPath *)indexPath{
-//
+
+    //
 //    if ([cell isKindOfClass:[SwitchCell class]]) {
 //
 //        UISwitch *aSwitch = cell.value;
@@ -71,6 +72,7 @@
 //        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 //        cell.selectionStyle  = UITableViewCellSelectionStyleNone;
 //    }
+    
 }
 
 
