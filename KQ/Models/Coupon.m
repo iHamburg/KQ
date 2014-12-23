@@ -136,6 +136,7 @@ static NSArray *searchKeys;
         
         self.id = dict[@"couponId"];
         self.active = [dict[@"active"] boolValue];
+  
     }
     
     return self;

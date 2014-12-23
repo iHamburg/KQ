@@ -214,6 +214,7 @@
     ShopDetailsViewController *vc = [[ShopDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     vc.view.alpha = 1;
     vc.shop = shop;
+    
 //    [self.navigationController pushViewController:vc animated:YES];
     
     [_root addNavVCAboveTab:vc];

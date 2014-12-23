@@ -582,7 +582,6 @@
             }
             else if(error.code == ErrorDownloadCouponLimit || error.code == ErrorDownloadEventCouponLimit){ // 如果用户下载过优惠券或是活动券
             
-//                _alert = [[UIAlertView alloc] initWithTitle:error.localizedDescription message:nil delegate:self cancelButtonTitle:@"返回" otherButtonTitles:@"我的快券", nil];
                 _alert = [[UIAlertView alloc] initWithTitle:@"" message:error.localizedDescription delegate:self cancelButtonTitle:@"返回" otherButtonTitles:@"我的快券", nil];
 
                 [_alert show];

@@ -61,9 +61,7 @@
     [MobClick setLogEnabled:YES];
     [MobClick updateOnlineConfig];
 //    [MobClick setCrashReportEnabled:NO];
-
-
-    
+ 
 }
 
 

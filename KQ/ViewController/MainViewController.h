@@ -20,6 +20,7 @@
 
 
 - (void)toCouponDetails:(id)coupon; /// root addNavVCAboveTab
+
 - (void)showGuide;
 
 @end

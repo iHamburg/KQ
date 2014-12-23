@@ -93,7 +93,6 @@
     NSString *urlStr = [NSString stringWithFormat:@"https://itunes.apple.com/de/app/id%@&mt=8",appId];
     NSURL *url = [NSURL URLWithString: [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF16StringEncoding]];
     
-//    NSURL * url = [NSURL URLWithString:appstoreUrlString];
     
     [[UIApplication sharedApplication] openURL:url];
 }

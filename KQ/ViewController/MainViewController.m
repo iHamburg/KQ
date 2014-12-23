@@ -275,7 +275,9 @@
 
 - (void)addCouponsInModel:(NSArray *)array {
     for (NSDictionary *dict in array) {
+      
         Coupon *coupon = [[Coupon alloc] initWithListDict:dict];
+        
         [self.models addObject:coupon];
         
     }
