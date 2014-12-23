@@ -133,7 +133,6 @@
 #pragma mark - TableView
 - (void)configCell:(CouponListCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     
-    //    NSLog(@"config cell # %@",[NSString stringWithFormat:@"%d,%d",indexPath.section,indexPath.row ]);
     
     if (ISEMPTY(_models)) {
         return;

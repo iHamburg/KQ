@@ -87,10 +87,12 @@
 
 - (void)checkVersion{
     L();
-//    NSString *appId = @"942472995";
-    NSString * appstoreUrlString = @"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?mt=8&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&type=Purple+Software&id=942472995";
+    NSString *appId = @"942472995";
+
+
+    NSString *urlStr = [NSString stringWithFormat:@"https://itunes.apple.com/de/app/id%@&mt=8",appId];
+    NSURL *url = [NSURL URLWithString: [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF16StringEncoding]];
     
-    NSURL * url = [NSURL URLWithString:appstoreUrlString];
     
     [[UIApplication sharedApplication] openURL:url];
 }

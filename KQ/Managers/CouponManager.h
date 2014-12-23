@@ -10,12 +10,14 @@
 #import <CoreLocation/CoreLocation.h>
 #import "CouponType.h"
 #import "District.h"
+#import "Coupon.h"
 
 @interface CouponManager : NSObject
 
-
+//@property (nonatomic, strong) 
 @property (nonatomic, strong) NSArray *couponTypes; //只有一级coupontype
 @property (nonatomic, strong) NSArray *districts;   //只有一级区域
+
 
 + (instancetype)sharedInstance;
 

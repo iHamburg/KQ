@@ -9,7 +9,7 @@
 #import "UserCouponsViewController.h"
 #import "CouponListCell.h"
 #import "CouponDetailsViewController.h"
-
+#import "AddCardViewController.h"
 
 @interface UserCouponsViewController (){
     UIView *_tableHeader;
@@ -44,6 +44,8 @@
  
     self.config = [[TableConfiguration alloc] initWithResource:@"CouponMyListConfig"];
     self.isLoadMore = NO;
+    
+    _alert = [[UIAlertView alloc] initWithTitle:@"" message:@"添加银行卡即可享用快券" delegate:self cancelButtonTitle:@"稍后再说" otherButtonTitles:@"立即添加", nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -54,6 +56,17 @@
 
 - (void)dealloc{
     L();
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
+    int num = _userController.people.cardNum;
+
+    if (num == 0) {
+        [_alert show];
+    }
+    
 }
 
 #pragma mark - TableView
@@ -90,10 +103,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-//    id obj = self.models[indexPath.row];
-//    
-//    [self toCouponDetails:obj];
-//    
     
     if(ISEMPTY(self.models)){
         return;
@@ -103,7 +112,7 @@
     Coupon *coupon = self.models[indexPath.row];
     
     if (coupon.active) {
-        [self toCouponDetails:coupon];
+        [self pushCouponDetails:coupon];
         
     }
     else{
@@ -118,12 +127,22 @@
 #pragma mark - SegmentedControl
 - (IBAction)segmentedControlChanged:(UISegmentedControl*)sender{
     int index = (int)sender.selectedSegmentIndex;
-    NSLog(@"index # %d",index);
+//    NSLog(@"index # %d",index);
     self.couponStatus = index;
 
     //重新刷新
     [self loadModels];
-//    [self queryCoupons:index];
+
+}
+
+
+#pragma mark - UIAlertView
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
+    //    L();
+    
+    if (buttonIndex == 1) {
+        [self pushAddCard];
+    }
 }
 
 #pragma mark - Fcns;
@@ -234,7 +253,7 @@
 
 
 
-- (void)toCouponDetails:(Coupon*)coupon{
+- (void)pushCouponDetails:(Coupon*)coupon{
     
     
     CouponDetailsViewController *vc = [[CouponDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped];
@@ -246,5 +265,9 @@
 
 }
 
-
+- (void)pushAddCard{
+    AddCardViewController *vc = [[AddCardViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    vc.view.alpha = 1;
+     [self.navigationController pushViewController:vc animated:YES];
+}
 @end

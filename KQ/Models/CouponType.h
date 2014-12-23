@@ -12,10 +12,9 @@
 
 @property (nonatomic, strong) NSString *id;
 @property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *imgUrl;
 
 - (id)initWithDict:(NSDictionary*)dict;
-
-//+ (id)couponTypeWithDict:(NSDictionary*)dict;
 
 + (id)allInstance;
 @end

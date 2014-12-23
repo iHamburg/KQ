@@ -31,7 +31,7 @@
         
         self.id = dict[@"id"];
         self.title = dict[@"title"];
-
+        self.imgUrl = dict[@"imgUrl"];
 
     }
     

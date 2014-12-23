@@ -52,10 +52,10 @@
     self.view.backgroundColor  = kColorBG;
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 300, 50)];
-    label.text = @"只需输入卡号，即可成功至商户享受快券优惠服务";
+    label.text = @"只需输入卡号，即可至商户享用快券";
     label.textColor = kColorGray;
     label.textAlignment = NSTextAlignmentCenter;
-    label.font = [UIFont fontWithName:kFontBoldName size:12];
+    label.font = [UIFont fontWithName:kFontBoldName size:15];
     
     UIImageView *tfBgV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 60, 320, 48)];
     tfBgV.image = [UIImage imageNamed:@"addCardTfBg.jpg"];
@@ -102,7 +102,8 @@
     unionImgV.image = [UIImage imageNamed:@"bank_icon.png"];
     
     UILabel *unionL = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(unionImgV.frame)+10, _w, 30)];
-    unionL.font = [UIFont fontWithName:kFontName size:10];
+    unionL.font = [UIFont fontWithName:kFontName size:11];
+    unionL.textColor = kColorGray;
     unionL.textAlignment = NSTextAlignmentCenter;
     unionL.text = @"中国银联将保障您的账户信息安全";
     
@@ -133,8 +134,7 @@
 - (void)viewDidAppear:(BOOL)animated{
     
     [super viewDidAppear:animated];
-    
-//    [_libraryManager startHint:@"还需一步，即可下载成功！"];
+
 
 }
 
@@ -172,7 +172,13 @@
     
     [self validateWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
+
             [self addCard:_tf.text];
+//            [self mockAddCard:_tf.text];
+        }
+        else if(error.code == ErrorAppInvalide62Card){
+        
+            [[[UIAlertView alloc] initWithTitle:error.localizedDescription message:nil delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles: nil] show];
         }
         else{
             [ErrorManager alertError:error];
@@ -194,6 +200,12 @@
 
     
     if (range.location!=0 || length<13 ||length>19) {
+        
+        code = ErrorAppInvalide62Card;
+        
+    }
+    
+    else if (length<13 ||length>19) {
         
         code = ErrorAppInvalideCard;
        
@@ -218,14 +230,14 @@
 
 
 - (void)addCard:(NSString*)number{
-
+    
     
     [self willLoad:_button];
     
     NSString *uid = [[UserController sharedInstance] uid];
     NSString *sessionToken = [[UserController sharedInstance] sessionToken];
     
-    [[NetworkClient sharedInstance] user:uid sessionToken:sessionToken addCard:number block:^(id object, NSError *error) {
+    [_networkClient user:uid sessionToken:sessionToken addCard:number block:^(id object, NSError *error) {
        [self willStopLoad];
      
         if (!_networkFlag) {
@@ -235,9 +247,15 @@
         if (!error) {
             [_libraryManager startHint:@"银行卡绑定成功"];
             
+            
+            // 需要更新用户的银行卡的信息
+            _userController.people.cardNum++;
+            
             // 从present过来的有presentBlock
             if (self.presentBlock) {
+              
                 self.presentBlock(YES,nil);
+                
                 [self dismissViewControllerAnimated:YES completion:^{
                     
                 }];
@@ -253,9 +271,15 @@
     }];
 }
 
+- (void)mockAddCard:(NSString *)number{
+    // 需要更新用户的银行卡的信息
+    _userController.people.cardNum++;
+    [self.navigationController popViewControllerAnimated:YES];
+
+}
+
 - (void)toAgreement{
     
-//    L();
     WebViewController *vc = [[WebViewController alloc] init];
     vc.fileName = @"bankcard_agreement.html";
     vc.title = @"银联钱包技术使用协议";

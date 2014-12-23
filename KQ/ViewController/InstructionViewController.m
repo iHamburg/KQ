@@ -33,9 +33,7 @@
     backB.layer.borderColor = [UIColor whiteColor].CGColor;
     backB.layer.borderWidth = 1;
     backB.layer.cornerRadius = 2;
-    
-    
-    
+  
     		for (int i = 0; i<numOfPages; i++) {
     
                 NSString *imgName = [NSString stringWithFormat:@"instruction0%d.png",i+1];
@@ -60,7 +58,8 @@
                 
     			if (i == numOfPages -1 ) {
                     float y = _h-50;
-                    if (isPhone5) {
+                   
+                    if (!isPhone4) {
                         y = _h - 100;
                     }
                     
@@ -70,7 +69,7 @@
     		}
     
         
-    CGFloat hPageControl = isPhone5?100:20;
+    CGFloat hPageControl = (!isPhone4)?100:20;
     pageControl = [[UIPageControl alloc]initWithFrame:CGRectMake(0, _h - hPageControl, _w, hPageControl)];
     pageControl.numberOfPages = numOfPages;
     pageControl.userInteractionEnabled = NO;
@@ -93,10 +92,9 @@
 }
 
 #pragma mark - IBAction
-- (void)buttonClicked:(id)sender{
+- (IBAction)buttonClicked:(id)sender{
 	if (sender == backB) {
-
-        
+ 
         [self.view removeFromSuperview];
 
 	}
@@ -110,21 +108,4 @@
 	pageControl.currentPage = page;
 }
 
-//- (void)scrollViewDidScroll:(UIScrollView *)_scrollView{
-//    CGFloat xOffset = scrollView.contentOffset.x;
-//    
-//    //    NSLog(@"yOffset # %f",yOffset);
-//    CGFloat xValue = (numOfPages - 1)*_w;
-//    
-//    
-//    /// 会多次被调用！不是想要的。但是效果确是预计要达到的！
-//    if (xOffset>xValue ) {
-//
-//        ///scrollview固定住，由delegate负责退出
-//        [scrollView setContentOffset:CGPointMake((numOfPages-1) * _w, 0) animated:NO];
-//
-//        [_delegate instructionVCWillDismiss:self];
-//        
-//    }
-//}
 @end

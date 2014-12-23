@@ -9,7 +9,7 @@
 
 
 
-#define DefaultImg [UIImage imageNamed:@"quickquan300.jpg"]
+#define DefaultImg [UIImage imageNamed:@"quickquan_launcher.jpg"]
 
 
 
@@ -25,7 +25,7 @@
 #define isPad (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 #define isPhone  (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) 
 #define isPhone4 ([UIDevice resolution] == UIDeviceResolution_iPhoneRetina35)||([UIDevice resolution] == UIDeviceResolution_iPhoneStandard)
-#define isPhone5 ([UIDevice resolution] == UIDeviceResolution_iPhoneRetina4)
+//#define isPhone5 ([UIDevice resolution] == UIDeviceResolution_iPhoneRetina4)
 
 #define isStatusBarLandscape UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication]statusBarOrientation])
 #define isStatusBarPortrait UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication]statusBarOrientation])

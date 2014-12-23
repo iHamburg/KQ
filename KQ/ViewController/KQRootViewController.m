@@ -20,7 +20,10 @@
 #import "KQLoginViewController.h"
 #import "UserCouponsViewController.h"
 #import "NSString+md5.h"
-#import "InstructionViewController.h"
+#import "InstructionView.h"
+#import "GuideView.h"
+#import "CouponListViewController.h"
+#import "DownloadGuideView.h"
 
 @interface KQRootViewController (){
 
@@ -67,6 +70,8 @@
     
     [self.view addSubview:_tabVC.view];
     
+
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -77,9 +82,8 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     
-    L();
+//    L();
     [super viewDidAppear:animated];
-    
     
     [self test];
     
@@ -125,33 +129,41 @@
 #pragma mark - Fcns
 
 - (void)showInstruction{
-    self.instructionVC = [[InstructionViewController alloc] init];
     
-    [self.view addSubview:self.instructionVC.view];
+    _instructionV = [[InstructionView alloc] initWithFrame:self.view.bounds];
+    _instructionV.imgNames = @[@"instruction01.jpg",@"instruction02.jpg",@"instruction03.jpg",@"instruction04.jpg",];
+    
+    [self.view addSubview:_instructionV];
 }
 
 - (void)showEvent{
     
-//    //判断是否登录
-//    
-//    if ([[UserController sharedInstance] isLogin]) {
-//        NSLog(@"user has login, go to mainPage");
-//        
-//       
-//    }
-//    else{
-//        NSLog(@"no user, show event Page");
-//        
-//        _eventVC = [[EventViewController alloc] init];
-//
-//        [self.view insertSubview:_eventVC.view aboveSubview:_tabVC.view];
-//
-//       
-//    }
+    
+    
     _eventVC = [[EventViewController alloc] init];
     
     [self.view insertSubview:_eventVC.view aboveSubview:_tabVC.view];
     
+}
+
+- (void)showGuide{
+    
+    if (!_guideV) {
+        _guideV = [[GuideView alloc] initWithFrame:self.view.bounds];
+
+        _guideV.imgNames = @[@"guide-step01.jpg",@"guide-step02.jpg",@"guide-step03.jpg",@"guide-step04.jpg"];
+        
+        __weak KQRootViewController *vc = self;
+        _guideV.pageClickedBlock = ^(int index){ // banner的新手教程要进入couponlist！
+
+            [vc addNavCouponList];
+
+        };
+    }
+    
+    [_guideV reset];
+    
+    [self.view addSubview:_guideV];
 }
 
 
@@ -166,22 +178,31 @@
 
 }
 
+- (void)addNavCouponList{
+
+    CouponListViewController *vc = [[CouponListViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    vc.view.alpha = 1;
+    
+    [self addNavVCAboveTab:vc];
+}
+
 
 - (void)presentLoginWithBlock:(BooleanResultBlock)block{
     KQLoginViewController *vc = [[KQLoginViewController alloc] init];
     
     vc.view.alpha = 1;  //提前先load LoginVC，生成back，这样之后的back的selector能覆盖默认的back
+   
     // 这里的block可以放在root，让root有一个bool值的block
     vc.successBlock = block;
     
     [self presentNav:vc];
 }
 
-- (void)toTab:(int)index{
-
-    _tabVC.selectedIndex = 0;
-    
-}
+//- (void)toTab:(int)index{
+//
+//    _tabVC.selectedIndex = 0;
+//    
+//}
 
 - (void)presentNav:(UIViewController*)vc{
     vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIButton buttonWithImageName:@"icon_white_back.png" target:self action:@selector(dismissNav)]];
@@ -203,12 +224,7 @@
 
 }
 
-//- (void)presentNav:(UIViewController*)vc mode:(PresentMode)mode{
-//    
-//    self.presentMode = mode;
-//    
-//    [self presentNav:vc];
-//}
+
 
 - (void)addNavVCAboveTab:(UIViewController *)vc{
     
@@ -247,14 +263,8 @@
     
     [self dismissViewControllerAnimated:YES completion:^{
         
-        // 把presentMode调回default
-//        self.presentMode = PresentDefault;
     }];
 }
-
-//- (void)addNav:(UIViewController*)vc{
-//    
-//}
 
 - (void)test{
     L();
@@ -265,7 +275,7 @@
     [[UserController sharedInstance] test];
 
     // 版本号
-  
+
     
     
 //    NSLog(@"uniqueIdentifier: %@", [[UIDevice currentDevice] uniqueIdentifier]);
@@ -286,9 +296,16 @@
 //        NSLog(@"screen # %@",NSStringFromCGRect(r));
     
 
-//    [self testNav:@"ChangePasswordViewController"];
+//    [self testNav:@"CouponListViewController"];
 
 //    [self testNav:@"KQRegisterViewController"];
+    
+//    NSLog(@"umeng params #  %@",[MobClick getConfigParams]);
+    
+    
+
+
+    
 }
 
 

@@ -29,7 +29,7 @@
  
     self.navigationItem.leftBarButtonItem = nil;
     
-    self.orders = @[@"离我最近",@"智能排序"];
+    self.orders = @[@"离我最近",@"智能排序",@"人均最高",@"人均最低"];
     NSMutableArray *typeTitles = [NSMutableArray arrayWithCapacity:self.couponTypes.count];
     
     for (CouponType *type in self.couponTypes) {
@@ -54,9 +54,9 @@
     _dropDownView = [[DropDownListView alloc] initWithFrame:CGRectMake(0,0, 320, 40) dataSource:self delegate:self];
     
     
-    //???一定要是root的view吗？
     _dropDownView.mSuperView = [[KQRootViewController sharedInstance]view];
-    
+
+
  
 }
 
@@ -111,25 +111,32 @@
     
     
     
-    if (self.couponTypeIndex>0) {
+    if (self.couponTypeIndex>0) {  // 商户类型filter
       
         CouponType *obj = self.couponTypes[self.couponTypeIndex];
         
         [self.searchParams setObject:obj.id forKey:@"shopTypeId"];
     }
     
-    if (self.districtIndex > 0) {
+    if (self.districtIndex > 0) {  // 区域filter
         District *obj = self.districts[self.districtIndex];
         
         [self.searchParams setObject:obj.id forKey:@"districtId"];
     }
     
-    if (self.orderIndex == 0) {
+    if (self.orderIndex == 0) { // 离我最近
         [self.searchParams setObject:@"distance" forKey:@"order"];
     }
-    else{
-        [self.searchParams setObject:@"random" forKey:@"order"];
+    else if(self.orderIndex == 1){ //智能
+        [self.searchParams setObject:@"ai" forKey:@"order"];
     }
+    else if(self.orderIndex == 2){ //人均最高
+        [self.searchParams setObject:@"preisdown" forKey:@"order"];
+    }
+    else if(self.orderIndex == 3){ //人均最低
+        [self.searchParams setObject:@"preisup" forKey:@"order"];
+    }
+
 //    NSLog(@"order index # %d" ,self.orderIndex);
     
 //    [self addCurrentLocationToSearchParams:self.searchParams];
@@ -142,7 +149,7 @@
     
     
     [self willConnect:self.view];
-//      [_libraryManager startLoadingInView:_root.view];
+
     
 //    [_libraryManager startProgress];
     
@@ -207,6 +214,7 @@
     ShopDetailsViewController *vc = [[ShopDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     vc.view.alpha = 1;
     vc.shop = shop;
+    
 //    [self.navigationController pushViewController:vc animated:YES];
     
     [_root addNavVCAboveTab:vc];

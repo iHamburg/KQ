@@ -10,7 +10,6 @@
 #import "ErrorManager.h"
 #import "UserController.h"
 #import "WebViewController.h"
-#import "AfterDownloadViewController.h"
 #import "NetworkClient.h"
 #import "NSString+md5.h"
 
@@ -179,9 +178,12 @@
         UIImageView *rightV = [[UIImageView alloc] initWithFrame:CGRectMake(272, 0, 48, 65)];
         rightV.image = [UIImage imageNamed:@"register_events_right.png"];
         
-        
+        NSString *msg = [MobClick getConfigParams:kUmengRegisterBannerText];
+        if (ISEMPTY(msg)) {
+            msg = @"只要注册快券，就可以1元获得原价18元的美味摩提哦";
+        }
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(85, 0, 175, 65)];
-        label.text = @"只要注册快券，就可以1元获得原价18元的美味摩提哦";
+        label.text = msg;
         label.numberOfLines = 0;
         label.textColor = kColorYellow;
         label.font = bFont(13);
@@ -238,6 +240,20 @@
     return YES;
 }
 
+#pragma mark - Alert
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
+    
+    
+    self.successBlock(YES,nil);
+    
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+    
+}
+
+
 #pragma mark - IBAction
 - (IBAction)selectAgreementClicked:(id)sender{
     L();
@@ -265,27 +281,13 @@
     [self requestCaptcha];
 }
 
-
-
-
-#pragma mark - Alert
-
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
-
-    
-    self.successBlock(YES,nil);
-    [self dismissViewControllerAnimated:YES completion:^{
-        
-    }];
-    
-}
-
-#pragma mark - Fcn
-
-
-
 -(IBAction)signUpUserPressed:(id)sender
 {
+    
+    
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"注册成功" message:@"前往领取免费美味摩提快券" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+//    [alert show];
+//    return;
     
     ///  先进行validate， 通过后再注册
     [self validateWithBlock:^(BOOL succeeded, NSError *error) {
@@ -293,13 +295,10 @@
             
             NSDictionary *info = @{@"username":self.userTextField.text,@"password":[_passwordTextField.text stringWithMD5]};
             
-            //    NSLog(@"info # %@",info);
-            
             [self registerUser:info];
         }
         else{
             NSString *msg = [error localizedDescription];
-//          [UIAlertView showAlert:msg msg:nil cancel:@"OK"];
             
             [_libraryMng startHint:msg];
         }
@@ -307,6 +306,14 @@
     
     
 }
+
+
+
+#pragma mark - Fcn
+
+
+
+
 
 - (void)validateWithBlock:(BooleanResultBlock)block{
     
@@ -386,7 +393,12 @@
         if (succeeded && self.networkFlag) {
             
             /// 注册成功后显示提示窗
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"注册成功" message:@"前往领取免费美味摩提快券" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            
+            NSString *msg = [MobClick getConfigParams:kUmengRegisterSuccessText];
+            if (ISEMPTY(msg)) {
+                msg = @"前往领取免费美味摩提快券";
+            }
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"注册成功" message:msg delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
             [alert show];
         }
         

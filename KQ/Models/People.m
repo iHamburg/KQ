@@ -25,7 +25,6 @@ static NSArray *keys;
     
     _newsNum = newsNum;
     
-//    NSLog(@"newsNum # %d",newsNum);
     
 }
 
@@ -76,14 +75,9 @@ static NSArray *keys;
     self.lastNewsId = [aDecoder decodeIntForKey:@"lastNewsId"];
     self.isNotification = [aDecoder decodeBoolForKey:@"isNotification"];
     
-     NSLog(@"self.isnotification # %d",self.isNotification);
-    
     if (self.isNotification != false) {
         self.isNotification = YES;
     }
-    
-    NSLog(@"self.isnotification # %d",self.isNotification);
-//        NSLog(@"people.lastNewsId # %d",self.lastNewsId);
     
     return self;
 }

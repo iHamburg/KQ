@@ -53,7 +53,7 @@
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(imgV.frame)+10, _w, 30)];
     label.textAlignment = NSTextAlignmentCenter;
-    label.text = @"快券 1.0";
+    label.text = @"快券 1.1";
     label.font = nFont(15);
     label.textColor = kColorGray;
     
@@ -100,8 +100,6 @@
     [mailPicker setSubject:@"意见反馈"];
     [mailPicker setToRecipients:@[@"app@quickquan.com"]];
     
-//    NSLog(@"systemVersion: %@", [[UIDevice currentDevice] systemVersion]);
-//    NSLog(@"model: %@", [[UIDevice currentDevice] model]);
     
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     NSString *app_build = [infoDictionary objectForKey:@"CFBundleVersion"];

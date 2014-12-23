@@ -4,6 +4,9 @@
 
 #define kTestJSONHost @"http://douban.fm/j/mine/playlist?type=n&h=&channel=0&from=mainsite&r=4941e23d79"
 
+#define kUmengRegisterBannerText @"registerBannerText"
+#define kUmengRegisterSuccessText @"registerSuccessText"
+
 #define kLimit 30
 
 #pragma mark - file

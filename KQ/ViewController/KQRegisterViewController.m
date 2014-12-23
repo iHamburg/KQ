@@ -9,7 +9,6 @@
 #import "KQRegisterViewController.h"
 #import "UserController.h"
 #import "WebViewController.h"
-#import "AfterDownloadViewController.h"
 #import "NetworkClient.h"
 #import "NSString+md5.h"
 

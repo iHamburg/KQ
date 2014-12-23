@@ -52,6 +52,11 @@ typedef enum {
     
      ErrorFailureDCoupon = 803,// 用户下载快券失败【无法下载该优惠券】
     
+     ErrorDownloadEventCouponLimit = 804, // 每位用户限下载一张哦！
+    
+     ErrorDownloadCouponLimit = 805, //使用后才能再次下载哦！
+
+    
      ErrorUsernameExists = 1001,// 用户名已存在【用户名已存在】
     
      ErrorCardExists = 1003,// 用户已经绑定该银行卡【银行卡已被绑定过啦】
@@ -100,6 +105,8 @@ typedef enum {
     ErrorAppInvalideCard = 2003,   //无效的银联卡号
     
     ErrorAppUnselected = 2004, //不同意协议
+    
+    ErrorAppInvalide62Card = 2005,
     
     ErrorUnknown = 999999
     

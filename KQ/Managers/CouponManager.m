@@ -13,6 +13,7 @@
 #import <MapKit/MapKit.h>
 #import "LibraryManager.h"
 #import "UserController.h"
+#import "MobClick.h"
 
 @interface CouponManager(){
     NetworkClient *_networkClient;
@@ -41,11 +42,29 @@
      
 
         _networkClient = [NetworkClient sharedInstance];
+        NSString *filePath;
+        NSArray *shopTypeArray;
+//        NSString *json = [MobClick getConfigParams:@"shopTypeJsonStr"];
+//        NSData *data = [json dataUsingEncoding:NSUTF8StringEncoding];
+//        NSError *error;
+//        NSArray *shopTypeArray =   [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+//
+//        if (error) {
+//            NSLog(@"error # %@",error.localizedDescription);
+//        }
         
-        NSString *filePath = [NSString filePathForResource:@"shopTypes.plist"];
-        NSArray *shopTypeArray = [NSArray arrayWithContentsOfFile:filePath];
-//        NSLog(@"shopTypes # %@",shopTypeArray);
+       NSLog(@"shopType # %@",shopTypeArray);
+        
+        if (ISEMPTY(shopTypeArray)) {
+            NSString *filePath = [NSString filePathForResource:@"shopTypes.plist"];
+            shopTypeArray = [NSArray arrayWithContentsOfFile:filePath];
+        }
+        
 
+       
+//        NSLog(@"shopTypes # %@",shopTypeArray);
+   
+        
         NSMutableArray *array = [NSMutableArray array];
         for (NSDictionary *dict in shopTypeArray) {
             CouponType *type = [[CouponType alloc] initWithDict:dict];
@@ -53,6 +72,9 @@
             
         }
         self.couponTypes = [array copy];
+        
+        
+        
         
         filePath = [NSString filePathForResource:@"districts.plist"];
         shopTypeArray = [NSArray arrayWithContentsOfFile:filePath];
@@ -97,28 +119,27 @@
 - (NSArray*)searchCouponTypes{
     
     
-    NSMutableArray *array = [NSMutableArray array];
+
+    int num = [[MobClick getConfigParams:@"shopTypeNum"] intValue];
+    if (num == 0) {
+        num = 3;
+    }
     
-    for (CouponType *type in self.couponTypes) {
-        int couponId = [type.id intValue];
-        switch (couponId) {
-            case 0:
-            case 1:
-            case 4:
-                
-                [array addObject:type];
-                break;
-                
-            default:
-                break;
-        }
+    NSMutableArray *array = [NSMutableArray array];
+   
+    for (int i = 0; i<num; i++) {
+        [array addObject:self.couponTypes[i]];
     }
     
     return [array copy];
+    
+   
 }
+
 - (NSArray*)searchDistricts{
     return self.districts;
 }
+
 - (CouponType*)couponTypeWithTitle:(NSString*)title{
 
     for (CouponType *type in self.couponTypes) {

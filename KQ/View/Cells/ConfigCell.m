@@ -14,6 +14,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        
         // Initialization code
         [self load];
         
@@ -47,6 +48,6 @@
 }
 
 - (void)dealloc{
-    L();
+
 }
 @end
