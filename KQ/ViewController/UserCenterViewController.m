@@ -75,8 +75,20 @@
         self.cardNumLabel.text = [NSString stringWithFormat:@"%d 张",people.cardNum];
         self.usernameLabel.text = people.username;
         self.nicknameLabel.text = people.nickname;
-        self.dCouuponImgV.image = [UIImage imageNamed:@"main_my_coupon_icon_pressed.png"];
-        self.cardImgV.image = [UIImage imageNamed:@"main_my_bankcards_icon_pressed.png"];
+
+        if (people.dCouponNum > 0) {
+            self.dCouuponImgV.image = [UIImage imageNamed:@"main_my_coupon_icon_pressed.png"];
+        }
+        else{
+            self.dCouuponImgV.image = [UIImage imageNamed:@"main_my_coupon_icon_normal.png"];
+        }
+        
+        if (people.cardNum > 0) {
+            self.cardImgV.image = [UIImage imageNamed:@"main_my_bankcards_icon_pressed.png"];
+        }
+        else{
+            self.cardImgV.image = [UIImage imageNamed:@"main_my_bankcards_icon_normal.png"];
+        }
     }
     
     if (ISEMPTY(people.avatarUrl)) {
@@ -194,7 +206,7 @@
     self.title = @"我的";
     
     _config = [[TableConfiguration alloc] initWithResource:@"UserCenterLoginConfig"];
-//    _config = [[TableConfiguration alloc] initWithResource:@"UserCenterConfig"];
+
 
     self.navigationItem.leftBarButtonItem = nil;
     
@@ -212,6 +224,8 @@
     [self.tableView setContentOffset:CGPointMake(0, 1)];
 
     
+  
+    
     // 刷新页面
     if (_userController.isLogin) {
         
@@ -220,13 +234,16 @@
             [self.tableView reloadData];
         }];
 
+        // 获得用户的未读的news数量
         [_networkClient queryUserNews:_userController.uid skip:0 limit:1 lastNewsId:_userController.people.lastNewsId block:^(NSDictionary *dict, NSError *error) {
             
             if (error) {
                 return ;
             }
             
-            NSLog(@"lastNewsId # %d",_userController.people.lastNewsId);
+//            NSLog(@"dict # %@",dict);
+            
+//            NSLog(@"lastNewsId # %d",_userController.people.lastNewsId);
             
             _userController.people.newsNum = [dict[@"count"] intValue];
             
@@ -235,6 +252,8 @@
         
     }
 
+    
+    [self.tableView reloadData];
 }
 
 
@@ -260,11 +279,12 @@
 #pragma mark - TableView
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section == 0) {
-//        return headerHeight;
+
         return 1;
     }
     return 5;
 }
+
 
 - (void)initConfigCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     if ([cell isKindOfClass:[UserAvatarCell class]]) {
@@ -512,7 +532,7 @@
 
 - (void)presentLogin{
     
-    
+    // 成功注册后回在本页
     [_root presentLoginWithBlock:^(BOOL succeeded, NSError *error) {
 
     }];

@@ -46,25 +46,26 @@
         return NO;
 }
 
-//- (BOOL)hasBankcard{
-//    
-//    if (!self.people) {
-//        return NO;
-//    }
-//    else if(ISEMPTY(self.people.cardIds)){
-//        return NO;
-//    }
-//    else
-//        return YES;
-//}
+- (int)cardNum{
+    if (self.isLogin) {
+        return self.people.cardNum;
+    }
+    
+    return 0;
+}
 
 
 - (NSString*)longitude{
-    return [NSString stringWithFloat:_checkinLocation.coordinate.longitude];
+    
+    
+    return [NSString stringWithFormat:@"%.3f",_checkinLocation.coordinate.longitude];
+
 }
 
 - (NSString*)latitude{
-    return [NSString stringWithFloat:_checkinLocation.coordinate.latitude];
+    
+    return [NSString stringWithFormat:@"%.3f",_checkinLocation.coordinate.latitude];
+    
 }
 #pragma mark - Init
 
@@ -96,6 +97,7 @@
         
         // 如果用户已经登陆的话
         if (!ISEMPTY(self.people)) {
+           
             //获得用户信息，判断session是否过期
            
             [self updateUserInfoWithBlock:^(BOOL succeeded, NSError *error) {
@@ -125,7 +127,7 @@
         //        NSLog( @"Starting CLLocationManager" );
         _locationManager.delegate = self;
         _locationManager.distanceFilter = 500;
-        //        locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+//        locationManager.desiredAccuracy = kCLLocationAccuracyBest;
         _locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
         _locationManager.activityType = CLActivityTypeOther;
         [_locationManager startUpdatingLocation];
@@ -143,6 +145,12 @@
     L();
     
     _checkinLocation = newLocation;
+    
+//    float longitude =_checkinLocation.coordinate.longitude;
+//    NSLog(@"longitude # %f",longitude);
+//    
+//    NSString *longi = [NSString stringWithFormat:@"%.3f",longitude];
+//    NSLog(@"string # %@",longi);
     
 }
 
@@ -180,10 +188,9 @@
         
     }];
 
-    
 }
 
-
+// login 会自动调用updateUserInfo
 - (void)loginWithUsername:(NSString*)email password:(NSString*)pw boolBlock:(BooleanResultBlock)block{
     
 //    NSLog(@"pw # %@",pw);
@@ -195,6 +202,7 @@
             
             self.people = [[People alloc] initWithDict:dict];
             self.people.password = pw;
+            // 新登录时从userdefaults中获取lastNewsId
             self.people.lastNewsId = [[NSUserDefaults standardUserDefaults] integerForKey:@"lastNewsId"];
 
             
@@ -280,12 +288,7 @@
     
     [_networkClient user:self.uid editInfo:dict block:^(NSDictionary *dict, NSError *error) {
         if (!error) {
-//            if ([dict isKindOfClass:[NSDictionary class]]) {
-//                dict = [dict dictionaryCheckNull];
-//            }
-          
-            
-            
+     
             self.people.password = newPwd;
             [self savePeople:self.people];
             
@@ -313,7 +316,11 @@
             
             
             self.people.dCouponNum = [dict[@"dCouponNum"] intValue];
+//            self.people.dCouponNum = 0;
+            
             self.people.cardNum = [dict[@"cardNum"] intValue];
+
+//                 self.people.cardNum = 0;
             self.people.fCouponNum = [dict[@"fCouponNum"] intValue];
             self.people.fShopNum = [dict[@"fShopNum"] intValue];
             
@@ -335,20 +342,20 @@
 
     
 }
-- (BOOL)updateUserInfo:(NSDictionary*)dict{
-    
-    if (!self.people) {
-        return NO;
-    }
-    
-    self.people.dCouponNum = [dict[@"dCouponNum"] intValue];
-    self.people.cardNum = [dict[@"cardNum"] intValue];
-    self.people.fCouponNum = [dict[@"fCouponNum"] intValue];
-    self.people.fShopNum = [dict[@"fShopNum"] intValue];
-
-    return YES;
-    
-}
+//- (BOOL)updateUserInfo:(NSDictionary*)dict{
+//    
+//    if (!self.people) {
+//        return NO;
+//    }
+//    
+//    self.people.dCouponNum = [dict[@"dCouponNum"] intValue];
+//    self.people.cardNum = [dict[@"cardNum"] intValue];
+//    self.people.fCouponNum = [dict[@"fCouponNum"] intValue];
+//    self.people.fShopNum = [dict[@"fShopNum"] intValue];
+//
+//    return YES;
+//    
+//}
 
 - (void)logout{
     

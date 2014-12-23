@@ -36,7 +36,7 @@
 
  
     self.isLoadMore = NO;
-//    self.view.backgroundColor = kColorBG;
+
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -68,7 +68,7 @@
         if (ISEMPTY(_models)) {
             v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _w, 110)];
             UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, _w-20, 50)];
-            label.text = @"您没有支持快券使用的银行卡";
+            label.text = @"尚未绑定银行卡";
             label.textColor = kColorRed;
             label.textAlignment = NSTextAlignmentCenter;
             label.font = [UIFont fontWithName:kFontBoldName size:15];
@@ -76,7 +76,7 @@
             UILabel *l2 = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(label.frame), _w - 20, 40)];
             l2.numberOfLines = 0;
             l2.textColor = kColorGray;
-            l2.text = @"您只需添加一张银行卡到“我的银行卡”开通服务。即可现场刷卡，使用已下载的快券啦！";
+            l2.text = @"添加一张或多张银行卡到“我的银行卡”开通服务。即可在刷卡消费中享用快券";
             l2.font = nFont(12);
             
             [v addSubview:label];
@@ -107,14 +107,14 @@
     btn.backgroundColor = kColorGreen;
     btn.layer.cornerRadius = 3;
     btn.titleLabel.font = [UIFont fontWithName:kFontBoldName size:15];
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(btn.frame)+10, _w, 30)];
-    label.text = @"(限卡号62开头的银行卡)";
-    label.textColor = kColorGray;
-    label.font = [UIFont fontWithName:kFontBoldName size:12];
-    label.textAlignment = NSTextAlignmentLeft;
+//    
+//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(btn.frame)+10, _w, 30)];
+//    label.text = @"(限卡号62开头的银行卡)";
+//    label.textColor = kColorGray;
+//    label.font = [UIFont fontWithName:kFontBoldName size:12];
+//    label.textAlignment = NSTextAlignmentLeft;
     [v addSubview:btn];
-    [v addSubview:label];
+//    [v addSubview:label];
     
 
     
@@ -162,8 +162,6 @@
 
 - (void)loadModels{
 
-    L();
-  
 
     [self.models removeAllObjects];
     [self willConnect:self.view];
@@ -171,7 +169,6 @@
     
      [_networkClient queryCards:_userController.uid block:^(NSDictionary *dict, NSError *error) {
      
-         
          [self willDisconnectInView:self.view];
          [self.refreshControl endRefreshing];
   

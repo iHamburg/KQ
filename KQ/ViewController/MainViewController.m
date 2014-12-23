@@ -14,7 +14,7 @@
 #import "CityViewController.h"
 #import "ImageCell.h"
 #import "CouponDetailsViewController.h"
-
+#import "BannerView.h"
 
 #pragma mark - MainViewController
 
@@ -27,7 +27,7 @@
 
 @end
 
-#define headerHeight 162
+#define headerHeight 200
 
 @implementation MainViewController
 
@@ -49,9 +49,62 @@
     imgV.image = [UIImage imageNamed:@"titlebar_index_center_title.png"];
     self.navigationItem.titleView = imgV;
     
+    _bannerImgNames =  @[@"http://www.quickquan.com/app/image/banner_tutorial_2.jpg",@"http://www.quickquan.com/app/image/banner_coupon_39.jpg",@"http://www.quickquan.com/app/image/banner_coupon_60_2.jpg"];
+    _bannerIds = @[@"0",@"39",@"60"];
     
-//    NSLog(@"main");
+    _bannerV = [[BannerView alloc] initWithFrame:CGRectMake(0, 0, 320, 160)];
+    _bannerV.imgNames = _bannerImgNames;
+    _bannerV.scrollInterval = 4.0;
+    __weak MainViewController *vc = self;
+    _bannerV.pageClickedBlock = ^(int index){
+        L();
+        NSString *couponId = vc.bannerIds[index];
+        
+        if ([couponId intValue] == 0) { // 如果为0 ，进入tutorial
+           
+            [vc showGuide];
+            
+        }
+        else{
+        
+            Coupon *coupon = [Coupon new];
+            coupon.id = couponId;
+            [vc toCouponDetails:coupon];
+        }
+    };
+
     
+    [_networkClient queryEventWithBlock:^(id object, NSError *error) {
+        
+//        NSLog(@"object # %@",object);
+        NSArray *banners = object[@"banners"];
+
+        NSMutableArray *imgNames = [NSMutableArray array];
+        NSMutableArray *ids = [NSMutableArray array];
+        if (!ISEMPTY(banners)) {
+            
+            for (NSDictionary *dict in banners) {
+                [imgNames addObject:dict[@"imgUrl"]];
+                if ([dict[@"type"] isEqualToString:@"coupon"]) {
+                    [ids addObject:dict[@"id"]];
+                }
+                else{
+                    [ids addObject:@"0"];
+                }
+            }
+            
+            
+//            NSLog(@"imgNames # %@, ids # %@",imgNames,ids);
+        
+            vc.bannerImgNames = imgNames;
+            vc.bannerIds = ids;
+            
+            [vc.tableView reloadData];
+        
+        }
+ 
+        
+    }];
     
 }
 
@@ -78,32 +131,27 @@
 #pragma mark - TableView
 
 - (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-        UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _w, headerHeight)];
 
+    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _w, headerHeight)];
     
-        UIButton *btn = [UIButton buttonWithFrame:CGRectMake(0, 0, _w, 122) title:nil bgImageName:@"home_header_image.jpg" target:self action:@selector(handleBannerTap:)];
-    UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake(_w-62, 122-29, 62, 29)];
-    imgV.image = [UIImage imageNamed:@"home_header_receive.png"];
+    CGFloat fontSize = 12;
+    float y = 160;
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(10, y, 60, 38)];
+    [label setFont:[UIFont fontWithName:kFontName size:fontSize]];
+    label.text = @"热门快券";
+    label.textColor = kColorDardGray;
+
+    UILabel *l2 = [[UILabel alloc] initWithFrame:CGRectMake(70, y, 40, 38)];
+    l2.text = @"HOT";
+    l2.textColor = kColorYellow;
+    [label setFont:[UIFont fontWithName:kFontName size:fontSize]];
+
+    [v addSubview:_bannerV];
+    [v addSubview:label];
+    [v addSubview:l2];
     
-        CGFloat fontSize = 12;
-        float y = 122;
-        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(10, y, 60, 38)];
-        [label setFont:[UIFont fontWithName:kFontName size:fontSize]];
-        label.text = @"热门快券";
-        label.textColor = kColorDardGray;
-    
-        UILabel *l2 = [[UILabel alloc] initWithFrame:CGRectMake(70, y, 40, 38)];
-        l2.text = @"HOT";
-        l2.textColor = kColorYellow;
-        [label setFont:[UIFont fontWithName:kFontName size:fontSize]];
-    
-        [v addSubview:btn];
-    [v addSubview:imgV];
-        [v addSubview:label];
-        [v addSubview:l2];
-        
-        return v;
-   
+    return v;
+
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -154,13 +202,6 @@
 
 #pragma mark - IBAction
 
-- (IBAction)handleBannerTap:(id)sender{
-    
-    Coupon *coupon = [[Coupon alloc] init];
-    coupon.id = @"39";
-    
-    [self toCouponDetails:coupon];
-}
 
 #pragma mark - Fcns
 
@@ -180,11 +221,10 @@
     [_networkClient queryHotestCouponsSkip:0 block:^(NSDictionary *couponDicts, NSError *error) {
         
         [self willDisconnectInView:self.view];
-//        NSLog(@"refreshing # %d",self.refreshControl.refreshing);
-        
-        
+
+
         [self.refreshControl endRefreshing];
-//        NSLog(@"refreshing # %d",self.refreshControl.refreshing);
+
         
 //        NSLog(@"main did load %@",couponDicts);
         if (!error) {
@@ -229,29 +269,36 @@
         else{
             [ErrorManager alertError:error];
         }
-        
 
     }];
 }
 
-
-
-- (void)toCouponDetails:(Coupon*)coupon{
-
-    //把tab切换出去！
-    [_root toCouponDetails:coupon];
-}
-
-
-
 - (void)addCouponsInModel:(NSArray *)array {
     for (NSDictionary *dict in array) {
+      
         Coupon *coupon = [[Coupon alloc] initWithListDict:dict];
+        
         [self.models addObject:coupon];
         
     }
     
     [self.tableView reloadData];
 }
+
+- (void)toCouponDetails:(Coupon*)coupon{
+
+    [_root toCouponDetails:coupon];
+
+}
+
+
+- (void)showGuide{
+    L();
+    [_root showGuide];
+    
+}
+
+
+
 
 @end

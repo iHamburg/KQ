@@ -18,6 +18,7 @@
     NetworkClient *_networkClient;
     CLLocationManager *_locationManager;
     CLLocation *_checkinLocation;
+    
 }
 
 
@@ -30,9 +31,11 @@
 @property (nonatomic, readonly) NSString *uid;
 @property (nonatomic, readonly) NSString *sessionToken;
 @property (nonatomic, readonly) BOOL isLogin;
-//@property (nonatomic, readonly) BOOL hasBankcard;
 @property (nonatomic, readonly) NSString *longitude;
 @property (nonatomic, readonly) NSString *latitude;
+@property (nonatomic, readonly) int cardNum;
+
+
 
 + (id)sharedInstance;
 
@@ -87,10 +90,12 @@
  *
  *	@param 	dict 	<#dict description#>
  */
-- (BOOL)updateUserInfo:(NSDictionary*)dict;
+//- (BOOL)updateUserInfo:(NSDictionary*)dict;
 
 //获得用户信息，判断session是否过期
 - (void)updateUserInfoWithBlock:(BooleanResultBlock)block;
+
+
 
 - (void)logout;
 

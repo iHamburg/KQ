@@ -50,6 +50,9 @@ static NSArray *searchKeys;
     }
 }
 
+- (NSString*)displayedTitle{
+    return [NSString stringWithFormat:@"%@%@",self.title,self.discountContent];
+}
 
 - (NSString*)notice{
     
@@ -78,44 +81,6 @@ static NSArray *searchKeys;
     Coupon *coupon = [[Coupon alloc] init];
     coupon.id = @"39";
     return coupon;
-}
-
-- (id)initWithDict:(NSDictionary*)dict{
-    if (self= [self init]) {
-        
-        // 把dict的value为null的处理掉
-        if ([dict isKindOfClass:[NSDictionary class]]) {
-            dict = [dict dictionaryCheckNull];
-        }
-        else{
-            return self;
-        }
-        
-//        NSLog(@"couponDict # %@",dict);
-        
-        NSArray *keys = @[@"title",@"avatarUrl",@"validate",@"discountContent",@"usage",@"maxNumber",@"downloadedCount"];
-        
-        
-        self.id = dict[@"objectId"];
-        self.shopId = dict[@"shop"][@"objectId"];
-        
-        
-        for (NSString *key in keys) {
-        
-            [self setValue:dict[key] forKey:key];
-            
-        }
-        
-        if (!ISEMPTY(dict[@"location"])) {
-
-            self.nearestLocation = [[CLLocation alloc]initWithLatitude:[dict[@"location"][@"latitude"] floatValue] longitude:[dict[@"location"][@"longitude"] floatValue]];
-        }
-        
-    }
-    
-
-    
-    return self;
 }
 
 - (id)initWithListDict:(NSDictionary*)dict{
@@ -171,6 +136,7 @@ static NSArray *searchKeys;
         
         self.id = dict[@"couponId"];
         self.active = [dict[@"active"] boolValue];
+  
     }
     
     return self;

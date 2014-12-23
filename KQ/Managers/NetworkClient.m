@@ -12,7 +12,6 @@
 
 
 //获取最新的优惠券
-#define api_newestCoupons       [RESTHOST stringByAppendingFormat:@"/newestCoupons"]
 
 #define api_hotestCoupons       [RESTHOST stringByAppendingFormat:@"/hotestCoupons"]
 
@@ -22,6 +21,8 @@
 //附件门店
 #define api_search_shopbranches        [RESTHOST stringByAppendingFormat:@"/aroundShopbranches"]
 
+// 活动情况
+#define api_event                 [RESTHOST stringByAppendingFormat:@"/event"]
 
 
 //获取优惠券
@@ -298,9 +299,21 @@
     [self getWithUrl:api_shopBranch parameters:@{@"id":shopId} block:block];
 }
 
-- (void)queryAllShopBranches:(NSString*)headerShopId block:(IdResultBlock)block{
+- (void)queryAllShopBranches:(NSString*)headerShopId latitude:(NSString*)latitude longitude:(NSString*)longitude block:(IdResultBlock)block;{
 
-    [self getWithUrl:api_all_shopBranches parameters:@{@"id":headerShopId} block:block];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setValue:headerShopId forKey:@"id"];
+  
+    if (!ISEMPTY(latitude)) {
+        [params setValue:latitude forKey:@"latitude"];
+    }
+    if (!ISEMPTY(longitude)) {
+        [params setValue:longitude forKey:@"longitude"];
+    }
+    
+//    NSLog(@"all shopbranch params # %@",params);
+
+    [self getWithUrl:api_all_shopBranches parameters:params block:block];
 }
 - (void)queryHotestCouponsSkip:(int)skip block:(IdResultBlock)block{
     
@@ -351,6 +364,14 @@
     [self getWithUrl:api_search_shopbranches parameters:params block:block];
 }
 
+- (void)queryEventWithBlock:(IdResultBlock)block{
+    
+    [self getWithUrl:api_event parameters:nil block:block];
+    
+}
+
+#pragma mark - Captcha
+
 - (void)requestCaptchaForgetPassword:(NSString*)username block:(IdResultBlock)block{
     
     [self getWithUrl:api_requestCaptchaForgetPassword parameters:@{@"mobile":username} block:block];
@@ -369,7 +390,7 @@
 - (void)getWithUrl:(NSString*)url parameters:(NSDictionary*)parameters block:(IdResultBlock)block{
    
 //
-    
+//    NSLog(@"get url # %@",url);
     
     AFHTTPRequestOperation *operation = [_clientManager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
 //        NSLog(@"get url # %@,response : %@ ", url,responseObject);
@@ -655,6 +676,10 @@
 //    [self testEdit];
     
 //    [self testHeader];
+    
+//    [self queryEventWithBlock:^(id object, NSError *error) {
+//        NSLog(@"event # %@",object);
+//    }];
     
 }
 

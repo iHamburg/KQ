@@ -18,6 +18,7 @@
     UIScrollView *scrollView;
     
     NSArray *_imgNames;
+  
     int numOfPages;
     
 

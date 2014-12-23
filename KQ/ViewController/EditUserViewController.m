@@ -101,7 +101,7 @@
 #pragma mark - Alert
 //改名
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
-    NSLog(@"buttonIndex # %d",buttonIndex);
+//    NSLog(@"buttonIndex # %d",buttonIndex);
    
     if (alertView == _editUsernameAlert && buttonIndex == 1) {
           NSString* string = [[alertView textFieldAtIndex:0] text];
@@ -253,8 +253,7 @@
     
     [_userController logout];
     
-//    [self.navigationController popToRootViewControllerAnimated:YES];
-//    [self.navigationController popViewControllerAnimated:YES];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshUserCenter" object:nil];
     
     [_root removeNavVCAboveTab];
     

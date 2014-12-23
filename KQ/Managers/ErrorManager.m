@@ -40,7 +40,9 @@
             
             str = @"请输入以62开头的13到19位银行卡号";
             break;
-            
+        case ErrorAppInvalide62Card:
+            str = @"限添加卡号62开头的银行卡";
+            break;
         case ErrorAppUnselected:
             str = @"请先阅读并同意协议";
             break;

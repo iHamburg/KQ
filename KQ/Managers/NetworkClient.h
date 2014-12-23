@@ -12,34 +12,41 @@
 
 #ifdef DEBUG
 
+//#define RESTHOST @"http://61.153.100.241/kqapitest/index.php/kqapi1_1"
 
-//#define RESTHOST @"http://192.168.1.100/kq/index.php/kqapi3"
-//#define RESTHOST @"http://115.29.148.47/kq/index.php/kqapi3"
-//#define RESTHOST @"http://61.153.100.241/kq/index.php/kqapi3"
-#define RESTHOST @"http://61.153.100.241/kq/index.php/kqapi6"
+
+#define RESTHOST @"http://61.153.100.241/kq/index.php/kqapi1_1"
+
+//#define RESTHOST @"http://61.153.100.241/kqapitest/index.php/kqapi1_1"
+
+//#define RESTHOST @"http://localhost/kq/index.php/kqapi1_1"
+
 
 #else
 
 //#define HOST @"http://115.29.148.47/kq/index.php/kqavos"
 //#define RESTHOST @"http://115.29.148.47/kq/index.php/kqapi3"
-//#define RESTHOST @"http://115.29.148.47/kq/index.php/kqapi3"
-#define RESTHOST @"http://61.153.100.241/kq/index.php/kqapi6"
+
+
+
+#define RESTHOST @"http://61.153.100.241/kq/index.php/kqapi1_1"
+
 
 #endif
 
 
 @interface NetworkClient : NSObject{
+    
     AFHTTPRequestOperationManager *_clientManager;
+
 }
 
 
 + (id)sharedInstance;
 
-
 /**
  *	@brief	用户注册登录
  */
-
 - (void)registerWithDict:(NSDictionary*)info block:(IdResultBlock)block;
 
 
@@ -99,10 +106,10 @@
 
 
 #pragma mark -
+
 /**
  *	@brief 获取优惠券信息
  */
-
 - (void)queryCoupon:(NSString*)couponId latitude:(NSString*)latitude longitude:(NSString*)longitude block:(IdResultBlock)block;
 
 /**
@@ -115,7 +122,7 @@
  *
  *	@param 	headerShopId 	总店ID
  */
-- (void)queryAllShopBranches:(NSString*)headerShopId block:(IdResultBlock)block;
+- (void)queryAllShopBranches:(NSString*)headerShopId latitude:(NSString*)latitude longitude:(NSString*)longitude block:(IdResultBlock)block;
 
 /**
  *	@brief	获取最热门的优惠券
@@ -126,7 +133,7 @@
 /**
  *	@brief	附近（搜索门店）
  *
- *	@param 	params 	<#params description#>
+ *	@param 	params
  */
 - (void)searchShopBranches:(NSDictionary*)params block:(IdResultBlock)block;
 
@@ -153,6 +160,9 @@
  *
  */
 - (void)queryHeadCouponTypesWithBlock:(IdResultBlock)block;
+
+// 获取最新的活动
+- (void)queryEventWithBlock:(IdResultBlock)block;
 
 
 /**

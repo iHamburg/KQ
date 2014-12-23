@@ -29,9 +29,11 @@
     
     [self initUmeng];
     
-//    [self initAvosCloud];
-    
     [self customizeAppearance];
+    
+    NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
+
+    
     
 //	self.window.rootViewController = [KQRootViewController sharedInstance];
     
@@ -57,16 +59,11 @@
     [MobClick startWithAppkey:kUmengAppKey reportPolicy:BATCH   channelId:@""];
     
     [MobClick setLogEnabled:YES];
-    
+    [MobClick updateOnlineConfig];
+//    [MobClick setCrashReportEnabled:NO];
+ 
 }
-//
-//- (void)initAvosCloud{
-//    
-//    static NSString *AVOSApplicationId = @"ezxvldwk94k38d6fki1ks4yq55jkl2t15tttu5ezdqbk8mio";
-//    static NSString *AVOSClientKey = @"mtbrztjctplgnho2qf49cs70gd4lfggiayww7u6h4mv5s60t";
-//    [AVOSCloud setApplicationId:AVOSApplicationId clientKey:AVOSClientKey];
-//
-//}
+
 
 - (void)customizeAppearance{
 
@@ -101,6 +98,10 @@
     // SegmentTitle文件颜色
     [[UISegmentedControl appearance] setTintColor:kColorLightYellow];
     
+    
+    // Alert
+
+    
 
 }
 
@@ -115,5 +116,11 @@
 {
     return  [UMSocialSnsService handleOpenURL:url];
 }
+
+void uncaughtExceptionHandler(NSException *exception) {
+
+    NSLog(@"exception # %@",exception);
+}
+
 
 @end

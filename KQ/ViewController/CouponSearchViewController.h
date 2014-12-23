@@ -29,6 +29,7 @@
     
     UITableView *_leftV, *_rightV;
     NSArray *_leftImgNames;
+    NSArray *_leftImgUrls;
     
     NSMutableArray *_models;
     BOOL _networkFlag;

@@ -10,6 +10,7 @@
 #import "CouponType.h"
 #import "CouponSearchShortListCell.h"
 #import "DropDownCouponListViewController.h"
+#import "UIImageView+Webcache.h"
 
 @interface CouponSearchViewController ()
 
@@ -107,21 +108,21 @@
     _leftV.scrollEnabled = NO;
     
     _leftImgNames = @[@"main_search_all.png",@"main_search_eating.png",@"main_search_beauty.png"];
-    
+
     _rightV = [[UITableView alloc] initWithFrame:CGRectMake(70, 40, 250, self.view.height - 44) style:UITableViewStyleGrouped];
     _rightV.delegate = self;
     _rightV.dataSource = self;
     _rightV.separatorStyle = UITableViewCellSeparatorStyleNone;
-//    _rightV.autoresizingMask = kAutoResize;
+
     _rightV.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     
     if (_loadMoreFooterView == nil) {
         
         LoadMoreTableFooterView *view = [[LoadMoreTableFooterView alloc] initWithFrame:CGRectMake(70.0f, _rightV.contentSize.height - 30, _rightV.frame.size.width, 30)];
         view.delegate = self;
-        //		[self.tableView addSubview:view];
+
         _loadMoreFooterView = view;
-//        _loadMoreFooterView.backgroundColor = kColorRed;
+
         
         
     }
@@ -202,7 +203,7 @@
     
     
     if (tableView == _leftV) {
-        return 3;
+        return [self.searchTypes count];
     }
     else{
         return _models.count;
@@ -233,8 +234,19 @@
         CouponType *type = self.searchTypes[row];
                 
         UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake(19, 10, 32, 32)];
-        imgV.image = [UIImage imageNamed:_leftImgNames[row]];
+        
+//        if (!ISEMPTY(type.imgUrl)) {
+//            [imgV setImageWithURL:[NSURL URLWithString:type.imgUrl]];
+//        }
+//        else{
+//            imgV.image = [UIImage imageNamed:_leftImgNames[row]];
+//        }
 
+        if (row<_leftImgNames.count) {
+            imgV.image = [UIImage imageNamed:_leftImgNames[row]];
+
+        }
+        
         KQLabel *label = [[KQLabel alloc]initWithFrame:CGRectMake(10, 52, 50, 30)];
         label.text = type.title;
         label.textAlignment = NSTextAlignmentCenter;

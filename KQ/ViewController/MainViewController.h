@@ -7,15 +7,20 @@
 //
 
 #import "NetTableViewController.h"
+#import "BannerView.h"
+@interface MainViewController : NetTableViewController{
+
+    BannerView *_bannerV;
+    NSArray *_bannerImgNames;
+    NSArray *_bannerIds;
+}
+
+@property (nonatomic, strong) NSArray *bannerIds;
+@property (nonatomic, strong) NSArray *bannerImgNames;
 
 
-@interface MainViewController : NetTableViewController
+- (void)toCouponDetails:(id)coupon; /// root addNavVCAboveTab
 
-
-- (IBAction)handleBannerTap:(id)sender;
-
-
-- (void)toCouponDetails:(id)couponModel; /// 从root调用detais+nav，盖在tab上
-
+- (void)showGuide;
 
 @end

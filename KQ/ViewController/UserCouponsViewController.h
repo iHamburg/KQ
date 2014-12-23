@@ -14,8 +14,9 @@ typedef enum {
     CouponStatusExpired
 } CouponStatus;
 
-@interface UserCouponsViewController : NetTableViewController{
+@interface UserCouponsViewController : NetTableViewController<UIAlertViewDelegate>{
 
+    UIAlertView *_alert;
 }
 
 @property (nonatomic, assign) CouponStatus couponStatus;
@@ -25,6 +26,7 @@ typedef enum {
 
 
 
-- (void)toCouponDetails:(id)coupon;
+- (void)pushCouponDetails:(id)coupon;
 
+- (void)pushAddCard;
 @end

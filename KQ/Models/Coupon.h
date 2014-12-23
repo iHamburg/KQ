@@ -46,10 +46,12 @@
 @property (nonatomic, readonly) Shop *nearestShopBranch;
 @property (nonatomic, readonly) NSString *notice; //使用时间 + 使用规则
 @property (nonatomic, readonly) NSString *avatarThumbUrl;
+@property (nonatomic, readonly) NSString *displayedTitle; //摩提工房特价1元券
 
 + (id)eventCoupon;
 
-- (id)initWithDict:(NSDictionary*)dict;
+
+//- (id)initWithDict:(NSDictionary*)dict;
 /**
  *	@brief	首页的快券列表
  */
