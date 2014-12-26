@@ -22,6 +22,7 @@
 
 #else
 
+
 //#define HOST @"http://115.29.148.47/kq/index.php/kqavos"
 //#define RESTHOST @"http://115.29.148.47/kq/index.php/kqapi3"
 
